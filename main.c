@@ -5,7 +5,6 @@
 
 #include "main.h"
 
-
 void main(void) {
     SYSTEM_Initialize();
     INTERRUPT_GlobalInterruptHighEnable();
@@ -22,9 +21,7 @@ void loop(){
 //        while(!cycle10ms);
 //        cycle10ms = 0;
         getBatteryVoltage();
-    }while(BatteryVolt < MinBattValue);                          
-    
-    
+    }while(BatteryVolt < MinBattValue);
     
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -239,7 +236,6 @@ void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
     PWM5_LoadDutyValue((uint16_t)(LenkungHOffset - L_Hinten));//255->rechts    460->links
 }
 
-
 void calcSpeed(){
     int16_t limit;
     int16_t speed = 0;
@@ -293,9 +289,7 @@ void calcMotorPow(){
 //    printf("actSpeed:= %d | setSpeed= %d |", currentSpeed,setSpeed);
 //    printf("setSpeedDelta:= %d | oldSpeedDelta= %d |", setSpeedDelta,oldSpeedDelta);
     
-    
 	addMPow = (int8_t)(MotorPowFactor * (setSpeedDelta - (oldSpeedDelta / oldSpeedDeltaDivisor)));
-    
     
     if(addMPow > maxAddMPow){
         addMPow = maxAddMPow;
@@ -303,7 +297,6 @@ void calcMotorPow(){
         addMPow = -maxAddMPow;
     }
     
-  
 	actMotorPow = actMotorPow + addMPow;
 	
 	if(actMotorPow > maxMPowForward){
@@ -311,8 +304,7 @@ void calcMotorPow(){
 	}else if(actMotorPow < maxMPowBackward){
 		actMotorPow = maxMPowBackward;
 	}
-     
-   
+    
     setMotor(actMotorPow);
     
     oldSpeed = currentSpeed;
