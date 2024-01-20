@@ -67,8 +67,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _ADCON0 `Vuc ~T0 @X0 0 e@16120 ]
 "113 mcc_generated_files/adcc.c
 [; ;mcc_generated_files/adcc.c: 113: void ADCC_StartConversion(adcc_channel_t channel)
-[c E16067 34 59 60 61 62 63 .. ]
-[n E16067 . aiBatt channel_VSS channel_Temp channel_DAC1 channel_FVR_Buffer1 channel_FVR_Buffer2  ]
+[c E16058 34 59 60 61 62 63 .. ]
+[n E16058 . aiBatt channel_VSS channel_Temp channel_DAC1 channel_FVR_Buffer1 channel_FVR_Buffer2  ]
 "31987 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 31987:     struct {
 [s S1424 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -2545,14 +2545,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 "113
 [; ;mcc_generated_files/adcc.c: 113: void ADCC_StartConversion(adcc_channel_t channel)
-[v _ADCC_StartConversion `(v ~T0 @X0 1 ef1`E16067 ]
+[v _ADCC_StartConversion `(v ~T0 @X0 1 ef1`E16058 ]
 "114
 [; ;mcc_generated_files/adcc.c: 114: {
 {
 [e :U _ADCC_StartConversion ]
 "113
 [; ;mcc_generated_files/adcc.c: 113: void ADCC_StartConversion(adcc_channel_t channel)
-[v _channel `E16067 ~T0 @X0 1 r1 ]
+[v _channel `E16058 ~T0 @X0 1 r1 ]
 "114
 [; ;mcc_generated_files/adcc.c: 114: {
 [f ]
@@ -2603,14 +2603,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 "137
 [; ;mcc_generated_files/adcc.c: 137: adc_result_t ADCC_GetSingleConversion(adcc_channel_t channel)
-[v _ADCC_GetSingleConversion `(us ~T0 @X0 1 ef1`E16067 ]
+[v _ADCC_GetSingleConversion `(us ~T0 @X0 1 ef1`E16058 ]
 "138
 [; ;mcc_generated_files/adcc.c: 138: {
 {
 [e :U _ADCC_GetSingleConversion ]
 "137
 [; ;mcc_generated_files/adcc.c: 137: adc_result_t ADCC_GetSingleConversion(adcc_channel_t channel)
-[v _channel `E16067 ~T0 @X0 1 r1 ]
+[v _channel `E16058 ~T0 @X0 1 r1 ]
 "138
 [; ;mcc_generated_files/adcc.c: 138: {
 [f ]

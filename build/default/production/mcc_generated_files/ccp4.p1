@@ -1,5 +1,5 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F16085 `(v ~T0 @X0 0 tf1`us ]
+[v F16076 `(v ~T0 @X0 0 tf1`us ]
 "46753 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46753:     struct {
 [s S2108 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -15,8 +15,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "46768
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46768: extern volatile PORTDbits_t PORTDbits __attribute__((address(0x3FCD)));
 [v _PORTDbits `VS2107 ~T0 @X0 0 e@16333 ]
-[v F16090 `(v ~T0 @X0 0 tf1`us ]
-[v F16093 `(v ~T0 @X0 0 tf1`us ]
+[v F16081 `(v ~T0 @X0 0 tf1`us ]
+[v F16084 `(v ~T0 @X0 0 tf1`us ]
 "39745
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 39745: extern volatile unsigned char CCP4CON __attribute__((address(0x3F72)));
 [v _CCP4CON `Vuc ~T0 @X0 0 e@16242 ]
@@ -2312,130 +2312,130 @@ Version 4.0 HI-TECH Software Intermediate Code
 "48384
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 48384: __asm("TOSU equ 03FFFh");
 [; <" TOSU equ 03FFFh ;# ">
-"55 mcc_generated_files/ccp4.c
-[; ;mcc_generated_files/ccp4.c: 55: volatile uint16_t distRight;
+"103 mcc_generated_files/ccp4.c
+[; ;mcc_generated_files/ccp4.c: 103: volatile uint16_t distRight;
 [v _distRight `Vus ~T0 @X0 1 e ]
-"56
-[; ;mcc_generated_files/ccp4.c: 56: uint16_t distRightM;
+"104
+[; ;mcc_generated_files/ccp4.c: 104: uint16_t distRightM;
 [v _distRightM `us ~T0 @X0 1 e ]
-"58
-[; ;mcc_generated_files/ccp4.c: 58: static void (*CCP4_CallBack)(uint16_t);
-[v _CCP4_CallBack `*F16085 ~T0 @X0 1 s ]
-"64
-[; ;mcc_generated_files/ccp4.c: 64: static void CCP4_DefaultCallBack(uint16_t capturedValue)
+"106
+[; ;mcc_generated_files/ccp4.c: 106: static void (*CCP4_CallBack)(uint16_t);
+[v _CCP4_CallBack `*F16076 ~T0 @X0 1 s ]
+"112
+[; ;mcc_generated_files/ccp4.c: 112: static void CCP4_DefaultCallBack(uint16_t capturedValue)
 [v _CCP4_DefaultCallBack `(v ~T0 @X0 1 sf1`us ]
-"65
-[; ;mcc_generated_files/ccp4.c: 65: {
+"113
+[; ;mcc_generated_files/ccp4.c: 113: {
 {
 [e :U _CCP4_DefaultCallBack ]
-"64
-[; ;mcc_generated_files/ccp4.c: 64: static void CCP4_DefaultCallBack(uint16_t capturedValue)
+"112
+[; ;mcc_generated_files/ccp4.c: 112: static void CCP4_DefaultCallBack(uint16_t capturedValue)
 [v _capturedValue `us ~T0 @X0 1 r1 ]
-"65
-[; ;mcc_generated_files/ccp4.c: 65: {
+"113
+[; ;mcc_generated_files/ccp4.c: 113: {
 [f ]
-"67
-[; ;mcc_generated_files/ccp4.c: 67:     if(PORTDbits.RD6) {
+"115
+[; ;mcc_generated_files/ccp4.c: 115:     if(PORTDbits.RD6) {
 [e $ ! != -> . . _PORTDbits 0 6 `i -> 0 `i 2233  ]
 {
-"68
-[; ;mcc_generated_files/ccp4.c: 68:         distRightM = capturedValue;
+"116
+[; ;mcc_generated_files/ccp4.c: 116:         distRightM = capturedValue;
 [e = _distRightM _capturedValue ]
-"70
-[; ;mcc_generated_files/ccp4.c: 70:     } else {
+"118
+[; ;mcc_generated_files/ccp4.c: 118:     } else {
 }
 [e $U 2234  ]
 [e :U 2233 ]
 {
-"71
-[; ;mcc_generated_files/ccp4.c: 71:         distRight = capturedValue - distRightM;
+"119
+[; ;mcc_generated_files/ccp4.c: 119:         distRight = capturedValue - distRightM;
 [e = _distRight -> - -> _capturedValue `ui -> _distRightM `ui `us ]
-"72
-[; ;mcc_generated_files/ccp4.c: 72:         distRight >>= 1;
+"120
+[; ;mcc_generated_files/ccp4.c: 120:         distRight >>= 1;
 [e =>> _distRight -> -> 1 `i `Vus ]
-"73
-[; ;mcc_generated_files/ccp4.c: 73:     }
+"121
+[; ;mcc_generated_files/ccp4.c: 121:     }
 }
 [e :U 2234 ]
-"74
-[; ;mcc_generated_files/ccp4.c: 74: }
+"122
+[; ;mcc_generated_files/ccp4.c: 122: }
 [e :UE 2232 ]
 }
-"75
-[; ;mcc_generated_files/ccp4.c: 75: void CCP4_SetCallBack(void (*customCallBack)(uint16_t)){
-[v _CCP4_SetCallBack `(v ~T0 @X0 1 ef1`*F16090 ]
+"123
+[; ;mcc_generated_files/ccp4.c: 123: void CCP4_SetCallBack(void (*customCallBack)(uint16_t)){
+[v _CCP4_SetCallBack `(v ~T0 @X0 1 ef1`*F16081 ]
 {
 [e :U _CCP4_SetCallBack ]
-[v _customCallBack `*F16093 ~T0 @X0 1 r1 ]
+[v _customCallBack `*F16084 ~T0 @X0 1 r1 ]
 [f ]
-"76
-[; ;mcc_generated_files/ccp4.c: 76:     CCP4_CallBack = customCallBack;
+"124
+[; ;mcc_generated_files/ccp4.c: 124:     CCP4_CallBack = customCallBack;
 [e = _CCP4_CallBack _customCallBack ]
-"77
-[; ;mcc_generated_files/ccp4.c: 77: }
+"125
+[; ;mcc_generated_files/ccp4.c: 125: }
 [e :UE 2235 ]
 }
-"78
-[; ;mcc_generated_files/ccp4.c: 78: void CCP4_Initialize(void)
+"126
+[; ;mcc_generated_files/ccp4.c: 126: void CCP4_Initialize(void)
 [v _CCP4_Initialize `(v ~T0 @X0 1 ef ]
-"79
-[; ;mcc_generated_files/ccp4.c: 79: {
+"127
+[; ;mcc_generated_files/ccp4.c: 127: {
 {
 [e :U _CCP4_Initialize ]
 [f ]
-"83
-[; ;mcc_generated_files/ccp4.c: 83:  CCP4CON = 0x83;
+"130
+[; ;mcc_generated_files/ccp4.c: 130:  CCP4CON = 0x83;
 [e = _CCP4CON -> -> 131 `i `uc ]
-"86
-[; ;mcc_generated_files/ccp4.c: 86:  CCP4CAP = 0x00;
+"132
+[; ;mcc_generated_files/ccp4.c: 132:  CCP4CAP = 0x00;
 [e = _CCP4CAP -> -> 0 `i `uc ]
-"89
-[; ;mcc_generated_files/ccp4.c: 89:  CCPR4H = 0x00;
+"134
+[; ;mcc_generated_files/ccp4.c: 134:  CCPR4H = 0x00;
 [e = _CCPR4H -> -> 0 `i `uc ]
-"92
-[; ;mcc_generated_files/ccp4.c: 92:  CCPR4L = 0x00;
+"136
+[; ;mcc_generated_files/ccp4.c: 136:  CCPR4L = 0x00;
 [e = _CCPR4L -> -> 0 `i `uc ]
-"95
-[; ;mcc_generated_files/ccp4.c: 95:     CCP4_SetCallBack(CCP4_DefaultCallBack);
+"138
+[; ;mcc_generated_files/ccp4.c: 138:     CCP4_SetCallBack(CCP4_DefaultCallBack);
 [e ( _CCP4_SetCallBack (1 &U _CCP4_DefaultCallBack ]
-"98
-[; ;mcc_generated_files/ccp4.c: 98:  CCPTMRS0bits.C4TSEL = 0x2;
+"141
+[; ;mcc_generated_files/ccp4.c: 141:  CCPTMRS0bits.C4TSEL = 0x2;
 [e = . . _CCPTMRS0bits 0 3 -> -> 2 `i `uc ]
-"101
-[; ;mcc_generated_files/ccp4.c: 101:     PIR10bits.CCP4IF = 0;
+"143
+[; ;mcc_generated_files/ccp4.c: 143:     PIR10bits.CCP4IF = 0;
 [e = . . _PIR10bits 0 0 -> -> 0 `i `uc ]
-"104
-[; ;mcc_generated_files/ccp4.c: 104:     PIE10bits.CCP4IE = 1;
+"146
+[; ;mcc_generated_files/ccp4.c: 146:     PIE10bits.CCP4IE = 1;
 [e = . . _PIE10bits 0 0 -> -> 1 `i `uc ]
-"105
-[; ;mcc_generated_files/ccp4.c: 105: }
+"147
+[; ;mcc_generated_files/ccp4.c: 147: }
 [e :UE 2236 ]
 }
 [v $root$_CCP4_CaptureISR `(v ~T0 @X0 0 e ]
-"107
-[; ;mcc_generated_files/ccp4.c: 107: void __attribute__((picinterrupt(("irq(CCP4),base(8)")))) CCP4_CaptureISR()
+"149
+[; ;mcc_generated_files/ccp4.c: 149: void __attribute__((picinterrupt(("irq(CCP4),base(8)")))) CCP4_CaptureISR()
 [v _CCP4_CaptureISR `(v ~T1 @X0 1 ef ]
-"108
-[; ;mcc_generated_files/ccp4.c: 108: {
+"150
+[; ;mcc_generated_files/ccp4.c: 150: {
 {
 [e :U _CCP4_CaptureISR ]
 [f ]
-"109
-[; ;mcc_generated_files/ccp4.c: 109:     CCP4_PERIOD_REG_T module;
+"151
+[; ;mcc_generated_files/ccp4.c: 151:     CCP4_PERIOD_REG_T module;
 [v _module `S2229 ~T0 @X0 1 a ]
-"112
-[; ;mcc_generated_files/ccp4.c: 112:     PIR10bits.CCP4IF = 0;
+"154
+[; ;mcc_generated_files/ccp4.c: 154:     PIR10bits.CCP4IF = 0;
 [e = . . _PIR10bits 0 0 -> -> 0 `i `uc ]
-"115
-[; ;mcc_generated_files/ccp4.c: 115:     module.ccpr4l = CCPR4L;
+"156
+[; ;mcc_generated_files/ccp4.c: 156:     module.ccpr4l = CCPR4L;
 [e = . . _module 0 0 _CCPR4L ]
-"116
-[; ;mcc_generated_files/ccp4.c: 116:     module.ccpr4h = CCPR4H;
+"157
+[; ;mcc_generated_files/ccp4.c: 157:     module.ccpr4h = CCPR4H;
 [e = . . _module 0 1 _CCPR4H ]
-"119
-[; ;mcc_generated_files/ccp4.c: 119:     CCP4_CallBack(module.ccpr4_16Bit);
+"159
+[; ;mcc_generated_files/ccp4.c: 159:     CCP4_CallBack(module.ccpr4_16Bit);
 [e ( *U _CCP4_CallBack (1 . . _module 1 0 ]
-"120
-[; ;mcc_generated_files/ccp4.c: 120: }
+"160
+[; ;mcc_generated_files/ccp4.c: 160: }
 [e :UE 2237 ]
 }

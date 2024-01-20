@@ -1,10 +1,14 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F16700 `(v ~T0 @X0 0 tf ]
-[v F16702 `(v ~T0 @X0 0 tf ]
-"34 main.c
-[; ;main.c: 34: FahrModus fahrModus = Langsam;
-[c E17291 0 1 2 3 4 .. ]
-[n E17291 . Schnell Langsam Ruckwarts KurveLinks KurveRechts  ]
+[v F16704 `(v ~T0 @X0 0 tf ]
+[v F16706 `(v ~T0 @X0 0 tf ]
+"81 ./main.h
+[; ;./main.h: 81: FahrModus fahrModus = Gerade;
+[c E17295 0 1 2 3 4 .. ]
+[n E17295 . Gerade Bremsen Ruckwarts KurveLinks KurveRight  ]
+"82
+[; ;./main.h: 82: KurvenModus kurvenModus = AusKurve;
+[c E17309 0 1 2 3 .. ]
+[n E17309 . AusKurve VorKurve InKurve NachKurve  ]
 [p mainexit ]
 "84 ./mcc_generated_files/mcc.h
 [; ;./mcc_generated_files/mcc.h: 84: void SYSTEM_Initialize(void);
@@ -24,37 +28,69 @@ Version 4.0 HI-TECH Software Intermediate Code
 "46955
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46955: extern volatile INTCON0bits_t INTCON0bits __attribute__((address(0x3FD2)));
 [v _INTCON0bits `VS2121 ~T0 @X0 0 e@16338 ]
-[v F16578 `(v ~T0 @X0 0 tf ]
+[v F16264 `(v ~T0 @X0 0 tf ]
 "847 ./mcc_generated_files/tmr4.h
 [; ;./mcc_generated_files/tmr4.h: 847:  void TMR4_SetInterruptHandler(void (* InterruptHandler)(void));
-[v _TMR4_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F16578 ]
-"56 main.c
-[; ;main.c: 56: void TMR4_10msISR(void);
+[v _TMR4_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F16264 ]
+"101 ./main.h
+[; ;./main.h: 101: void TMR4_10msISR(void);
 [v _TMR4_10msISR `(v ~T0 @X0 0 ef ]
-"54
-[; ;main.c: 54: void loop();
-[v _loop `(v ~T0 @X0 0 e? ]
-"98
-[; ;main.c: 98:         BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-[c E16405 34 59 60 61 62 63 .. ]
-[n E16405 . aiBatt channel_VSS channel_Temp channel_DAC1 channel_FVR_Buffer1 channel_FVR_Buffer2  ]
+"100
+[; ;./main.h: 100: void loop(void);
+[v _loop `(v ~T0 @X0 0 ef ]
+"46596 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46596:     struct {
+[s S2101 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2101 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
+"46606
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46606:     struct {
+[s S2102 :3 `uc 1 :1 `uc 1 ]
+[n S2102 . . CCP2_PA2 ]
+"46595
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46595: typedef union {
+[u S2100 `S2101 1 `S2102 1 ]
+[n S2100 . . . ]
+"46611
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46611: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x3FCB)));
+[v _PORTBbits `VS2100 ~T0 @X0 0 e@16331 ]
+"102 ./main.h
+[; ;./main.h: 102: void getBatteryVoltage(void);
+[v _getBatteryVoltage `(v ~T0 @X0 0 ef ]
+"77
+[; ;./main.h: 77: extern uint16_t distFront, distLeft, distRight;
+[v _distLeft `us ~T0 @X0 0 e ]
+[v _distRight `us ~T0 @X0 0 e ]
+"39 main.c
+[; ;main.c: 39:         if(ADCC_GetSingleConversion(aiBatt) < (7.4 * 409.6)){
+[c E16091 34 59 60 61 62 63 .. ]
+[n E16091 . aiBatt channel_VSS channel_Temp channel_DAC1 channel_FVR_Buffer1 channel_FVR_Buffer2  ]
 "253 ./mcc_generated_files/adcc.h
 [; ;./mcc_generated_files/adcc.h: 253: adc_result_t ADCC_GetSingleConversion(adcc_channel_t channel);
-[v _ADCC_GetSingleConversion `(us ~T0 @X0 0 ef1`E16405 ]
-"59 main.c
-[; ;main.c: 59: void outBatteryVoltage(void);
-[v _outBatteryVoltage `(v ~T0 @X0 0 ef ]
-"105 C:\Program Files\Microchip\xc8\v2.36\pic\include\c99\stdio.h
-[; ;C:\Program Files\Microchip\xc8\v2.36\pic\include\c99\stdio.h: 105: int printf(const char *restrict, ...);
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"64 main.c
-[; ;main.c: 64: void calcMotorPow();
-[v _calcMotorPow `(v ~T0 @X0 0 e? ]
-"61
-[; ;main.c: 61: void calcLenkung();
-[v _calcLenkung `(v ~T0 @X0 0 e? ]
-"32
-[; ;main.c: 32: extern uint32_t smtPeriod;
+[v _ADCC_GetSingleConversion `(us ~T0 @X0 0 ef1`E16091 ]
+"41 main.c
+[; ;main.c: 41:             setLenkung(0,Vorne);
+[c E17302 0 1 2 3 4 .. ]
+[n E17302 . Invertiert Gleich Verhaeltnis Vorne Hinten  ]
+"106 ./main.h
+[; ;./main.h: 106: void setLenkung(int16_t, LenkungsModus);
+[v _setLenkung `(v ~T0 @X0 0 ef2`s`E17302 ]
+"103
+[; ;./main.h: 103: void getKurve(void);
+[v _getKurve `(v ~T0 @X0 0 ef ]
+"104
+[; ;./main.h: 104: void getReverse(void);
+[v _getReverse `(v ~T0 @X0 0 ef ]
+"105
+[; ;./main.h: 105: void calcLenkung(void);
+[v _calcLenkung `(v ~T0 @X0 0 ef ]
+"108
+[; ;./main.h: 108: void calcMotorPow(void);
+[v _calcMotorPow `(v ~T0 @X0 0 ef ]
+"107
+[; ;./main.h: 107: void calcSpeed(void);
+[v _calcSpeed `(v ~T0 @X0 0 ef ]
+"79
+[; ;./main.h: 79: extern uint32_t smtPeriod;
 [v _smtPeriod `ul ~T0 @X0 0 e ]
 "18791 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18791:     struct {
@@ -79,18 +115,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 "18818
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18818: extern volatile CLC3CONbits_t CLC3CONbits __attribute__((address(0x3C60)));
 [v _CLC3CONbits `VS847 ~T0 @X0 0 e@15456 ]
-"172 main.c
-[; ;main.c: 172: void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
-[c E17298 0 1 2 3 4 .. ]
-[n E17298 . Invertiert Gleich Verhaeltnis Vorne Hinten  ]
+"111 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"77 ./main.h
+[; ;./main.h: 77: extern uint16_t distFront, distLeft, distRight;
+[v _distFront `us ~T0 @X0 0 e ]
 "129 ./mcc_generated_files/pwm6.h
 [; ;./mcc_generated_files/pwm6.h: 129:  void PWM6_LoadDutyValue(uint16_t dutyValue);
 [v _PWM6_LoadDutyValue `(v ~T0 @X0 0 ef1`us ]
 "129 ./mcc_generated_files/pwm5.h
 [; ;./mcc_generated_files/pwm5.h: 129:  void PWM5_LoadDutyValue(uint16_t dutyValue);
 [v _PWM5_LoadDutyValue `(v ~T0 @X0 0 ef1`us ]
-"65 main.c
-[; ;main.c: 65: void setMotor(int16_t);
+"109 ./main.h
+[; ;./main.h: 109: void setMotor(int16_t);
 [v _setMotor `(v ~T0 @X0 0 ef1`s ]
 "129 ./mcc_generated_files/pwm7.h
 [; ;./mcc_generated_files/pwm7.h: 129:  void PWM7_LoadDutyValue(uint16_t dutyValue);
@@ -2332,643 +2369,1145 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSU equ 03FFFh ;# ">
 "518 ./mcc_generated_files/uart1.h
 [; ;./mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F16700 ~T0 @X0 1 e ]
+[v _UART1_RxInterruptHandler `*F16704 ~T0 @X0 1 e ]
 "536
 [; ;./mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F16702 ~T0 @X0 1 e ]
-"34 main.c
-[; ;main.c: 34: FahrModus fahrModus = Langsam;
-[v _fahrModus `E17291 ~T0 @X0 1 e ]
+[v _UART1_TxInterruptHandler `*F16706 ~T0 @X0 1 e ]
+"81 ./main.h
+[; ;./main.h: 81: FahrModus fahrModus = Gerade;
+[v _fahrModus `E17295 ~T0 @X0 1 e ]
 [i _fahrModus
-. `E17291 1
+. `E17295 0
 ]
-"36
-[; ;main.c: 36: uint8_t cycle10ms;
+"82
+[; ;./main.h: 82: KurvenModus kurvenModus = AusKurve;
+[v _kurvenModus `E17309 ~T0 @X0 1 e ]
+[i _kurvenModus
+. `E17309 0
+]
+"84
+[; ;./main.h: 84: uint8_t cycle10ms = 0;
 [v _cycle10ms `uc ~T0 @X0 1 e ]
-"38
-[; ;main.c: 38: int16_t motPow = 0;
+[i _cycle10ms
+-> -> 0 `i `uc
+]
+"85
+[; ;./main.h: 85: uint8_t delay = 0;
+[v _delay `uc ~T0 @X0 1 e ]
+[i _delay
+-> -> 0 `i `uc
+]
+"86
+[; ;./main.h: 86: uint8_t reverseCount = 0;
+[v _reverseCount `uc ~T0 @X0 1 e ]
+[i _reverseCount
+-> -> 0 `i `uc
+]
+"88
+[; ;./main.h: 88: uint16_t oldDistLeft, oldDistRight;
+[v _oldDistLeft `us ~T0 @X0 1 e ]
+[v _oldDistRight `us ~T0 @X0 1 e ]
+"91
+[; ;./main.h: 91: int16_t motPow = 0;
 [v _motPow `s ~T0 @X0 1 e ]
 [i _motPow
 -> -> 0 `i `s
 ]
-"39
-[; ;main.c: 39: adc_result_t BatteryVolt;
-[v _BatteryVolt `us ~T0 @X0 1 e ]
-"41
-[; ;main.c: 41: int16_t setSpeed;
+"92
+[; ;./main.h: 92: int16_t setSpeed = 0;
 [v _setSpeed `s ~T0 @X0 1 e ]
-"42
-[; ;main.c: 42: int16_t currentSpeed;
+[i _setSpeed
+-> -> 0 `i `s
+]
+"93
+[; ;./main.h: 93: int16_t currentSpeed = 0;
 [v _currentSpeed `s ~T0 @X0 1 e ]
-"44
-[; ;main.c: 44: int16_t oldSpeed;
+[i _currentSpeed
+-> -> 0 `i `s
+]
+"94
+[; ;./main.h: 94: int16_t oldSpeed = 0;
 [v _oldSpeed `s ~T0 @X0 1 e ]
-"45
-[; ;main.c: 45: int16_t oldSpeedDelta;
-[v _oldSpeedDelta `s ~T0 @X0 1 e ]
-"47
-[; ;main.c: 47: int16_t actMotorPow;
+[i _oldSpeed
+-> -> 0 `i `s
+]
+"95
+[; ;./main.h: 95: int16_t actMotorPow = 0;
 [v _actMotorPow `s ~T0 @X0 1 e ]
-"48
-[; ;main.c: 48: int16_t maxMPowForward = 300;
-[v _maxMPowForward `s ~T0 @X0 1 e ]
-[i _maxMPowForward
--> -> 300 `i `s
+[i _actMotorPow
+-> -> 0 `i `s
 ]
-"49
-[; ;main.c: 49: int16_t maxMPowBackward = -200;
-[v _maxMPowBackward `s ~T0 @X0 1 e ]
-[i _maxMPowBackward
--> -U -> 200 `i `s
-]
-"51
-[; ;main.c: 51: int16_t defaultMotorPowerForward = 150;
-[v _defaultMotorPowerForward `s ~T0 @X0 1 e ]
-[i _defaultMotorPowerForward
--> -> 150 `i `s
-]
-"52
-[; ;main.c: 52: int16_t defaultMotorPowerBackward = 100;
-[v _defaultMotorPowerBackward `s ~T0 @X0 1 e ]
-[i _defaultMotorPowerBackward
--> -> 100 `i `s
+"97
+[; ;./main.h: 97: adc_result_t BatteryVolt = 0;
+[v _BatteryVolt `us ~T0 @X0 1 e ]
+[i _BatteryVolt
+-> -> 0 `i `us
 ]
 [v $root$_main `(v ~T0 @X0 0 e ]
-"67
-[; ;main.c: 67: void main(void) {
+"9 main.c
+[; ;main.c: 9: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"69
-[; ;main.c: 69:     SYSTEM_Initialize();
+"10
+[; ;main.c: 10:     SYSTEM_Initialize();
 [e ( _SYSTEM_Initialize ..  ]
-"76
-[; ;main.c: 76:     (INTCON0bits.GIEH = 1);
+"11
+[; ;main.c: 11:     (INTCON0bits.GIEH = 1);
 [e = . . _INTCON0bits 1 1 -> -> 1 `i `uc ]
-"79
-[; ;main.c: 79:     (INTCON0bits.GIEL = 1);
+"12
+[; ;main.c: 12:     (INTCON0bits.GIEL = 1);
 [e = . . _INTCON0bits 0 5 -> -> 1 `i `uc ]
-"87
-[; ;main.c: 87:     TMR4_SetInterruptHandler(TMR4_10msISR);
+"13
+[; ;main.c: 13:     TMR4_SetInterruptHandler(TMR4_10msISR);
 [e ( _TMR4_SetInterruptHandler (1 &U _TMR4_10msISR ]
-"89
-[; ;main.c: 89:     loop();
+"15
+[; ;main.c: 15:     loop();
 [e ( _loop ..  ]
-"90
-[; ;main.c: 90: }
+"16
+[; ;main.c: 16: }
 [e :UE 2244 ]
 }
-"92
-[; ;main.c: 92: void loop(){
+"18
+[; ;main.c: 18: void loop(){
 [v _loop `(v ~T0 @X0 1 ef ]
 {
 [e :U _loop ]
 [f ]
-"94
-[; ;main.c: 94:     do{
-[e :U 2248 ]
-{
-"98
-[; ;main.c: 98:         BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-[e = _BatteryVolt ( _ADCC_GetSingleConversion (1 . `E16405 0 ]
-"99
-[; ;main.c: 99:         outBatteryVoltage();
-[e ( _outBatteryVoltage ..  ]
-"100
-[; ;main.c: 100:     }while(BatteryVolt < 2800);
-}
-[e $ < -> _BatteryVolt `ui -> -> 2800 `i `ui 2248  ]
+"19
+[; ;main.c: 19:     while(!PORTBbits.RB4);
+[e $U 2246  ]
 [e :U 2247 ]
-"102
-[; ;main.c: 102:     while(1){
-[e :U 2250 ]
-{
-"103
-[; ;main.c: 103:         while(!cycle10ms);
-[e $U 2252  ]
-[e :U 2253 ]
-[e :U 2252 ]
-[e $ ! != -> _cycle10ms `i -> 0 `i 2253  ]
-[e :U 2254 ]
-"104
-[; ;main.c: 104:         cycle10ms = 0;
-[e = _cycle10ms -> -> 0 `i `uc ]
-"107
-[; ;main.c: 107:         printf("main\n");
-[e ( _printf :s 1C ]
-"109
-[; ;main.c: 109:         setSpeed = 150;
-[e = _setSpeed -> -> 150 `i `s ]
-"112
-[; ;main.c: 112:         calcMotorPow();
-[e ( _calcMotorPow ..  ]
-"113
-[; ;main.c: 113:         calcLenkung();
-[e ( _calcLenkung ..  ]
-"115
-[; ;main.c: 115:     }
-}
-[e :U 2249 ]
-[e $U 2250  ]
+[e :U 2246 ]
+[e $ ! != -> . . _PORTBbits 0 4 `i -> 0 `i 2247  ]
+[e :U 2248 ]
+"21
+[; ;main.c: 21:     do{
 [e :U 2251 ]
-"116
-[; ;main.c: 116: }
+{
+"24
+[; ;main.c: 24:         getBatteryVoltage();
+[e ( _getBatteryVoltage ..  ]
+"25
+[; ;main.c: 25:     }while(BatteryVolt < (7.4 * 409.6));
+}
+[e $ < -> -> _BatteryVolt `ui `d * .7.4 .409.6 2251  ]
+[e :U 2250 ]
+"29
+[; ;main.c: 29:     oldDistLeft = distLeft;
+[e = _oldDistLeft _distLeft ]
+"30
+[; ;main.c: 30:     oldDistRight = distRight;
+[e = _oldDistRight _distRight ]
+"32
+[; ;main.c: 32:     while(1){
+[e :U 2253 ]
+{
+"33
+[; ;main.c: 33:         while(!cycle10ms);
+[e $U 2255  ]
+[e :U 2256 ]
+[e :U 2255 ]
+[e $ ! != -> _cycle10ms `i -> 0 `i 2256  ]
+[e :U 2257 ]
+"34
+[; ;main.c: 34:         cycle10ms = 0;
+[e = _cycle10ms -> -> 0 `i `uc ]
+"36
+[; ;main.c: 36:         if(PORTBbits.RB5){
+[e $ ! != -> . . _PORTBbits 0 5 `i -> 0 `i 2258  ]
+{
+"37
+[; ;main.c: 37:             break;
+[e $U 2254  ]
+"38
+[; ;main.c: 38:         }
+}
+[e :U 2258 ]
+"39
+[; ;main.c: 39:         if(ADCC_GetSingleConversion(aiBatt) < (7.4 * 409.6)){
+[e $ ! < -> -> ( _ADCC_GetSingleConversion (1 . `E16091 0 `ui `d * .7.4 .409.6 2259  ]
+{
+"40
+[; ;main.c: 40:             setSpeed = 0;
+[e = _setSpeed -> -> 0 `i `s ]
+"41
+[; ;main.c: 41:             setLenkung(0,Vorne);
+[e ( _setLenkung (2 , -> -> 0 `i `s . `E17302 3 ]
+"42
+[; ;main.c: 42:             break;
+[e $U 2254  ]
+"43
+[; ;main.c: 43:         }
+}
+[e :U 2259 ]
+"45
+[; ;main.c: 45:         getKurve();
+[e ( _getKurve ..  ]
+"46
+[; ;main.c: 46:         getReverse();
+[e ( _getReverse ..  ]
+"48
+[; ;main.c: 48:         calcLenkung();
+[e ( _calcLenkung ..  ]
+"49
+[; ;main.c: 49:         calcMotorPow();
+[e ( _calcMotorPow ..  ]
+"50
+[; ;main.c: 50:         calcSpeed();
+[e ( _calcSpeed ..  ]
+"51
+[; ;main.c: 51:     }
+}
+[e :U 2252 ]
+[e $U 2253  ]
+[e :U 2254 ]
+"52
+[; ;main.c: 52: }
 [e :UE 2245 ]
 }
-"118
-[; ;main.c: 118: void TMR4_10msISR(void){
+"54
+[; ;main.c: 54: void TMR4_10msISR(void){
 [v _TMR4_10msISR `(v ~T0 @X0 1 ef ]
 {
 [e :U _TMR4_10msISR ]
 [f ]
-"119
-[; ;main.c: 119:     ++cycle10ms;
+"55
+[; ;main.c: 55:     ++cycle10ms;
 [e =+ _cycle10ms -> -> 1 `i `uc ]
-"120
-[; ;main.c: 120: }
-[e :UE 2255 ]
+"56
+[; ;main.c: 56: }
+[e :UE 2260 ]
 }
-"122
-[; ;main.c: 122: int16_t actSpeed(){
+"58
+[; ;main.c: 58: int16_t actSpeed(){
 [v _actSpeed `(s ~T0 @X0 1 ef ]
 {
 [e :U _actSpeed ]
 [f ]
-"123
-[; ;main.c: 123:     int16_t speed = 0;
+"59
+[; ;main.c: 59:     int16_t speed = 0;
 [v _speed `s ~T0 @X0 1 a ]
 [e = _speed -> -> 0 `i `s ]
-"124
-[; ;main.c: 124:     if(smtPeriod){
-[e $ ! != _smtPeriod -> -> -> 0 `i `l `ul 2257  ]
+"60
+[; ;main.c: 60:     if(smtPeriod){
+[e $ ! != _smtPeriod -> -> -> 0 `i `l `ul 2262  ]
 {
-"125
-[; ;main.c: 125:         if(CLC3CONbits.LC3OUT){
-[e $ ! != -> . . _CLC3CONbits 2 3 `i -> 0 `i 2258  ]
+"61
+[; ;main.c: 61:         if(CLC3CONbits.LC3OUT){
+[e $ ! != -> . . _CLC3CONbits 2 3 `i -> 0 `i 2263  ]
 {
-"126
-[; ;main.c: 126:             speed = ((int32_t)(500000 / (int32_t)smtPeriod));
+"62
+[; ;main.c: 62:             speed = (int16_t)((int32_t)(500000 / (int32_t)smtPeriod));
 [e = _speed -> / -> 500000 `l -> _smtPeriod `l `s ]
-"127
-[; ;main.c: 127:         } else {
+"63
+[; ;main.c: 63:         } else {
 }
-[e $U 2259  ]
-[e :U 2258 ]
+[e $U 2264  ]
+[e :U 2263 ]
+{
+"64
+[; ;main.c: 64:             speed = (int16_t)((int32_t)(-500000 / (int32_t)smtPeriod));
+[e = _speed -> / -U -> 500000 `l -> _smtPeriod `l `s ]
+"65
+[; ;main.c: 65:         }
+}
+[e :U 2264 ]
+"66
+[; ;main.c: 66:     }
+}
+[e :U 2262 ]
+"67
+[; ;main.c: 67:     return speed;
+[e ) _speed ]
+[e $UE 2261  ]
+"68
+[; ;main.c: 68: }
+[e :UE 2261 ]
+}
+"70
+[; ;main.c: 70: void getBatteryVoltage(void){
+[v _getBatteryVoltage `(v ~T0 @X0 1 ef ]
+{
+[e :U _getBatteryVoltage ]
+[f ]
+"71
+[; ;main.c: 71:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
+[e = _BatteryVolt ( _ADCC_GetSingleConversion (1 . `E16091 0 ]
+"72
+[; ;main.c: 72:     printf("BVolt: %d\n", BatteryVolt);
+[e ( _printf , (. :s 1C -> _BatteryVolt `ui ]
+"73
+[; ;main.c: 73: }
+[e :UE 2265 ]
+}
+"75
+[; ;main.c: 75: void getKurve(){
+[v _getKurve `(v ~T0 @X0 1 ef ]
+{
+[e :U _getKurve ]
+[f ]
+"76
+[; ;main.c: 76:     int16_t deltaLeft;
+[v _deltaLeft `s ~T0 @X0 1 a ]
+"77
+[; ;main.c: 77:     int16_t deltaRight;
+[v _deltaRight `s ~T0 @X0 1 a ]
+"79
+[; ;main.c: 79:     switch (kurvenModus){
+[e $U 2268  ]
+{
+"80
+[; ;main.c: 80:         case AusKurve:
+[e :U 2269 ]
+"81
+[; ;main.c: 81:             deltaLeft = (int16_t)(distLeft - oldDistLeft);
+[e = _deltaLeft -> - -> _distLeft `ui -> _oldDistLeft `ui `s ]
+"82
+[; ;main.c: 82:             deltaRight = (int16_t)(distRight - oldDistRight);
+[e = _deltaRight -> - -> _distRight `ui -> _oldDistRight `ui `s ]
+"83
+[; ;main.c: 83:             printf("Aus| dL= %d| dR= %d", deltaLeft, deltaRight);
+[e ( _printf , , (. :s 2C -> _deltaLeft `i -> _deltaRight `i ]
+"85
+[; ;main.c: 85:             if(deltaLeft > 50){
+[e $ ! > -> _deltaLeft `i -> 50 `i 2270  ]
+{
+"86
+[; ;main.c: 86:                 delay = 0;
+[e = _delay -> -> 0 `i `uc ]
+"87
+[; ;main.c: 87:                 kurvenModus = VorKurve;
+[e = _kurvenModus . `E17309 1 ]
+"88
+[; ;main.c: 88:                 fahrModus = KurveLinks;
+[e = _fahrModus . `E17295 3 ]
+"89
+[; ;main.c: 89:                 printf("   KurveLinks");
+[e ( _printf :s 3C ]
+"90
+[; ;main.c: 90:             } else if(deltaRight > 50){
+}
+[e $U 2271  ]
+[e :U 2270 ]
+[e $ ! > -> _deltaRight `i -> 50 `i 2272  ]
+{
+"91
+[; ;main.c: 91:                 delay = 0;
+[e = _delay -> -> 0 `i `uc ]
+"92
+[; ;main.c: 92:                 kurvenModus = VorKurve;
+[e = _kurvenModus . `E17309 1 ]
+"93
+[; ;main.c: 93:                 fahrModus = KurveRight;
+[e = _fahrModus . `E17295 4 ]
+"94
+[; ;main.c: 94:                 printf("   KurveRight");
+[e ( _printf :s 4C ]
+"95
+[; ;main.c: 95:             }
+}
+[e :U 2272 ]
+[e :U 2271 ]
+"96
+[; ;main.c: 96:             printf("\n");
+[e ( _printf :s 5C ]
+"98
+[; ;main.c: 98:             break;
+[e $U 2267  ]
+"99
+[; ;main.c: 99:         case VorKurve:
+[e :U 2273 ]
+"100
+[; ;main.c: 100:             if(delay > (5)){
+[e $ ! > -> _delay `i -> 5 `i 2274  ]
+{
+"101
+[; ;main.c: 101:                 delay = 0;
+[e = _delay -> -> 0 `i `uc ]
+"102
+[; ;main.c: 102:                 kurvenModus = InKurve;
+[e = _kurvenModus . `E17309 2 ]
+"103
+[; ;main.c: 103:                 printf("InKurve\n");
+[e ( _printf :s 6C ]
+"104
+[; ;main.c: 104:             } else {
+}
+[e $U 2275  ]
+[e :U 2274 ]
+{
+"105
+[; ;main.c: 105:                 delay++;
+[e ++ _delay -> -> 1 `i `uc ]
+"106
+[; ;main.c: 106:             }
+}
+[e :U 2275 ]
+"107
+[; ;main.c: 107:             break;
+[e $U 2267  ]
+"108
+[; ;main.c: 108:         case InKurve:
+[e :U 2276 ]
+"109
+[; ;main.c: 109:             if(delay > (20)){
+[e $ ! > -> _delay `i -> 20 `i 2277  ]
+{
+"110
+[; ;main.c: 110:                 if(fahrModus == KurveLinks){
+[e $ ! == -> _fahrModus `ui -> . `E17295 3 `ui 2278  ]
+{
+"111
+[; ;main.c: 111:                     printf("distL= %d\n", distLeft);
+[e ( _printf , (. :s 7C -> _distLeft `ui ]
+"112
+[; ;main.c: 112:                 } else if(fahrModus == KurveLinks){
+}
+[e $U 2279  ]
+[e :U 2278 ]
+[e $ ! == -> _fahrModus `ui -> . `E17295 3 `ui 2280  ]
+{
+"113
+[; ;main.c: 113:                     printf("distR= %d\n", distRight);
+[e ( _printf , (. :s 8C -> _distRight `ui ]
+"114
+[; ;main.c: 114:                 }
+}
+[e :U 2280 ]
+[e :U 2279 ]
+"116
+[; ;main.c: 116:                 if(distLeft < 40 || distRight < 40){
+[e $ ! || < -> _distLeft `ui -> -> 40 `i `ui < -> _distRight `ui -> -> 40 `i `ui 2281  ]
+{
+"117
+[; ;main.c: 117:                     delay = 0;
+[e = _delay -> -> 0 `i `uc ]
+"118
+[; ;main.c: 118:                     kurvenModus = NachKurve;
+[e = _kurvenModus . `E17309 3 ]
+"119
+[; ;main.c: 119:                     fahrModus = Gerade;
+[e = _fahrModus . `E17295 0 ]
+"120
+[; ;main.c: 120:                     printf("NachKurve\n");
+[e ( _printf :s 9C ]
+"121
+[; ;main.c: 121:                 }
+}
+[e :U 2281 ]
+"122
+[; ;main.c: 122:             } else {
+}
+[e $U 2282  ]
+[e :U 2277 ]
+{
+"123
+[; ;main.c: 123:                 delay++;
+[e ++ _delay -> -> 1 `i `uc ]
+"124
+[; ;main.c: 124:             }
+}
+[e :U 2282 ]
+"125
+[; ;main.c: 125:             break;
+[e $U 2267  ]
+"126
+[; ;main.c: 126:         case NachKurve:
+[e :U 2283 ]
+"127
+[; ;main.c: 127:             if(delay > (20)){
+[e $ ! > -> _delay `i -> 20 `i 2284  ]
 {
 "128
-[; ;main.c: 128:             speed = ((int32_t)(-500000 / (int32_t)smtPeriod));
-[e = _speed -> / -U -> 500000 `l -> _smtPeriod `l `s ]
+[; ;main.c: 128:                 delay = 0;
+[e = _delay -> -> 0 `i `uc ]
 "129
-[; ;main.c: 129:         }
-}
-[e :U 2259 ]
+[; ;main.c: 129:                 kurvenModus = AusKurve;
+[e = _kurvenModus . `E17309 0 ]
 "130
-[; ;main.c: 130:     }
-}
-[e :U 2257 ]
+[; ;main.c: 130:                 printf("AusKurve\n");
+[e ( _printf :s 10C ]
 "131
-[; ;main.c: 131:     return speed;
-[e ) _speed ]
-[e $UE 2256  ]
-"132
-[; ;main.c: 132: }
-[e :UE 2256 ]
+[; ;main.c: 131:             } else {
 }
-"134
-[; ;main.c: 134: void outBatteryVoltage(void){
-[v _outBatteryVoltage `(v ~T0 @X0 1 ef ]
+[e $U 2285  ]
+[e :U 2284 ]
 {
-[e :U _outBatteryVoltage ]
-[f ]
+"132
+[; ;main.c: 132:                 delay++;
+[e ++ _delay -> -> 1 `i `uc ]
+"133
+[; ;main.c: 133:             }
+}
+[e :U 2285 ]
+"134
+[; ;main.c: 134:             break;
+[e $U 2267  ]
 "135
-[; ;main.c: 135:     adc_result_t batt = -1;
-[v _batt `us ~T0 @X0 1 a ]
-[e = _batt -> -U -> 1 `i `us ]
+[; ;main.c: 135:     };
+}
+[e $U 2267  ]
+[e :U 2268 ]
+[e [\ -> _kurvenModus `ui , $ -> . `E17309 0 `ui 2269
+ , $ -> . `E17309 1 `ui 2273
+ , $ -> . `E17309 2 `ui 2276
+ , $ -> . `E17309 3 `ui 2283
+ 2267 ]
+[e :U 2267 ]
+"136
+[; ;main.c: 136:     oldDistLeft = distLeft;
+[e = _oldDistLeft _distLeft ]
 "137
-[; ;main.c: 137:     printf("BVolt: %d\n", batt);
-[e ( _printf , (. :s 2C -> _batt `ui ]
+[; ;main.c: 137:     oldDistRight = distRight;
+[e = _oldDistRight _distRight ]
 "138
 [; ;main.c: 138: }
-[e :UE 2260 ]
+[e :UE 2266 ]
 }
 "140
-[; ;main.c: 140: void calcLenkung(){
+[; ;main.c: 140: void getReverse(){
+[v _getReverse `(v ~T0 @X0 1 ef ]
+{
+[e :U _getReverse ]
+[f ]
+"141
+[; ;main.c: 141:     if(distFront < 10){
+[e $ ! < -> _distFront `ui -> -> 10 `i `ui 2287  ]
+{
+"142
+[; ;main.c: 142:         ++reverseCount;
+[e =+ _reverseCount -> -> 1 `i `uc ]
+"143
+[; ;main.c: 143:     }else if(fahrModus != Ruckwarts){
+}
+[e $U 2288  ]
+[e :U 2287 ]
+[e $ ! != -> _fahrModus `ui -> . `E17295 2 `ui 2289  ]
+{
+"144
+[; ;main.c: 144:         reverseCount = 0;
+[e = _reverseCount -> -> 0 `i `uc ]
+"145
+[; ;main.c: 145:     }
+}
+[e :U 2289 ]
+[e :U 2288 ]
+"147
+[; ;main.c: 147:     if(reverseCount > 25){
+[e $ ! > -> _reverseCount `i -> 25 `i 2290  ]
+{
+"148
+[; ;main.c: 148:         fahrModus = Ruckwarts;
+[e = _fahrModus . `E17295 2 ]
+"149
+[; ;main.c: 149:         if(distFront > 40){
+[e $ ! > -> _distFront `ui -> -> 40 `i `ui 2291  ]
+{
+"150
+[; ;main.c: 150:              fahrModus = Gerade;
+[e = _fahrModus . `E17295 0 ]
+"151
+[; ;main.c: 151:              reverseCount = 0;
+[e = _reverseCount -> -> 0 `i `uc ]
+"152
+[; ;main.c: 152:         }
+}
+[e :U 2291 ]
+"153
+[; ;main.c: 153:     }
+}
+[e :U 2290 ]
+"154
+[; ;main.c: 154: }
+[e :UE 2286 ]
+}
+"156
+[; ;main.c: 156: void calcLenkung(){
 [v _calcLenkung `(v ~T0 @X0 1 ef ]
 {
 [e :U _calcLenkung ]
 [f ]
-"143
-[; ;main.c: 143:     float ratio = 1;
-[v _ratio `f ~T0 @X0 1 a ]
-[e = _ratio -> -> 1 `i `f ]
-"150
-[; ;main.c: 150:     switch (fahrModus){
-[e $U 2263  ]
-{
-"151
-[; ;main.c: 151:         case Langsam:
-[e :U 2264 ]
-"153
-[; ;main.c: 153:             break;
-[e $U 2262  ]
-"154
-[; ;main.c: 154:         case Schnell:
-[e :U 2265 ]
-"156
-[; ;main.c: 156:             break;
-[e $U 2262  ]
 "157
-[; ;main.c: 157:         case Ruckwarts:
-[e :U 2266 ]
-"159
-[; ;main.c: 159:             break;
-[e $U 2262  ]
-"160
-[; ;main.c: 160:         case KurveLinks:
-[e :U 2267 ]
+[; ;main.c: 157:     int16_t delta = (int16_t)(distLeft - distRight )- (0 * 1.41421356);
+[v _delta `s ~T0 @X0 1 a ]
+[e = _delta -> - -> -> -> - -> _distLeft `ui -> _distRight `ui `s `i `d * -> -> 0 `i `d .1.41421356 `s ]
+"158
+[; ;main.c: 158:     delta /= 2;
+[e =/ _delta -> 2 `i ]
 "162
-[; ;main.c: 162:             break;
-[e $U 2262  ]
+[; ;main.c: 162:     switch (fahrModus){
+[e $U 2294  ]
+{
 "163
-[; ;main.c: 163:         case KurveRechts:
-[e :U 2268 ]
+[; ;main.c: 163:         case Bremsen:
+[e :U 2295 ]
+"164
+[; ;main.c: 164:             setLenkung(delta, Verhaeltnis);
+[e ( _setLenkung (2 , _delta . `E17302 2 ]
 "165
 [; ;main.c: 165:             break;
-[e $U 2262  ]
+[e $U 2293  ]
 "166
-[; ;main.c: 166:     };
-}
-[e $U 2262  ]
-[e :U 2263 ]
-[e [\ -> _fahrModus `ui , $ -> . `E17291 1 `ui 2264
- , $ -> . `E17291 0 `ui 2265
- , $ -> . `E17291 2 `ui 2266
- , $ -> . `E17291 3 `ui 2267
- , $ -> . `E17291 4 `ui 2268
- 2262 ]
-[e :U 2262 ]
+[; ;main.c: 166:         case Gerade:
+[e :U 2296 ]
 "167
-[; ;main.c: 167: }
-[e :UE 2261 ]
-}
+[; ;main.c: 167:             setLenkung(delta, Vorne);
+[e ( _setLenkung (2 , _delta . `E17302 3 ]
+"168
+[; ;main.c: 168:             break;
+[e $U 2293  ]
+"169
+[; ;main.c: 169:         case Ruckwarts:
+[e :U 2297 ]
+"170
+[; ;main.c: 170:             if(distLeft < distRight){
+[e $ ! < -> _distLeft `ui -> _distRight `ui 2298  ]
+{
+"171
+[; ;main.c: 171:                 setLenkung(-(65), Vorne);
+[e ( _setLenkung (2 , -> -U -> 65 `i `s . `E17302 3 ]
 "172
-[; ;main.c: 172: void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
-[v _setLenkung `(v ~T0 @X0 1 ef2`s`E17298 ]
+[; ;main.c: 172:             }else{
+}
+[e $U 2299  ]
+[e :U 2298 ]
+{
+"173
+[; ;main.c: 173:                 setLenkung((65), Vorne);
+[e ( _setLenkung (2 , -> -> 65 `i `s . `E17302 3 ]
+"174
+[; ;main.c: 174:             }
+}
+[e :U 2299 ]
+"175
+[; ;main.c: 175:             break;
+[e $U 2293  ]
+"176
+[; ;main.c: 176:         case KurveLinks:
+[e :U 2300 ]
+"177
+[; ;main.c: 177:             if(kurvenModus == InKurve){
+[e $ ! == -> _kurvenModus `ui -> . `E17309 2 `ui 2301  ]
+{
+"178
+[; ;main.c: 178:                 setLenkung((65), Invertiert);
+[e ( _setLenkung (2 , -> -> 65 `i `s . `E17302 0 ]
+"179
+[; ;main.c: 179:             } else {
+}
+[e $U 2302  ]
+[e :U 2301 ]
+{
+"180
+[; ;main.c: 180:                 setLenkung(delta, Vorne);
+[e ( _setLenkung (2 , _delta . `E17302 3 ]
+"181
+[; ;main.c: 181:             }
+}
+[e :U 2302 ]
+"182
+[; ;main.c: 182:             break;
+[e $U 2293  ]
+"183
+[; ;main.c: 183:         case KurveRight:
+[e :U 2303 ]
+"184
+[; ;main.c: 184:             if(kurvenModus == InKurve){
+[e $ ! == -> _kurvenModus `ui -> . `E17309 2 `ui 2304  ]
+{
+"185
+[; ;main.c: 185:                 setLenkung(-(65), Invertiert);
+[e ( _setLenkung (2 , -> -U -> 65 `i `s . `E17302 0 ]
+"186
+[; ;main.c: 186:             } else {
+}
+[e $U 2305  ]
+[e :U 2304 ]
+{
+"187
+[; ;main.c: 187:                 setLenkung(delta, Vorne);
+[e ( _setLenkung (2 , _delta . `E17302 3 ]
+"188
+[; ;main.c: 188:             }
+}
+[e :U 2305 ]
+"189
+[; ;main.c: 189:             break;
+[e $U 2293  ]
+"190
+[; ;main.c: 190:     };
+}
+[e $U 2293  ]
+[e :U 2294 ]
+[e [\ -> _fahrModus `ui , $ -> . `E17295 1 `ui 2295
+ , $ -> . `E17295 0 `ui 2296
+ , $ -> . `E17295 2 `ui 2297
+ , $ -> . `E17295 3 `ui 2300
+ , $ -> . `E17295 4 `ui 2303
+ 2293 ]
+[e :U 2293 ]
+"191
+[; ;main.c: 191: }
+[e :UE 2292 ]
+}
+"196
+[; ;main.c: 196: void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
+[v _setLenkung `(v ~T0 @X0 1 ef2`s`E17302 ]
 {
 [e :U _setLenkung ]
 [v _Lenkung `s ~T0 @X0 1 r1 ]
-[v _LenkungMode `E17298 ~T0 @X0 1 r2 ]
+[v _LenkungMode `E17302 ~T0 @X0 1 r2 ]
 [f ]
-"173
-[; ;main.c: 173:     int16_t L_Vorne = 0, L_Hinten = 0;
+"197
+[; ;main.c: 197:     int16_t L_Vorne = 0, L_Hinten = 0;
 [v _L_Vorne `s ~T0 @X0 1 a ]
 [e = _L_Vorne -> -> 0 `i `s ]
 [v _L_Hinten `s ~T0 @X0 1 a ]
 [e = _L_Hinten -> -> 0 `i `s ]
-"174
-[; ;main.c: 174:     switch(LenkungMode){
-[e $U 2271  ]
-{
-"175
-[; ;main.c: 175:         case Invertiert:
-[e :U 2272 ]
-"176
-[; ;main.c: 176:             L_Vorne = (-Lenkung);
-[e = _L_Vorne -> -U -> _Lenkung `i `s ]
-"177
-[; ;main.c: 177:             L_Hinten = Lenkung;
-[e = _L_Hinten _Lenkung ]
-"178
-[; ;main.c: 178:             break;
-[e $U 2270  ]
-"179
-[; ;main.c: 179:         case Gleich:
-[e :U 2273 ]
-"180
-[; ;main.c: 180:             L_Vorne = (-Lenkung);
-[e = _L_Vorne -> -U -> _Lenkung `i `s ]
-"181
-[; ;main.c: 181:             L_Hinten = (-Lenkung);
-[e = _L_Hinten -> -U -> _Lenkung `i `s ]
-"182
-[; ;main.c: 182:             break;
-[e $U 2270  ]
-"183
-[; ;main.c: 183:         case Verhaeltnis:
-[e :U 2274 ]
-"184
-[; ;main.c: 184:             L_Vorne = (-Lenkung);
-[e = _L_Vorne -> -U -> _Lenkung `i `s ]
-"185
-[; ;main.c: 185:             L_Hinten = (-Lenkung / 3);
-[e = _L_Hinten -> / -U -> _Lenkung `i -> 3 `i `s ]
-"186
-[; ;main.c: 186:             break;
-[e $U 2270  ]
-"187
-[; ;main.c: 187:         case Vorne:
-[e :U 2275 ]
-"188
-[; ;main.c: 188:             L_Vorne = (-Lenkung);
-[e = _L_Vorne -> -U -> _Lenkung `i `s ]
-"190
-[; ;main.c: 190:             break;
-[e $U 2270  ]
-"191
-[; ;main.c: 191:         case Hinten:
-[e :U 2276 ]
-"193
-[; ;main.c: 193:             L_Hinten = (-Lenkung);
-[e = _L_Hinten -> -U -> _Lenkung `i `s ]
-"194
-[; ;main.c: 194:             break;
-[e $U 2270  ]
-"195
-[; ;main.c: 195:         default:
-[e :U 2277 ]
 "198
-[; ;main.c: 198:             break;
-[e $U 2270  ]
+[; ;main.c: 198:     switch(LenkungMode){
+[e $U 2308  ]
+{
 "199
-[; ;main.c: 199:     }
-}
-[e $U 2270  ]
-[e :U 2271 ]
-[e [\ -> _LenkungMode `ui , $ -> . `E17298 0 `ui 2272
- , $ -> . `E17298 1 `ui 2273
- , $ -> . `E17298 2 `ui 2274
- , $ -> . `E17298 3 `ui 2275
- , $ -> . `E17298 4 `ui 2276
- 2277 ]
-[e :U 2270 ]
+[; ;main.c: 199:         case Invertiert:
+[e :U 2309 ]
+"200
+[; ;main.c: 200:             L_Vorne = (-Lenkung);
+[e = _L_Vorne -> -U -> _Lenkung `i `s ]
 "201
-[; ;main.c: 201:     if(L_Vorne > (65)){
-[e $ ! > -> _L_Vorne `i -> 65 `i 2278  ]
-{
+[; ;main.c: 201:             L_Hinten = Lenkung;
+[e = _L_Hinten _Lenkung ]
 "202
-[; ;main.c: 202:         L_Vorne = (65);
-[e = _L_Vorne -> -> 65 `i `s ]
+[; ;main.c: 202:             break;
+[e $U 2307  ]
 "203
-[; ;main.c: 203:     } else if(L_Vorne < (-65)){
-}
-[e $U 2279  ]
-[e :U 2278 ]
-[e $ ! < -> _L_Vorne `i -U -> 65 `i 2280  ]
-{
+[; ;main.c: 203:         case Gleich:
+[e :U 2310 ]
 "204
-[; ;main.c: 204:         L_Vorne = (-65);
-[e = _L_Vorne -> -U -> 65 `i `s ]
+[; ;main.c: 204:             L_Vorne = (-Lenkung);
+[e = _L_Vorne -> -U -> _Lenkung `i `s ]
 "205
-[; ;main.c: 205:     }
-}
-[e :U 2280 ]
-[e :U 2279 ]
+[; ;main.c: 205:             L_Hinten = (-Lenkung);
+[e = _L_Hinten -> -U -> _Lenkung `i `s ]
+"206
+[; ;main.c: 206:             break;
+[e $U 2307  ]
 "207
-[; ;main.c: 207:     if(L_Hinten > (45)){
-[e $ ! > -> _L_Hinten `i -> 45 `i 2281  ]
-{
+[; ;main.c: 207:         case Verhaeltnis:
+[e :U 2311 ]
 "208
-[; ;main.c: 208:         L_Hinten = (45);
-[e = _L_Hinten -> -> 45 `i `s ]
+[; ;main.c: 208:             L_Vorne = (-Lenkung);
+[e = _L_Vorne -> -U -> _Lenkung `i `s ]
 "209
-[; ;main.c: 209:     } else if(L_Hinten < (-45)){
-}
-[e $U 2282  ]
-[e :U 2281 ]
-[e $ ! < -> _L_Hinten `i -U -> 45 `i 2283  ]
-{
+[; ;main.c: 209:             L_Hinten = (Lenkung / (3));
+[e = _L_Hinten -> / -> _Lenkung `i -> 3 `i `s ]
 "210
-[; ;main.c: 210:         L_Hinten = (-45);
-[e = _L_Hinten -> -U -> 45 `i `s ]
+[; ;main.c: 210:             break;
+[e $U 2307  ]
 "211
-[; ;main.c: 211:     }
-}
-[e :U 2283 ]
-[e :U 2282 ]
+[; ;main.c: 211:         case Vorne:
+[e :U 2312 ]
+"212
+[; ;main.c: 212:             L_Vorne = (-Lenkung);
+[e = _L_Vorne -> -U -> _Lenkung `i `s ]
 "214
-[; ;main.c: 214:     PWM6_LoadDutyValue(352 - L_Vorne);
-[e ( _PWM6_LoadDutyValue (1 -> - -> 352 `i -> _L_Vorne `i `us ]
+[; ;main.c: 214:             break;
+[e $U 2307  ]
 "215
-[; ;main.c: 215:     PWM5_LoadDutyValue(357 - L_Hinten);
-[e ( _PWM5_LoadDutyValue (1 -> - -> 357 `i -> _L_Hinten `i `us ]
-"216
-[; ;main.c: 216: }
-[e :UE 2269 ]
-}
+[; ;main.c: 215:         case Hinten:
+[e :U 2313 ]
+"217
+[; ;main.c: 217:             L_Hinten = (-Lenkung);
+[e = _L_Hinten -> -U -> _Lenkung `i `s ]
 "218
-[; ;main.c: 218: void calcSpeed(){
+[; ;main.c: 218:             break;
+[e $U 2307  ]
+"219
+[; ;main.c: 219:         default:
+[e :U 2314 ]
+"222
+[; ;main.c: 222:             break;
+[e $U 2307  ]
+"223
+[; ;main.c: 223:     }
+}
+[e $U 2307  ]
+[e :U 2308 ]
+[e [\ -> _LenkungMode `ui , $ -> . `E17302 0 `ui 2309
+ , $ -> . `E17302 1 `ui 2310
+ , $ -> . `E17302 2 `ui 2311
+ , $ -> . `E17302 3 `ui 2312
+ , $ -> . `E17302 4 `ui 2313
+ 2314 ]
+[e :U 2307 ]
+"225
+[; ;main.c: 225:     if(L_Vorne > ((65))){
+[e $ ! > -> _L_Vorne `i -> 65 `i 2315  ]
+{
+"226
+[; ;main.c: 226:         L_Vorne = ((65));
+[e = _L_Vorne -> -> 65 `i `s ]
+"227
+[; ;main.c: 227:     } else if(L_Vorne < (-(65))){
+}
+[e $U 2316  ]
+[e :U 2315 ]
+[e $ ! < -> _L_Vorne `i -U -> 65 `i 2317  ]
+{
+"228
+[; ;main.c: 228:         L_Vorne = (-(65));
+[e = _L_Vorne -> -U -> 65 `i `s ]
+"229
+[; ;main.c: 229:     }
+}
+[e :U 2317 ]
+[e :U 2316 ]
+"231
+[; ;main.c: 231:     if(L_Hinten > ((45))){
+[e $ ! > -> _L_Hinten `i -> 45 `i 2318  ]
+{
+"232
+[; ;main.c: 232:         L_Hinten = ((45));
+[e = _L_Hinten -> -> 45 `i `s ]
+"233
+[; ;main.c: 233:     } else if(L_Hinten < (-(45))){
+}
+[e $U 2319  ]
+[e :U 2318 ]
+[e $ ! < -> _L_Hinten `i -U -> 45 `i 2320  ]
+{
+"234
+[; ;main.c: 234:         L_Hinten = (-(45));
+[e = _L_Hinten -> -U -> 45 `i `s ]
+"235
+[; ;main.c: 235:     }
+}
+[e :U 2320 ]
+[e :U 2319 ]
+"238
+[; ;main.c: 238:     PWM6_LoadDutyValue((uint16_t)((352) - L_Vorne));
+[e ( _PWM6_LoadDutyValue (1 -> - -> 352 `i -> _L_Vorne `i `us ]
+"239
+[; ;main.c: 239:     PWM5_LoadDutyValue((uint16_t)((357) - L_Hinten));
+[e ( _PWM5_LoadDutyValue (1 -> - -> 357 `i -> _L_Hinten `i `us ]
+"240
+[; ;main.c: 240: }
+[e :UE 2306 ]
+}
+"243
+[; ;main.c: 243: void calcSpeed(){
 [v _calcSpeed `(v ~T0 @X0 1 ef ]
 {
 [e :U _calcSpeed ]
 [f ]
-"220
-[; ;main.c: 220: }
-[e :UE 2284 ]
+"244
+[; ;main.c: 244:     int16_t limit;
+[v _limit `s ~T0 @X0 1 a ]
+"245
+[; ;main.c: 245:     int16_t speed = 0;
+[v _speed `s ~T0 @X0 1 a ]
+[e = _speed -> -> 0 `i `s ]
+"247
+[; ;main.c: 247:     switch (fahrModus){
+[e $U 2323  ]
+{
+"248
+[; ;main.c: 248:         case Bremsen:
+[e :U 2324 ]
+"249
+[; ;main.c: 249:             if(distFront > 40) {
+[e $ ! > -> _distFront `ui -> -> 40 `i `ui 2325  ]
+{
+"250
+[; ;main.c: 250:                 fahrModus = Gerade;
+[e = _fahrModus . `E17295 0 ]
+"251
+[; ;main.c: 251:             }
 }
-"222
-[; ;main.c: 222: void calcMotorPow(){
+[e :U 2325 ]
+"252
+[; ;main.c: 252:             if(distFront < 40 && setSpeed > 0){
+[e $ ! && < -> _distFront `ui -> -> 40 `i `ui > -> _setSpeed `i -> 0 `i 2326  ]
+{
+"253
+[; ;main.c: 253:                 speed = setSpeed;
+[e = _speed _setSpeed ]
+"254
+[; ;main.c: 254:                 speed -= 1;
+[e =- _speed -> -> 1 `i `s ]
+"255
+[; ;main.c: 255:             }else if( distFront < 20){
+}
+[e $U 2327  ]
+[e :U 2326 ]
+[e $ ! < -> _distFront `ui -> -> 20 `i `ui 2328  ]
+{
+"256
+[; ;main.c: 256:                 speed = setSpeed;
+[e = _speed _setSpeed ]
+"257
+[; ;main.c: 257:                 speed -= 2;
+[e =- _speed -> -> 2 `i `s ]
+"258
+[; ;main.c: 258:             }
+}
+[e :U 2328 ]
+[e :U 2327 ]
+"259
+[; ;main.c: 259:             break;
+[e $U 2322  ]
+"260
+[; ;main.c: 260:         case Gerade:
+[e :U 2329 ]
+"261
+[; ;main.c: 261:             if(distFront < 40) {
+[e $ ! < -> _distFront `ui -> -> 40 `i `ui 2330  ]
+{
+"262
+[; ;main.c: 262:                 fahrModus = Bremsen;
+[e = _fahrModus . `E17295 1 ]
+"263
+[; ;main.c: 263:             }
+}
+[e :U 2330 ]
+"264
+[; ;main.c: 264:             speed = (int16_t)(0.8 * distFront + 150);
+[e = _speed -> + * .0.8 -> -> _distFront `ui `d -> -> 150 `i `d `s ]
+"265
+[; ;main.c: 265:             break;
+[e $U 2322  ]
+"266
+[; ;main.c: 266:         case Ruckwarts:
+[e :U 2331 ]
+"267
+[; ;main.c: 267:             speed = -150;
+[e = _speed -> -U -> 150 `i `s ]
+"268
+[; ;main.c: 268:             break;
+[e $U 2322  ]
+"269
+[; ;main.c: 269:         case KurveLinks:
+[e :U 2332 ]
+"270
+[; ;main.c: 270:             speed = 150;
+[e = _speed -> -> 150 `i `s ]
+"271
+[; ;main.c: 271:             break;
+[e $U 2322  ]
+"272
+[; ;main.c: 272:         case KurveRight:
+[e :U 2333 ]
+"273
+[; ;main.c: 273:             speed = 150;
+[e = _speed -> -> 150 `i `s ]
+"274
+[; ;main.c: 274:             break;
+[e $U 2322  ]
+"275
+[; ;main.c: 275:     };
+}
+[e $U 2322  ]
+[e :U 2323 ]
+[e [\ -> _fahrModus `ui , $ -> . `E17295 1 `ui 2324
+ , $ -> . `E17295 0 `ui 2329
+ , $ -> . `E17295 2 `ui 2331
+ , $ -> . `E17295 3 `ui 2332
+ , $ -> . `E17295 4 `ui 2333
+ 2322 ]
+[e :U 2322 ]
+"277
+[; ;main.c: 277:     if(speed > 500){
+[e $ ! > -> _speed `i -> 500 `i 2334  ]
+{
+"278
+[; ;main.c: 278:         speed = 500;
+[e = _speed -> -> 500 `i `s ]
+"279
+[; ;main.c: 279:     }
+}
+[e :U 2334 ]
+"280
+[; ;main.c: 280:     if(speed < -300){
+[e $ ! < -> _speed `i -U -> 300 `i 2335  ]
+{
+"281
+[; ;main.c: 281:         speed = -300;
+[e = _speed -> -U -> 300 `i `s ]
+"282
+[; ;main.c: 282:     }
+}
+[e :U 2335 ]
+"283
+[; ;main.c: 283:     setSpeed = speed;
+[e = _setSpeed _speed ]
+"284
+[; ;main.c: 284: }
+[e :UE 2321 ]
+}
+"286
+[; ;main.c: 286: void calcMotorPow(){
 [v _calcMotorPow `(v ~T0 @X0 1 ef ]
 {
 [e :U _calcMotorPow ]
 [f ]
-"223
-[; ;main.c: 223:     float factor = 0.5;
-[v _factor `f ~T0 @X0 1 a ]
-[e = _factor -> .0.5 `f ]
-"225
-[; ;main.c: 225:     oldSpeed = currentSpeed;
-[e = _oldSpeed _currentSpeed ]
-"226
-[; ;main.c: 226:     currentSpeed = actSpeed();
-[e = _currentSpeed ( _actSpeed ..  ]
-"229
-[; ;main.c: 229:  int16_t setSpeedDelta = setSpeed - currentSpeed;
+"287
+[; ;main.c: 287:     int16_t setSpeedDelta = setSpeed - currentSpeed;
 [v _setSpeedDelta `s ~T0 @X0 1 a ]
 [e = _setSpeedDelta -> - -> _setSpeed `i -> _currentSpeed `i `s ]
-"230
-[; ;main.c: 230:     int16_t addMPow = 0;
-[v _addMPow `s ~T0 @X0 1 a ]
-[e = _addMPow -> -> 0 `i `s ]
-"232
-[; ;main.c: 232:  addMPow = factor * (setSpeedDelta - (oldSpeedDelta / 2));
-[e = _addMPow -> * _factor -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 2 `i `f `s ]
-"234
-[; ;main.c: 234:     if(setSpeed > 0){
-[e $ ! > -> _setSpeed `i -> 0 `i 2286  ]
+"288
+[; ;main.c: 288:     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
+[v _oldSpeedDelta `s ~T0 @X0 1 a ]
+[e = _oldSpeedDelta -> - -> _currentSpeed `i -> _oldSpeed `i `s ]
+"289
+[; ;main.c: 289:     int8_t addMPow = 0;
+[v _addMPow `c ~T0 @X0 1 a ]
+[e = _addMPow -> -> 0 `i `c ]
+"291
+[; ;main.c: 291:     currentSpeed = actSpeed();
+[e = _currentSpeed ( _actSpeed ..  ]
+"296
+[; ;main.c: 296:  addMPow = (int8_t)(0.05 * (setSpeedDelta - (oldSpeedDelta / 1)));
+[e = _addMPow -> * .0.05 -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 1 `i `d `c ]
+"299
+[; ;main.c: 299:     if(addMPow > 3){
+[e $ ! > -> _addMPow `i -> 3 `i 2337  ]
 {
-"235
-[; ;main.c: 235:   if(actMotorPow < 10){
-[e $ ! < -> _actMotorPow `i -> 10 `i 2287  ]
+"300
+[; ;main.c: 300:         addMPow = 3;
+[e = _addMPow -> -> 3 `i `c ]
+"301
+[; ;main.c: 301:     }else if(addMPow < -3){
+}
+[e $U 2338  ]
+[e :U 2337 ]
+[e $ ! < -> _addMPow `i -U -> 3 `i 2339  ]
 {
-"236
-[; ;main.c: 236:    actMotorPow = defaultMotorPowerForward;
-[e = _actMotorPow _defaultMotorPowerForward ]
-"237
-[; ;main.c: 237:   }
+"302
+[; ;main.c: 302:         addMPow = -3;
+[e = _addMPow -> -U -> 3 `i `c ]
+"303
+[; ;main.c: 303:     }
 }
-[e :U 2287 ]
-"238
-[; ;main.c: 238:  }else if(setSpeed < 0){
-}
-[e $U 2288  ]
-[e :U 2286 ]
-[e $ ! < -> _setSpeed `i -> 0 `i 2289  ]
+[e :U 2339 ]
+[e :U 2338 ]
+"315
+[; ;main.c: 315:  actMotorPow = actMotorPow + addMPow;
+[e = _actMotorPow -> + -> _actMotorPow `i -> _addMPow `i `s ]
+"317
+[; ;main.c: 317:  if(actMotorPow > (600)){
+[e $ ! > -> _actMotorPow `i -> 600 `i 2340  ]
 {
-"239
-[; ;main.c: 239:   if(actMotorPow > -10){
-[e $ ! > -> _actMotorPow `i -U -> 10 `i 2290  ]
+"318
+[; ;main.c: 318:   actMotorPow = (600);
+[e = _actMotorPow -> -> 600 `i `s ]
+"319
+[; ;main.c: 319:  }else if(actMotorPow < (-300)){
+}
+[e $U 2341  ]
+[e :U 2340 ]
+[e $ ! < -> _actMotorPow `i -U -> 300 `i 2342  ]
 {
-"240
-[; ;main.c: 240:    actMotorPow = defaultMotorPowerBackward;
-[e = _actMotorPow _defaultMotorPowerBackward ]
-"241
-[; ;main.c: 241:   }
+"320
+[; ;main.c: 320:   actMotorPow = (-300);
+[e = _actMotorPow -> -U -> 300 `i `s ]
+"321
+[; ;main.c: 321:  }
 }
-[e :U 2290 ]
-"242
-[; ;main.c: 242:   addMPow /= 2;
-[e =/ _addMPow -> 2 `i ]
-"243
-[; ;main.c: 243:  }else{
-}
-[e $U 2291  ]
-[e :U 2289 ]
-{
-"244
-[; ;main.c: 244:   actMotorPow = 0;
-[e = _actMotorPow -> -> 0 `i `s ]
-"245
-[; ;main.c: 245:         addMPow = 0;
-[e = _addMPow -> -> 0 `i `s ]
-"246
-[; ;main.c: 246:  }
-}
-[e :U 2291 ]
-[e :U 2288 ]
-"248
-[; ;main.c: 248:  actMotorPow += addMPow;
-[e =+ _actMotorPow -> _addMPow `s ]
-"250
-[; ;main.c: 250:  if(actMotorPow > maxMPowForward){
-[e $ ! > -> _actMotorPow `i -> _maxMPowForward `i 2292  ]
-{
-"251
-[; ;main.c: 251:   actMotorPow = maxMPowForward;
-[e = _actMotorPow _maxMPowForward ]
-"252
-[; ;main.c: 252:  }else if(actMotorPow < maxMPowBackward){
-}
-[e $U 2293  ]
-[e :U 2292 ]
-[e $ ! < -> _actMotorPow `i -> _maxMPowBackward `i 2294  ]
-{
-"253
-[; ;main.c: 253:   actMotorPow = maxMPowBackward;
-[e = _actMotorPow _maxMPowBackward ]
-"254
-[; ;main.c: 254:  }else if(actMotorPow < 10 && actMotorPow > -10){
-}
-[e $U 2295  ]
-[e :U 2294 ]
-[e $ ! && < -> _actMotorPow `i -> 10 `i > -> _actMotorPow `i -U -> 10 `i 2296  ]
-{
-"255
-[; ;main.c: 255:   actMotorPow = 0;
-[e = _actMotorPow -> -> 0 `i `s ]
-"256
-[; ;main.c: 256:  }
-}
-[e :U 2296 ]
-[e :U 2295 ]
-[e :U 2293 ]
-"259
-[; ;main.c: 259:     setMotor(actMotorPow);
+[e :U 2342 ]
+[e :U 2341 ]
+"324
+[; ;main.c: 324:     setMotor(actMotorPow);
 [e ( _setMotor (1 _actMotorPow ]
-"261
-[; ;main.c: 261:     oldSpeedDelta = setSpeedDelta;
-[e = _oldSpeedDelta _setSpeedDelta ]
-"262
-[; ;main.c: 262: }
-[e :UE 2285 ]
+"326
+[; ;main.c: 326:     oldSpeed = currentSpeed;
+[e = _oldSpeed _currentSpeed ]
+"327
+[; ;main.c: 327: }
+[e :UE 2336 ]
 }
-"264
-[; ;main.c: 264: void setMotor(int16_t MotorPower){
+"329
+[; ;main.c: 329: void setMotor(int16_t MotorPower){
 [v _setMotor `(v ~T0 @X0 1 ef1`s ]
 {
 [e :U _setMotor ]
 [v _MotorPower `s ~T0 @X0 1 r1 ]
 [f ]
-"265
-[; ;main.c: 265:     int16_t limit = 100;
-[v _limit `s ~T0 @X0 1 a ]
-[e = _limit -> -> 100 `i `s ]
-"266
-[; ;main.c: 266:     if(MotorPower > 8){
-[e $ ! > -> _MotorPower `i -> 8 `i 2298  ]
+"330
+[; ;main.c: 330:     if(MotorPower > 1){
+[e $ ! > -> _MotorPower `i -> 1 `i 2344  ]
 {
-"267
-[; ;main.c: 267:        if(MotorPower > limit){
-[e $ ! > -> _MotorPower `i -> _limit `i 2299  ]
+"331
+[; ;main.c: 331:        if(MotorPower > (600)){
+[e $ ! > -> _MotorPower `i -> 600 `i 2345  ]
 {
-"268
-[; ;main.c: 268:             MotorPower = limit;
-[e = _MotorPower _limit ]
-"269
-[; ;main.c: 269:         }
+"332
+[; ;main.c: 332:             MotorPower = (600);
+[e = _MotorPower -> -> 600 `i `s ]
+"333
+[; ;main.c: 333:         }
 }
-[e :U 2299 ]
-"270
-[; ;main.c: 270:         PWM7_LoadDutyValue(MotorPower);
+[e :U 2345 ]
+"334
+[; ;main.c: 334:         PWM7_LoadDutyValue((uint16_t)(MotorPower));
 [e ( _PWM7_LoadDutyValue (1 -> _MotorPower `us ]
-"271
-[; ;main.c: 271:         PWM8_LoadDutyValue(0);
+"335
+[; ;main.c: 335:         PWM8_LoadDutyValue(0);
 [e ( _PWM8_LoadDutyValue (1 -> -> 0 `i `us ]
-"272
-[; ;main.c: 272:     } else if(MotorPower < -8){
+"336
+[; ;main.c: 336:     } else if(MotorPower < -1){
 }
-[e $U 2300  ]
-[e :U 2298 ]
-[e $ ! < -> _MotorPower `i -U -> 8 `i 2301  ]
+[e $U 2346  ]
+[e :U 2344 ]
+[e $ ! < -> _MotorPower `i -U -> 1 `i 2347  ]
 {
-"273
-[; ;main.c: 273:         if(MotorPower < -limit){
-[e $ ! < -> _MotorPower `i -U -> _limit `i 2302  ]
+"337
+[; ;main.c: 337:         if(MotorPower < (-300)){
+[e $ ! < -> _MotorPower `i -U -> 300 `i 2348  ]
 {
-"274
-[; ;main.c: 274:             MotorPower = -limit;
-[e = _MotorPower -> -U -> _limit `i `s ]
-"275
-[; ;main.c: 275:         }
+"338
+[; ;main.c: 338:             MotorPower = (-300);
+[e = _MotorPower -> -U -> 300 `i `s ]
+"339
+[; ;main.c: 339:         }
 }
-[e :U 2302 ]
-"276
-[; ;main.c: 276:         PWM7_LoadDutyValue(0);
+[e :U 2348 ]
+"340
+[; ;main.c: 340:         PWM7_LoadDutyValue(0);
 [e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
-"277
-[; ;main.c: 277:         PWM8_LoadDutyValue(-MotorPower);
+"341
+[; ;main.c: 341:         PWM8_LoadDutyValue((uint16_t)(-MotorPower));
 [e ( _PWM8_LoadDutyValue (1 -> -U -> _MotorPower `i `us ]
-"278
-[; ;main.c: 278:     } else {
+"342
+[; ;main.c: 342:     } else {
 }
-[e $U 2303  ]
-[e :U 2301 ]
+[e $U 2349  ]
+[e :U 2347 ]
 {
-"279
-[; ;main.c: 279:         PWM7_LoadDutyValue(0);
+"343
+[; ;main.c: 343:         PWM7_LoadDutyValue(0);
 [e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
-"280
-[; ;main.c: 280:         PWM8_LoadDutyValue(0);
+"344
+[; ;main.c: 344:         PWM8_LoadDutyValue(0);
 [e ( _PWM8_LoadDutyValue (1 -> -> 0 `i `us ]
-"281
-[; ;main.c: 281:     }
+"345
+[; ;main.c: 345:     }
 }
-[e :U 2303 ]
-[e :U 2300 ]
-"282
-[; ;main.c: 282: }
-[e :UE 2297 ]
+[e :U 2349 ]
+[e :U 2346 ]
+"346
+[; ;main.c: 346: }
+[e :UE 2343 ]
 }
 [p f _printf 8388736 ]
-[a 1C 109 97 105 110 10 0 ]
-[a 2C 66 86 111 108 116 58 32 37 100 10 0 ]
+[a 4C 32 32 32 75 117 114 118 101 82 105 103 104 116 0 ]
+[a 3C 32 32 32 75 117 114 118 101 76 105 110 107 115 0 ]
+[a 2C 65 117 115 124 32 100 76 61 32 37 100 124 32 100 82 61 32 37 100 0 ]
+[a 10C 65 117 115 75 117 114 118 101 10 0 ]
+[a 6C 73 110 75 117 114 118 101 10 0 ]
+[a 9C 78 97 99 104 75 117 114 118 101 10 0 ]
+[a 8C 100 105 115 116 82 61 32 37 100 10 0 ]
+[a 7C 100 105 115 116 76 61 32 37 100 10 0 ]
+[a 1C 66 86 111 108 116 58 32 37 100 10 0 ]
+[a 5C 10 0 ]
