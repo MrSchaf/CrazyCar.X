@@ -3,10 +3,10 @@
 
 #define steeringFOffset                (352)     // höher = links | niedriger = rechts
 #define steeringBOffset                (357)     // höher = links | niedriger = rechts
-#define maxSterringF                           (65)
-#define maxSteeringB                           (45)
+#define maxSterringF                   (65)
+#define maxSteeringB                   (45)
 #define steeringRatio                  (3)
-#define minBatValue                   (7.4)     // adc = (vbat /2) * (4096 /5) -->2800 = 3,4V (leer)
+#define minBatValue                    (7.4)     // adc = (vbat /2) * (4096 /5) -->2800 = 3,4V (leer)
 
 #define maxMPowForward                 (600)
 #define maxSpeedForward                (400)
@@ -30,7 +30,7 @@
 
 #define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
-#define steeringDivisor                 (2)       // distLeft - distRight /= lenkungDivisor;
+#define steeringDivisor                (2)       // distLeft - distRight /= lenkungDivisor;
 
 #define MotorPowFactor                 (0.05)
 
@@ -41,7 +41,7 @@
 
 #define oldSpeedDeltaDivisor           (1)
 
-#define curveSpeed                    (150)
+#define curveSpeed                     (150)
 #define reverseSpeed                   (-150)
     
 typedef enum{
@@ -88,17 +88,22 @@ int16_t actMotorPow = 0;
 
 adc_result_t BatteryVolt = 0;
 
-void loop(void);
 void TMR4_10msISR(void);
-void getBatteryVoltage(void);
-void getCurve(void);
-void getReverse(void);
-void calcSteering(void);
-void setSteering(int16_t, SteeringMode);
-void calcSpeed(void);
-void calcMotorPow(void);
-void setMotor(int16_t);
+
+void loop(void);
 
 int16_t actSpeed();
+void getBatteryVoltage(void);
+
+void getCurve(void);
+void getReverse(void);
+
+void calcSteering(void);
+void calcSpeed(void);
+void calcMotorPow(void);
+
+void setSteering(int16_t, SteeringMode);
+void setMotor(int16_t);
+
 
 #endif	/* MAIN_H */

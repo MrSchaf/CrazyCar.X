@@ -1,140 +1,169 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F16704 `(v ~T0 @X0 0 tf ]
-[v F16706 `(v ~T0 @X0 0 tf ]
-"74 ./main.h
-[; ;./main.h: 74: DriveMode driveMode = Strait;
-[c E17295 0 1 2 3 4 .. ]
-[n E17295 . Strait Brake Backwards CurveLeft CurveRight  ]
-"75
-[; ;./main.h: 75: CurveMode curveMode = OutCurve;
-[c E17309 0 1 2 3 .. ]
-[n E17309 . OutCurve BeforeCurve InCurve AfterCurve  ]
-[p mainexit ]
-"84 ./mcc_generated_files/mcc.h
-[; ;./mcc_generated_files/mcc.h: 84: void SYSTEM_Initialize(void);
-[v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"46941 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46941:     struct {
-[s S2122 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S2122 . INT0EDG INT1EDG INT2EDG . IPEN GIEL GIE ]
-"46950
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46950:     struct {
-[s S2123 :7 `uc 1 :1 `uc 1 ]
-[n S2123 . . GIEH ]
-"46940
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46940: typedef union {
-[u S2121 `S2122 1 `S2123 1 ]
-[n S2121 . . . ]
-"46955
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46955: extern volatile INTCON0bits_t INTCON0bits __attribute__((address(0x3FD2)));
-[v _INTCON0bits `VS2121 ~T0 @X0 0 e@16338 ]
-[v F16264 `(v ~T0 @X0 0 tf ]
-"847 ./mcc_generated_files/tmr4.h
-[; ;./mcc_generated_files/tmr4.h: 847:  void TMR4_SetInterruptHandler(void (* InterruptHandler)(void));
-[v _TMR4_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F16264 ]
-"92 ./main.h
-[; ;./main.h: 92: void TMR4_10msISR(void);
-[v _TMR4_10msISR `(v ~T0 @X0 0 ef ]
-"91
-[; ;./main.h: 91: void loop(void);
-[v _loop `(v ~T0 @X0 0 ef ]
-"46596 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46596:     struct {
-[s S2101 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S2101 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
-"46606
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46606:     struct {
-[s S2102 :3 `uc 1 :1 `uc 1 ]
-[n S2102 . . CCP2_PA2 ]
-"46595
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46595: typedef union {
-[u S2100 `S2101 1 `S2102 1 ]
-[n S2100 . . . ]
-"46611
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46611: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x3FCB)));
-[v _PORTBbits `VS2100 ~T0 @X0 0 e@16331 ]
-"93 ./main.h
-[; ;./main.h: 93: void getBatteryVoltage(void);
-[v _getBatteryVoltage `(v ~T0 @X0 0 ef ]
-"70
-[; ;./main.h: 70: extern uint16_t distFront, distLeft, distRight;
-[v _distLeft `us ~T0 @X0 0 e ]
-[v _distRight `us ~T0 @X0 0 e ]
-"36 main.c
-[; ;main.c: 36:         if(ADCC_GetSingleConversion(aiBatt) < (7.4)){
-[c E16091 34 59 60 61 62 63 .. ]
-[n E16091 . aiBatt channel_VSS channel_Temp channel_DAC1 channel_FVR_Buffer1 channel_FVR_Buffer2  ]
-"253 ./mcc_generated_files/adcc.h
-[; ;./mcc_generated_files/adcc.h: 253: adc_result_t ADCC_GetSingleConversion(adcc_channel_t channel);
-[v _ADCC_GetSingleConversion `(us ~T0 @X0 0 ef1`E16091 ]
-"38 main.c
-[; ;main.c: 38:             setSteering(0,Front);
-[c E17302 0 1 2 3 4 .. ]
-[n E17302 . Inverted Same Ratio Front Back  ]
-"97 ./main.h
-[; ;./main.h: 97: void setSteering(int16_t, SteeringMode);
-[v _setSteering `(v ~T0 @X0 0 ef2`s`E17302 ]
-"94
-[; ;./main.h: 94: void getCurve(void);
-[v _getCurve `(v ~T0 @X0 0 ef ]
-"95
-[; ;./main.h: 95: void getReverse(void);
-[v _getReverse `(v ~T0 @X0 0 ef ]
-"96
-[; ;./main.h: 96: void calcSteering(void);
-[v _calcSteering `(v ~T0 @X0 0 ef ]
-"99
-[; ;./main.h: 99: void calcMotorPow(void);
-[v _calcMotorPow `(v ~T0 @X0 0 ef ]
-"98
-[; ;./main.h: 98: void calcSpeed(void);
-[v _calcSpeed `(v ~T0 @X0 0 ef ]
-"72
-[; ;./main.h: 72: extern uint32_t smtPeriod;
-[v _smtPeriod `ul ~T0 @X0 0 e ]
-"18791 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18791:     struct {
-[s S848 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S848 . MODE INTN INTP OUT OE EN ]
-"18799
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18799:     struct {
-[s S849 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S849 . MODE0 MODE1 MODE2 ]
-"18804
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18804:     struct {
-[s S850 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S850 . LC3MODE LC3INTN LC3INTP LC3OUT LC3OE LC3EN ]
-"18812
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18812:     struct {
-[s S851 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S851 . LC3MODE0 LC3MODE1 LC3MODE2 ]
-"18790
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18790: typedef union {
-[u S847 `S848 1 `S849 1 `S850 1 `S851 1 ]
-[n S847 . . . . . ]
-"18818
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18818: extern volatile CLC3CONbits_t CLC3CONbits __attribute__((address(0x3C60)));
-[v _CLC3CONbits `VS847 ~T0 @X0 0 e@15456 ]
-"111 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"70 ./main.h
-[; ;./main.h: 70: extern uint16_t distFront, distLeft, distRight;
-[v _distFront `us ~T0 @X0 0 e ]
-"129 ./mcc_generated_files/pwm6.h
-[; ;./mcc_generated_files/pwm6.h: 129:  void PWM6_LoadDutyValue(uint16_t dutyValue);
-[v _PWM6_LoadDutyValue `(v ~T0 @X0 0 ef1`us ]
-"129 ./mcc_generated_files/pwm5.h
-[; ;./mcc_generated_files/pwm5.h: 129:  void PWM5_LoadDutyValue(uint16_t dutyValue);
-[v _PWM5_LoadDutyValue `(v ~T0 @X0 0 ef1`us ]
-"100 ./main.h
-[; ;./main.h: 100: void setMotor(int16_t);
-[v _setMotor `(v ~T0 @X0 0 ef1`s ]
-"129 ./mcc_generated_files/pwm7.h
-[; ;./mcc_generated_files/pwm7.h: 129:  void PWM7_LoadDutyValue(uint16_t dutyValue);
-[v _PWM7_LoadDutyValue `(v ~T0 @X0 0 ef1`us ]
-"129 ./mcc_generated_files/pwm8.h
-[; ;./mcc_generated_files/pwm8.h: 129:  void PWM8_LoadDutyValue(uint16_t dutyValue);
-[v _PWM8_LoadDutyValue `(v ~T0 @X0 0 ef1`us ]
+"46174 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46174: extern volatile unsigned char LATE __attribute__((address(0x3FBE)));
+[v _LATE `Vuc ~T0 @X0 0 e@16318 ]
+"46062
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46062: extern volatile unsigned char LATD __attribute__((address(0x3FBD)));
+[v _LATD `Vuc ~T0 @X0 0 e@16317 ]
+"45726
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 45726: extern volatile unsigned char LATA __attribute__((address(0x3FBA)));
+[v _LATA `Vuc ~T0 @X0 0 e@16314 ]
+"45838
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 45838: extern volatile unsigned char LATB __attribute__((address(0x3FBB)));
+[v _LATB `Vuc ~T0 @X0 0 e@16315 ]
+"45950
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 45950: extern volatile unsigned char LATC __attribute__((address(0x3FBC)));
+[v _LATC `Vuc ~T0 @X0 0 e@16316 ]
+"46474
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46474: extern volatile unsigned char TRISE __attribute__((address(0x3FC6)));
+[v _TRISE `Vuc ~T0 @X0 0 e@16326 ]
+"46226
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46226: extern volatile unsigned char TRISA __attribute__((address(0x3FC2)));
+[v _TRISA `Vuc ~T0 @X0 0 e@16322 ]
+"46288
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46288: extern volatile unsigned char TRISB __attribute__((address(0x3FC3)));
+[v _TRISB `Vuc ~T0 @X0 0 e@16323 ]
+"46350
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46350: extern volatile unsigned char TRISC __attribute__((address(0x3FC4)));
+[v _TRISC `Vuc ~T0 @X0 0 e@16324 ]
+"46412
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46412: extern volatile unsigned char TRISD __attribute__((address(0x3FC5)));
+[v _TRISD `Vuc ~T0 @X0 0 e@16325 ]
+"10558
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10558: extern volatile unsigned char ANSELD __attribute__((address(0x3A70)));
+[v _ANSELD `Vuc ~T0 @X0 0 e@14960 ]
+"9722
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9722: extern volatile unsigned char ANSELC __attribute__((address(0x3A60)));
+[v _ANSELC `Vuc ~T0 @X0 0 e@14944 ]
+"8886
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 8886: extern volatile unsigned char ANSELB __attribute__((address(0x3A50)));
+[v _ANSELB `Vuc ~T0 @X0 0 e@14928 ]
+"11208
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11208: extern volatile unsigned char ANSELE __attribute__((address(0x3A80)));
+[v _ANSELE `Vuc ~T0 @X0 0 e@14976 ]
+"8266
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 8266: extern volatile unsigned char ANSELA __attribute__((address(0x3A40)));
+[v _ANSELA `Vuc ~T0 @X0 0 e@14912 ]
+"10620
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10620: extern volatile unsigned char WPUD __attribute__((address(0x3A71)));
+[v _WPUD `Vuc ~T0 @X0 0 e@14961 ]
+"11240
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11240: extern volatile unsigned char WPUE __attribute__((address(0x3A81)));
+[v _WPUE `Vuc ~T0 @X0 0 e@14977 ]
+"8948
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 8948: extern volatile unsigned char WPUB __attribute__((address(0x3A51)));
+[v _WPUB `Vuc ~T0 @X0 0 e@14929 ]
+"8328
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 8328: extern volatile unsigned char WPUA __attribute__((address(0x3A41)));
+[v _WPUA `Vuc ~T0 @X0 0 e@14913 ]
+"9784
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9784: extern volatile unsigned char WPUC __attribute__((address(0x3A61)));
+[v _WPUC `Vuc ~T0 @X0 0 e@14945 ]
+"9506
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9506: extern volatile unsigned char RB1I2C __attribute__((address(0x3A5A)));
+[v _RB1I2C `Vuc ~T0 @X0 0 e@14938 ]
+"9614
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9614: extern volatile unsigned char RB2I2C __attribute__((address(0x3A5B)));
+[v _RB2I2C `Vuc ~T0 @X0 0 e@14939 ]
+"10342
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10342: extern volatile unsigned char RC3I2C __attribute__((address(0x3A6A)));
+[v _RC3I2C `Vuc ~T0 @X0 0 e@14954 ]
+"10450
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10450: extern volatile unsigned char RC4I2C __attribute__((address(0x3A6B)));
+[v _RC4I2C `Vuc ~T0 @X0 0 e@14955 ]
+"10992
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10992: extern volatile unsigned char RD0I2C __attribute__((address(0x3A7A)));
+[v _RD0I2C `Vuc ~T0 @X0 0 e@14970 ]
+"11100
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11100: extern volatile unsigned char RD1I2C __attribute__((address(0x3A7B)));
+[v _RD1I2C `Vuc ~T0 @X0 0 e@14971 ]
+"11278
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11278: extern volatile unsigned char ODCONE __attribute__((address(0x3A82)));
+[v _ODCONE `Vuc ~T0 @X0 0 e@14978 ]
+"8390
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 8390: extern volatile unsigned char ODCONA __attribute__((address(0x3A42)));
+[v _ODCONA `Vuc ~T0 @X0 0 e@14914 ]
+"9010
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9010: extern volatile unsigned char ODCONB __attribute__((address(0x3A52)));
+[v _ODCONB `Vuc ~T0 @X0 0 e@14930 ]
+"9846
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9846: extern volatile unsigned char ODCONC __attribute__((address(0x3A62)));
+[v _ODCONC `Vuc ~T0 @X0 0 e@14946 ]
+"10682
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10682: extern volatile unsigned char ODCOND __attribute__((address(0x3A72)));
+[v _ODCOND `Vuc ~T0 @X0 0 e@14962 ]
+"8452
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 8452: extern volatile unsigned char SLRCONA __attribute__((address(0x3A43)));
+[v _SLRCONA `Vuc ~T0 @X0 0 e@14915 ]
+"9072
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9072: extern volatile unsigned char SLRCONB __attribute__((address(0x3A53)));
+[v _SLRCONB `Vuc ~T0 @X0 0 e@14931 ]
+"9908
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9908: extern volatile unsigned char SLRCONC __attribute__((address(0x3A63)));
+[v _SLRCONC `Vuc ~T0 @X0 0 e@14947 ]
+"10744
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10744: extern volatile unsigned char SLRCOND __attribute__((address(0x3A73)));
+[v _SLRCOND `Vuc ~T0 @X0 0 e@14963 ]
+"11310
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11310: extern volatile unsigned char SLRCONE __attribute__((address(0x3A83)));
+[v _SLRCONE `Vuc ~T0 @X0 0 e@14979 ]
+"8514
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 8514: extern volatile unsigned char INLVLA __attribute__((address(0x3A44)));
+[v _INLVLA `Vuc ~T0 @X0 0 e@14916 ]
+"9134
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9134: extern volatile unsigned char INLVLB __attribute__((address(0x3A54)));
+[v _INLVLB `Vuc ~T0 @X0 0 e@14932 ]
+"9970
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 9970: extern volatile unsigned char INLVLC __attribute__((address(0x3A64)));
+[v _INLVLC `Vuc ~T0 @X0 0 e@14948 ]
+"10806
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 10806: extern volatile unsigned char INLVLD __attribute__((address(0x3A74)));
+[v _INLVLD `Vuc ~T0 @X0 0 e@14964 ]
+"11342
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11342: extern volatile unsigned char INLVLE __attribute__((address(0x3A84)));
+[v _INLVLE `Vuc ~T0 @X0 0 e@14980 ]
+"11883
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11883: extern volatile unsigned char CCP3PPS __attribute__((address(0x3ACF)));
+[v _CCP3PPS `Vuc ~T0 @X0 0 e@15055 ]
+"12143
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 12143: extern volatile unsigned char CLCIN3PPS __attribute__((address(0x3ADC)));
+[v _CLCIN3PPS `Vuc ~T0 @X0 0 e@15068 ]
+"6566
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 6566: extern volatile unsigned char RA1PPS __attribute__((address(0x3A01)));
+[v _RA1PPS `Vuc ~T0 @X0 0 e@14849 ]
+"12323
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 12323: extern volatile unsigned char U1RXPPS __attribute__((address(0x3AE5)));
+[v _U1RXPPS `Vuc ~T0 @X0 0 e@15077 ]
+"6516
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 6516: extern volatile unsigned char RA0PPS __attribute__((address(0x3A00)));
+[v _RA0PPS `Vuc ~T0 @X0 0 e@14848 ]
+"11763
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11763: extern volatile unsigned char T5GPPS __attribute__((address(0x3AC9)));
+[v _T5GPPS `Vuc ~T0 @X0 0 e@15049 ]
+"6716
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 6716: extern volatile unsigned char RA4PPS __attribute__((address(0x3A04)));
+[v _RA4PPS `Vuc ~T0 @X0 0 e@14852 ]
+"12083
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 12083: extern volatile unsigned char CLCIN0PPS __attribute__((address(0x3AD9)));
+[v _CLCIN0PPS `Vuc ~T0 @X0 0 e@15065 ]
+"11923
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11923: extern volatile unsigned char SMT1WINPPS __attribute__((address(0x3AD1)));
+[v _SMT1WINPPS `Vuc ~T0 @X0 0 e@15057 ]
+"6666
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 6666: extern volatile unsigned char RA3PPS __attribute__((address(0x3A03)));
+[v _RA3PPS `Vuc ~T0 @X0 0 e@14851 ]
+"7066
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 7066: extern volatile unsigned char RB3PPS __attribute__((address(0x3A0B)));
+[v _RB3PPS `Vuc ~T0 @X0 0 e@14859 ]
+"12123
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 12123: extern volatile unsigned char CLCIN2PPS __attribute__((address(0x3ADB)));
+[v _CLCIN2PPS `Vuc ~T0 @X0 0 e@15067 ]
+"11943
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11943: extern volatile unsigned char SMT1SIGPPS __attribute__((address(0x3AD2)));
+[v _SMT1SIGPPS `Vuc ~T0 @X0 0 e@15058 ]
+"11903
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 11903: extern volatile unsigned char CCP4PPS __attribute__((address(0x3AD0)));
+[v _CCP4PPS `Vuc ~T0 @X0 0 e@15056 ]
 "250 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 250: __asm("STATUS_CSHAD equ 03880h");
 [; <" STATUS_CSHAD equ 03880h ;# ">
@@ -2367,1144 +2396,192 @@ Version 4.0 HI-TECH Software Intermediate Code
 "48384
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 48384: __asm("TOSU equ 03FFFh");
 [; <" TOSU equ 03FFFh ;# ">
-"518 ./mcc_generated_files/uart1.h
-[; ;./mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F16704 ~T0 @X0 1 e ]
-"536
-[; ;./mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F16706 ~T0 @X0 1 e ]
-"74 ./main.h
-[; ;./main.h: 74: DriveMode driveMode = Strait;
-[v _driveMode `E17295 ~T0 @X0 1 e ]
-[i _driveMode
-. `E17295 0
-]
-"75
-[; ;./main.h: 75: CurveMode curveMode = OutCurve;
-[v _curveMode `E17309 ~T0 @X0 1 e ]
-[i _curveMode
-. `E17309 0
-]
-"77
-[; ;./main.h: 77: uint8_t cycle10ms = 0;
-[v _cycle10ms `uc ~T0 @X0 1 e ]
-[i _cycle10ms
--> -> 0 `i `uc
-]
-"78
-[; ;./main.h: 78: uint8_t delay = 0;
-[v _delay `uc ~T0 @X0 1 e ]
-[i _delay
--> -> 0 `i `uc
-]
-"79
-[; ;./main.h: 79: uint8_t reverseCount = 0;
-[v _reverseCount `uc ~T0 @X0 1 e ]
-[i _reverseCount
--> -> 0 `i `uc
-]
-"81
-[; ;./main.h: 81: uint16_t oldDistLeft, oldDistRight;
-[v _oldDistLeft `us ~T0 @X0 1 e ]
-[v _oldDistRight `us ~T0 @X0 1 e ]
-"83
-[; ;./main.h: 83: int16_t motPow = 0;
-[v _motPow `s ~T0 @X0 1 e ]
-[i _motPow
--> -> 0 `i `s
-]
-"84
-[; ;./main.h: 84: int16_t setSpeed = 0;
-[v _setSpeed `s ~T0 @X0 1 e ]
-[i _setSpeed
--> -> 0 `i `s
-]
-"85
-[; ;./main.h: 85: int16_t currentSpeed = 0;
-[v _currentSpeed `s ~T0 @X0 1 e ]
-[i _currentSpeed
--> -> 0 `i `s
-]
-"86
-[; ;./main.h: 86: int16_t oldSpeed = 0;
-[v _oldSpeed `s ~T0 @X0 1 e ]
-[i _oldSpeed
--> -> 0 `i `s
-]
-"87
-[; ;./main.h: 87: int16_t actMotorPow = 0;
-[v _actMotorPow `s ~T0 @X0 1 e ]
-[i _actMotorPow
--> -> 0 `i `s
-]
-"89
-[; ;./main.h: 89: adc_result_t BatteryVolt = 0;
-[v _BatteryVolt `us ~T0 @X0 1 e ]
-[i _BatteryVolt
--> -> 0 `i `us
-]
-[v $root$_main `(v ~T0 @X0 0 e ]
-"8 main.c
-[; ;main.c: 8: void main(void) {
-[v _main `(v ~T0 @X0 1 ef ]
-{
-[e :U _main ]
-[f ]
-"9
-[; ;main.c: 9:     SYSTEM_Initialize();
-[e ( _SYSTEM_Initialize ..  ]
-"10
-[; ;main.c: 10:     (INTCON0bits.GIEH = 1);
-[e = . . _INTCON0bits 1 1 -> -> 1 `i `uc ]
-"11
-[; ;main.c: 11:     (INTCON0bits.GIEL = 1);
-[e = . . _INTCON0bits 0 5 -> -> 1 `i `uc ]
-"12
-[; ;main.c: 12:     TMR4_SetInterruptHandler(TMR4_10msISR);
-[e ( _TMR4_SetInterruptHandler (1 &U _TMR4_10msISR ]
-"14
-[; ;main.c: 14:     loop();
-[e ( _loop ..  ]
-"15
-[; ;main.c: 15: }
-[e :UE 2244 ]
-}
-"17
-[; ;main.c: 17: void loop(void){
-[v _loop `(v ~T0 @X0 1 ef ]
-{
-[e :U _loop ]
-[f ]
-"18
-[; ;main.c: 18:     while(!PORTBbits.RB4);
-[e $U 2246  ]
-[e :U 2247 ]
-[e :U 2246 ]
-[e $ ! != -> . . _PORTBbits 0 4 `i -> 0 `i 2247  ]
-[e :U 2248 ]
-"20
-[; ;main.c: 20:     do{
-[e :U 2251 ]
-{
-"23
-[; ;main.c: 23:         getBatteryVoltage();
-[e ( _getBatteryVoltage ..  ]
-"24
-[; ;main.c: 24:     }while(BatteryVolt < ((7.4) * 409.6));
-}
-[e $ < -> -> _BatteryVolt `ui `d * .7.4 .409.6 2251  ]
-[e :U 2250 ]
-"26
-[; ;main.c: 26:     oldDistLeft = distLeft;
-[e = _oldDistLeft _distLeft ]
-"27
-[; ;main.c: 27:     oldDistRight = distRight;
-[e = _oldDistRight _distRight ]
-"29
-[; ;main.c: 29:     while(1){
-[e :U 2253 ]
-{
-"30
-[; ;main.c: 30:         while(!cycle10ms);
-[e $U 2255  ]
-[e :U 2256 ]
-[e :U 2255 ]
-[e $ ! != -> _cycle10ms `i -> 0 `i 2256  ]
-[e :U 2257 ]
-"31
-[; ;main.c: 31:         cycle10ms = 0;
-[e = _cycle10ms -> -> 0 `i `uc ]
-"33
-[; ;main.c: 33:         if(PORTBbits.RB5){
-[e $ ! != -> . . _PORTBbits 0 5 `i -> 0 `i 2258  ]
-{
-"34
-[; ;main.c: 34:             break;
-[e $U 2254  ]
-"35
-[; ;main.c: 35:         }
-}
-[e :U 2258 ]
-"36
-[; ;main.c: 36:         if(ADCC_GetSingleConversion(aiBatt) < (7.4)){
-[e $ ! < -> -> ( _ADCC_GetSingleConversion (1 . `E16091 0 `ui `d .7.4 2259  ]
-{
-"37
-[; ;main.c: 37:             setSpeed = 0;
-[e = _setSpeed -> -> 0 `i `s ]
-"38
-[; ;main.c: 38:             setSteering(0,Front);
-[e ( _setSteering (2 , -> -> 0 `i `s . `E17302 3 ]
-"39
-[; ;main.c: 39:             break;
-[e $U 2254  ]
-"40
-[; ;main.c: 40:         }
-}
-[e :U 2259 ]
-"42
-[; ;main.c: 42:         getCurve();
-[e ( _getCurve ..  ]
-"43
-[; ;main.c: 43:         getReverse();
-[e ( _getReverse ..  ]
-"45
-[; ;main.c: 45:         calcSteering();
-[e ( _calcSteering ..  ]
-"46
-[; ;main.c: 46:         calcMotorPow();
-[e ( _calcMotorPow ..  ]
-"47
-[; ;main.c: 47:         calcSpeed();
-[e ( _calcSpeed ..  ]
-"48
-[; ;main.c: 48:     }
-}
-[e :U 2252 ]
-[e $U 2253  ]
-[e :U 2254 ]
-"49
-[; ;main.c: 49: }
-[e :UE 2245 ]
-}
-"51
-[; ;main.c: 51: void TMR4_10msISR(void){
-[v _TMR4_10msISR `(v ~T0 @X0 1 ef ]
-{
-[e :U _TMR4_10msISR ]
-[f ]
-"52
-[; ;main.c: 52:     ++cycle10ms;
-[e =+ _cycle10ms -> -> 1 `i `uc ]
-"53
-[; ;main.c: 53: }
-[e :UE 2260 ]
-}
-"55
-[; ;main.c: 55: int16_t actSpeed(){
-[v _actSpeed `(s ~T0 @X0 1 ef ]
-{
-[e :U _actSpeed ]
-[f ]
+"55 mcc_generated_files/pin_manager.c
+[; ;mcc_generated_files/pin_manager.c: 55: void PIN_MANAGER_Initialize(void)
+[v _PIN_MANAGER_Initialize `(v ~T0 @X0 1 ef ]
 "56
-[; ;main.c: 56:     int16_t speed = 0;
-[v _speed `s ~T0 @X0 1 a ]
-[e = _speed -> -> 0 `i `s ]
-"57
-[; ;main.c: 57:     if(smtPeriod){
-[e $ ! != _smtPeriod -> -> -> 0 `i `l `ul 2262  ]
+[; ;mcc_generated_files/pin_manager.c: 56: {
 {
-"58
-[; ;main.c: 58:         if(CLC3CONbits.LC3OUT){
-[e $ ! != -> . . _CLC3CONbits 2 3 `i -> 0 `i 2263  ]
-{
-"59
-[; ;main.c: 59:             speed = (int16_t)((int32_t)(500000 / (int32_t)smtPeriod));
-[e = _speed -> / -> 500000 `l -> _smtPeriod `l `s ]
+[e :U _PIN_MANAGER_Initialize ]
+[f ]
 "60
-[; ;main.c: 60:         } else {
-}
-[e $U 2264  ]
-[e :U 2263 ]
-{
+[; ;mcc_generated_files/pin_manager.c: 60:     LATE = 0x00;
+[e = _LATE -> -> 0 `i `uc ]
 "61
-[; ;main.c: 61:             speed = (int16_t)((int32_t)(-500000 / (int32_t)smtPeriod));
-[e = _speed -> / -U -> 500000 `l -> _smtPeriod `l `s ]
+[; ;mcc_generated_files/pin_manager.c: 61:     LATD = 0x00;
+[e = _LATD -> -> 0 `i `uc ]
 "62
-[; ;main.c: 62:         }
-}
-[e :U 2264 ]
+[; ;mcc_generated_files/pin_manager.c: 62:     LATA = 0x24;
+[e = _LATA -> -> 36 `i `uc ]
 "63
-[; ;main.c: 63:     }
-}
-[e :U 2262 ]
+[; ;mcc_generated_files/pin_manager.c: 63:     LATB = 0x00;
+[e = _LATB -> -> 0 `i `uc ]
 "64
-[; ;main.c: 64:     return speed;
-[e ) _speed ]
-[e $UE 2261  ]
-"65
-[; ;main.c: 65: }
-[e :UE 2261 ]
-}
-"67
-[; ;main.c: 67: void getBatteryVoltage(void){
-[v _getBatteryVoltage `(v ~T0 @X0 1 ef ]
-{
-[e :U _getBatteryVoltage ]
-[f ]
-"68
-[; ;main.c: 68:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-[e = _BatteryVolt ( _ADCC_GetSingleConversion (1 . `E16091 0 ]
+[; ;mcc_generated_files/pin_manager.c: 64:     LATC = 0x00;
+[e = _LATC -> -> 0 `i `uc ]
 "69
-[; ;main.c: 69:     printf("BVolt: %d\n", BatteryVolt);
-[e ( _printf , (. :s 1C -> _BatteryVolt `ui ]
+[; ;mcc_generated_files/pin_manager.c: 69:     TRISE = 0x07;
+[e = _TRISE -> -> 7 `i `uc ]
 "70
-[; ;main.c: 70: }
-[e :UE 2265 ]
-}
+[; ;mcc_generated_files/pin_manager.c: 70:     TRISA = 0xC0;
+[e = _TRISA -> -> 192 `i `uc ]
+"71
+[; ;mcc_generated_files/pin_manager.c: 71:     TRISB = 0xF7;
+[e = _TRISB -> -> 247 `i `uc ]
 "72
-[; ;main.c: 72: void getCurve(void){
-[v _getCurve `(v ~T0 @X0 1 ef ]
-{
-[e :U _getCurve ]
-[f ]
+[; ;mcc_generated_files/pin_manager.c: 72:     TRISC = 0xFF;
+[e = _TRISC -> -> 255 `i `uc ]
 "73
-[; ;main.c: 73:     int16_t deltaLeft;
-[v _deltaLeft `s ~T0 @X0 1 a ]
-"74
-[; ;main.c: 74:     int16_t deltaRight;
-[v _deltaRight `s ~T0 @X0 1 a ]
-"76
-[; ;main.c: 76:     switch (curveMode){
-[e $U 2268  ]
-{
-"77
-[; ;main.c: 77:         case OutCurve:
-[e :U 2269 ]
+[; ;mcc_generated_files/pin_manager.c: 73:     TRISD = 0xFF;
+[e = _TRISD -> -> 255 `i `uc ]
 "78
-[; ;main.c: 78:             deltaLeft = (int16_t)(distLeft - oldDistLeft);
-[e = _deltaLeft -> - -> _distLeft `ui -> _oldDistLeft `ui `s ]
+[; ;mcc_generated_files/pin_manager.c: 78:     ANSELD = 0x1F;
+[e = _ANSELD -> -> 31 `i `uc ]
 "79
-[; ;main.c: 79:             deltaRight = (int16_t)(distRight - oldDistRight);
-[e = _deltaRight -> - -> _distRight `ui -> _oldDistRight `ui `s ]
+[; ;mcc_generated_files/pin_manager.c: 79:     ANSELC = 0xFF;
+[e = _ANSELC -> -> 255 `i `uc ]
 "80
-[; ;main.c: 80:             printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
-[e ( _printf , , (. :s 2C -> _deltaLeft `i -> _deltaRight `i ]
+[; ;mcc_generated_files/pin_manager.c: 80:     ANSELB = 0xC0;
+[e = _ANSELB -> -> 192 `i `uc ]
+"81
+[; ;mcc_generated_files/pin_manager.c: 81:     ANSELE = 0x07;
+[e = _ANSELE -> -> 7 `i `uc ]
 "82
-[; ;main.c: 82:             if(deltaLeft > (50)){
-[e $ ! > -> _deltaLeft `i -> 50 `i 2270  ]
-{
-"83
-[; ;main.c: 83:                 delay = 0;
-[e = _delay -> -> 0 `i `uc ]
-"84
-[; ;main.c: 84:                 curveMode = BeforeCurve;
-[e = _curveMode . `E17309 1 ]
-"85
-[; ;main.c: 85:                 driveMode = CurveLeft;
-[e = _driveMode . `E17295 3 ]
-"86
-[; ;main.c: 86:                 printf("   CurveLeft");
-[e ( _printf :s 3C ]
+[; ;mcc_generated_files/pin_manager.c: 82:     ANSELA = 0x7F;
+[e = _ANSELA -> -> 127 `i `uc ]
 "87
-[; ;main.c: 87:             } else if(deltaRight > (50)){
-}
-[e $U 2271  ]
-[e :U 2270 ]
-[e $ ! > -> _deltaRight `i -> 50 `i 2272  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 87:     WPUD = 0x00;
+[e = _WPUD -> -> 0 `i `uc ]
 "88
-[; ;main.c: 88:                 delay = 0;
-[e = _delay -> -> 0 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 88:     WPUE = 0x00;
+[e = _WPUE -> -> 0 `i `uc ]
 "89
-[; ;main.c: 89:                 curveMode = BeforeCurve;
-[e = _curveMode . `E17309 1 ]
+[; ;mcc_generated_files/pin_manager.c: 89:     WPUB = 0x00;
+[e = _WPUB -> -> 0 `i `uc ]
 "90
-[; ;main.c: 90:                 driveMode = CurveRight;
-[e = _driveMode . `E17295 4 ]
+[; ;mcc_generated_files/pin_manager.c: 90:     WPUA = 0x00;
+[e = _WPUA -> -> 0 `i `uc ]
 "91
-[; ;main.c: 91:                 printf("   CurveRight");
-[e ( _printf :s 4C ]
-"92
-[; ;main.c: 92:             }
-}
-[e :U 2272 ]
-[e :U 2271 ]
-"93
-[; ;main.c: 93:             printf("\n");
-[e ( _printf :s 5C ]
-"95
-[; ;main.c: 95:             break;
-[e $U 2267  ]
+[; ;mcc_generated_files/pin_manager.c: 91:     WPUC = 0x00;
+[e = _WPUC -> -> 0 `i `uc ]
 "96
-[; ;main.c: 96:         case BeforeCurve:
-[e :U 2273 ]
+[; ;mcc_generated_files/pin_manager.c: 96:     RB1I2C = 0x00;
+[e = _RB1I2C -> -> 0 `i `uc ]
 "97
-[; ;main.c: 97:             if(delay > (5)){
-[e $ ! > -> _delay `i -> 5 `i 2274  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 97:     RB2I2C = 0x00;
+[e = _RB2I2C -> -> 0 `i `uc ]
 "98
-[; ;main.c: 98:                 delay = 0;
-[e = _delay -> -> 0 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 98:     RC3I2C = 0x00;
+[e = _RC3I2C -> -> 0 `i `uc ]
 "99
-[; ;main.c: 99:                 curveMode = InCurve;
-[e = _curveMode . `E17309 2 ]
+[; ;mcc_generated_files/pin_manager.c: 99:     RC4I2C = 0x00;
+[e = _RC4I2C -> -> 0 `i `uc ]
 "100
-[; ;main.c: 100:                 printf("InCurve\n");
-[e ( _printf :s 6C ]
+[; ;mcc_generated_files/pin_manager.c: 100:     RD0I2C = 0x00;
+[e = _RD0I2C -> -> 0 `i `uc ]
 "101
-[; ;main.c: 101:             } else {
-}
-[e $U 2275  ]
-[e :U 2274 ]
-{
-"102
-[; ;main.c: 102:                 delay++;
-[e ++ _delay -> -> 1 `i `uc ]
-"103
-[; ;main.c: 103:             }
-}
-[e :U 2275 ]
-"104
-[; ;main.c: 104:             break;
-[e $U 2267  ]
-"105
-[; ;main.c: 105:         case InCurve:
-[e :U 2276 ]
+[; ;mcc_generated_files/pin_manager.c: 101:     RD1I2C = 0x00;
+[e = _RD1I2C -> -> 0 `i `uc ]
 "106
-[; ;main.c: 106:             if(delay > (20)){
-[e $ ! > -> _delay `i -> 20 `i 2277  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 106:     ODCONE = 0x00;
+[e = _ODCONE -> -> 0 `i `uc ]
 "107
-[; ;main.c: 107:                 if(driveMode == CurveLeft){
-[e $ ! == -> _driveMode `ui -> . `E17295 3 `ui 2278  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 107:     ODCONA = 0x00;
+[e = _ODCONA -> -> 0 `i `uc ]
 "108
-[; ;main.c: 108:                     printf("distL= %d\n", distLeft);
-[e ( _printf , (. :s 7C -> _distLeft `ui ]
+[; ;mcc_generated_files/pin_manager.c: 108:     ODCONB = 0x00;
+[e = _ODCONB -> -> 0 `i `uc ]
 "109
-[; ;main.c: 109:                 } else if(driveMode == CurveLeft){
-}
-[e $U 2279  ]
-[e :U 2278 ]
-[e $ ! == -> _driveMode `ui -> . `E17295 3 `ui 2280  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 109:     ODCONC = 0x00;
+[e = _ODCONC -> -> 0 `i `uc ]
 "110
-[; ;main.c: 110:                     printf("distR= %d\n", distRight);
-[e ( _printf , (. :s 8C -> _distRight `ui ]
-"111
-[; ;main.c: 111:                 }
-}
-[e :U 2280 ]
-[e :U 2279 ]
-"113
-[; ;main.c: 113:                 if(distLeft < (40) || distRight < (40)){
-[e $ ! || < -> _distLeft `ui -> -> 40 `i `ui < -> _distRight `ui -> -> 40 `i `ui 2281  ]
-{
-"114
-[; ;main.c: 114:                     delay = 0;
-[e = _delay -> -> 0 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 110:     ODCOND = 0x00;
+[e = _ODCOND -> -> 0 `i `uc ]
 "115
-[; ;main.c: 115:                     curveMode = AfterCurve;
-[e = _curveMode . `E17309 3 ]
+[; ;mcc_generated_files/pin_manager.c: 115:     SLRCONA = 0xFF;
+[e = _SLRCONA -> -> 255 `i `uc ]
 "116
-[; ;main.c: 116:                     driveMode = Strait;
-[e = _driveMode . `E17295 0 ]
+[; ;mcc_generated_files/pin_manager.c: 116:     SLRCONB = 0xFF;
+[e = _SLRCONB -> -> 255 `i `uc ]
 "117
-[; ;main.c: 117:                     printf("AfterCurve\n");
-[e ( _printf :s 9C ]
+[; ;mcc_generated_files/pin_manager.c: 117:     SLRCONC = 0xFF;
+[e = _SLRCONC -> -> 255 `i `uc ]
 "118
-[; ;main.c: 118:                 }
-}
-[e :U 2281 ]
+[; ;mcc_generated_files/pin_manager.c: 118:     SLRCOND = 0xFF;
+[e = _SLRCOND -> -> 255 `i `uc ]
 "119
-[; ;main.c: 119:             } else {
-}
-[e $U 2282  ]
-[e :U 2277 ]
-{
-"120
-[; ;main.c: 120:                 delay++;
-[e ++ _delay -> -> 1 `i `uc ]
-"121
-[; ;main.c: 121:             }
-}
-[e :U 2282 ]
-"122
-[; ;main.c: 122:             break;
-[e $U 2267  ]
-"123
-[; ;main.c: 123:         case AfterCurve:
-[e :U 2283 ]
+[; ;mcc_generated_files/pin_manager.c: 119:     SLRCONE = 0x07;
+[e = _SLRCONE -> -> 7 `i `uc ]
 "124
-[; ;main.c: 124:             if(delay > (20)){
-[e $ ! > -> _delay `i -> 20 `i 2284  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 124:     INLVLA = 0xFF;
+[e = _INLVLA -> -> 255 `i `uc ]
 "125
-[; ;main.c: 125:                 delay = 0;
-[e = _delay -> -> 0 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 125:     INLVLB = 0xFF;
+[e = _INLVLB -> -> 255 `i `uc ]
 "126
-[; ;main.c: 126:                 curveMode = OutCurve;
-[e = _curveMode . `E17309 0 ]
+[; ;mcc_generated_files/pin_manager.c: 126:     INLVLC = 0xFF;
+[e = _INLVLC -> -> 255 `i `uc ]
 "127
-[; ;main.c: 127:                 printf("OutCurve\n");
-[e ( _printf :s 10C ]
+[; ;mcc_generated_files/pin_manager.c: 127:     INLVLD = 0xFF;
+[e = _INLVLD -> -> 255 `i `uc ]
 "128
-[; ;main.c: 128:             } else {
-}
-[e $U 2285  ]
-[e :U 2284 ]
-{
-"129
-[; ;main.c: 129:                 delay++;
-[e ++ _delay -> -> 1 `i `uc ]
-"130
-[; ;main.c: 130:             }
-}
-[e :U 2285 ]
-"131
-[; ;main.c: 131:             break;
-[e $U 2267  ]
-"132
-[; ;main.c: 132:     };
-}
-[e $U 2267  ]
-[e :U 2268 ]
-[e [\ -> _curveMode `ui , $ -> . `E17309 0 `ui 2269
- , $ -> . `E17309 1 `ui 2273
- , $ -> . `E17309 2 `ui 2276
- , $ -> . `E17309 3 `ui 2283
- 2267 ]
-[e :U 2267 ]
-"133
-[; ;main.c: 133:     oldDistLeft = distLeft;
-[e = _oldDistLeft _distLeft ]
-"134
-[; ;main.c: 134:     oldDistRight = distRight;
-[e = _oldDistRight _distRight ]
-"135
-[; ;main.c: 135: }
-[e :UE 2266 ]
-}
+[; ;mcc_generated_files/pin_manager.c: 128:     INLVLE = 0x0F;
+[e = _INLVLE -> -> 15 `i `uc ]
 "137
-[; ;main.c: 137: void getReverse(void){
-[v _getReverse `(v ~T0 @X0 1 ef ]
-{
-[e :U _getReverse ]
-[f ]
+[; ;mcc_generated_files/pin_manager.c: 137:     CCP3PPS = 0x1F;
+[e = _CCP3PPS -> -> 31 `i `uc ]
 "138
-[; ;main.c: 138:     if(distFront < (10)){
-[e $ ! < -> _distFront `ui -> -> 10 `i `ui 2287  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 138:     CLCIN3PPS = 0x09;
+[e = _CLCIN3PPS -> -> 9 `i `uc ]
 "139
-[; ;main.c: 139:         ++reverseCount;
-[e =+ _reverseCount -> -> 1 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 139:     RA1PPS = 0x0E;
+[e = _RA1PPS -> -> 14 `i `uc ]
 "140
-[; ;main.c: 140:     }else if(driveMode != Backwards){
-}
-[e $U 2288  ]
-[e :U 2287 ]
-[e $ ! != -> _driveMode `ui -> . `E17295 2 `ui 2289  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 140:     U1RXPPS = 0x0A;
+[e = _U1RXPPS -> -> 10 `i `uc ]
 "141
-[; ;main.c: 141:         reverseCount = 0;
-[e = _reverseCount -> -> 0 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 141:     RA0PPS = 0x0D;
+[e = _RA0PPS -> -> 13 `i `uc ]
 "142
-[; ;main.c: 142:     }
-}
-[e :U 2289 ]
-[e :U 2288 ]
+[; ;mcc_generated_files/pin_manager.c: 142:     T5GPPS = 0x1D;
+[e = _T5GPPS -> -> 29 `i `uc ]
+"143
+[; ;mcc_generated_files/pin_manager.c: 143:     RA4PPS = 0x10;
+[e = _RA4PPS -> -> 16 `i `uc ]
 "144
-[; ;main.c: 144:     if(reverseCount > (25)){
-[e $ ! > -> _reverseCount `i -> 25 `i 2290  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 144:     CLCIN0PPS = 0x07;
+[e = _CLCIN0PPS -> -> 7 `i `uc ]
 "145
-[; ;main.c: 145:         driveMode = Backwards;
-[e = _driveMode . `E17295 2 ]
+[; ;mcc_generated_files/pin_manager.c: 145:     SMT1WINPPS = 0x09;
+[e = _SMT1WINPPS -> -> 9 `i `uc ]
 "146
-[; ;main.c: 146:         if(distFront > (40)){
-[e $ ! > -> _distFront `ui -> -> 40 `i `ui 2291  ]
-{
+[; ;mcc_generated_files/pin_manager.c: 146:     RA3PPS = 0x0F;
+[e = _RA3PPS -> -> 15 `i `uc ]
 "147
-[; ;main.c: 147:              driveMode = Strait;
-[e = _driveMode . `E17295 0 ]
+[; ;mcc_generated_files/pin_manager.c: 147:     RB3PPS = 0x13;
+[e = _RB3PPS -> -> 19 `i `uc ]
 "148
-[; ;main.c: 148:              reverseCount = 0;
-[e = _reverseCount -> -> 0 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 148:     CLCIN2PPS = 0x08;
+[e = _CLCIN2PPS -> -> 8 `i `uc ]
 "149
-[; ;main.c: 149:         }
-}
-[e :U 2291 ]
+[; ;mcc_generated_files/pin_manager.c: 149:     SMT1SIGPPS = 0x08;
+[e = _SMT1SIGPPS -> -> 8 `i `uc ]
 "150
-[; ;main.c: 150:     }
-}
-[e :U 2290 ]
+[; ;mcc_generated_files/pin_manager.c: 150:     CCP4PPS = 0x1E;
+[e = _CCP4PPS -> -> 30 `i `uc ]
 "151
-[; ;main.c: 151: }
-[e :UE 2286 ]
+[; ;mcc_generated_files/pin_manager.c: 151: }
+[e :UE 2229 ]
 }
 "153
-[; ;main.c: 153: void calcSteering(void){
-[v _calcSteering `(v ~T0 @X0 1 ef ]
-{
-[e :U _calcSteering ]
-[f ]
+[; ;mcc_generated_files/pin_manager.c: 153: void PIN_MANAGER_IOC(void)
+[v _PIN_MANAGER_IOC `(v ~T0 @X0 1 ef ]
 "154
-[; ;main.c: 154:     int16_t delta = (int16_t)(distLeft - distRight ) - (int8_t)((0) * 1.4142135);
-[v _delta `s ~T0 @X0 1 a ]
-[e = _delta -> - -> -> - -> _distLeft `ui -> _distRight `ui `s `i -> -> * -> -> 0 `i `d .1.4142135 `c `i `s ]
+[; ;mcc_generated_files/pin_manager.c: 154: {
+{
+[e :U _PIN_MANAGER_IOC ]
+[f ]
 "155
-[; ;main.c: 155:     delta /= (2);
-[e =/ _delta -> 2 `i ]
-"159
-[; ;main.c: 159:     switch (driveMode){
-[e $U 2294  ]
-{
-"160
-[; ;main.c: 160:         case Brake:
-[e :U 2295 ]
-"161
-[; ;main.c: 161:             setSteering(delta, Ratio);
-[e ( _setSteering (2 , _delta . `E17302 2 ]
-"162
-[; ;main.c: 162:             break;
-[e $U 2293  ]
-"163
-[; ;main.c: 163:         case Strait:
-[e :U 2296 ]
-"164
-[; ;main.c: 164:             setSteering(delta, Front);
-[e ( _setSteering (2 , _delta . `E17302 3 ]
-"165
-[; ;main.c: 165:             break;
-[e $U 2293  ]
-"166
-[; ;main.c: 166:         case Backwards:
-[e :U 2297 ]
-"167
-[; ;main.c: 167:             if(distLeft < distRight){
-[e $ ! < -> _distLeft `ui -> _distRight `ui 2298  ]
-{
-"168
-[; ;main.c: 168:                 setSteering(-(65), Front);
-[e ( _setSteering (2 , -> -U -> 65 `i `s . `E17302 3 ]
-"169
-[; ;main.c: 169:             }else{
+[; ;mcc_generated_files/pin_manager.c: 155: }
+[e :UE 2230 ]
 }
-[e $U 2299  ]
-[e :U 2298 ]
-{
-"170
-[; ;main.c: 170:                 setSteering((65), Front);
-[e ( _setSteering (2 , -> -> 65 `i `s . `E17302 3 ]
-"171
-[; ;main.c: 171:             }
-}
-[e :U 2299 ]
-"172
-[; ;main.c: 172:             break;
-[e $U 2293  ]
-"173
-[; ;main.c: 173:         case CurveLeft:
-[e :U 2300 ]
-"174
-[; ;main.c: 174:             if(curveMode == InCurve){
-[e $ ! == -> _curveMode `ui -> . `E17309 2 `ui 2301  ]
-{
-"175
-[; ;main.c: 175:                 setSteering((65), Inverted);
-[e ( _setSteering (2 , -> -> 65 `i `s . `E17302 0 ]
-"176
-[; ;main.c: 176:             } else {
-}
-[e $U 2302  ]
-[e :U 2301 ]
-{
-"177
-[; ;main.c: 177:                 setSteering(delta, Front);
-[e ( _setSteering (2 , _delta . `E17302 3 ]
-"178
-[; ;main.c: 178:             }
-}
-[e :U 2302 ]
-"179
-[; ;main.c: 179:             break;
-[e $U 2293  ]
-"180
-[; ;main.c: 180:         case CurveRight:
-[e :U 2303 ]
-"181
-[; ;main.c: 181:             if(curveMode == InCurve){
-[e $ ! == -> _curveMode `ui -> . `E17309 2 `ui 2304  ]
-{
-"182
-[; ;main.c: 182:                 setSteering(-(65), Inverted);
-[e ( _setSteering (2 , -> -U -> 65 `i `s . `E17302 0 ]
-"183
-[; ;main.c: 183:             } else {
-}
-[e $U 2305  ]
-[e :U 2304 ]
-{
-"184
-[; ;main.c: 184:                 setSteering(delta, Front);
-[e ( _setSteering (2 , _delta . `E17302 3 ]
-"185
-[; ;main.c: 185:             }
-}
-[e :U 2305 ]
-"186
-[; ;main.c: 186:             break;
-[e $U 2293  ]
-"187
-[; ;main.c: 187:     };
-}
-[e $U 2293  ]
-[e :U 2294 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 1 `ui 2295
- , $ -> . `E17295 0 `ui 2296
- , $ -> . `E17295 2 `ui 2297
- , $ -> . `E17295 3 `ui 2300
- , $ -> . `E17295 4 `ui 2303
- 2293 ]
-[e :U 2293 ]
-"188
-[; ;main.c: 188: }
-[e :UE 2292 ]
-}
-"193
-[; ;main.c: 193: void setSteering(int16_t steering, SteeringMode steeringMode){
-[v _setSteering `(v ~T0 @X0 1 ef2`s`E17302 ]
-{
-[e :U _setSteering ]
-[v _steering `s ~T0 @X0 1 r1 ]
-[v _steeringMode `E17302 ~T0 @X0 1 r2 ]
-[f ]
-"194
-[; ;main.c: 194:     int16_t steeringF = 0, steeringB = 0;
-[v _steeringF `s ~T0 @X0 1 a ]
-[e = _steeringF -> -> 0 `i `s ]
-[v _steeringB `s ~T0 @X0 1 a ]
-[e = _steeringB -> -> 0 `i `s ]
-"195
-[; ;main.c: 195:     switch(steeringMode){
-[e $U 2308  ]
-{
-"196
-[; ;main.c: 196:         case Inverted:
-[e :U 2309 ]
-"197
-[; ;main.c: 197:             steeringF = (-steering);
-[e = _steeringF -> -U -> _steering `i `s ]
-"198
-[; ;main.c: 198:             steeringB = steering;
-[e = _steeringB _steering ]
-"199
-[; ;main.c: 199:             break;
-[e $U 2307  ]
-"200
-[; ;main.c: 200:         case Same:
-[e :U 2310 ]
-"201
-[; ;main.c: 201:             steeringF = (-steering);
-[e = _steeringF -> -U -> _steering `i `s ]
-"202
-[; ;main.c: 202:             steeringB = (-steering);
-[e = _steeringB -> -U -> _steering `i `s ]
-"203
-[; ;main.c: 203:             break;
-[e $U 2307  ]
-"204
-[; ;main.c: 204:         case Ratio:
-[e :U 2311 ]
-"205
-[; ;main.c: 205:             steeringF = (-steering);
-[e = _steeringF -> -U -> _steering `i `s ]
-"206
-[; ;main.c: 206:             steeringB = (steering / (3));
-[e = _steeringB -> / -> _steering `i -> 3 `i `s ]
-"207
-[; ;main.c: 207:             break;
-[e $U 2307  ]
-"208
-[; ;main.c: 208:         case Front:
-[e :U 2312 ]
-"209
-[; ;main.c: 209:             steeringF = (-steering);
-[e = _steeringF -> -U -> _steering `i `s ]
-"211
-[; ;main.c: 211:             break;
-[e $U 2307  ]
-"212
-[; ;main.c: 212:         case Back:
-[e :U 2313 ]
-"214
-[; ;main.c: 214:             steeringB = (-steering);
-[e = _steeringB -> -U -> _steering `i `s ]
-"215
-[; ;main.c: 215:             break;
-[e $U 2307  ]
-"216
-[; ;main.c: 216:         default:
-[e :U 2314 ]
-"219
-[; ;main.c: 219:             break;
-[e $U 2307  ]
-"220
-[; ;main.c: 220:     }
-}
-[e $U 2307  ]
-[e :U 2308 ]
-[e [\ -> _steeringMode `ui , $ -> . `E17302 0 `ui 2309
- , $ -> . `E17302 1 `ui 2310
- , $ -> . `E17302 2 `ui 2311
- , $ -> . `E17302 3 `ui 2312
- , $ -> . `E17302 4 `ui 2313
- 2314 ]
-[e :U 2307 ]
-"222
-[; ;main.c: 222:     if(steeringF > ((65))){
-[e $ ! > -> _steeringF `i -> 65 `i 2315  ]
-{
-"223
-[; ;main.c: 223:         steeringF = ((65));
-[e = _steeringF -> -> 65 `i `s ]
-"224
-[; ;main.c: 224:     } else if(steeringF < (-(65))){
-}
-[e $U 2316  ]
-[e :U 2315 ]
-[e $ ! < -> _steeringF `i -U -> 65 `i 2317  ]
-{
-"225
-[; ;main.c: 225:         steeringF = (-(65));
-[e = _steeringF -> -U -> 65 `i `s ]
-"226
-[; ;main.c: 226:     }
-}
-[e :U 2317 ]
-[e :U 2316 ]
-"228
-[; ;main.c: 228:     if(steeringB > ((45))){
-[e $ ! > -> _steeringB `i -> 45 `i 2318  ]
-{
-"229
-[; ;main.c: 229:         steeringB = ((45));
-[e = _steeringB -> -> 45 `i `s ]
-"230
-[; ;main.c: 230:     } else if(steeringB < (-(45))){
-}
-[e $U 2319  ]
-[e :U 2318 ]
-[e $ ! < -> _steeringB `i -U -> 45 `i 2320  ]
-{
-"231
-[; ;main.c: 231:         steeringB = (-(45));
-[e = _steeringB -> -U -> 45 `i `s ]
-"232
-[; ;main.c: 232:     }
-}
-[e :U 2320 ]
-[e :U 2319 ]
-"235
-[; ;main.c: 235:     PWM6_LoadDutyValue((uint16_t)((352) - steeringF));
-[e ( _PWM6_LoadDutyValue (1 -> - -> 352 `i -> _steeringF `i `us ]
-"236
-[; ;main.c: 236:     PWM5_LoadDutyValue((uint16_t)((357) - steeringB));
-[e ( _PWM5_LoadDutyValue (1 -> - -> 357 `i -> _steeringB `i `us ]
-"237
-[; ;main.c: 237: }
-[e :UE 2306 ]
-}
-"239
-[; ;main.c: 239: void calcSpeed(void){
-[v _calcSpeed `(v ~T0 @X0 1 ef ]
-{
-[e :U _calcSpeed ]
-[f ]
-"240
-[; ;main.c: 240:     int16_t speed = 0;
-[v _speed `s ~T0 @X0 1 a ]
-[e = _speed -> -> 0 `i `s ]
-"242
-[; ;main.c: 242:     switch (driveMode){
-[e $U 2323  ]
-{
-"243
-[; ;main.c: 243:         case Brake:
-[e :U 2324 ]
-"244
-[; ;main.c: 244:             if(distFront > 40) {
-[e $ ! > -> _distFront `ui -> -> 40 `i `ui 2325  ]
-{
-"245
-[; ;main.c: 245:                 driveMode = Strait;
-[e = _driveMode . `E17295 0 ]
-"246
-[; ;main.c: 246:             }
-}
-[e :U 2325 ]
-"248
-[; ;main.c: 248:             if(distFront < 40 && setSpeed > 0){
-[e $ ! && < -> _distFront `ui -> -> 40 `i `ui > -> _setSpeed `i -> 0 `i 2326  ]
-{
-"249
-[; ;main.c: 249:                 speed = setSpeed;
-[e = _speed _setSpeed ]
-"250
-[; ;main.c: 250:                 speed -= 1;
-[e =- _speed -> -> 1 `i `s ]
-"251
-[; ;main.c: 251:             }else if( distFront < 20){
-}
-[e $U 2327  ]
-[e :U 2326 ]
-[e $ ! < -> _distFront `ui -> -> 20 `i `ui 2328  ]
-{
-"252
-[; ;main.c: 252:                 speed = setSpeed;
-[e = _speed _setSpeed ]
-"253
-[; ;main.c: 253:                 speed -= 2;
-[e =- _speed -> -> 2 `i `s ]
-"254
-[; ;main.c: 254:             }
-}
-[e :U 2328 ]
-[e :U 2327 ]
-"255
-[; ;main.c: 255:             break;
-[e $U 2322  ]
-"256
-[; ;main.c: 256:         case Strait:
-[e :U 2329 ]
-"257
-[; ;main.c: 257:             if(distFront < 40) {
-[e $ ! < -> _distFront `ui -> -> 40 `i `ui 2330  ]
-{
-"258
-[; ;main.c: 258:                 driveMode = Brake;
-[e = _driveMode . `E17295 1 ]
-"259
-[; ;main.c: 259:             }
-}
-[e :U 2330 ]
-"261
-[; ;main.c: 261:             speed = (int16_t)((0.8) * distFront + (150));
-[e = _speed -> + * .0.8 -> -> _distFront `ui `d -> -> 150 `i `d `s ]
-"262
-[; ;main.c: 262:             break;
-[e $U 2322  ]
-"263
-[; ;main.c: 263:         case Backwards:
-[e :U 2331 ]
-"264
-[; ;main.c: 264:             speed = (-150);
-[e = _speed -> -U -> 150 `i `s ]
-"265
-[; ;main.c: 265:             break;
-[e $U 2322  ]
-"266
-[; ;main.c: 266:         case CurveLeft:
-[e :U 2332 ]
-"267
-[; ;main.c: 267:             speed = (150);
-[e = _speed -> -> 150 `i `s ]
-"268
-[; ;main.c: 268:             break;
-[e $U 2322  ]
-"269
-[; ;main.c: 269:         case CurveRight:
-[e :U 2333 ]
-"270
-[; ;main.c: 270:             speed = (150);
-[e = _speed -> -> 150 `i `s ]
-"271
-[; ;main.c: 271:             break;
-[e $U 2322  ]
-"272
-[; ;main.c: 272:     };
-}
-[e $U 2322  ]
-[e :U 2323 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 1 `ui 2324
- , $ -> . `E17295 0 `ui 2329
- , $ -> . `E17295 2 `ui 2331
- , $ -> . `E17295 3 `ui 2332
- , $ -> . `E17295 4 `ui 2333
- 2322 ]
-[e :U 2322 ]
-"274
-[; ;main.c: 274:     if(speed > (400)){
-[e $ ! > -> _speed `i -> 400 `i 2334  ]
-{
-"275
-[; ;main.c: 275:         speed = (400);
-[e = _speed -> -> 400 `i `s ]
-"276
-[; ;main.c: 276:     }
-}
-[e :U 2334 ]
-"277
-[; ;main.c: 277:     if(speed < (-250)){
-[e $ ! < -> _speed `i -U -> 250 `i 2335  ]
-{
-"278
-[; ;main.c: 278:         speed = (-250);
-[e = _speed -> -U -> 250 `i `s ]
-"279
-[; ;main.c: 279:     }
-}
-[e :U 2335 ]
-"280
-[; ;main.c: 280:     setSpeed = speed;
-[e = _setSpeed _speed ]
-"281
-[; ;main.c: 281: }
-[e :UE 2321 ]
-}
-"283
-[; ;main.c: 283: void calcMotorPow(void){
-[v _calcMotorPow `(v ~T0 @X0 1 ef ]
-{
-[e :U _calcMotorPow ]
-[f ]
-"284
-[; ;main.c: 284:     int16_t setSpeedDelta = setSpeed - currentSpeed;
-[v _setSpeedDelta `s ~T0 @X0 1 a ]
-[e = _setSpeedDelta -> - -> _setSpeed `i -> _currentSpeed `i `s ]
-"285
-[; ;main.c: 285:     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
-[v _oldSpeedDelta `s ~T0 @X0 1 a ]
-[e = _oldSpeedDelta -> - -> _currentSpeed `i -> _oldSpeed `i `s ]
-"286
-[; ;main.c: 286:     int8_t addMPow = 0;
-[v _addMPow `c ~T0 @X0 1 a ]
-[e = _addMPow -> -> 0 `i `c ]
-"288
-[; ;main.c: 288:     currentSpeed = actSpeed();
-[e = _currentSpeed ( _actSpeed ..  ]
-"292
-[; ;main.c: 292:  addMPow = (int8_t)((0.05) * (setSpeedDelta - (oldSpeedDelta / (1))));
-[e = _addMPow -> * .0.05 -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 1 `i `d `c ]
-"294
-[; ;main.c: 294:     if(addMPow > (3)){
-[e $ ! > -> _addMPow `i -> 3 `i 2337  ]
-{
-"295
-[; ;main.c: 295:         addMPow = (3);
-[e = _addMPow -> -> 3 `i `c ]
-"296
-[; ;main.c: 296:     }else if(addMPow < -(3)){
-}
-[e $U 2338  ]
-[e :U 2337 ]
-[e $ ! < -> _addMPow `i -U -> 3 `i 2339  ]
-{
-"297
-[; ;main.c: 297:         addMPow = -(3);
-[e = _addMPow -> -U -> 3 `i `c ]
-"298
-[; ;main.c: 298:     }
-}
-[e :U 2339 ]
-[e :U 2338 ]
-"300
-[; ;main.c: 300:  actMotorPow = actMotorPow + addMPow;
-[e = _actMotorPow -> + -> _actMotorPow `i -> _addMPow `i `s ]
-"302
-[; ;main.c: 302:  if(actMotorPow > (600)){
-[e $ ! > -> _actMotorPow `i -> 600 `i 2340  ]
-{
-"303
-[; ;main.c: 303:   actMotorPow = (600);
-[e = _actMotorPow -> -> 600 `i `s ]
-"304
-[; ;main.c: 304:  }else if(actMotorPow < (-300)){
-}
-[e $U 2341  ]
-[e :U 2340 ]
-[e $ ! < -> _actMotorPow `i -U -> 300 `i 2342  ]
-{
-"305
-[; ;main.c: 305:   actMotorPow = (-300);
-[e = _actMotorPow -> -U -> 300 `i `s ]
-"306
-[; ;main.c: 306:  }
-}
-[e :U 2342 ]
-[e :U 2341 ]
-"308
-[; ;main.c: 308:     setMotor(actMotorPow);
-[e ( _setMotor (1 _actMotorPow ]
-"310
-[; ;main.c: 310:     oldSpeed = currentSpeed;
-[e = _oldSpeed _currentSpeed ]
-"311
-[; ;main.c: 311: }
-[e :UE 2336 ]
-}
-"313
-[; ;main.c: 313: void setMotor(int16_t motorPower){
-[v _setMotor `(v ~T0 @X0 1 ef1`s ]
-{
-[e :U _setMotor ]
-[v _motorPower `s ~T0 @X0 1 r1 ]
-[f ]
-"314
-[; ;main.c: 314:     if(motorPower > 1){
-[e $ ! > -> _motorPower `i -> 1 `i 2344  ]
-{
-"315
-[; ;main.c: 315:        if(motorPower > (600)){
-[e $ ! > -> _motorPower `i -> 600 `i 2345  ]
-{
-"316
-[; ;main.c: 316:             motorPower = (600);
-[e = _motorPower -> -> 600 `i `s ]
-"317
-[; ;main.c: 317:         }
-}
-[e :U 2345 ]
-"318
-[; ;main.c: 318:         PWM7_LoadDutyValue((uint16_t)(motorPower));
-[e ( _PWM7_LoadDutyValue (1 -> _motorPower `us ]
-"319
-[; ;main.c: 319:         PWM8_LoadDutyValue(0);
-[e ( _PWM8_LoadDutyValue (1 -> -> 0 `i `us ]
-"320
-[; ;main.c: 320:     } else if(motorPower < -1){
-}
-[e $U 2346  ]
-[e :U 2344 ]
-[e $ ! < -> _motorPower `i -U -> 1 `i 2347  ]
-{
-"321
-[; ;main.c: 321:         if(motorPower < (-300)){
-[e $ ! < -> _motorPower `i -U -> 300 `i 2348  ]
-{
-"322
-[; ;main.c: 322:             motorPower = (-300);
-[e = _motorPower -> -U -> 300 `i `s ]
-"323
-[; ;main.c: 323:         }
-}
-[e :U 2348 ]
-"324
-[; ;main.c: 324:         PWM7_LoadDutyValue(0);
-[e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
-"325
-[; ;main.c: 325:         PWM8_LoadDutyValue((uint16_t)(-motorPower));
-[e ( _PWM8_LoadDutyValue (1 -> -U -> _motorPower `i `us ]
-"326
-[; ;main.c: 326:     } else {
-}
-[e $U 2349  ]
-[e :U 2347 ]
-{
-"327
-[; ;main.c: 327:         PWM7_LoadDutyValue(0);
-[e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
-"328
-[; ;main.c: 328:         PWM8_LoadDutyValue(0);
-[e ( _PWM8_LoadDutyValue (1 -> -> 0 `i `us ]
-"329
-[; ;main.c: 329:     }
-}
-[e :U 2349 ]
-[e :U 2346 ]
-"330
-[; ;main.c: 330: }
-[e :UE 2343 ]
-}
-[p f _printf 8388736 ]
-[a 4C 32 32 32 67 117 114 118 101 82 105 103 104 116 0 ]
-[a 3C 32 32 32 67 117 114 118 101 76 101 102 116 0 ]
-[a 2C 79 117 116 32 124 32 100 76 61 32 37 100 32 124 32 100 82 61 32 37 100 0 ]
-[a 10C 79 117 116 67 117 114 118 101 10 0 ]
-[a 9C 65 102 116 101 114 67 117 114 118 101 10 0 ]
-[a 6C 73 110 67 117 114 118 101 10 0 ]
-[a 8C 100 105 115 116 82 61 32 37 100 10 0 ]
-[a 7C 100 105 115 116 76 61 32 37 100 10 0 ]
-[a 1C 66 86 111 108 116 58 32 37 100 10 0 ]
-[a 5C 10 0 ]
