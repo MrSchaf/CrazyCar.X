@@ -14,14 +14,14 @@ void main(void) {
     loop(); 
 }
 
-void loop(){
+void loop(void){
     while(!diStart_GetValue());
     
     do{
 //        while(!cycle10ms);
 //        cycle10ms = 0;
         getBatteryVoltage();
-    }while(BatteryVolt < (MinBattValue * 409.6));
+    }while(BatteryVolt < (minBatValue * 409.6));
     
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -33,16 +33,16 @@ void loop(){
         if(diStop_GetValue()){
             break;
         }
-        if(ADCC_GetSingleConversion(aiBatt) < MinBattValue){
+        if(ADCC_GetSingleConversion(aiBatt) < minBatValue){
             setSpeed = 0;
-            setLenkung(0,Vorne);
+            setSteering(0,Front);
             break;
         }
 
-        getKurve();
+        getCurve();
         getReverse();
         
-        calcLenkung();
+        calcSteering();
         calcMotorPow();
         calcSpeed();
     }
@@ -69,62 +69,62 @@ void getBatteryVoltage(void){
     printf("BVolt: %d\n", BatteryVolt);
 }
 
-void getKurve(){
+void getCurve(void){
     int16_t deltaLeft;
     int16_t deltaRight;
 
-    switch (kurvenModus){
-        case AusKurve:
+    switch (curveMode){
+        case OutCurve:
             deltaLeft = (int16_t)(distLeft - oldDistLeft);
             deltaRight = (int16_t)(distRight - oldDistRight);
-            printf("Aus| dL= %d| dR= %d", deltaLeft, deltaRight);
+            printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
             
-            if(deltaLeft > startKurveDelta){
+            if(deltaLeft > startCurveDelta){
                 delay = 0;
-                kurvenModus = VorKurve;
-                fahrModus = KurveLinks;
-                printf("   KurveLinks");
-            } else if(deltaRight > startKurveDelta){
+                curveMode = BeforeCurve;
+                driveMode = CurveLeft;
+                printf("   CurveLeft");
+            } else if(deltaRight > startCurveDelta){
                 delay = 0;
-                kurvenModus = VorKurve;
-                fahrModus = KurveRight;
-                printf("   KurveRight");
+                curveMode = BeforeCurve;
+                driveMode = CurveRight;
+                printf("   CurveRight");
             }
             printf("\n");
 
             break;
-        case VorKurve:
+        case BeforeCurve:
             if(delay > setDelayStart){
                 delay = 0;
-                kurvenModus = InKurve;
-                printf("InKurve\n");
+                curveMode = InCurve;
+                printf("InCurve\n");
             } else {
                 delay++;
             }
             break;
-        case InKurve:
+        case InCurve:
             if(delay > setDelayEnd){
-                if(fahrModus == KurveLinks){
+                if(driveMode == CurveLeft){
                     printf("distL= %d\n", distLeft);
-                } else if(fahrModus == KurveLinks){
+                } else if(driveMode == CurveLeft){
                     printf("distR= %d\n", distRight);
                 }
 
-                if(distLeft < endKurveValue || distRight < endKurveValue){
+                if(distLeft < endCurveValue || distRight < endCurveValue){
                     delay = 0;
-                    kurvenModus = NachKurve;
-                    fahrModus = Gerade;
-                    printf("NachKurve\n");
+                    curveMode = AfterCurve;
+                    driveMode = Strait;
+                    printf("AfterCurve\n");
                 }
             } else {
                 delay++;
             }
             break;
-        case NachKurve:
+        case AfterCurve:
             if(delay > setDelayNew){
                 delay = 0;
-                kurvenModus = AusKurve;
-                printf("AusKurve\n");
+                curveMode = OutCurve;
+                printf("OutCurve\n");
             } else {
                 delay++;
             }
@@ -134,54 +134,54 @@ void getKurve(){
     oldDistRight = distRight;
 }
 
-void getReverse(){
+void getReverse(void){
     if(distFront < startReverseDist){
         ++reverseCount;
-    }else if(fahrModus != Ruckwarts){
+    }else if(driveMode != Backwards){
         reverseCount = 0;
     }
     
     if(reverseCount > minReverseTime){
-        fahrModus = Ruckwarts;
+        driveMode = Backwards;
         if(distFront > stopReverseDist){
-             fahrModus = Gerade;
+             driveMode = Strait;
              reverseCount = 0;
         }
     } 
 }
 
-void calcLenkung(){
-    int16_t delta = (int16_t)(distLeft - distRight )- (int8_t)(middleOffSet * 1.4142135);
-    delta /= lenkungDivisor;
+void calcSteering(void){
+    int16_t delta = (int16_t)(distLeft - distRight ) - (int8_t)(middleOffSet * 1.4142135);
+    delta /= steeringDivisor;
     
 //    printf("L: %d | R: %d | ratio: %d | d: %d\n", distLeft, distRight, ratio, delta);
     
-    switch (fahrModus){
-        case Bremsen:
-            setLenkung(delta, Verhaeltnis);
+    switch (driveMode){
+        case Brake:
+            setSteering(delta, Ratio);
             break;
-        case Gerade:
-            setLenkung(delta, Vorne);
+        case Strait:
+            setSteering(delta, Front);
             break;
-        case Ruckwarts:
+        case Backwards:
             if(distLeft < distRight){
-                setLenkung(-MaxV, Vorne);
+                setSteering(-maxSterringF, Front);
             }else{
-                setLenkung(MaxV, Vorne);
+                setSteering(maxSterringF, Front);
             }
             break;
-        case KurveLinks:
-            if(kurvenModus == InKurve){
-                setLenkung(MaxV, Invertiert);
+        case CurveLeft:
+            if(curveMode == InCurve){
+                setSteering(maxSterringF, Inverted);
             } else {
-                setLenkung(delta, Vorne);
+                setSteering(delta, Front);
             }
             break;
-        case KurveRight:
-            if(kurvenModus == InKurve){
-                setLenkung(-MaxV, Invertiert);
+        case CurveRight:
+            if(curveMode == InCurve){
+                setSteering(-maxSterringF, Inverted);
             } else {
-                setLenkung(delta, Vorne);
+                setSteering(delta, Front);
             }
             break;
     };
@@ -190,28 +190,28 @@ void calcLenkung(){
 //Lenkung 
 // neg.: links Lenkung
 // pos.: rechts Lenkung
-void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
-    int16_t L_Vorne = 0, L_Hinten = 0;
-    switch(LenkungMode){
-        case Invertiert:
-            L_Vorne =  (-Lenkung);
-            L_Hinten = Lenkung;
+void setSteering(int16_t steering, SteeringMode steeringMode){
+    int16_t steeringF = 0, steeringB = 0;
+    switch(steeringMode){
+        case Inverted:
+            steeringF =  (-steering);
+            steeringB = steering;
             break;
-        case Gleich:
-            L_Vorne = (-Lenkung);
-            L_Hinten = (-Lenkung);
+        case Same:
+            steeringF = (-steering);
+            steeringB = (-steering);
             break;
-        case Verhaeltnis:
-            L_Vorne = (-Lenkung);
-            L_Hinten = (Lenkung / SteeringRatio);
+        case Ratio:
+            steeringF = (-steering);
+            steeringB = (steering / steeringRatio);
             break;
-        case Vorne:
-            L_Vorne = (-Lenkung);
+        case Front:
+            steeringF = (-steering);
             //L_Hinten = 0;
             break;
-        case Hinten:
+        case Back:
             //L_Vorne = 0;
-            L_Hinten =  (-Lenkung);
+            steeringB =  (-steering);
             break;
         default:
             //L_Vorne = 0;
@@ -219,31 +219,30 @@ void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
             break;
     }
     
-    if(L_Vorne > (MaxV)){
-        L_Vorne = (MaxV);
-    } else if(L_Vorne < (-MaxV)){
-        L_Vorne = (-MaxV);
+    if(steeringF > (maxSterringF)){
+        steeringF = (maxSterringF);
+    } else if(steeringF < (-maxSterringF)){
+        steeringF = (-maxSterringF);
     }
     
-    if(L_Hinten > (MaxH)){
-        L_Hinten = (MaxH);
-    } else if(L_Hinten < (-MaxH)){
-        L_Hinten = (-MaxH);
+    if(steeringB > (maxSteeringB)){
+        steeringB = (maxSteeringB);
+    } else if(steeringB < (-maxSteeringB)){
+        steeringB = (-maxSteeringB);
     }
     
     //printf("Lenkung: V:%d H:%d\n", SteeringVOffset - L_Vorne, SteeringHOffset - L_Hinten);
-    PWM6_LoadDutyValue((uint16_t)(SteeringVOffset - L_Vorne)); //286->rechts    428->links
-    PWM5_LoadDutyValue((uint16_t)(SteeringHOffset - L_Hinten));//255->rechts    460->links
+    PWM6_LoadDutyValue((uint16_t)(steeringFOffset - steeringF)); //286->rechts    428->links
+    PWM5_LoadDutyValue((uint16_t)(steeringBOffset - steeringB));//255->rechts    460->links
 }
 
-void calcSpeed(){
-    int16_t limit;
+void calcSpeed(void){
     int16_t speed = 0;
     
-    switch (fahrModus){
-        case Bremsen:
+    switch (driveMode){
+        case Brake:
             if(distFront > 40) {
-                fahrModus = Gerade;
+                driveMode = Strait;
             }
             
             if(distFront < 40 && setSpeed > 0){
@@ -254,20 +253,21 @@ void calcSpeed(){
                 speed -= 2;
             }
             break;
-        case Gerade:
+        case Strait:
             if(distFront < 40) {
-                fahrModus = Bremsen;
+                driveMode = Brake;
             }
-            speed = (int16_t)(speedSteigung * distFront + speedOffset);
+            
+            speed = (int16_t)(speedIncrease * distFront + speedOffset);
             break;
-        case Ruckwarts:
+        case Backwards:
             speed = reverseSpeed;
             break;
-        case KurveLinks:
-            speed = kurvenSpeed;
+        case CurveLeft:
+            speed = curveSpeed;
             break;
-        case KurveRight:
-            speed = kurvenSpeed;
+        case CurveRight:
+            speed = curveSpeed;
             break;
     };
     
@@ -280,7 +280,7 @@ void calcSpeed(){
     setSpeed = speed;
 }
 
-void calcMotorPow(){
+void calcMotorPow(void){
     int16_t setSpeedDelta = setSpeed - currentSpeed;
     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
     int8_t addMPow = 0;
@@ -310,19 +310,19 @@ void calcMotorPow(){
     oldSpeed = currentSpeed;
 }
 
-void setMotor(int16_t MotorPower){
-    if(MotorPower > 1){
-       if(MotorPower > maxMPowForward){
-            MotorPower = maxMPowForward;
+void setMotor(int16_t motorPower){
+    if(motorPower > 1){
+       if(motorPower > maxMPowForward){
+            motorPower = maxMPowForward;
         }
-        PWM7_LoadDutyValue((uint16_t)(MotorPower));
+        PWM7_LoadDutyValue((uint16_t)(motorPower));
         PWM8_LoadDutyValue(0);
-    } else if(MotorPower < -1){
-        if(MotorPower < maxMPowBackward){
-            MotorPower = maxMPowBackward;
+    } else if(motorPower < -1){
+        if(motorPower < maxMPowBackward){
+            motorPower = maxMPowBackward;
         }
         PWM7_LoadDutyValue(0);
-        PWM8_LoadDutyValue((uint16_t)(-MotorPower));
+        PWM8_LoadDutyValue((uint16_t)(-motorPower));
     } else {
         PWM7_LoadDutyValue(0);
         PWM8_LoadDutyValue(0);

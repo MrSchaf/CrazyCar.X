@@ -193,6 +193,10 @@
         <property key="W0106_SIM_PERIPH_PARTIAL_SUPPORT" value="report"/>
         <property key="W9602_COMP_DAC_SOURCE_UNAVAILABLE" value="report"/>
       </Simulator>
+      <Tool>
+        <property key="W0106_SIM_PERIPH_PARTIAL_SUPPORT" value="report"/>
+        <property key="W9602_COMP_DAC_SOURCE_UNAVAILABLE" value="report"/>
+      </Tool>
       <XC8-CO>
         <property key="coverage-enable" value=""/>
         <property key="stack-guidance" value="false"/>
