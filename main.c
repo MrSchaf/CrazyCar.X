@@ -21,7 +21,7 @@ void loop(){
 //        while(!cycle10ms);
 //        cycle10ms = 0;
         getBatteryVoltage();
-    }while(BatteryVolt < MinBattValue);
+    }while(BatteryVolt < (MinBattValue * 409.6));
     
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -151,7 +151,7 @@ void getReverse(){
 }
 
 void calcLenkung(){
-    int16_t delta = (int16_t)(distLeft - distRight )- middleOffSet;
+    int16_t delta = (int16_t)(distLeft - distRight )- (int8_t)(middleOffSet * 1.4142135);
     delta /= lenkungDivisor;
     
 //    printf("L: %d | R: %d | ratio: %d | d: %d\n", distLeft, distRight, ratio, delta);
@@ -203,7 +203,7 @@ void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
             break;
         case Verhaeltnis:
             L_Vorne = (-Lenkung);
-            L_Hinten = (Lenkung / LenkungsVerhaeltnis);
+            L_Hinten = (Lenkung / SteeringRatio);
             break;
         case Vorne:
             L_Vorne = (-Lenkung);
@@ -231,9 +231,9 @@ void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
         L_Hinten = (-MaxH);
     }
     
-    //printf("Lenkung: V:%d H:%d\n", LenkungVOffset - L_Vorne, LenkungHOffset - L_Hinten);
-    PWM6_LoadDutyValue((uint16_t)(LenkungVOffset - L_Vorne)); //286->rechts    428->links
-    PWM5_LoadDutyValue((uint16_t)(LenkungHOffset - L_Hinten));//255->rechts    460->links
+    //printf("Lenkung: V:%d H:%d\n", SterringVOffset - L_Vorne, SterringHOffset - L_Hinten);
+    PWM6_LoadDutyValue((uint16_t)(SteeringVOffset - L_Vorne)); //286->rechts    428->links
+    PWM5_LoadDutyValue((uint16_t)(SteeringHOffset - L_Hinten));//255->rechts    460->links
 }
 
 void calcSpeed(){
