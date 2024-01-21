@@ -45,7 +45,7 @@
 #define reverseSpeed                   (-150)
     
 typedef enum{
-    Strait,
+    Straight,
     Brake,
     Backwards,
     CurveLeft,
@@ -71,7 +71,7 @@ extern uint16_t distFront, distLeft, distRight;
 extern int32_t smtWay;      //1 increment == 2,7mm ;370 == 1m
 extern uint32_t smtPeriod;
 
-DriveMode driveMode = Strait;
+DriveMode driveMode = Straight;
 CurveMode curveMode = OutCurve;
 
 uint8_t cycle10ms = 0;

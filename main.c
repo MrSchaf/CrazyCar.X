@@ -44,12 +44,14 @@ void loop(void){
             break;
         }
 
+        
         getCurve();
         getReverse();
         
         calcSteering();
-        calcMotorPow();
         calcSpeed();
+        calcMotorPow();
+        
     }
 }
 
@@ -118,7 +120,7 @@ void getCurve(void){
                 if(distLeft < endCurveValue || distRight < endCurveValue){
                     delay = 0;
                     curveMode = AfterCurve;
-                    driveMode = Strait;
+                    driveMode = Straight;
                     printf("AfterCurve\n");
                 }
             } else {
@@ -149,7 +151,7 @@ void getReverse(void){
     if(reverseCount > minReverseTime){
         driveMode = Backwards;
         if(distFront > stopReverseDist){
-             driveMode = Strait;
+             driveMode = Straight;
              reverseCount = 0;
         }
     } 
@@ -165,7 +167,7 @@ void calcSteering(void){
         case Brake:
             setSteering(delta, Ratio);
             break;
-        case Strait:
+        case Straight:
             setSteering(delta, Front);
             break;
         case Backwards:
@@ -247,7 +249,7 @@ void calcSpeed(void){
     switch (driveMode){
         case Brake:
             if(distFront > 40) {
-                driveMode = Strait;
+                driveMode = Straight;
             }
             
             if(distFront < 40 && setSpeed > 0){
@@ -258,7 +260,7 @@ void calcSpeed(void){
                 speed -= 2;
             }
             break;
-        case Strait:
+        case Straight:
             if(distFront < 40) {
                 driveMode = Brake;
             }
