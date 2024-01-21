@@ -12,7 +12,9 @@ void main(void) {
     INTERRUPT_GlobalInterruptLowEnable();
     TMR4_SetInterruptHandler(TMR4_10msISR);
     
-    loop(); 
+    while(1){
+        loop(); 
+    }
 }
 
 void loop(void){
@@ -32,9 +34,11 @@ void loop(void){
         cycle10ms = 0;
         
         if(diStop_GetValue()){
+            setSpeed = 0;
+            setSteering(0,Front);
             break;
         }
-        if(ADCC_GetSingleConversion(aiBatt) < minBatValue){
+        if(ADCC_GetSingleConversion(aiBatt) < minBatValue * 409.6){
             setSpeed = 0;
             setSteering(0,Front);
             break;
@@ -67,7 +71,7 @@ int16_t actSpeed(){
 
 void getBatteryVoltage(void){
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-    printf("BVolt: %d\n", BatteryVolt);
+//    printf("BVolt: %d\n", BatteryVolt);
 }
 
 void getCurve(void){
