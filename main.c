@@ -231,7 +231,7 @@ void setLenkung(int16_t Lenkung, LenkungsModus LenkungMode){
         L_Hinten = (-MaxH);
     }
     
-    //printf("Lenkung: V:%d H:%d\n", SterringVOffset - L_Vorne, SterringHOffset - L_Hinten);
+    //printf("Lenkung: V:%d H:%d\n", SteeringVOffset - L_Vorne, SteeringHOffset - L_Hinten);
     PWM6_LoadDutyValue((uint16_t)(SteeringVOffset - L_Vorne)); //286->rechts    428->links
     PWM5_LoadDutyValue((uint16_t)(SteeringHOffset - L_Hinten));//255->rechts    460->links
 }
