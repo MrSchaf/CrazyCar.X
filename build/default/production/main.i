@@ -28100,6 +28100,7 @@ void OSCILLATOR_Initialize(void);
 void PMD_Initialize(void);
 # 1 "main.c" 2
 
+
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 1 3
 # 15 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 3
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
@@ -28472,7 +28473,7 @@ double jn(int, double);
 double y0(double);
 double y1(double);
 double yn(int, double);
-# 2 "main.c" 2
+# 3 "main.c" 2
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\time.h" 1 3
@@ -28574,13 +28575,13 @@ extern int daylight;
 extern long timezone;
 extern int getdate_err;
 struct tm *getdate (const char *);
-# 4 "main.c" 2
+# 5 "main.c" 2
 
 
 # 1 "./main.h" 1
 # 47 "./main.h"
 typedef enum{
-    Strait,
+    Straight,
     Brake,
     Backwards,
     CurveLeft,
@@ -28606,7 +28607,7 @@ extern uint16_t distFront, distLeft, distRight;
 extern int32_t smtWay;
 extern uint32_t smtPeriod;
 
-DriveMode driveMode = Strait;
+DriveMode driveMode = Straight;
 CurveMode curveMode = OutCurve;
 
 uint8_t cycle10ms = 0;
@@ -28623,19 +28624,23 @@ int16_t actMotorPow = 0;
 
 adc_result_t BatteryVolt = 0;
 
-void loop(void);
 void TMR4_10msISR(void);
-void getBatteryVoltage(void);
-void getCurve(void);
-void getReverse(void);
-void calcSteering(void);
-void setSteering(int16_t, SteeringMode);
-void calcSpeed(void);
-void calcMotorPow(void);
-void setMotor(int16_t);
+
+void loop(void);
 
 int16_t actSpeed();
-# 6 "main.c" 2
+void getBatteryVoltage(void);
+
+void getCurve(void);
+void getReverse(void);
+
+void calcSteering(void);
+void calcSpeed(void);
+void calcMotorPow(void);
+
+void setSteering(int16_t, SteeringMode);
+void setMotor(int16_t);
+# 7 "main.c" 2
 
 
 void main(void) {
@@ -28644,7 +28649,9 @@ void main(void) {
     (INTCON0bits.GIEL = 1);
     TMR4_SetInterruptHandler(TMR4_10msISR);
 
-    loop();
+    while(1){
+        loop();
+    }
 }
 
 void loop(void){
@@ -28664,20 +28671,24 @@ void loop(void){
         cycle10ms = 0;
 
         if(PORTBbits.RB5){
+            setSpeed = 0;
+            setSteering(0,Front);
             break;
         }
-        if(ADCC_GetSingleConversion(aiBatt) < (7.4)){
+        if(ADCC_GetSingleConversion(aiBatt) < (7.4) * 409.6){
             setSpeed = 0;
             setSteering(0,Front);
             break;
         }
 
+
         getCurve();
         getReverse();
 
         calcSteering();
-        calcMotorPow();
         calcSpeed();
+        calcMotorPow();
+
     }
 }
 
@@ -28699,7 +28710,7 @@ int16_t actSpeed(){
 
 void getBatteryVoltage(void){
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-    printf("BVolt: %d\n", BatteryVolt);
+
 }
 
 void getCurve(void){
@@ -28746,7 +28757,7 @@ void getCurve(void){
                 if(distLeft < (40) || distRight < (40)){
                     delay = 0;
                     curveMode = AfterCurve;
-                    driveMode = Strait;
+                    driveMode = Straight;
                     printf("AfterCurve\n");
                 }
             } else {
@@ -28777,7 +28788,7 @@ void getReverse(void){
     if(reverseCount > (25)){
         driveMode = Backwards;
         if(distFront > (40)){
-             driveMode = Strait;
+             driveMode = Straight;
              reverseCount = 0;
         }
     }
@@ -28793,7 +28804,7 @@ void calcSteering(void){
         case Brake:
             setSteering(delta, Ratio);
             break;
-        case Strait:
+        case Straight:
             setSteering(delta, Front);
             break;
         case Backwards:
@@ -28875,7 +28886,7 @@ void calcSpeed(void){
     switch (driveMode){
         case Brake:
             if(distFront > 40) {
-                driveMode = Strait;
+                driveMode = Straight;
             }
 
             if(distFront < 40 && setSpeed > 0){
@@ -28886,7 +28897,7 @@ void calcSpeed(void){
                 speed -= 2;
             }
             break;
-        case Strait:
+        case Straight:
             if(distFront < 40) {
                 driveMode = Brake;
             }

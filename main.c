@@ -43,7 +43,6 @@ void loop(void){
             setSteering(0,Front);
             break;
         }
-
         
         getCurve();
         getReverse();
@@ -51,7 +50,6 @@ void loop(void){
         calcSteering();
         calcSpeed();
         calcMotorPow();
-        
     }
 }
 
