@@ -6,7 +6,7 @@
 #define maxSterringF                   (65)
 #define maxSteeringB                   (45)
 #define steeringRatio                  (3)
-#define minBatValue                    (7.4)     // adc = (vbat /2) * (4096 /5) -->2800 = 3,4V (leer)
+#define minBatValue                    (7.4)     // Mindestspg in Volt adc = (vbat * 409.6)
 
 #define maxMPowForward                 (600)
 #define maxSpeedForward                (400)

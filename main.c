@@ -24,7 +24,7 @@ void loop(void){
 //        while(!cycle10ms);
 //        cycle10ms = 0;
         getBatteryVoltage();
-    }while(BatteryVolt < (minBatValue * 409.6));
+    }while(BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
     
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -156,7 +156,7 @@ void getReverse(void){
 }
 
 void calcSteering(void){
-    int16_t delta = (int16_t)(distLeft - distRight ) - (int8_t)(middleOffSet * 1.4142135);
+    int16_t delta = (int16_t)(distLeft - distRight ) - (int16_t)(middleOffSet * 1.4142135);
     delta /= steeringDivisor;
     
 //    printf("L: %d | R: %d | ratio: %d | d: %d\n", distLeft, distRight, ratio, delta);
