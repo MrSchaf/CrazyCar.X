@@ -1,12 +1,15 @@
-#ifndef MAIN_H
-#define	MAIN_H
+
+#ifndef XC_HEADER_TEMPLATE_H
+#define	XC_HEADER_TEMPLATE_H
+
+#include <xc.h> // include processor files - each processor file is guarded.  
 
 #define steeringFOffset                (352)     // höher = links | niedriger = rechts
 #define steeringBOffset                (357)     // höher = links | niedriger = rechts
 #define maxSterringF                   (65)
 #define maxSteeringB                   (45)
 #define steeringRatio                  (3)
-#define minBatValue                    (7.4)     // Mindestspg in Volt adc = (vbat * 409.6)
+#define minBatValue                    (6)     // Mindestspg in Volt adc = (vbat * 409.6)
 
 #define maxMPowForward                 (600)
 #define maxSpeedForward                (400)
@@ -16,28 +19,28 @@
 #define maxSpeedBackward               (-250)
 #define defaultMotorPowerBackward      (-100)
 
-#define setDelayStart                  (5)       // Delay bevor man zu Lenken beginnt
-#define setDelayEnd                    (20)      // Delay bevor man die Kurve abbrechen kann
-#define setDelayNew                    (20)      // Delay bevor man eine neue Kurve erkennen kann
+#define setDelayStart                  (75)       // Delay bevor man zu Lenken beginnt
+#define setDelayEnd                    (50)      // Delay bevor man die Kurve abbrechen kann
+#define setDelayNew                    (100)      // Delay bevor man eine neue Kurve erkennen kann
 
 #define startCurveDelta                (50)      // (oldDist - actDist) > startCurveDelta --> Kurve
 
 #define endCurveValue                  (40)      // dist < endKurveValue --> Kurvenende
 
 #define startReverseDist               (10)      // distFront < startReverseDist --> reverseCount++
-#define minReverseTime                 (25)
-#define stopReverseDist                (40)      // distFront > stopReverseDist  --> fahrModus = Gerade
+#define minReverseTime                 (100)
+#define stopReverseDist                (50)      // distFront > stopReverseDist  --> fahrModus = Gerade
 
 #define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
 #define steeringDivisor                (2)       // distLeft - distRight /= lenkungDivisor;
 
-#define MotorPowFactor                 (0.05)
+#define MotorPowFactor                 (0.025)
 
 #define speedIncrease                  (0.8)
 #define speedOffset                    (150)
 
-#define maxAddMPow                     (3)
+#define maxAddMPow                     (2)
 
 #define oldSpeedDeltaDivisor           (1)
 
@@ -106,4 +109,6 @@ void setSteering(int16_t, SteeringMode);
 void setMotor(int16_t);
 
 
-#endif	/* MAIN_H */
+
+#endif	/* XC_HEADER_TEMPLATE_H */
+

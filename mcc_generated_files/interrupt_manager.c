@@ -74,8 +74,8 @@ void  INTERRUPT_Initialize (void)
     IPR1bits.SMT1PWAIP = 1;
     IPR1bits.SMT1IP = 1;
     IPR1bits.SMT1PRAIP = 1;
-    IPR8bits.TMR5GIP = 1;
     IPR10bits.CCP4IP = 1;
+    IPR8bits.TMR5GIP = 1;
     IPR7bits.TMR4IP = 0;
     IPR9bits.CCP3IP = 1;
 }

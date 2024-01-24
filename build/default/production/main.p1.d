@@ -13,8 +13,8 @@ mcc_generated_files/pwm8.h  \
 mcc_generated_files/tmr3.h  \
 mcc_generated_files/tmr4.h  \
 mcc_generated_files/pwm6.h  \
-mcc_generated_files/tmr2.h  \
 mcc_generated_files/pwm7.h  \
+mcc_generated_files/tmr2.h  \
 mcc_generated_files/pwm5.h  \
 mcc_generated_files/clc3.h  \
 mcc_generated_files/uart1.h  \

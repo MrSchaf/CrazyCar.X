@@ -47,19 +47,20 @@
 /**
   Section: Included Files
 */
+
 #include <xc.h>
 #include "ccp3.h"
 #include "interrupt_manager.h"
- 
+
 volatile uint16_t distLeft;
 uint16_t distLeftM;
- 
+
 static void (*CCP3_CallBack)(uint16_t);
- 
+
 /**
   Section: Capture Module APIs:
-*/
- 
+*/ 
+
 static void CCP3_DefaultCallBack(uint16_t capturedValue)
 {
     // Add your code here
@@ -70,46 +71,54 @@ static void CCP3_DefaultCallBack(uint16_t capturedValue)
         distLeft >>= 1;
     }
 }
- 
+
 void CCP3_Initialize(void)
 {
     // Set the CCP3 to the options selected in the User Interface
+	
 	// MODE Every edge; EN enabled; FMT right_aligned; 
 	CCP3CON = 0x83;    
+	
 	// CCP3CTS CCP3 pin; 
 	CCP3CAP = 0x00;    
+	
 	// RH 0; 
 	CCPR3H = 0x00;    
+	
 	// RL 0; 
 	CCPR3L = 0x00;    
+    
     // Set the default call back function for CCP3
     CCP3_SetCallBack(CCP3_DefaultCallBack);
- 
+
 	// Selecting Timer 3
 	CCPTMRS0bits.C3TSEL = 0x2;
+    
     // Clear the CCP3 interrupt flag
     PIR9bits.CCP3IF = 0;
- 
+
     // Enable the CCP3 interrupt
     PIE9bits.CCP3IE = 1;
 }
- 
+
 void __interrupt(irq(CCP3),base(8)) CCP3_CaptureISR()
 {
     CCP3_PERIOD_REG_T module;
- 
+
     // Clear the CCP3 interrupt flag
     PIR9bits.CCP3IF = 0;
+    
     // Copy captured value.
     module.ccpr3l = CCPR3L;
     module.ccpr3h = CCPR3H;
+    
     // Return 16bit captured value
     CCP3_CallBack(module.ccpr3_16Bit);
 }
- 
+
 void CCP3_SetCallBack(void (*customCallBack)(uint16_t)){
     CCP3_CallBack = customCallBack;
 }
 /**
-End of File
+ End of File
 */

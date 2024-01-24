@@ -57,8 +57,8 @@ void SYSTEM_Initialize(void)
     ADCC_Initialize();
     TMR4_Initialize();
     SMT1_Initialize();
-    TMR2_Initialize();
     PWM8_Initialize();
+    TMR2_Initialize();
     PWM6_Initialize();
     CCP4_Initialize();
     CLC3_Initialize();

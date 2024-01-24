@@ -1,6 +1,6 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F16704 `(v ~T0 @X0 0 tf ]
-[v F16706 `(v ~T0 @X0 0 tf ]
+[v F16700 `(v ~T0 @X0 0 tf ]
+[v F16702 `(v ~T0 @X0 0 tf ]
 "46941 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46941:     struct {
 [s S2122 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -72,17 +72,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2851
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 2851: extern volatile IPR1bits_t IPR1bits __attribute__((address(0x3981)));
 [v _IPR1bits `VS129 ~T0 @X0 0 e@14721 ]
-"3327
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3327:     struct {
-[s S149 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S149 . . TMR5IP TMR5GIP ]
-"3326
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3326: typedef union {
-[u S148 `S149 1 ]
-[n S148 . . ]
-"3333
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3333: extern volatile IPR8bits_t IPR8bits __attribute__((address(0x3988)));
-[v _IPR8bits `VS148 ~T0 @X0 0 e@14728 ]
 "3392
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3392:     struct {
 [s S153 :1 `uc 1 :1 `uc 1 ]
@@ -94,6 +83,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "3397
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3397: extern volatile IPR10bits_t IPR10bits __attribute__((address(0x398A)));
 [v _IPR10bits `VS152 ~T0 @X0 0 e@14730 ]
+"3327
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3327:     struct {
+[s S149 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S149 . . TMR5IP TMR5GIP ]
+"3326
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3326: typedef union {
+[u S148 `S149 1 ]
+[n S148 . . ]
+"3333
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3333: extern volatile IPR8bits_t IPR8bits __attribute__((address(0x3988)));
+[v _IPR8bits `VS148 ~T0 @X0 0 e@14728 ]
 "3282
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3282:     struct {
 [s S147 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -2352,10 +2352,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSU equ 03FFFh ;# ">
 "518 mcc_generated_files/uart1.h
 [; ;mcc_generated_files/uart1.h: 518: void (*UART1_RxInterruptHandler)(void);
-[v _UART1_RxInterruptHandler `*F16704 ~T0 @X0 1 e ]
+[v _UART1_RxInterruptHandler `*F16700 ~T0 @X0 1 e ]
 "536
 [; ;mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
-[v _UART1_TxInterruptHandler `*F16706 ~T0 @X0 1 e ]
+[v _UART1_TxInterruptHandler `*F16702 ~T0 @X0 1 e ]
 "52 mcc_generated_files/interrupt_manager.c
 [; ;mcc_generated_files/interrupt_manager.c: 52: void INTERRUPT_Initialize (void)
 [v _INTERRUPT_Initialize `(v ~T0 @X0 1 ef ]
@@ -2420,11 +2420,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/interrupt_manager.c: 76:     IPR1bits.SMT1PRAIP = 1;
 [e = . . _IPR1bits 0 6 -> -> 1 `i `uc ]
 "77
-[; ;mcc_generated_files/interrupt_manager.c: 77:     IPR8bits.TMR5GIP = 1;
-[e = . . _IPR8bits 0 2 -> -> 1 `i `uc ]
-"78
-[; ;mcc_generated_files/interrupt_manager.c: 78:     IPR10bits.CCP4IP = 1;
+[; ;mcc_generated_files/interrupt_manager.c: 77:     IPR10bits.CCP4IP = 1;
 [e = . . _IPR10bits 0 0 -> -> 1 `i `uc ]
+"78
+[; ;mcc_generated_files/interrupt_manager.c: 78:     IPR8bits.TMR5GIP = 1;
+[e = . . _IPR8bits 0 2 -> -> 1 `i `uc ]
 "79
 [; ;mcc_generated_files/interrupt_manager.c: 79:     IPR7bits.TMR4IP = 0;
 [e = . . _IPR7bits 0 0 -> -> 0 `i `uc ]

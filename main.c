@@ -3,8 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-
 #include "main.h"
+
 
 void main(void) {
     SYSTEM_Initialize();
@@ -18,7 +18,7 @@ void main(void) {
 }
 
 void loop(void){
-    while(!diStart_GetValue());
+    //while(!diStart_GetValue());
     
     do{
 //        while(!cycle10ms);
@@ -32,17 +32,19 @@ void loop(void){
     while(true){
         while(!cycle10ms);
         cycle10ms = 0;
-        
+        /*
         if(diStop_GetValue()){
             setSpeed = 0;
             setSteering(0,Front);
             break;
         }
+         
         if(ADCC_GetSingleConversion(aiBatt) < minBatValue * 409.6){
             setSpeed = 0;
             setSteering(0,Front);
             break;
         }
+         * */
         
         getCurve();
         getReverse();
@@ -71,7 +73,7 @@ int16_t actSpeed(){
 
 void getBatteryVoltage(void){
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-//    printf("BVolt: %d\n", BatteryVolt);
+    printf("BVolt: %d\n", BatteryVolt);
 }
 
 void getCurve(void){
@@ -82,20 +84,22 @@ void getCurve(void){
         case OutCurve:
             deltaLeft = (int16_t)(distLeft - oldDistLeft);
             deltaRight = (int16_t)(distRight - oldDistRight);
-            printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
+            //printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
             
             if(deltaLeft > startCurveDelta){
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
+                printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
                 printf("   CurveLeft");
             } else if(deltaRight > startCurveDelta){
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
+                printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
                 printf("   CurveRight");
             }
-            printf("\n");
+            //printf("\n");
 
             break;
         case BeforeCurve:
@@ -177,14 +181,14 @@ void calcSteering(void){
             break;
         case CurveLeft:
             if(curveMode == InCurve){
-                setSteering(maxSterringF, Inverted);
+                setSteering(maxSterringF, Ratio);
             } else {
                 setSteering(delta, Front);
             }
             break;
         case CurveRight:
             if(curveMode == InCurve){
-                setSteering(-maxSterringF, Inverted);
+                setSteering(-maxSterringF, Ratio);
             } else {
                 setSteering(delta, Front);
             }

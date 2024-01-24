@@ -1,5 +1,5 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[v F16073 `(v ~T0 @X0 0 tf ]
+[v F16082 `(v ~T0 @X0 0 tf ]
 "41596 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 41596: extern volatile unsigned char T5GCON __attribute__((address(0x3F9B)));
 [v _T5GCON `Vuc ~T0 @X0 0 e@16283 ]
@@ -37,10 +37,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "3986
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3986: extern volatile PIE8bits_t PIE8bits __attribute__((address(0x3998)));
 [v _PIE8bits `VS175 ~T0 @X0 0 e@14744 ]
-[v F16067 `(v ~T0 @X0 0 tf ]
+[v F16076 `(v ~T0 @X0 0 tf ]
 "407 mcc_generated_files/tmr5.h
 [; ;mcc_generated_files/tmr5.h: 407: void TMR5_SetGateInterruptHandler(void (* InterruptHandler)(void));
-[v _TMR5_SetGateInterruptHandler `(v ~T0 @X0 0 ef1`*F16067 ]
+[v _TMR5_SetGateInterruptHandler `(v ~T0 @X0 0 ef1`*F16076 ]
 "61 mcc_generated_files/tmr5.c
 [; ;mcc_generated_files/tmr5.c: 61: static void TMR5_DefaultGateInterruptHandler(void);
 [v _TMR5_DefaultGateInterruptHandler `(v ~T0 @X0 0 sf ]
@@ -95,9 +95,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _T5GCONbits `VS1871 ~T0 @X0 0 e@16283 ]
 [t ~ __interrupt . k ]
 [t T1 __interrupt irq ( TMR5G ) base ( 8 ) ]
-[v F16090 `(v ~T0 @X0 0 tf ]
-[v F16092 `(v ~T0 @X0 0 tf ]
-[v F16094 `(v ~T0 @X0 0 tf ]
+[v F16099 `(v ~T0 @X0 0 tf ]
+[v F16101 `(v ~T0 @X0 0 tf ]
+[v F16103 `(v ~T0 @X0 0 tf ]
 "250 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 250: __asm("STATUS_CSHAD equ 03880h");
 [; <" STATUS_CSHAD equ 03880h ;# ">
@@ -2338,7 +2338,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _distFront `Vus ~T0 @X0 1 e ]
 "60
 [; ;mcc_generated_files/tmr5.c: 60: void (*TMR5_GateInterruptHandler)(void);
-[v _TMR5_GateInterruptHandler `*F16073 ~T0 @X0 1 e ]
+[v _TMR5_GateInterruptHandler `*F16082 ~T0 @X0 1 e ]
 "67
 [; ;mcc_generated_files/tmr5.c: 67: void TMR5_Initialize(void)
 [v _TMR5_Initialize `(v ~T0 @X0 1 ef ]
@@ -2582,7 +2582,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PIR8bits 0 2 -> -> 0 `i `uc ]
 "180
 [; ;mcc_generated_files/tmr5.c: 180:     if(TMR5_GateInterruptHandler)
-[e $ ! != _TMR5_GateInterruptHandler -> -> 0 `i `*F16090 2241  ]
+[e $ ! != _TMR5_GateInterruptHandler -> -> 0 `i `*F16099 2241  ]
 "181
 [; ;mcc_generated_files/tmr5.c: 181:     {
 {
@@ -2599,10 +2599,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 "186
 [; ;mcc_generated_files/tmr5.c: 186: void TMR5_SetGateInterruptHandler(void (* InterruptHandler)(void)){
-[v _TMR5_SetGateInterruptHandler `(v ~T0 @X0 1 ef1`*F16092 ]
+[v _TMR5_SetGateInterruptHandler `(v ~T0 @X0 1 ef1`*F16101 ]
 {
 [e :U _TMR5_SetGateInterruptHandler ]
-[v _InterruptHandler `*F16094 ~T0 @X0 1 r1 ]
+[v _InterruptHandler `*F16103 ~T0 @X0 1 r1 ]
 [f ]
 "187
 [; ;mcc_generated_files/tmr5.c: 187:     TMR5_GateInterruptHandler = InterruptHandler;
