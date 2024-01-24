@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production\CrazyCar_00.X.production.hex">
+  <executable name="dist/default/production\CrazyCar.X.production.hex">
     <memory name="program">
       <units>bytes</units>
       <length>65536</length>
-      <used>12514</used>
-      <free>53022</free>
+      <used>12734</used>
+      <free>52802</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
