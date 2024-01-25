@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.36 build 20220127204148 
-                                                                                                           Wed Jan 24 21:39:29 2024
+                                                                                                           Wed Jan 24 21:55:13 2024
 
 
      1                           	processor	18F46K42
@@ -154,7 +154,7 @@ Microchip MPLAB XC8 Assembler V2.36 build 20220127204148
    148                           	psect	init
    149  0000AE                     start:
    150                           	callstack 0
-   151  0000AE  EF11  F01E         	goto	start_initialization	;jump to C runtime clear & initialization
+   151  0000AE  EFA3  F020         	goto	start_initialization	;jump to C runtime clear & initialization
    152                           
    153                           	psect	text
    154  000000                     intlevel0:
@@ -221,11 +221,11 @@ Microchip MPLAB XC8 Assembler V2.36 build 20220127204148
 
 
 Microchip Technology PIC18 Macro Assembler V2.36 build 20220127204148 
-Symbol Table                                                                                               Wed Jan 24 21:39:29 2024
+Symbol Table                                                                                               Wed Jan 24 21:55:13 2024
 
-                __S1 0130                 ___sp 0000                 _main 3FBA                 start 00AE  
+                __S1 013C                 ___sp 0000                 _main 44B8                 start 00AE  
               __HRAM 0000                __LRAM 0001               isa$std 000001         __mediumconst 0000  
              stackhi 000000               stacklo 000000           __accesstop 000060           ___inthi_sp 0000  
-         ___intlo_sp 0000              __ramtop 1000  start_initialization 3C22            ___heap_hi 000000  
+         ___intlo_sp 0000              __ramtop 1000  start_initialization 4146            ___heap_hi 000000  
           ___heap_lo 000000          __smallconst 1000             isa$xinst 000000             intlevel0 0000  
            intlevel1 0000             intlevel2 0000             intlevel3 0000             reset_vec 0000  

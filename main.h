@@ -97,6 +97,7 @@ int16_t setSpeed = 0;
 int16_t currentSpeed = 0;
 int16_t oldSpeed = 0;
 int16_t actMotorPow = 0;
+uint8_t battCheckCount = 0;
 
 adc_result_t BatteryVolt = 0;
 
@@ -118,6 +119,8 @@ void setSteering(int16_t, SteeringMode);
 void setMotor(int16_t);
 
 void startAccel();
+
+bool checkBatt();
 
 
 

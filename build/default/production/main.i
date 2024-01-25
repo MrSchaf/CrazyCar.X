@@ -28604,6 +28604,7 @@ int16_t setSpeed = 0;
 int16_t currentSpeed = 0;
 int16_t oldSpeed = 0;
 int16_t actMotorPow = 0;
+uint8_t battCheckCount = 0;
 
 adc_result_t BatteryVolt = 0;
 
@@ -28625,6 +28626,8 @@ void setSteering(int16_t, SteeringMode);
 void setMotor(int16_t);
 
 void startAccel();
+
+_Bool checkBatt();
 # 6 "main.c" 2
 
 
@@ -28647,6 +28650,7 @@ void loop(void){
 
 
         getBatteryVoltage();
+        printf("BVolt: %u\n", (uint16_t)BatteryVolt);
     }while(BatteryVolt < ((7.5) * 409.6));
 
     oldDistLeft = distLeft;
@@ -28655,7 +28659,19 @@ void loop(void){
     while(1){
         while(!cycle10ms);
         cycle10ms = 0;
-# 49 "main.c"
+# 44 "main.c"
+        if(battCheckCount > 100){
+            battCheckCount = 0;
+            getBatteryVoltage;
+            if(BatteryVolt < (7.5) * 409.6){
+                setSpeed = 0;
+                setSteering(0,Front);
+                break;
+            }
+        }else{
+            ++battCheckCount;
+        }
+
         getCurve();
         getReverse();
 
@@ -28683,7 +28699,7 @@ int16_t actSpeed(){
 
 void getBatteryVoltage(void){
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-    printf("BVolt: %d\n", BatteryVolt);
+
 }
 
 void getCurve(void){

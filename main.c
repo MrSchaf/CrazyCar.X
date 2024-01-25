@@ -43,7 +43,7 @@ void loop(void){
         
         if(battCheckCount > 100){
             battCheckCount = 0;
-            getBatteryVoltage;
+            getBatteryVoltage();
             if(BatteryVolt < minBatValue * 409.6){
                 setSpeed = 0;
                 setSteering(0,Front);
