@@ -4,56 +4,71 @@
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 
+
+
+#define minBatValue                    (7.5)     // Mindestspg in Volt adc = (vbat * 409.6)
+
+
 #define steeringFOffset                (352)     // höher = links | niedriger = rechts
 #define steeringBOffset                (357)     // höher = links | niedriger = rechts
 #define maxSterringF                   (65)
 #define maxSteeringB                   (40)
 #define maxSteeringStraight            (30)      //kann beim geradeaus fahren nicht mehr lenken
-#define steeringRatio                  (3)
-#define minBatValue                    (7.5)     // Mindestspg in Volt adc = (vbat * 409.6)
+#define steeringRatio                  (2)
+#define steeringDivisor                (1)       // distLeft - distRight /= lenkungDivisor;
+#define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
+#define curveSpeed                     (180)
 
-#define maxMPowForward                 (700)
-#define maxSpeedForward                (450)
+
+
+#define maxMPowForward                 (500)
+#define maxSpeedForward                (400)
 #define defaultMotorPowerForward       (250)
 
 #define maxMPowBackward                (-300)
 #define maxSpeedBackward               (-200)
 #define defaultMotorPowerBackward      (-150)
 
+#define maxAddMPow                     (2)
+#define MotorPowFactor                 (0.025)
+#define MinMPower                      (50) 
+
+
+
 #define setDelayStart                  (15)       // Delay bevor man zu Lenken beginnt
-#define setDelayEnd                    (60)      // Delay bevor man die Kurve abbrechen kann
+#define setDelayEnd                    (30)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                    (50)      // Delay bevor man eine neue Kurve erkennen kann
 
-#define startCurveDelta                (60)      // ((oldDist - actDist) > startCurveDelta  \n
-#define MaxOldDist                     (200)     //  && oldDistLeft < MaxOldDist)  --> Kurv
-
+#define startCurveDelta                (40)      // ((oldDist - actDist) > startCurveDelta  \n
+#define startMaxDelta                  (300)
+#define MaxOldDist                     (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveValue                  (40)      // distF < endKurveValue --> Kurvenende
 
+
 #define startReverseDist               (10)      // distFront < startReverseDist --> reverseCount++
-#define minReverseTime                 (100)
-#define stopReverseDist                (40)      // distFront > stopReverseDist  --> fahrModus = Gerade
+#define minReverseTime                 (50)
+#define stopReverseDist                (30)      // distFront > stopReverseDist  --> fahrModus = Gerade
+#define reverseSpeed                   (-150)
 
-#define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
-#define steeringDivisor                (2)       // distLeft - distRight /= lenkungDivisor;
 
-#define MotorPowFactor                 (0.025)
 
-#define speedIncrease                  (0.8)
+
+#define speedIncrease                  (0.75)
 #define MinDistAccel                   (100)
 #define MinStraightSpeed               (200)
 
-#define maxAddMPow                     (2)
+
 
 #define oldSpeedDeltaDivisor           (2)
 
-#define curveSpeed                     (150)
-#define reverseSpeed                   (-150)
+
+
 
 #define BrakeDistance                  (40)
 #define BrakeDistanceStrong            (20)
 
-#define MinMPower                      (50)                  
+                 
     
 typedef enum{
     Straight,

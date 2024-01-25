@@ -93,13 +93,13 @@ void getCurve(void){
             deltaRight = (int16_t)(distRight - oldDistRight);
             //printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
 
-            if(deltaLeft > startCurveDelta && oldDistLeft < MaxOldDist){
+            if(deltaLeft > startCurveDelta && deltaLeft < startMaxDelta && oldDistLeft < MaxOldDist){
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
                 printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
                 printf("   CurveLeft");
-            } else if(deltaRight > startCurveDelta && oldDistRight < MaxOldDist){
+            } else if(deltaRight > startCurveDelta && deltaRight < startMaxDelta && oldDistRight < MaxOldDist){
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
@@ -121,16 +121,16 @@ void getCurve(void){
         case InCurve:
             if(delay > setDelayEnd){
                 if(driveMode == CurveLeft){
-                    printf("distL= %d\n", distLeft);
+                    //printf("distL= %d\n", distLeft);
                 } else if(driveMode == CurveLeft){
-                    printf("distR= %d\n", distRight);
+                    //printf("distR= %d\n", distRight);
                 }
 
                 if(distLeft < endCurveValue || distRight < endCurveValue){
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;
-                    printf("AfterCurve\n");
+                    //printf("AfterCurve\n");
                 }
             } else {
                 delay++;
@@ -140,7 +140,7 @@ void getCurve(void){
             if(delay > setDelayNew){
                 delay = 0;
                 curveMode = OutCurve;
-                printf("OutCurve\n");
+                //printf("OutCurve\n");
             } else {
                 delay++;
             }
@@ -175,7 +175,7 @@ void calcSteering(void){
     int16_t delta = (int16_t)(distLeft - distRight ) - (int16_t)(middleOffSet * 1.4142135);
     delta /= steeringDivisor;
     
-//    printf("L: %d | R: %d | ratio: %d | d: %d\n", distLeft, distRight, ratio, delta);
+//    printf("L: %d | R: %d | d: %d\n", distLeft, distRight, delta);
     switch (driveMode){
         case Brake:
         case Straight:
@@ -187,6 +187,8 @@ void calcSteering(void){
                 delta = -maxSteeringStraight;
             }
             break;   
+        default:
+            break;
     }
     
     switch (driveMode){
@@ -239,10 +241,10 @@ void setSteering(int16_t steering, SteeringMode steeringMode){
             break;
         case Front:
             steeringF = (+steering);
-            //L_Hinten = 0;
+            steeringB = 0;
             break;
         case Back:
-            //L_Vorne = 0;
+            steeringF = 0;
             steeringB =  (+steering);
             break;
         default:
@@ -359,7 +361,7 @@ void setMotor(int16_t motorPower){
         }
         PWM7_LoadDutyValue((uint16_t)(motorPower));
         PWM8_LoadDutyValue(0);
-    } else if(motorPower < MinMPower){
+    } else if(motorPower < -MinMPower){
         if(motorPower < maxMPowBackward){
             motorPower = maxMPowBackward;
         }
