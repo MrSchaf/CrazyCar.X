@@ -5,6 +5,10 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 
 
+//all Distance Values are in[cm]
+//all Time Values are in [10ms]
+//all speed Values are in [unknown]
+
 
 #define minBatValue                    (3)     // Mindestspg in Volt adc = (vbat * 409.6)
 #define BattCheckPeriod                (500)     
@@ -18,7 +22,7 @@
 #define steeringRatio                  (2)
 #define steeringDivisor                (1)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
-#define curveSpeed                     (200)
+
 
 
 
@@ -35,35 +39,36 @@
 #define oldSpeedDeltaDivisor           (2)
 #define MinMPower                      (100) 
 
-#define setDelayStart                  (20)       // Delay bevor man zu Lenken beginnt
+#define setDelayStart                  (25)       // Delay bevor man zu Lenken beginnt
 #define setDelayEnd                    (25)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                    (5)      // Delay bevor man eine neue Kurve erkennen kann
 
 #define startCurveDelta                (40)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta             (300)
 #define MaxOldDist                     (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
-#define endCurveDist                   (35)      // distF < endKurveValue --> Kurvenende
+#define endCurveDist                   (35)      // distL || distR < endKurveValue --> Kurvenende
+#define endCurveDistFront              (180)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                  (55)       
-
+#define curveSpeed                     (210)
 
 #define startReverseDist               (15)      // distFront < startReverseDist --> reverseCount++
 #define minReverseTime                 (50)
 #define stopReverseDist                (30)      // distFront > stopReverseDist  --> fahrModus = Gerade
-#define reverseSpeed                   (-150)
+#define reverseSpeed                   (-125)
 #define maxReverseTime                 (300)
         
 
-#define speedIncrease                  (0.75)
+#define speedIncrease                  (0.8)
 #define MinDistAccel                   (150)
-#define MinStraightSpeed               (225)
+#define MinStraightSpeed               (250)
 
 
 #define BrakeDistance                  (40)
 #define BrakeDistanceStrong            (20)
-#define minDriveSpeed                  (125)
+#define minDriveSpeed                  (100)
 
-#define startAccelTime                 (25)
-#define startMPower                    (250)
+#define startAccelTime                 (30)
+#define startMPower                    (225)
 
                  
     
@@ -101,7 +106,7 @@ CurveMode curveMode = OutCurve;
 volatile uint8_t cycle10ms = 0;
 
 uint8_t delay = 0;
-uint8_t reverseCount = 0;
+uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
 

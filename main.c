@@ -45,11 +45,11 @@ void loop(void){
             break;
         }
          
-//        ++tempCNT;
-//        if(tempCNT > 1000){
-//            tempCNT = 0;
-//            printf("tempCNT Overflow");
-//        }
+        ++tempCNT;
+        if(tempCNT > 1000){
+            tempCNT = 0;
+            printf("10s passed\n");
+        }
         
         if(checkBatt()){
             break;
@@ -150,7 +150,7 @@ void getCurve(void){
                     //printf("distR= %d\n", distRight);
                 }
 
-                if(distLeft < endCurveDist || distRight < endCurveDist){
+                if(distLeft < endCurveDist || distRight < endCurveDist || distFront > endCurveDistFront){
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;
@@ -177,6 +177,8 @@ void getCurve(void){
 void getReverse(void){
     if(distFront < startReverseDist){
         ++reverseCount;
+    }else{
+        reverseCount = 0;
     }
     
     if(reverseCount > minReverseTime){
