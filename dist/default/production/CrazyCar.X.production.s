@@ -26911,6 +26911,7 @@ TOSU equ 03FFFh ;#
 	FNCALL	_loop,_getCurve
 	FNCALL	_loop,_getReverse
 	FNCALL	_loop,_printf
+	FNCALL	_loop,_setMotor
 	FNCALL	_loop,_setSteering
 	FNCALL	_loop,_startAccell
 	FNCALL	_startAccell,_setMotor
@@ -26942,6 +26943,7 @@ TOSU equ 03FFFh ;#
 	FNCALL	_calcSpeed,___flmul
 	FNCALL	_calcSpeed,___fltol
 	FNCALL	_calcSpeed,___xxtofl
+	FNCALL	_calcMotorPow,___awdiv
 	FNCALL	_calcMotorPow,___flmul
 	FNCALL	_calcMotorPow,___fltol
 	FNCALL	_calcMotorPow,___xxtofl
@@ -27011,11 +27013,11 @@ TOSU equ 03FFFh ;#
 	global	_flags
 	global	_BatteryVolt
 	global	_actMotorPow
+	global	_oldDistRight
 	global	_oldDistLeft
 	global	TMR4_ISR@CountCallBack
 	global	_distRight
 	global	_distLeft
-	global	_battCheckCount
 	global	_reverseCount
 	global	_delay
 	global	_cycle10ms
@@ -27041,7 +27043,7 @@ TOSU equ 03FFFh ;#
 	global	_oldSpeed
 	global	_currentSpeed
 	global	_setSpeed
-	global	_oldDistRight
+	global	_battCheckCount
 	global	_distRightM
 	global	_distLeftM
 	global	_distFront
@@ -27200,13 +27202,6 @@ _LATB	set	0x3FBB
 _OSCTUNE	set	0x39DE
 	global	_OSCFRQ
 _OSCFRQ	set	0x39DF
-	global	_uart1TxBufferRemaining
-psect	nvCOMRAM,class=COMRAM,space=1,noexec,lowdata
-global __pnvCOMRAM
-__pnvCOMRAM:
-	global	_uart1TxBufferRemaining
-_uart1TxBufferRemaining:
-       ds      1
 	global	_TMR4_InterruptHandler
 psect	nvBANK0,class=BANK0,space=1,noexec,lowdata
 global __pnvBANK0
@@ -27252,6 +27247,10 @@ _UART1_TxInterruptHandler:
 	global	_UART1_RxInterruptHandler
 _UART1_RxInterruptHandler:
        ds      2
+	global	_uart1TxBufferRemaining
+	global	_uart1TxBufferRemaining
+_uart1TxBufferRemaining:
+       ds      1
 	global	_CLC3CON
 _CLC3CON	set	0x3C60
 	global	_U1ERRIRbits
@@ -27673,6 +27672,9 @@ _BatteryVolt:
 	global	_actMotorPow
 _actMotorPow:
        ds      2
+	global	_oldDistRight
+_oldDistRight:
+       ds      2
 	global	_oldDistLeft
 _oldDistLeft:
        ds      2
@@ -27684,9 +27686,6 @@ _distRight:
 	global	_distLeft
 _distLeft:
        ds      2
-	global	_battCheckCount
-_battCheckCount:
-       ds      1
 	global	_reverseCount
 _reverseCount:
        ds      1
@@ -27758,8 +27757,8 @@ _setSpeed:
 	global	_motPow
 _motPow:
        ds      2
-	global	_oldDistRight
-_oldDistRight:
+	global	_battCheckCount
+_battCheckCount:
        ds      2
 	global	_distRightM
 _distRightM:
@@ -27794,10 +27793,10 @@ clear_1:
 clrf	postinc0,c
 decf	wreg
 bnz	clear_1
-; Clear objects allocated to COMRAM (30 bytes)
+; Clear objects allocated to COMRAM (31 bytes)
 	global __pbssCOMRAM
 lfsr	0,__pbssCOMRAM
-movlw	30
+movlw	31
 clear_2:
 clrf	postinc0,c
 decf	wreg
@@ -27860,8 +27859,6 @@ __pcstackBANK0:
 ?___awdiv:	; 2 bytes @ 0x0
 	global	?___aldiv
 ?___aldiv:	; 4 bytes @ 0x0
-	global	?___xxtofl
-?___xxtofl:	; 4 bytes @ 0x0
 	global	?___lodiv
 ?___lodiv:	; 8 bytes @ 0x0
 	global	?___lomod
@@ -27876,8 +27873,6 @@ fputc@c:	; 2 bytes @ 0x0
 strlen@a:	; 2 bytes @ 0x0
 	global	___aldiv@dividend
 ___aldiv@dividend:	; 4 bytes @ 0x0
-	global	___xxtofl@val
-___xxtofl@val:	; 4 bytes @ 0x0
 	global	___lodiv@dividend
 ___lodiv@dividend:	; 8 bytes @ 0x0
 	global	___lomod@dividend
@@ -27897,7 +27892,6 @@ fputc@fp:	; 2 bytes @ 0x2
 	ds   2
 ??_setMotor:	; 1 bytes @ 0x4
 ??_fputc:	; 1 bytes @ 0x4
-??___xxtofl:	; 1 bytes @ 0x4
 	global	___awdiv@counter
 ___awdiv@counter:	; 1 bytes @ 0x4
 	global	___aldiv@divisor
@@ -27910,12 +27904,14 @@ ___awdiv@sign:	; 1 bytes @ 0x5
 ___awdiv@quotient:	; 2 bytes @ 0x6
 	ds   2
 ?_setSteering:	; 1 bytes @ 0x8
+	global	?___xxtofl
+?___xxtofl:	; 4 bytes @ 0x8
 	global	___aldiv@counter
 ___aldiv@counter:	; 1 bytes @ 0x8
-	global	___xxtofl@sign
-___xxtofl@sign:	; 1 bytes @ 0x8
 	global	setSteering@steering
 setSteering@steering:	; 2 bytes @ 0x8
+	global	___xxtofl@val
+___xxtofl@val:	; 4 bytes @ 0x8
 	global	___lodiv@divisor
 ___lodiv@divisor:	; 8 bytes @ 0x8
 	global	___lomod@divisor
@@ -27924,8 +27920,6 @@ ___lomod@divisor:	; 8 bytes @ 0x8
 ?_fputs:	; 2 bytes @ 0x9
 	global	___aldiv@sign
 ___aldiv@sign:	; 1 bytes @ 0x9
-	global	___xxtofl@exp
-___xxtofl@exp:	; 1 bytes @ 0x9
 	global	fputs@s
 fputs@s:	; 2 bytes @ 0x9
 	ds   1
@@ -27933,48 +27927,43 @@ fputs@s:	; 2 bytes @ 0x9
 setSteering@steeringMode:	; 1 bytes @ 0xA
 	global	___aldiv@quotient
 ___aldiv@quotient:	; 4 bytes @ 0xA
-	global	___xxtofl@arg
-___xxtofl@arg:	; 4 bytes @ 0xA
 	ds   1
 ??_setSteering:	; 1 bytes @ 0xB
 	global	fputs@fp
 fputs@fp:	; 2 bytes @ 0xB
-	ds   2
+	ds   1
+??___xxtofl:	; 1 bytes @ 0xC
+	ds   1
 	global	fputs@c
 fputs@c:	; 1 bytes @ 0xD
 	global	setSteering@steeringF
 setSteering@steeringF:	; 2 bytes @ 0xD
 	ds   1
-?___flge:	; 1 bit 
-	global	?___flmul
-?___flmul:	; 4 bytes @ 0xE
 	global	actSpeed@speed
 actSpeed@speed:	; 2 bytes @ 0xE
 	global	fputs@i
 fputs@i:	; 2 bytes @ 0xE
-	global	___flge@ff1
-___flge@ff1:	; 4 bytes @ 0xE
-	global	___flmul@b
-___flmul@b:	; 4 bytes @ 0xE
 	ds   1
 	global	setSteering@steeringB
 setSteering@steeringB:	; 2 bytes @ 0xF
 	ds   1
 	global	?_pad
 ?_pad:	; 2 bytes @ 0x10
+	global	___xxtofl@sign
+___xxtofl@sign:	; 1 bytes @ 0x10
 	global	pad@fp
 pad@fp:	; 2 bytes @ 0x10
 	global	___lodiv@quotient
 ___lodiv@quotient:	; 8 bytes @ 0x10
 	ds   1
 ??_calcSteering:	; 1 bytes @ 0x11
+	global	___xxtofl@exp
+___xxtofl@exp:	; 1 bytes @ 0x11
 	ds   1
 	global	pad@buf
 pad@buf:	; 2 bytes @ 0x12
-	global	___flge@ff2
-___flge@ff2:	; 4 bytes @ 0x12
-	global	___flmul@a
-___flmul@a:	; 4 bytes @ 0x12
+	global	___xxtofl@arg
+___xxtofl@arg:	; 4 bytes @ 0x12
 	ds   1
 	global	calcSteering@delta
 calcSteering@delta:	; 2 bytes @ 0x13
@@ -27982,9 +27971,14 @@ calcSteering@delta:	; 2 bytes @ 0x13
 	global	pad@p
 pad@p:	; 2 bytes @ 0x14
 	ds   2
-??___flmul:	; 1 bytes @ 0x16
-??___flge:	; 1 bytes @ 0x16
+?___flge:	; 1 bit 
 ??_pad:	; 1 bytes @ 0x16
+	global	?___flmul
+?___flmul:	; 4 bytes @ 0x16
+	global	___flge@ff1
+___flge@ff1:	; 4 bytes @ 0x16
+	global	___flmul@b
+___flmul@b:	; 4 bytes @ 0x16
 	ds   1
 	global	pad@i
 pad@i:	; 2 bytes @ 0x17
@@ -27995,98 +27989,107 @@ ___lodiv@counter:	; 1 bytes @ 0x18
 	global	pad@w
 pad@w:	; 2 bytes @ 0x19
 	ds   1
-	global	___flmul@sign
-___flmul@sign:	; 1 bytes @ 0x1A
+	global	___flge@ff2
+___flge@ff2:	; 4 bytes @ 0x1A
+	global	___flmul@a
+___flmul@a:	; 4 bytes @ 0x1A
 	ds   1
 	global	?_utoa
 ?_utoa:	; 2 bytes @ 0x1B
-	global	___flmul@aexp
-___flmul@aexp:	; 1 bytes @ 0x1B
 	global	utoa@fp
 utoa@fp:	; 2 bytes @ 0x1B
-	ds   1
-	global	___flmul@grs
-___flmul@grs:	; 4 bytes @ 0x1C
-	ds   1
+	ds   2
 	global	utoa@d
 utoa@d:	; 8 bytes @ 0x1D
+	ds   1
+??___flmul:	; 1 bytes @ 0x1E
+??___flge:	; 1 bytes @ 0x1E
+	ds   4
+	global	___flmul@sign
+___flmul@sign:	; 1 bytes @ 0x22
+	ds   1
+	global	___flmul@aexp
+___flmul@aexp:	; 1 bytes @ 0x23
+	ds   1
+	global	___flmul@grs
+___flmul@grs:	; 4 bytes @ 0x24
+	ds   1
+??_utoa:	; 1 bytes @ 0x25
 	ds   3
 	global	___flmul@bexp
-___flmul@bexp:	; 1 bytes @ 0x20
+___flmul@bexp:	; 1 bytes @ 0x28
 	ds   1
 	global	___flmul@prod
-___flmul@prod:	; 4 bytes @ 0x21
+___flmul@prod:	; 4 bytes @ 0x29
 	ds   4
-??_utoa:	; 1 bytes @ 0x25
 	global	___flmul@temp
-___flmul@temp:	; 2 bytes @ 0x25
-	ds   2
-	global	?___fladd
-?___fladd:	; 4 bytes @ 0x27
-	global	___fladd@b
-___fladd@b:	; 4 bytes @ 0x27
-	ds   4
-	global	___fladd@a
-___fladd@a:	; 4 bytes @ 0x2B
-	ds   2
+___flmul@temp:	; 2 bytes @ 0x2D
 	global	utoa@p
 utoa@p:	; 2 bytes @ 0x2D
 	ds   2
-??___fladd:	; 1 bytes @ 0x2F
+	global	?___fladd
+?___fladd:	; 4 bytes @ 0x2F
 	global	utoa@w
 utoa@w:	; 2 bytes @ 0x2F
+	global	___fladd@b
+___fladd@b:	; 4 bytes @ 0x2F
 	ds   2
 	global	utoa@n
 utoa@n:	; 8 bytes @ 0x31
 	ds   2
-	global	___fladd@signs
-___fladd@signs:	; 1 bytes @ 0x33
-	ds   1
-	global	___fladd@aexp
-___fladd@aexp:	; 1 bytes @ 0x34
-	ds   1
-	global	___fladd@bexp
-___fladd@bexp:	; 1 bytes @ 0x35
-	ds   1
-	global	___fladd@grs
-___fladd@grs:	; 1 bytes @ 0x36
-	ds   1
-	global	?___fltol
-?___fltol:	; 4 bytes @ 0x37
-	global	___fltol@f1
-___fltol@f1:	; 4 bytes @ 0x37
+	global	___fladd@a
+___fladd@a:	; 4 bytes @ 0x33
+	ds   4
+??___fladd:	; 1 bytes @ 0x37
 	ds   2
 	global	utoa@i
 utoa@i:	; 2 bytes @ 0x39
 	ds   2
-??___fltol:	; 1 bytes @ 0x3B
 	global	?_vfpfcnvrt
 ?_vfpfcnvrt:	; 2 bytes @ 0x3B
+	global	___fladd@signs
+___fladd@signs:	; 1 bytes @ 0x3B
 	global	vfpfcnvrt@fp
 vfpfcnvrt@fp:	; 2 bytes @ 0x3B
-	ds   2
+	ds   1
+	global	___fladd@aexp
+___fladd@aexp:	; 1 bytes @ 0x3C
+	ds   1
+	global	___fladd@bexp
+___fladd@bexp:	; 1 bytes @ 0x3D
 	global	vfpfcnvrt@fmt
 vfpfcnvrt@fmt:	; 2 bytes @ 0x3D
-	ds   2
-??_calcSpeed:	; 1 bytes @ 0x3F
-??_calcMotorPow:	; 1 bytes @ 0x3F
+	ds   1
+	global	___fladd@grs
+___fladd@grs:	; 1 bytes @ 0x3E
+	ds   1
+	global	?___fltol
+?___fltol:	; 4 bytes @ 0x3F
 	global	vfpfcnvrt@ap
 vfpfcnvrt@ap:	; 2 bytes @ 0x3F
+	global	___fltol@f1
+___fltol@f1:	; 4 bytes @ 0x3F
 	ds   2
 ??_vfpfcnvrt:	; 1 bytes @ 0x41
-	global	calcMotorPow@setSpeedDelta
-calcMotorPow@setSpeedDelta:	; 2 bytes @ 0x41
 	ds   2
-	global	calcSpeed@speed
-calcSpeed@speed:	; 2 bytes @ 0x43
-	global	calcMotorPow@oldSpeedDelta
-calcMotorPow@oldSpeedDelta:	; 2 bytes @ 0x43
+??___fltol:	; 1 bytes @ 0x43
 	ds   2
-	global	calcMotorPow@addMPow
-calcMotorPow@addMPow:	; 1 bytes @ 0x45
 	global	vfpfcnvrt@llu
 vfpfcnvrt@llu:	; 8 bytes @ 0x45
-	ds   8
+	ds   2
+??_calcSpeed:	; 1 bytes @ 0x47
+??_calcMotorPow:	; 1 bytes @ 0x47
+	ds   2
+	global	calcMotorPow@setSpeedDelta
+calcMotorPow@setSpeedDelta:	; 2 bytes @ 0x49
+	ds   2
+	global	calcSpeed@speed
+calcSpeed@speed:	; 2 bytes @ 0x4B
+	global	calcMotorPow@oldSpeedDelta
+calcMotorPow@oldSpeedDelta:	; 2 bytes @ 0x4B
+	ds   2
+	global	calcMotorPow@addMPow
+calcMotorPow@addMPow:	; 1 bytes @ 0x4D
 	global	vfprintf@cfmt
 vfprintf@cfmt:	; 2 bytes @ 0x4D
 	ds   2
@@ -28317,14 +28320,14 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!    Strings     28
 ;!    Constant    0
 ;!    Data        0
-;!    BSS         120
+;!    BSS         121
 ;!    Persistent  23
 ;!    Stack       0
 ;!
 ;!Auto Spaces:
 ;!    Space          Size  Autos    Used
 ;!    COMRAM           95     33      64
-;!    BANK0           160     79     159
+;!    BANK0           160     79     160
 ;!    BANK1           256     12      44
 ;!    BANK2           256      0       0
 ;!    BANK3           256      0       0
@@ -28545,6 +28548,7 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!    _setMotor->_PWM7_LoadDutyValue
 ;!    _setMotor->_PWM8_LoadDutyValue
 ;!    _actSpeed->___aldiv
+;!    ___xxtofl->___awdiv
 ;!    ___fltol->___fladd
 ;!    ___flmul->___xxtofl
 ;!    _SYSTEM_Initialize->_TMR5_Initialize
@@ -29261,12 +29265,12 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;! ---------------------------------------------------------------------------------
 ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
 ;! ---------------------------------------------------------------------------------
-;! (0) _main                                                 0     0      0   54526
+;! (0) _main                                                 0     0      0   57063
 ;!                  _SYSTEM_Initialize
 ;!           _TMR4_SetInterruptHandler
 ;!                               _loop
 ;! ---------------------------------------------------------------------------------
-;! (1) _loop                                                 0     0      0   53379
+;! (1) _loop                                                 0     0      0   55916
 ;!                             ___flge
 ;!                           ___xxtofl
 ;!                       _calcMotorPow
@@ -29277,10 +29281,11 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!                           _getCurve
 ;!                         _getReverse
 ;!                             _printf
+;!                           _setMotor
 ;!                        _setSteering
 ;!                        _startAccell
 ;! ---------------------------------------------------------------------------------
-;! (2) _startAccell                                          0     0      0    4464
+;! (2) _startAccell                                          0     0      0    4914
 ;!                           _setMotor
 ;!                        _setSteering
 ;! ---------------------------------------------------------------------------------
@@ -29290,7 +29295,7 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!                                             31 COMRAM     2     2      0
 ;!                                              0 BANK0      4     4      0
 ;! ---------------------------------------------------------------------------------
-;! (2) _checkBatt                                            0     0      0   12225
+;! (2) _checkBatt                                            0     0      0   12585
 ;!                             ___flge
 ;!                           ___xxtofl
 ;!                  _getBatteryVoltage
@@ -29357,21 +29362,18 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!                                              0 BANK0      3     3      0
 ;! ---------------------------------------------------------------------------------
 ;! (3) ___flge                                              12     4      8     626
-;!                                             14 BANK0     12     4      8
+;!                                             22 BANK0     12     4      8
 ;!                           ___xxtofl (ARG)
 ;! ---------------------------------------------------------------------------------
-;! (2) _calcSteering                                         4     4      0    3623
+;! (2) _calcSteering                                         4     4      0    3983
 ;!                                             17 BANK0      4     4      0
 ;!                        _setSteering
 ;! ---------------------------------------------------------------------------------
-;! (3) _setSteering                                          9     6      3    3428
+;! (3) _setSteering                                          9     6      3    3788
 ;!                                              8 BANK0      9     6      3
 ;!                 _PWM5_LoadDutyValue
 ;!                 _PWM6_LoadDutyValue
 ;!                            ___awdiv
-;! ---------------------------------------------------------------------------------
-;! (4) ___awdiv                                              8     4      4     625
-;!                                              0 BANK0      8     4      4
 ;! ---------------------------------------------------------------------------------
 ;! (4) _PWM6_LoadDutyValue                                   4     2      2     152
 ;!                                             31 COMRAM     2     0      2
@@ -29381,27 +29383,28 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!                                             31 COMRAM     2     0      2
 ;!                                              0 BANK0      2     2      0
 ;! ---------------------------------------------------------------------------------
-;! (2) _calcSpeed                                            6     6      0    7444
-;!                                             63 BANK0      6     6      0
+;! (2) _calcSpeed                                            6     6      0    6430
+;!                                             71 BANK0      6     6      0
 ;!                            ___fladd
 ;!                            ___flmul
 ;!                            ___fltol
 ;!                           ___xxtofl
 ;! ---------------------------------------------------------------------------------
-;! (3) ___fladd                                             16     8      8    3402
-;!                                             39 BANK0     16     8      8
+;! (3) ___fladd                                             16     8      8    2388
+;!                                             47 BANK0     16     8      8
 ;!                            ___flmul (ARG)
 ;!                           ___xxtofl (ARG)
 ;! ---------------------------------------------------------------------------------
-;! (2) _calcMotorPow                                         7     7      0    5964
-;!                                             63 BANK0      7     7      0
+;! (2) _calcMotorPow                                         7     7      0    6859
+;!                                             71 BANK0      7     7      0
+;!                            ___awdiv
 ;!                            ___flmul
 ;!                            ___fltol
 ;!                           ___xxtofl
 ;!                           _actSpeed
 ;!                           _setMotor
 ;! ---------------------------------------------------------------------------------
-;! (3) _setMotor                                             4     2      2    1036
+;! (3) _setMotor                                             4     2      2    1126
 ;!                                              2 BANK0      4     2      2
 ;!                 _PWM7_LoadDutyValue
 ;!                 _PWM8_LoadDutyValue
@@ -29423,18 +29426,24 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!                                              0 BANK0     14     6      8
 ;! ---------------------------------------------------------------------------------
 ;! (3) ___xxtofl                                            14    10      4     836
-;!                                              0 BANK0     14    10      4
+;!                                              8 BANK0     14    10      4
+;!                            ___awdiv (ARG)
 ;! ---------------------------------------------------------------------------------
 ;! (3) ___fltol                                             10     6      4     381
 ;!                                             31 COMRAM     2     2      0
-;!                                             55 BANK0      8     4      4
+;!                                             63 BANK0      8     4      4
+;!                            ___awdiv (ARG)
 ;!                            ___fladd (ARG)
 ;!                            ___flmul (ARG)
 ;!                           ___xxtofl (ARG)
 ;! ---------------------------------------------------------------------------------
 ;! (3) ___flmul                                             25    17      8    2693
-;!                                             14 BANK0     25    17      8
+;!                                             22 BANK0     25    17      8
+;!                            ___awdiv (ARG)
 ;!                           ___xxtofl (ARG)
+;! ---------------------------------------------------------------------------------
+;! (4) ___awdiv                                              8     4      4     805
+;!                                              0 BANK0      8     4      4
 ;! ---------------------------------------------------------------------------------
 ;! (1) _SYSTEM_Initialize                                    0     0      0     973
 ;!                    _ADCC_Initialize
@@ -29704,11 +29713,15 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!   _loop
 ;!     ___flge
 ;!       ___xxtofl (ARG)
+;!         ___awdiv (ARG)
 ;!     ___xxtofl
 ;!     _calcMotorPow
+;!       ___awdiv
 ;!       ___flmul
+;!         ___awdiv (ARG)
 ;!         ___xxtofl (ARG)
 ;!       ___fltol
+;!         ___awdiv (ARG)
 ;!         ___fladd (ARG)
 ;!           ___flmul (ARG)
 ;!           ___xxtofl (ARG)
@@ -29754,6 +29767,7 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!     _getCurve
 ;!     _getReverse
 ;!     _printf
+;!     _setMotor
 ;!     _setSteering
 ;!     _startAccell
 ;!       _setMotor
@@ -29843,7 +29857,7 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!BANK1              100      C      2C       7       17.2%
 ;!BITBIGSFRhhhhll     E3      0       0      51        0.0%
 ;!BITBANK0            A0      0       0       4        0.0%
-;!BANK0               A0     4F      9F       5       99.4%
+;!BANK0               A0     4F      A0       5      100.0%
 ;!BITCOMRAM           5F      0       0       0        0.0%
 ;!COMRAM              5F     21      40       1       67.4%
 ;!BITBIGSFRhhhhll     44      0       0      60        0.0%
@@ -29912,8 +29926,8 @@ ___fltol@exp1:	; 1 bytes @ 0x20
 ;!SFR                  0      0       0     200        0.0%
 ;!STACK                0      0       0       2        0.0%
 ;!NULL                 0      0       0       0        0.0%
-;!ABS                  0      0     10B      85        0.0%
-;!DATA                 0      0     10B       3        0.0%
+;!ABS                  0      0     10C      85        0.0%
+;!DATA                 0      0     10C       3        0.0%
 ;!CODE                 0      0       0       0        0.0%
 
 	global	_main
@@ -29962,17 +29976,17 @@ _main:
 	callstack 11
 	line	10
 	
-l6688:
+l6486:
 ;main.c: 10:     SYSTEM_Initialize();
 	call	_SYSTEM_Initialize	;wreg free
 	line	11
 	
-l6690:
+l6488:
 ;main.c: 11:     (INTCON0bits.GIEH = 1);
 	bsf	((c:16338))^03f00h,c,7	;volatile
 	line	12
 	
-l6692:
+l6490:
 ;main.c: 12:     (INTCON0bits.GIEL = 1);
 	bsf	((c:16338))^03f00h,c,6	;volatile
 	line	13
@@ -29985,10 +29999,10 @@ l6692:
 	call	_TMR4_SetInterruptHandler	;wreg free
 	line	16
 	
-l6694:
+l6492:
 ;main.c: 16:         loop();
 	call	_loop	;wreg free
-	goto	l6694
+	goto	l6492
 	global	start
 	goto	start
 	callstack 0
@@ -30032,6 +30046,7 @@ GLOBAL	__end_of_main
 ;;		_getCurve
 ;;		_getReverse
 ;;		_printf
+;;		_setMotor
 ;;		_setSteering
 ;;		_startAccell
 ;; This function is called by:
@@ -30051,41 +30066,59 @@ _loop:
 	callstack 11
 	line	21
 	
-l6642:
-;main.c: 21:     while(!PORTBbits.RB4);
+l6440:
+;main.c: 21:     setMotor(0);
+	movlw	high(0)
+	movlb	0	; () banked
+	movwf	((setMotor@motorPower+1))&0ffh
+	movlw	low(0)
+	movwf	((setMotor@motorPower))&0ffh
+	call	_setMotor	;wreg free
+	line	22
+;main.c: 22:     setSteering(0,Front);
+	movlw	high(0)
+	movlb	0	; () banked
+	movwf	((setSteering@steering+1))&0ffh
+	movlw	low(0)
+	movwf	((setSteering@steering))&0ffh
+	movlw	low(03h)
+	movwf	((setSteering@steeringMode))&0ffh
+	call	_setSteering	;wreg free
+	line	23
+;main.c: 23:     while(PORTBbits.RB4);
 	
 l1224:
-	btfss	((c:16331))^03f00h,c,4	;volatile
-	goto	u5881
-	goto	u5880
-u5881:
+	btfsc	((c:16331))^03f00h,c,4	;volatile
+	goto	u5491
+	goto	u5490
+u5491:
 	goto	l1224
-u5880:
-	line	24
-	
-l6644:
-	movf	((c:_cycle10ms))^00h,c,w	;volatile
-	btfsc	status,2
-	goto	u5891
-	goto	u5890
-u5891:
-	goto	l6644
-u5890:
-	line	25
-	
-l6646:
-;main.c: 25:         cycle10ms = 0;
-	movlw	low(0)
-	movwf	((c:_cycle10ms))^00h,c	;volatile
+u5490:
 	line	26
 	
-l6648:
-;main.c: 26:         getBatteryVoltage();
-	call	_getBatteryVoltage	;wreg free
+l6442:
+	movf	((c:_cycle10ms))^00h,c,w	;volatile
+	btfsc	status,2
+	goto	u5501
+	goto	u5500
+u5501:
+	goto	l6442
+u5500:
+	line	27
+	
+l6444:
+;main.c: 27:         cycle10ms = 0;
+	movlw	low(0)
+	movwf	((c:_cycle10ms))^00h,c	;volatile
 	line	28
 	
-l6650:
-;main.c: 28:     }while(BatteryVolt < ((7.5) * 409.6));
+l6446:
+;main.c: 28:         getBatteryVoltage();
+	call	_getBatteryVoltage	;wreg free
+	line	30
+	
+l6448:
+;main.c: 30:     }while(BatteryVolt < ((3) * 409.6));
 	movff	(c:_BatteryVolt),(___xxtofl@val)
 	movff	(c:_BatteryVolt+1),(___xxtofl@val+1)
 	movlb	0	; () banked
@@ -30099,87 +30132,93 @@ l6650:
 	movff	2+?___xxtofl,(___flge@ff1+2)
 	movff	3+?___xxtofl,(___flge@ff1+3)
 	
-	movlw	low(normalize32(0x45400000))
+	movlw	low(normalize32(0x4499999a))
 	movlb	0	; () banked
 	movwf	((___flge@ff2))&0ffh
-	movlw	high(normalize32(0x45400000))
+	movlw	high(normalize32(0x4499999a))
 	movwf	((___flge@ff2+1))&0ffh
-	movlw	low highword(normalize32(0x45400000))
+	movlw	low highword(normalize32(0x4499999a))
 	movwf	((___flge@ff2+2))&0ffh
-	movlw	high highword(normalize32(0x45400000))
+	movlw	high highword(normalize32(0x4499999a))
 	movwf	((___flge@ff2+3))&0ffh
 	call	___flge	;wreg free
 	movlb	0	; () banked
 	btfss	status,0
-	goto	u5901
-	goto	u5900
-u5901:
-	goto	l6644
-u5900:
-	line	30
-	
-l6652:; BSR set to: 0
-
-;main.c: 30:     startAccell();
-	call	_startAccell	;wreg free
+	goto	u5511
+	goto	u5510
+u5511:
+	goto	l6442
+u5510:
 	line	32
 	
-l6654:
-;main.c: 32:     oldDistLeft = distLeft;
-	movff	(c:_distLeft),(c:_oldDistLeft)	;volatile
-	movff	(c:_distLeft+1),(c:_oldDistLeft+1)	;volatile
-	line	33
-	
-l6656:
-;main.c: 33:     oldDistRight = distRight;
-	movff	(c:_distRight),(_oldDistRight)	;volatile
-	movff	(c:_distRight+1),(_oldDistRight+1)	;volatile
+l6450:; BSR set to: 0
+
+;main.c: 32:     startAccell();
+	call	_startAccell	;wreg free
 	line	34
 	
-l6658:
-;main.c: 34:     cycle10ms = 0;
-	movlw	low(0)
-	movwf	((c:_cycle10ms))^00h,c	;volatile
+l6452:
+;main.c: 34:     oldDistLeft = distLeft;
+	movff	(c:_distLeft),(c:_oldDistLeft)	;volatile
+	movff	(c:_distLeft+1),(c:_oldDistLeft+1)	;volatile
+	line	35
+	
+l6454:
+;main.c: 35:     oldDistRight = distRight;
+	movff	(c:_distRight),(c:_oldDistRight)	;volatile
+	movff	(c:_distRight+1),(c:_oldDistRight+1)	;volatile
 	line	36
 	
-l6660:
-	movf	((c:_cycle10ms))^00h,c,w	;volatile
-	btfsc	status,2
-	goto	u5911
-	goto	u5910
-u5911:
-	goto	l6660
-u5910:
-	line	37
-	
-l6662:
-;main.c: 37:         cycle10ms = 0;
+l6456:
+;main.c: 36:     cycle10ms = 0;
 	movlw	low(0)
 	movwf	((c:_cycle10ms))^00h,c	;volatile
+	line	38
+	
+l6458:
+	movf	((c:_cycle10ms))^00h,c,w	;volatile
+	btfsc	status,2
+	goto	u5521
+	goto	u5520
+u5521:
+	goto	l6458
+u5520:
 	line	39
 	
-l6664:
-;main.c: 39:         if(PORTBbits.RB5){
-	btfss	((c:16331))^03f00h,c,5	;volatile
-	goto	u5921
-	goto	u5920
-u5921:
-	goto	l6670
-u5920:
-	line	40
+l6460:
+;main.c: 39:         cycle10ms = 0;
+	movlw	low(0)
+	movwf	((c:_cycle10ms))^00h,c	;volatile
+	line	41
 	
-l6666:
-;main.c: 40:             setSpeed = 0;
+l6462:
+;main.c: 41:         if(!PORTBbits.RB5){
+	btfsc	((c:16331))^03f00h,c,5	;volatile
+	goto	u5531
+	goto	u5530
+u5531:
+	goto	l6468
+u5530:
+	line	42
+	
+l6464:
+;main.c: 42:             setSpeed = 0;
 	movlw	high(0)
 	movlb	0	; () banked
 	movwf	((_setSpeed+1))&0ffh
 	movlw	low(0)
 	movwf	((_setSpeed))&0ffh
-	line	41
+	line	43
+;main.c: 43:             actMotorPow = 0;
+	movlw	high(0)
+	movwf	((c:_actMotorPow+1))^00h,c
+	movlw	low(0)
+	movwf	((c:_actMotorPow))^00h,c
+	line	44
 	
-l6668:; BSR set to: 0
+l6466:; BSR set to: 0
 
-;main.c: 41:             setSteering(0,Front);
+;main.c: 44:             setSteering(0,Front);
 	movlw	high(0)
 	movwf	((setSteering@steering+1))&0ffh
 	movlw	low(0)
@@ -30187,48 +30226,48 @@ l6668:; BSR set to: 0
 	movlw	low(03h)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	42
-;main.c: 42:             break;
-	goto	l1241
 	line	45
+;main.c: 45:             break;
+	goto	l1241
+	line	48
 	
-l6670:
-;main.c: 45:         ++tempCNT;
+l6468:
+;main.c: 48:         ++tempCNT;
 	movlb	0	; () banked
 	infsnz	((_tempCNT))&0ffh
 	incf	((_tempCNT+1))&0ffh
-	line	46
+	line	49
 	
-l6672:; BSR set to: 0
+l6470:; BSR set to: 0
 
-;main.c: 46:         if(tempCNT > 1000){
+;main.c: 49:         if(tempCNT > 1000){
 	btfsc	((_tempCNT+1))&0ffh,7
-	goto	u5931
+	goto	u5541
 	movlw	233
 	subwf	 ((_tempCNT))&0ffh,w
 	movlw	3
 	subwfb	((_tempCNT+1))&0ffh,w
 	btfss	status,0
-	goto	u5931
-	goto	u5930
+	goto	u5541
+	goto	u5540
 
-u5931:
-	goto	l6678
-u5930:
-	line	47
+u5541:
+	goto	l6476
+u5540:
+	line	50
 	
-l6674:; BSR set to: 0
+l6472:; BSR set to: 0
 
-;main.c: 47:             tempCNT = 0;
+;main.c: 50:             tempCNT = 0;
 	movlw	high(0)
 	movwf	((_tempCNT+1))&0ffh
 	movlw	low(0)
 	movwf	((_tempCNT))&0ffh
-	line	48
+	line	51
 	
-l6676:; BSR set to: 0
+l6474:; BSR set to: 0
 
-;main.c: 48:             printf("tempCNT Overflow");
+;main.c: 51:             printf("tempCNT Overflow");
 		movlw	low(STR_1)
 	movlb	1	; () banked
 	movwf	((printf@fmt))&0ffh
@@ -30236,42 +30275,42 @@ l6676:; BSR set to: 0
 	movwf	((printf@fmt+1))&0ffh
 
 	call	_printf	;wreg free
-	line	51
+	line	54
 	
-l6678:
-;main.c: 51:         if(checkBatt()){
+l6476:
+;main.c: 54:         if(checkBatt()){
 	call	_checkBatt	;wreg free
 	iorlw	0
 	btfsc	status,2
-	goto	u5941
-	goto	u5940
-u5941:
-	goto	l6682
-u5940:
+	goto	u5551
+	goto	u5550
+u5551:
+	goto	l6480
+u5550:
 	goto	l1241
-	line	55
-	
-l6682:
-;main.c: 55:         getCurve();
-	call	_getCurve	;wreg free
-	line	56
-;main.c: 56:         getReverse();
-	call	_getReverse	;wreg free
 	line	58
-;main.c: 58:         calcSteering();
-	call	_calcSteering	;wreg free
+	
+l6480:
+;main.c: 58:         getCurve();
+	call	_getCurve	;wreg free
 	line	59
-	
-l6684:
-;main.c: 59:         calcSpeed();
-	call	_calcSpeed	;wreg free
-	line	60
-	
-l6686:
-;main.c: 60:         calcMotorPow();
-	call	_calcMotorPow	;wreg free
-	goto	l6660
+;main.c: 59:         getReverse();
+	call	_getReverse	;wreg free
+	line	61
+;main.c: 61:         calcSteering();
+	call	_calcSteering	;wreg free
 	line	62
+	
+l6482:
+;main.c: 62:         calcSpeed();
+	call	_calcSpeed	;wreg free
+	line	63
+	
+l6484:
+;main.c: 63:         calcMotorPow();
+	call	_calcMotorPow	;wreg free
+	goto	l6458
+	line	65
 	
 l1241:
 	return	;funcret
@@ -30283,7 +30322,7 @@ GLOBAL	__end_of_loop
 
 ;; *************** function _startAccell *****************
 ;; Defined at:
-;;		line 99 in file "main.c"
+;;		line 102 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -30312,35 +30351,35 @@ GLOBAL	__end_of_loop
 ;; This function uses a non-reentrant model
 ;;
 psect	text2,class=CODE,space=0,reloc=2,group=0
-	line	99
+	line	102
 global __ptext2
 __ptext2:
 psect	text2
 	file	"main.c"
-	line	99
+	line	102
 	
 _startAccell:
 ;incstack = 0
 	callstack 19
-	line	100
+	line	103
 	
-l6398:
-;main.c: 100:     actMotorPow = (250);
+l6196:
+;main.c: 103:     actMotorPow = (250);
 	movlw	high(0FAh)
 	movwf	((c:_actMotorPow+1))^00h,c
 	movlw	low(0FAh)
 	movwf	((c:_actMotorPow))^00h,c
-	line	101
+	line	104
 	
-l6400:
-;main.c: 101:     setMotor(actMotorPow);
+l6198:
+;main.c: 104:     setMotor(actMotorPow);
 	movff	(c:_actMotorPow),(setMotor@motorPower)
 	movff	(c:_actMotorPow+1),(setMotor@motorPower+1)
 	call	_setMotor	;wreg free
-	line	102
+	line	105
 	
-l6402:
-;main.c: 102:     setSteering(0,Front);
+l6200:
+;main.c: 105:     setSteering(0,Front);
 	movlw	high(0)
 	movlb	0	; () banked
 	movwf	((setSteering@steering+1))&0ffh
@@ -30349,23 +30388,23 @@ l6402:
 	movlw	low(03h)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	103
-;main.c: 103:     cycle10ms = 0;
+	line	106
+;main.c: 106:     cycle10ms = 0;
 	movlw	low(0)
 	movwf	((c:_cycle10ms))^00h,c	;volatile
-	line	104
-;main.c: 104:     while(cycle10ms < (25));
+	line	107
+;main.c: 107:     while(cycle10ms < (25));
 	
-l6404:
+l6202:
 		movlw	019h-1
 	cpfsgt	((c:_cycle10ms))^00h,c	;volatile
-	goto	u5571
-	goto	u5570
+	goto	u5181
+	goto	u5180
 
-u5571:
-	goto	l6404
-u5570:
-	line	105
+u5181:
+	goto	l6202
+u5180:
+	line	108
 	
 l1264:
 	return	;funcret
@@ -30377,7 +30416,7 @@ GLOBAL	__end_of_startAccell
 
 ;; *************** function _getReverse *****************
 ;; Defined at:
-;;		line 174 in file "main.c"
+;;		line 177 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -30405,20 +30444,20 @@ GLOBAL	__end_of_startAccell
 ;; This function uses a non-reentrant model
 ;;
 psect	text3,class=CODE,space=0,reloc=2,group=0
-	line	174
+	line	177
 global __ptext3
 __ptext3:
 psect	text3
 	file	"main.c"
-	line	174
+	line	177
 	
 _getReverse:
 ;incstack = 0
 	callstack 21
-	line	175
+	line	178
 	
 l5100:
-;main.c: 175:     if(distFront < (15)){
+;main.c: 178:     if(distFront < (15)){
 	movlb	0	; () banked
 		movf	((_distFront+1))&0ffh,w	;volatile
 	bnz	u3691
@@ -30431,17 +30470,17 @@ l5100:
 u3691:
 	goto	l5104
 u3690:
-	line	176
+	line	179
 	
 l5102:; BSR set to: 0
 
-;main.c: 176:         ++reverseCount;
+;main.c: 179:         ++reverseCount;
 	incf	((c:_reverseCount))^00h,c
-	line	179
+	line	182
 	
 l5104:; BSR set to: 0
 
-;main.c: 179:     if(reverseCount > (50)){
+;main.c: 182:     if(reverseCount > (50)){
 		movlw	033h-1
 	cpfsgt	((c:_reverseCount))^00h,c
 	goto	u3701
@@ -30450,18 +30489,18 @@ l5104:; BSR set to: 0
 u3701:
 	goto	l1299
 u3700:
-	line	180
+	line	183
 	
 l5106:; BSR set to: 0
 
-;main.c: 180:         ++reverseTime;
+;main.c: 183:         ++reverseTime;
 	infsnz	((_reverseTime))&0ffh
 	incf	((_reverseTime+1))&0ffh
-	line	182
+	line	185
 	
 l5108:; BSR set to: 0
 
-;main.c: 182:         if(driveMode != ReverseRight && driveMode != ReverseLeft){
+;main.c: 185:         if(driveMode != ReverseRight && driveMode != ReverseLeft){
 		movlw	2
 	xorwf	((c:_driveMode))^00h,c,w
 	btfsc	status,2
@@ -30483,11 +30522,11 @@ l5110:; BSR set to: 0
 u3721:
 	goto	l5118
 u3720:
-	line	183
+	line	186
 	
 l5112:; BSR set to: 0
 
-;main.c: 183:             if(distLeft > distRight){
+;main.c: 186:             if(distLeft > distRight){
 		movf	((c:_distLeft))^00h,c,w	;volatile
 	subwf	((c:_distRight))^00h,c,w	;volatile
 	movf	((c:_distLeft+1))^00h,c,w	;volatile
@@ -30499,28 +30538,28 @@ l5112:; BSR set to: 0
 u3731:
 	goto	l5116
 u3730:
-	line	185
+	line	188
 	
 l5114:; BSR set to: 0
 
-;main.c: 185:                 driveMode = ReverseRight;
+;main.c: 188:                 driveMode = ReverseRight;
 	movlw	low(02h)
 	movwf	((c:_driveMode))^00h,c
-	line	186
-;main.c: 186:             }else{
+	line	189
+;main.c: 189:             }else{
 	goto	l5118
-	line	188
+	line	191
 	
 l5116:; BSR set to: 0
 
-;main.c: 188:                 driveMode = ReverseLeft;
+;main.c: 191:                 driveMode = ReverseLeft;
 	movlw	low(03h)
 	movwf	((c:_driveMode))^00h,c
-	line	192
+	line	195
 	
 l5118:; BSR set to: 0
 
-;main.c: 192:         if(distFront > (30) || reverseTime > (200)){
+;main.c: 195:         if(distFront > (30) || reverseTime > (300)){
 		movf	((_distFront+1))&0ffh,w	;volatile
 	bnz	u3741
 	movlw	31
@@ -30537,10 +30576,10 @@ l5120:; BSR set to: 0
 
 	btfsc	((_reverseTime+1))&0ffh,7
 	goto	u3751
-	movf	((_reverseTime+1))&0ffh,w
-	bnz	u3750
-	movlw	201
+	movlw	45
 	subwf	 ((_reverseTime))&0ffh,w
+	movlw	1
+	subwfb	((_reverseTime+1))&0ffh,w
 	btfss	status,0
 	goto	u3751
 	goto	u3750
@@ -30548,18 +30587,24 @@ l5120:; BSR set to: 0
 u3751:
 	goto	l1299
 u3750:
-	line	194
+	line	197
 	
 l5122:; BSR set to: 0
 
-;main.c: 194:              driveMode = Straight;
+;main.c: 197:              driveMode = Straight;
 	movlw	low(0)
 	movwf	((c:_driveMode))^00h,c
-	line	195
-;main.c: 195:              reverseCount = 0;
+	line	198
+;main.c: 198:              reverseCount = 0;
 	movlw	low(0)
 	movwf	((c:_reverseCount))^00h,c
-	line	198
+	line	199
+;main.c: 199:              reverseTime = 0;
+	movlw	high(0)
+	movwf	((_reverseTime+1))&0ffh
+	movlw	low(0)
+	movwf	((_reverseTime))&0ffh
+	line	202
 	
 l1299:; BSR set to: 0
 
@@ -30572,7 +30617,7 @@ GLOBAL	__end_of_getReverse
 
 ;; *************** function _getCurve *****************
 ;; Defined at:
-;;		line 107 in file "main.c"
+;;		line 110 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -30601,26 +30646,26 @@ GLOBAL	__end_of_getReverse
 ;; This function uses a non-reentrant model
 ;;
 psect	text4,class=CODE,space=0,reloc=2,group=0
-	line	107
+	line	110
 global __ptext4
 __ptext4:
 psect	text4
 	file	"main.c"
-	line	107
+	line	110
 	
 _getCurve:; BSR set to: 0
 
 ;incstack = 0
 	callstack 21
-	line	111
+	line	114
 	
-l6428:
-;main.c: 108:     int16_t deltaLeft;;main.c: 109:     int16_t deltaRight;;main.c: 111:     switch (curveMode){
-	goto	l6476
-	line	113
+l6226:
+;main.c: 111:     int16_t deltaLeft;;main.c: 112:     int16_t deltaRight;;main.c: 114:     switch (curveMode){
+	goto	l6274
+	line	116
 	
-l6430:
-;main.c: 113:             deltaLeft = (int16_t)(distLeft - oldDistLeft);
+l6228:
+;main.c: 116:             deltaLeft = (int16_t)(distLeft - oldDistLeft);
 	movf	((c:_oldDistLeft))^00h,c,w
 	subwf	((c:_distLeft))^00h,c,w	;volatile
 	movlb	0	; () banked
@@ -30628,253 +30673,253 @@ l6430:
 	movf	((c:_oldDistLeft+1))^00h,c,w
 	subwfb	((c:_distLeft+1))^00h,c,w	;volatile
 	movwf	1+((getCurve@deltaLeft))&0ffh
-	line	114
-;main.c: 114:             deltaRight = (int16_t)(distRight - oldDistRight);
-	movf	((_oldDistRight))&0ffh,w
+	line	117
+;main.c: 117:             deltaRight = (int16_t)(distRight - oldDistRight);
+	movf	((c:_oldDistRight))^00h,c,w
 	subwf	((c:_distRight))^00h,c,w	;volatile
 	movwf	((getCurve@deltaRight))&0ffh
-	movf	((_oldDistRight+1))&0ffh,w
+	movf	((c:_oldDistRight+1))^00h,c,w
 	subwfb	((c:_distRight+1))^00h,c,w	;volatile
 	movwf	1+((getCurve@deltaRight))&0ffh
-	line	117
-;main.c: 117:             if(deltaLeft > (40) && deltaLeft < (300) && oldDistLeft < (150)){
+	line	120
+;main.c: 120:             if(deltaLeft > (40) && deltaLeft < (300) && oldDistLeft < (150)){
 	btfsc	((getCurve@deltaLeft+1))&0ffh,7
-	goto	u5601
+	goto	u5211
 	movf	((getCurve@deltaLeft+1))&0ffh,w
-	bnz	u5600
+	bnz	u5210
 	movlw	41
 	subwf	 ((getCurve@deltaLeft))&0ffh,w
 	btfss	status,0
-	goto	u5601
-	goto	u5600
+	goto	u5211
+	goto	u5210
 
-u5601:
-	goto	l6438
-u5600:
+u5211:
+	goto	l6236
+u5210:
 	
-l6432:; BSR set to: 0
+l6230:; BSR set to: 0
 
 	btfsc	((getCurve@deltaLeft+1))&0ffh,7
-	goto	u5610
+	goto	u5220
 	movlw	44
 	subwf	 ((getCurve@deltaLeft))&0ffh,w
 	movlw	1
 	subwfb	((getCurve@deltaLeft+1))&0ffh,w
 	btfsc	status,0
-	goto	u5611
-	goto	u5610
+	goto	u5221
+	goto	u5220
 
-u5611:
-	goto	l6438
-u5610:
+u5221:
+	goto	l6236
+u5220:
 	
-l6434:; BSR set to: 0
+l6232:; BSR set to: 0
 
 		movf	((c:_oldDistLeft+1))^00h,c,w
-	bnz	u5621
+	bnz	u5231
 	movlw	150
 	subwf	 ((c:_oldDistLeft))^00h,c,w
 	btfsc	status,0
-	goto	u5621
-	goto	u5620
+	goto	u5231
+	goto	u5230
 
-u5621:
-	goto	l6438
-u5620:
-	line	118
+u5231:
+	goto	l6236
+u5230:
+	line	121
 	
-l6436:; BSR set to: 0
+l6234:; BSR set to: 0
 
-;main.c: 118:                 delay = 0;
+;main.c: 121:                 delay = 0;
 	movlw	low(0)
 	movwf	((c:_delay))^00h,c
-	line	119
-;main.c: 119:                 curveMode = BeforeCurve;
+	line	122
+;main.c: 122:                 curveMode = BeforeCurve;
 	movlw	low(01h)
 	movwf	((c:_curveMode))^00h,c
-	line	120
-;main.c: 120:                 driveMode = CurveLeft;
+	line	123
+;main.c: 123:                 driveMode = CurveLeft;
 	movlw	low(04h)
 	movwf	((c:_driveMode))^00h,c
-	line	123
-;main.c: 123:             } else if(deltaRight > (40) && deltaRight < (300) && oldDistRight < (150)){
+	line	126
+;main.c: 126:             } else if(deltaRight > (40) && deltaRight < (300) && oldDistRight < (150)){
 	goto	l1272
 	
-l6438:; BSR set to: 0
+l6236:; BSR set to: 0
 
 	btfsc	((getCurve@deltaRight+1))&0ffh,7
-	goto	u5631
+	goto	u5241
 	movf	((getCurve@deltaRight+1))&0ffh,w
-	bnz	u5630
+	bnz	u5240
 	movlw	41
 	subwf	 ((getCurve@deltaRight))&0ffh,w
 	btfss	status,0
-	goto	u5631
-	goto	u5630
+	goto	u5241
+	goto	u5240
 
-u5631:
+u5241:
 	goto	l1272
-u5630:
+u5240:
 	
-l6440:; BSR set to: 0
+l6238:; BSR set to: 0
 
 	btfsc	((getCurve@deltaRight+1))&0ffh,7
-	goto	u5640
+	goto	u5250
 	movlw	44
 	subwf	 ((getCurve@deltaRight))&0ffh,w
 	movlw	1
 	subwfb	((getCurve@deltaRight+1))&0ffh,w
 	btfsc	status,0
-	goto	u5641
-	goto	u5640
+	goto	u5251
+	goto	u5250
 
-u5641:
+u5251:
 	goto	l1272
-u5640:
+u5250:
 	
-l6442:; BSR set to: 0
+l6240:; BSR set to: 0
 
-		movf	((_oldDistRight+1))&0ffh,w
-	bnz	u5651
+		movf	((c:_oldDistRight+1))^00h,c,w
+	bnz	u5261
 	movlw	150
-	subwf	 ((_oldDistRight))&0ffh,w
+	subwf	 ((c:_oldDistRight))^00h,c,w
 	btfsc	status,0
-	goto	u5651
-	goto	u5650
+	goto	u5261
+	goto	u5260
 
-u5651:
+u5261:
 	goto	l1272
-u5650:
-	line	124
+u5260:
+	line	127
 	
-l6444:; BSR set to: 0
+l6242:; BSR set to: 0
 
-;main.c: 124:                 delay = 0;
+;main.c: 127:                 delay = 0;
 	movlw	low(0)
 	movwf	((c:_delay))^00h,c
-	line	125
-;main.c: 125:                 curveMode = BeforeCurve;
+	line	128
+;main.c: 128:                 curveMode = BeforeCurve;
 	movlw	low(01h)
 	movwf	((c:_curveMode))^00h,c
-	line	126
-;main.c: 126:                 driveMode = CurveRight;
+	line	129
+;main.c: 129:                 driveMode = CurveRight;
 	movlw	low(05h)
 	movwf	((c:_driveMode))^00h,c
 	goto	l1272
-	line	134
+	line	137
 	
-l6446:
-;main.c: 134:             if(delay > (20)){
+l6244:
+;main.c: 137:             if(delay > (20)){
 		movlw	015h-1
 	cpfsgt	((c:_delay))^00h,c
-	goto	u5661
-	goto	u5660
+	goto	u5271
+	goto	u5270
 
-u5661:
-	goto	l6450
-u5660:
-	line	135
+u5271:
+	goto	l6248
+u5270:
+	line	138
 	
-l6448:
-;main.c: 135:                 delay = 0;
+l6246:
+;main.c: 138:                 delay = 0;
 	movlw	low(0)
 	movwf	((c:_delay))^00h,c
-	line	136
-;main.c: 136:                 curveMode = InCurve;
+	line	139
+;main.c: 139:                 curveMode = InCurve;
 	movlw	low(02h)
 	movwf	((c:_curveMode))^00h,c
-	line	138
-;main.c: 138:             } else {
+	line	141
+;main.c: 141:             } else {
 	goto	l1272
-	line	139
+	line	142
 	
-l6450:
-;main.c: 139:                 delay++;
+l6248:
+;main.c: 142:                 delay++;
 	incf	((c:_delay))^00h,c
 	goto	l1272
-	line	143
+	line	146
 	
-l6452:
-;main.c: 143:             if(delay > (30)){
-		movlw	01Fh-1
+l6250:
+;main.c: 146:             if(delay > (25)){
+		movlw	01Ah-1
 	cpfsgt	((c:_delay))^00h,c
-	goto	u5671
-	goto	u5670
+	goto	u5281
+	goto	u5280
 
-u5671:
-	goto	l6450
-u5670:
-	line	150
+u5281:
+	goto	l6248
+u5280:
+	line	153
 	
-l6460:
-;main.c: 150:                 if(distLeft < (40) || distRight < (40)){
+l6258:
+;main.c: 153:                 if(distLeft < (35) || distRight < (35)){
 		movf	((c:_distLeft+1))^00h,c,w	;volatile
-	bnz	u5680
-	movlw	40
+	bnz	u5290
+	movlw	35
 	subwf	 ((c:_distLeft))^00h,c,w	;volatile
 	btfss	status,0
-	goto	u5681
-	goto	u5680
+	goto	u5291
+	goto	u5290
 
-u5681:
-	goto	l6464
-u5680:
+u5291:
+	goto	l6262
+u5290:
 	
-l6462:
+l6260:
 		movf	((c:_distRight+1))^00h,c,w	;volatile
-	bnz	u5691
-	movlw	40
+	bnz	u5301
+	movlw	35
 	subwf	 ((c:_distRight))^00h,c,w	;volatile
 	btfsc	status,0
-	goto	u5691
-	goto	u5690
+	goto	u5301
+	goto	u5300
 
-u5691:
+u5301:
 	goto	l1272
-u5690:
-	line	151
+u5300:
+	line	154
 	
-l6464:
-;main.c: 151:                     delay = 0;
+l6262:
+;main.c: 154:                     delay = 0;
 	movlw	low(0)
 	movwf	((c:_delay))^00h,c
-	line	152
-;main.c: 152:                     curveMode = AfterCurve;
+	line	155
+;main.c: 155:                     curveMode = AfterCurve;
 	movlw	low(03h)
 	movwf	((c:_curveMode))^00h,c
-	line	153
-;main.c: 153:                     driveMode = Straight;
+	line	156
+;main.c: 156:                     driveMode = Straight;
 	movlw	low(0)
 	movwf	((c:_driveMode))^00h,c
 	goto	l1272
-	line	161
+	line	164
 	
-l6468:
-;main.c: 161:             if(delay > (5)){
+l6266:
+;main.c: 164:             if(delay > (5)){
 		movlw	06h-1
 	cpfsgt	((c:_delay))^00h,c
-	goto	u5701
-	goto	u5700
+	goto	u5311
+	goto	u5310
 
-u5701:
-	goto	l6450
-u5700:
-	line	162
+u5311:
+	goto	l6248
+u5310:
+	line	165
 	
-l6470:
-;main.c: 162:                 delay = 0;
+l6268:
+;main.c: 165:                 delay = 0;
 	movlw	low(0)
 	movwf	((c:_delay))^00h,c
-	line	163
-;main.c: 163:                 curveMode = OutCurve;
+	line	166
+;main.c: 166:                 curveMode = OutCurve;
 	movlw	low(0)
 	movwf	((c:_curveMode))^00h,c
-	line	165
-;main.c: 165:             } else {
+	line	168
+;main.c: 168:             } else {
 	goto	l1272
-	line	169
+	line	172
 	
-l6476:
+l6274:
 	movf	((c:_curveMode))^00h,c,w
 	movwf	(??_getCurve+0+0)^00h,c
 	clrf	(??_getCurve+0+0+1)^00h,c
@@ -30890,10 +30935,10 @@ l6476:
 	movf ??_getCurve+0+1^00h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6826
+	goto	l6624
 	goto	l1272
 	
-l6826:
+l6624:
 ; Switch size 1, requested type "simple"
 ; Number of cases is 4, Range of values is 0 to 3
 ; switch strategies available:
@@ -30904,29 +30949,29 @@ l6826:
 	movf ??_getCurve+0+0^00h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6430
+	goto	l6228
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l6446
+	goto	l6244
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l6452
+	goto	l6250
 	xorlw	3^2	; case 3
 	skipnz
-	goto	l6468
+	goto	l6266
 	goto	l1272
 
 	
 l1272:
-	line	170
-;main.c: 170:     oldDistLeft = distLeft;
+	line	173
+;main.c: 173:     oldDistLeft = distLeft;
 	movff	(c:_distLeft),(c:_oldDistLeft)	;volatile
 	movff	(c:_distLeft+1),(c:_oldDistLeft+1)	;volatile
-	line	171
-;main.c: 171:     oldDistRight = distRight;
-	movff	(c:_distRight),(_oldDistRight)	;volatile
-	movff	(c:_distRight+1),(_oldDistRight+1)	;volatile
-	line	172
+	line	174
+;main.c: 174:     oldDistRight = distRight;
+	movff	(c:_distRight),(c:_oldDistRight)	;volatile
+	movff	(c:_distRight+1),(c:_oldDistRight+1)	;volatile
+	line	175
 	
 l1288:
 	return	;funcret
@@ -30938,7 +30983,7 @@ GLOBAL	__end_of_getCurve
 
 ;; *************** function _checkBatt *****************
 ;; Defined at:
-;;		line 85 in file "main.c"
+;;		line 88 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -30969,48 +31014,58 @@ GLOBAL	__end_of_getCurve
 ;; This function uses a non-reentrant model
 ;;
 psect	text5,class=CODE,space=0,reloc=2,group=0
-	line	85
+	line	88
 global __ptext5
 __ptext5:
 psect	text5
 	file	"main.c"
-	line	85
+	line	88
 	
 _checkBatt:
 ;incstack = 0
 	callstack 11
-	line	86
-	
-l6406:
-;main.c: 86:     ++battCheckCount;
-	incf	((c:_battCheckCount))^00h,c
-	line	87
-	
-l6408:
-;main.c: 87:     if(battCheckCount > (100)){
-		movlw	065h-1
-	cpfsgt	((c:_battCheckCount))^00h,c
-	goto	u5581
-	goto	u5580
-
-u5581:
-	goto	l6424
-u5580:
-	line	88
-	
-l6410:
-;main.c: 88:         battCheckCount = 0;
-	movlw	low(0)
-	movwf	((c:_battCheckCount))^00h,c
 	line	89
 	
-l6412:
-;main.c: 89:         getBatteryVoltage();
-	call	_getBatteryVoltage	;wreg free
+l6204:
+;main.c: 89:     ++battCheckCount;
+	movlb	0	; () banked
+	infsnz	((_battCheckCount))&0ffh
+	incf	((_battCheckCount+1))&0ffh
 	line	90
 	
-l6414:
-;main.c: 90:         if(BatteryVolt < (7.5) * 409.6){
+l6206:; BSR set to: 0
+
+;main.c: 90:     if(battCheckCount > (100)){
+		movf	((_battCheckCount+1))&0ffh,w
+	bnz	u5190
+	movlw	101
+	subwf	 ((_battCheckCount))&0ffh,w
+	btfss	status,0
+	goto	u5191
+	goto	u5190
+
+u5191:
+	goto	l6222
+u5190:
+	line	91
+	
+l6208:; BSR set to: 0
+
+;main.c: 91:         battCheckCount = 0;
+	movlw	high(0)
+	movwf	((_battCheckCount+1))&0ffh
+	movlw	low(0)
+	movwf	((_battCheckCount))&0ffh
+	line	92
+	
+l6210:; BSR set to: 0
+
+;main.c: 92:         getBatteryVoltage();
+	call	_getBatteryVoltage	;wreg free
+	line	93
+	
+l6212:
+;main.c: 93:         if(BatteryVolt < (3) * 409.6){
 	movff	(c:_BatteryVolt),(___xxtofl@val)
 	movff	(c:_BatteryVolt+1),(___xxtofl@val+1)
 	movlb	0	; () banked
@@ -31024,37 +31079,37 @@ l6414:
 	movff	2+?___xxtofl,(___flge@ff1+2)
 	movff	3+?___xxtofl,(___flge@ff1+3)
 	
-	movlw	low(normalize32(0x45400000))
+	movlw	low(normalize32(0x4499999a))
 	movlb	0	; () banked
 	movwf	((___flge@ff2))&0ffh
-	movlw	high(normalize32(0x45400000))
+	movlw	high(normalize32(0x4499999a))
 	movwf	((___flge@ff2+1))&0ffh
-	movlw	low highword(normalize32(0x45400000))
+	movlw	low highword(normalize32(0x4499999a))
 	movwf	((___flge@ff2+2))&0ffh
-	movlw	high highword(normalize32(0x45400000))
+	movlw	high highword(normalize32(0x4499999a))
 	movwf	((___flge@ff2+3))&0ffh
 	call	___flge	;wreg free
 	movlb	0	; () banked
 	btfsc	status,0
-	goto	u5591
-	goto	u5590
-u5591:
-	goto	l6424
-u5590:
-	line	91
+	goto	u5201
+	goto	u5200
+u5201:
+	goto	l6222
+u5200:
+	line	94
 	
-l6416:; BSR set to: 0
+l6214:; BSR set to: 0
 
-;main.c: 91:             setSpeed = 0;
+;main.c: 94:             setSpeed = 0;
 	movlw	high(0)
 	movwf	((_setSpeed+1))&0ffh
 	movlw	low(0)
 	movwf	((_setSpeed))&0ffh
-	line	92
+	line	95
 	
-l6418:; BSR set to: 0
+l6216:; BSR set to: 0
 
-;main.c: 92:             setSteering(0,Front);
+;main.c: 95:             setSteering(0,Front);
 	movlw	high(0)
 	movwf	((setSteering@steering+1))&0ffh
 	movlw	low(0)
@@ -31062,18 +31117,19 @@ l6418:; BSR set to: 0
 	movlw	low(03h)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	93
-	
-l6420:
-;main.c: 93:             return 1;
-	movlw	(01h)&0ffh
-	goto	l1258
 	line	96
 	
-l6424:
-;main.c: 96:     return 0;
+l6218:
+;main.c: 96:             return 1;
+	movlw	(01h)&0ffh
+	goto	l1258
+	line	99
+	
+l6222:; BSR set to: 0
+
+;main.c: 99:     return 0;
 	movlw	(0)&0ffh
-	line	97
+	line	100
 	
 l1258:
 	return	;funcret
@@ -31085,7 +31141,7 @@ GLOBAL	__end_of_checkBatt
 
 ;; *************** function _getBatteryVoltage *****************
 ;; Defined at:
-;;		line 80 in file "main.c"
+;;		line 83 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -31115,29 +31171,29 @@ GLOBAL	__end_of_checkBatt
 ;; This function uses a non-reentrant model
 ;;
 psect	text6,class=CODE,space=0,reloc=2,group=0
-	line	80
+	line	83
 global __ptext6
 __ptext6:
 psect	text6
 	file	"main.c"
-	line	80
+	line	83
 	
 _getBatteryVoltage:
 ;incstack = 0
 	callstack 12
-	line	81
+	line	84
 	
-l5902:
-;main.c: 81:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
+l5966:
+;main.c: 84:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
 	movlw	(022h)&0ffh
 	
 	call	_ADCC_GetSingleConversion
 	movff	0+?_ADCC_GetSingleConversion,(c:_BatteryVolt)
 	movff	1+?_ADCC_GetSingleConversion,(c:_BatteryVolt+1)
-	line	82
+	line	85
 	
-l5904:
-;main.c: 82:     printf("BVolt: %u\n", (uint16_t) BatteryVolt);
+l5968:
+;main.c: 85:     printf("BVolt: %u\n", (uint16_t) BatteryVolt);
 		movlw	low(STR_2)
 	movlb	1	; () banked
 	movwf	((printf@fmt))&0ffh
@@ -31147,7 +31203,7 @@ l5904:
 	movff	(c:_BatteryVolt),0+(?_printf+02h)
 	movff	(c:_BatteryVolt+1),1+(?_printf+02h)
 	call	_printf	;wreg free
-	line	83
+	line	86
 	
 l1253:
 	return	;funcret
@@ -32676,7 +32732,8 @@ l5592:
 	
 l5594:
 ;mcc_generated_files/uart1.c: 204:     while(0 == uart1TxBufferRemaining)
-	movf	((c:_uart1TxBufferRemaining))^00h,c,w	;volatile
+	movlb	0	; () banked
+	movf	((_uart1TxBufferRemaining))&0ffh,w	;volatile
 	btfsc	status,2
 	goto	u4261
 	goto	u4260
@@ -32684,7 +32741,8 @@ u4261:
 	goto	l5594
 u4260:
 	
-l308:
+l308:; BSR set to: 0
+
 	line	208
 ;mcc_generated_files/uart1.c: 208:     if(0 == PIE3bits.U1TXIE)
 	movlb	57	; () banked
@@ -32753,12 +32811,13 @@ l5604:; BSR set to: 57
 l5606:; BSR set to: 57
 
 ;mcc_generated_files/uart1.c: 220:         uart1TxBufferRemaining--;
-	decf	((c:_uart1TxBufferRemaining))^00h,c	;volatile
+	movlb	0	; () banked
+	decf	((_uart1TxBufferRemaining))&0ffh	;volatile
 	line	222
 	
-l5608:; BSR set to: 57
-
+l5608:
 ;mcc_generated_files/uart1.c: 222:     PIE3bits.U1TXIE = 1;
+	movlb	57	; () banked
 	bsf	((14739))&0ffh,4	;volatile
 	line	223
 	
@@ -33288,8 +33347,8 @@ GLOBAL	__end_of_ADCC_GetSingleConversion
 ;; Defined at:
 ;;		line 4 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\flge.c"
 ;; Parameters:    Size  Location     Type
-;;  ff1             4   14[BANK0 ] unsigned short 
-;;  ff2             4   18[BANK0 ] unsigned short 
+;;  ff1             4   22[BANK0 ] unsigned short 
+;;  ff2             4   26[BANK0 ] unsigned short 
 ;; Auto vars:     Size  Location     Type
 ;;		None
 ;; Return value:  Size  Location     Type
@@ -33330,7 +33389,7 @@ ___flge:; BSR set to: 0
 	callstack 20
 	line	7
 	
-l6316:
+l6114:
 	movlw	0
 	movlb	0	; () banked
 	andwf	((___flge@ff1))&0ffh,w
@@ -33351,15 +33410,15 @@ iorwf	(??___flge+0+1)&0ffh,w
 iorwf	(??___flge+0+2)&0ffh,w
 iorwf	(??___flge+0+3)&0ffh,w
 	btfss	status,2
-	goto	u5421
-	goto	u5420
+	goto	u5031
+	goto	u5030
 
-u5421:
-	goto	l6320
-u5420:
+u5031:
+	goto	l6118
+u5030:
 	line	8
 	
-l6318:; BSR set to: 0
+l6116:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___flge@ff1))&0ffh
@@ -33371,7 +33430,7 @@ l6318:; BSR set to: 0
 	movwf	((___flge@ff1+3))&0ffh
 	line	9
 	
-l6320:; BSR set to: 0
+l6118:; BSR set to: 0
 
 	movlw	0
 	andwf	((___flge@ff2))&0ffh,w
@@ -33392,15 +33451,15 @@ iorwf	(??___flge+0+1)&0ffh,w
 iorwf	(??___flge+0+2)&0ffh,w
 iorwf	(??___flge+0+3)&0ffh,w
 	btfss	status,2
-	goto	u5431
-	goto	u5430
+	goto	u5041
+	goto	u5040
 
-u5431:
-	goto	l6324
-u5430:
+u5041:
+	goto	l6122
+u5040:
 	line	10
 	
-l6322:; BSR set to: 0
+l6120:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___flge@ff2))&0ffh
@@ -33412,18 +33471,18 @@ l6322:; BSR set to: 0
 	movwf	((___flge@ff2+3))&0ffh
 	line	12
 	
-l6324:; BSR set to: 0
+l6122:; BSR set to: 0
 
 	
 	btfss	((___flge@ff1+3))&0ffh,(31)&7
-	goto	u5441
-	goto	u5440
-u5441:
-	goto	l6328
-u5440:
+	goto	u5051
+	goto	u5050
+u5051:
+	goto	l6126
+u5050:
 	line	13
 	
-l6326:; BSR set to: 0
+l6124:; BSR set to: 0
 
 	negf	((___flge@ff1))&0ffh
 	comf	((___flge@ff1+1))&0ffh
@@ -33436,18 +33495,18 @@ l6326:; BSR set to: 0
 	subfwb	((___flge@ff1+3))&0ffh
 	line	14
 	
-l6328:; BSR set to: 0
+l6126:; BSR set to: 0
 
 	
 	btfss	((___flge@ff2+3))&0ffh,(31)&7
-	goto	u5451
-	goto	u5450
-u5451:
+	goto	u5061
+	goto	u5060
+u5061:
 	goto	l1648
-u5450:
+u5060:
 	line	15
 	
-l6330:; BSR set to: 0
+l6128:; BSR set to: 0
 
 	negf	((___flge@ff2))&0ffh
 	comf	((___flge@ff2+1))&0ffh
@@ -33489,19 +33548,19 @@ l1648:; BSR set to: 0
 	movf	((___flge@ff2+3))&0ffh,w
 	subwfb	((___flge@ff1+3))&0ffh,w
 	btfsc	status,0
-	goto	u5461
-	goto	u5460
+	goto	u5071
+	goto	u5070
 
-u5461:
-	goto	l6334
-u5460:
+u5071:
+	goto	l6132
+u5070:
 	
-l6332:; BSR set to: 0
+l6130:; BSR set to: 0
 
 	bcf	status,0
 	goto	l1653
 	
-l6334:; BSR set to: 0
+l6132:; BSR set to: 0
 
 	bsf	status,0
 	line	19
@@ -33517,7 +33576,7 @@ GLOBAL	__end_of___flge
 
 ;; *************** function _calcSteering *****************
 ;; Defined at:
-;;		line 200 in file "main.c"
+;;		line 204 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -33546,21 +33605,21 @@ GLOBAL	__end_of___flge
 ;;
 psect	text21,class=CODE,space=0,reloc=2,group=0
 	file	"main.c"
-	line	200
+	line	204
 global __ptext21
 __ptext21:
 psect	text21
 	file	"main.c"
-	line	200
+	line	204
 	
 _calcSteering:; BSR set to: 0
 
 ;incstack = 0
 	callstack 19
-	line	201
+	line	205
 	
-l6482:
-;main.c: 201:     int16_t delta = (int16_t)(distLeft - distRight ) - (int16_t)((0) * 1.4142135);
+l6280:
+;main.c: 205:     int16_t delta = (int16_t)(distLeft - distRight ) - (int16_t)((0) * 1.4142135);
 	movf	((c:_distRight))^00h,c,w	;volatile
 	subwf	((c:_distLeft))^00h,c,w	;volatile
 	movlb	0	; () banked
@@ -33568,73 +33627,73 @@ l6482:
 	movf	((c:_distRight+1))^00h,c,w	;volatile
 	subwfb	((c:_distLeft+1))^00h,c,w	;volatile
 	movwf	1+((calcSteering@delta))&0ffh
-	line	205
-;main.c: 205:     switch (driveMode){
-	goto	l6494
-	line	208
-;main.c: 208:         case CurveLeft:
+	line	209
+;main.c: 209:     switch (driveMode){
+	goto	l6292
+	line	212
+;main.c: 212:         case CurveLeft:
 	
 l1305:; BSR set to: 0
 
-	line	210
+	line	214
 	
-l6484:; BSR set to: 0
+l6282:; BSR set to: 0
 
-;main.c: 210:             if(delta > (40)){
+;main.c: 214:             if(delta > (40)){
 	btfsc	((calcSteering@delta+1))&0ffh,7
-	goto	u5711
+	goto	u5321
 	movf	((calcSteering@delta+1))&0ffh,w
-	bnz	u5710
+	bnz	u5320
 	movlw	41
 	subwf	 ((calcSteering@delta))&0ffh,w
 	btfss	status,0
-	goto	u5711
-	goto	u5710
+	goto	u5321
+	goto	u5320
 
-u5711:
-	goto	l6488
-u5710:
-	line	211
+u5321:
+	goto	l6286
+u5320:
+	line	215
 	
-l6486:; BSR set to: 0
+l6284:; BSR set to: 0
 
-;main.c: 211:                 delta = (40);
+;main.c: 215:                 delta = (40);
 	movlw	high(028h)
 	movwf	((calcSteering@delta+1))&0ffh
 	movlw	low(028h)
 	movwf	((calcSteering@delta))&0ffh
-	line	212
-;main.c: 212:             }else if(delta < -(40)){
-	goto	l6518
+	line	216
+;main.c: 216:             }else if(delta < -(40)){
+	goto	l6316
 	
-l6488:; BSR set to: 0
+l6286:; BSR set to: 0
 
 	btfss	((calcSteering@delta+1))&0ffh,7
-	goto	u5721
+	goto	u5331
 	movlw	216
 	subwf	 ((calcSteering@delta))&0ffh,w
 	movlw	255
 	subwfb	((calcSteering@delta+1))&0ffh,w
 	btfsc	status,0
-	goto	u5721
-	goto	u5720
+	goto	u5331
+	goto	u5330
 
-u5721:
+u5331:
 	goto	l1310
-u5720:
-	line	213
+u5330:
+	line	217
 	
-l6490:; BSR set to: 0
+l6288:; BSR set to: 0
 
-;main.c: 213:                 delta = -(40);
+;main.c: 217:                 delta = -(40);
 	movlw	high(-40)
 	movwf	((calcSteering@delta+1))&0ffh
 	movlw	low(-40)
 	movwf	((calcSteering@delta))&0ffh
-	goto	l6518
-	line	218
+	goto	l6316
+	line	222
 	
-l6494:; BSR set to: 0
+l6292:; BSR set to: 0
 
 	movf	((c:_driveMode))^00h,c,w
 	movwf	(??_calcSteering+0+0)&0ffh
@@ -33651,10 +33710,10 @@ l6494:; BSR set to: 0
 	movf ??_calcSteering+0+1&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6828
-	goto	l6518
+	goto	l6626
+	goto	l6316
 	
-l6828:; BSR set to: 0
+l6626:; BSR set to: 0
 
 ; Switch size 1, requested type "simple"
 ; Number of cases is 4, Range of values is 0 to 5
@@ -33666,55 +33725,55 @@ l6828:; BSR set to: 0
 	movf ??_calcSteering+0+0&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6484
+	goto	l6282
 	xorlw	1^0	; case 1
 	skipnz
 	goto	l1305
 	xorlw	4^1	; case 4
 	skipnz
-	goto	l6484
+	goto	l6282
 	xorlw	5^4	; case 5
 	skipnz
-	goto	l6484
-	goto	l6518
+	goto	l6282
+	goto	l6316
 
 	
 l1310:; BSR set to: 0
 
-	line	220
-;main.c: 220:     switch (driveMode){
-	goto	l6518
-	line	222
+	line	224
+;main.c: 224:     switch (driveMode){
+	goto	l6316
+	line	226
 	
-l6496:; BSR set to: 0
+l6294:; BSR set to: 0
 
-;main.c: 222:             setSteering(delta, Ratio);
+;main.c: 226:             setSteering(delta, Ratio);
 	movff	(calcSteering@delta),(setSteering@steering)
 	movff	(calcSteering@delta+1),(setSteering@steering+1)
 	movlw	low(02h)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	223
-;main.c: 223:             break;
+	line	227
+;main.c: 227:             break;
 	goto	l1324
-	line	225
+	line	229
 	
-l6498:; BSR set to: 0
+l6296:; BSR set to: 0
 
-;main.c: 225:             setSteering(delta, Front);
+;main.c: 229:             setSteering(delta, Front);
 	movff	(calcSteering@delta),(setSteering@steering)
 	movff	(calcSteering@delta+1),(setSteering@steering+1)
 	movlw	low(03h)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	226
-;main.c: 226:             break;
+	line	230
+;main.c: 230:             break;
 	goto	l1324
-	line	228
+	line	232
 	
-l6500:; BSR set to: 0
+l6298:; BSR set to: 0
 
-;main.c: 228:             setSteering((65), Inverted);
+;main.c: 232:             setSteering((65), Inverted);
 	movlw	high(041h)
 	movwf	((setSteering@steering+1))&0ffh
 	movlw	low(041h)
@@ -33722,70 +33781,70 @@ l6500:; BSR set to: 0
 	movlw	low(0)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	229
-;main.c: 229:             break;
+	line	233
+;main.c: 233:             break;
 	goto	l1324
-	line	234
+	line	238
 	
-l6504:; BSR set to: 0
+l6302:; BSR set to: 0
 
-;main.c: 234:             if(curveMode == InCurve){
+;main.c: 238:             if(curveMode == InCurve){
 		movlw	2
 	xorwf	((c:_curveMode))^00h,c,w
 	btfss	status,2
-	goto	u5731
-	goto	u5730
+	goto	u5341
+	goto	u5340
 
-u5731:
-	goto	l6498
-u5730:
-	line	235
+u5341:
+	goto	l6296
+u5340:
+	line	239
 	
-l6506:; BSR set to: 0
+l6304:; BSR set to: 0
 
-;main.c: 235:                 setSteering((45), Ratio);
-	movlw	high(02Dh)
+;main.c: 239:                 setSteering((55), Ratio);
+	movlw	high(037h)
 	movwf	((setSteering@steering+1))&0ffh
-	movlw	low(02Dh)
+	movlw	low(037h)
 	movwf	((setSteering@steering))&0ffh
 	movlw	low(02h)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	236
-;main.c: 236:             } else {
+	line	240
+;main.c: 240:             } else {
 	goto	l1324
-	line	241
+	line	245
 	
-l6510:; BSR set to: 0
+l6308:; BSR set to: 0
 
-;main.c: 241:             if(curveMode == InCurve){
+;main.c: 245:             if(curveMode == InCurve){
 		movlw	2
 	xorwf	((c:_curveMode))^00h,c,w
 	btfss	status,2
-	goto	u5741
-	goto	u5740
+	goto	u5351
+	goto	u5350
 
-u5741:
-	goto	l6498
-u5740:
-	line	242
+u5351:
+	goto	l6296
+u5350:
+	line	246
 	
-l6512:; BSR set to: 0
+l6310:; BSR set to: 0
 
-;main.c: 242:                 setSteering(-(45), Ratio);
-	movlw	high(-45)
+;main.c: 246:                 setSteering(-(55), Ratio);
+	movlw	high(-55)
 	movwf	((setSteering@steering+1))&0ffh
-	movlw	low(-45)
+	movlw	low(-55)
 	movwf	((setSteering@steering))&0ffh
 	movlw	low(02h)
 	movwf	((setSteering@steeringMode))&0ffh
 	call	_setSteering	;wreg free
-	line	243
-;main.c: 243:             } else {
-	goto	l1324
 	line	247
+;main.c: 247:             } else {
+	goto	l1324
+	line	251
 	
-l6518:; BSR set to: 0
+l6316:; BSR set to: 0
 
 	movf	((c:_driveMode))^00h,c,w
 	movwf	(??_calcSteering+0+0)&0ffh
@@ -33802,10 +33861,10 @@ l6518:; BSR set to: 0
 	movf ??_calcSteering+0+1&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6830
+	goto	l6628
 	goto	l1324
 	
-l6830:; BSR set to: 0
+l6628:; BSR set to: 0
 
 ; Switch size 1, requested type "simple"
 ; Number of cases is 6, Range of values is 0 to 5
@@ -33817,25 +33876,25 @@ l6830:; BSR set to: 0
 	movf ??_calcSteering+0+0&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6498
+	goto	l6296
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l6496
+	goto	l6294
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l6500
+	goto	l6298
 	xorlw	3^2	; case 3
 	skipnz
-	goto	l6500
+	goto	l6298
 	xorlw	4^3	; case 4
 	skipnz
-	goto	l6504
+	goto	l6302
 	xorlw	5^4	; case 5
 	skipnz
-	goto	l6510
+	goto	l6308
 	goto	l1324
 
-	line	248
+	line	252
 	
 l1324:
 	return	;funcret
@@ -33847,7 +33906,7 @@ GLOBAL	__end_of_calcSteering
 
 ;; *************** function _setSteering *****************
 ;; Defined at:
-;;		line 356 in file "main.c"
+;;		line 360 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;  steering        2    8[BANK0 ] short 
 ;;  steeringMode    1   10[BANK0 ] enum E17299
@@ -33882,38 +33941,38 @@ GLOBAL	__end_of_calcSteering
 ;; This function uses a non-reentrant model
 ;;
 psect	text22,class=CODE,space=0,reloc=2,group=0
-	line	356
+	line	360
 global __ptext22
 __ptext22:
 psect	text22
 	file	"main.c"
-	line	356
+	line	360
 	
 _setSteering:
 ;incstack = 0
 	callstack 19
-	line	357
+	line	361
 	
-l5906:
+l5924:
 	movlw	high(0)
 	movlb	0	; () banked
 	movwf	((setSteering@steeringB+1))&0ffh
 	movlw	low(0)
 	movwf	((setSteering@steeringB))&0ffh
-	line	358
-;main.c: 358:     switch(steeringMode){
-	goto	l5920
-	line	359
-;main.c: 359:         case Inverted:
+	line	362
+;main.c: 362:     switch(steeringMode){
+	goto	l5938
+	line	363
+;main.c: 363:         case Inverted:
 	
 l1367:; BSR set to: 0
 
-	line	360
-;main.c: 360:             steeringF = (+steering);
+	line	364
+;main.c: 364:             steeringF = (+steering);
 	movff	(setSteering@steering),(setSteering@steeringF)
 	movff	(setSteering@steering+1),(setSteering@steeringF+1)
-	line	361
-;main.c: 361:             steeringB = -steering;
+	line	365
+;main.c: 365:             steeringB = -steering;
 	movff	(setSteering@steering),??_setSteering+0+0
 	movff	(setSteering@steering+1),??_setSteering+0+0+1
 	comf	(??_setSteering+0+0)&0ffh
@@ -33922,39 +33981,39 @@ l1367:; BSR set to: 0
 	incf	(??_setSteering+0+1)&0ffh
 	movff	??_setSteering+0+0,(setSteering@steeringB)
 	movff	??_setSteering+0+1,(setSteering@steeringB+1)
-	line	362
-;main.c: 362:             break;
-	goto	l5922
-	line	363
-;main.c: 363:         case Same:
-	
-l1369:; BSR set to: 0
-
-	line	364
-;main.c: 364:             steeringF = (+steering);
-	movff	(setSteering@steering),(setSteering@steeringF)
-	movff	(setSteering@steering+1),(setSteering@steeringF+1)
-	line	365
-;main.c: 365:             steeringB = (+steering);
-	movff	(setSteering@steering),(setSteering@steeringB)
-	movff	(setSteering@steering+1),(setSteering@steeringB+1)
 	line	366
 ;main.c: 366:             break;
-	goto	l5922
+	goto	l5940
 	line	367
-;main.c: 367:         case Ratio:
+;main.c: 367:         case Same:
 	
-l1370:; BSR set to: 0
+l1369:; BSR set to: 0
 
 	line	368
 ;main.c: 368:             steeringF = (+steering);
 	movff	(setSteering@steering),(setSteering@steeringF)
 	movff	(setSteering@steering+1),(setSteering@steeringF+1)
 	line	369
+;main.c: 369:             steeringB = (+steering);
+	movff	(setSteering@steering),(setSteering@steeringB)
+	movff	(setSteering@steering+1),(setSteering@steeringB+1)
+	line	370
+;main.c: 370:             break;
+	goto	l5940
+	line	371
+;main.c: 371:         case Ratio:
 	
-l5908:; BSR set to: 0
+l1370:; BSR set to: 0
 
-;main.c: 369:             steeringB = (-steering / (2));
+	line	372
+;main.c: 372:             steeringF = (+steering);
+	movff	(setSteering@steering),(setSteering@steeringF)
+	movff	(setSteering@steering+1),(setSteering@steeringF+1)
+	line	373
+	
+l5926:; BSR set to: 0
+
+;main.c: 373:             steeringB = (-steering / (2));
 	movff	(setSteering@steering),(___awdiv@dividend)
 	movff	(setSteering@steering+1),(___awdiv@dividend+1)
 	movlw	high(-2)
@@ -33964,52 +34023,33 @@ l5908:; BSR set to: 0
 	call	___awdiv	;wreg free
 	movff	0+?___awdiv,(setSteering@steeringB)
 	movff	1+?___awdiv,(setSteering@steeringB+1)
-	line	370
-;main.c: 370:             break;
-	goto	l5922
-	line	371
-;main.c: 371:         case Front:
+	line	374
+;main.c: 374:             break;
+	goto	l5940
+	line	375
+;main.c: 375:         case Front:
 	
 l1371:; BSR set to: 0
 
-	line	372
-;main.c: 372:             steeringF = (+steering);
+	line	376
+;main.c: 376:             steeringF = (+steering);
 	movff	(setSteering@steering),(setSteering@steeringF)
 	movff	(setSteering@steering+1),(setSteering@steeringF+1)
-	line	373
+	line	377
 	
-l5910:; BSR set to: 0
+l5928:; BSR set to: 0
 
-;main.c: 373:             steeringB = 0;
+;main.c: 377:             steeringB = 0;
 	movlw	high(0)
 	movwf	((setSteering@steeringB+1))&0ffh
 	movlw	low(0)
 	movwf	((setSteering@steeringB))&0ffh
-	line	374
-;main.c: 374:             break;
-	goto	l5922
-	line	376
-	
-l5912:; BSR set to: 0
-
-;main.c: 376:             steeringF = 0;
-	movlw	high(0)
-	movwf	((setSteering@steeringF+1))&0ffh
-	movlw	low(0)
-	movwf	((setSteering@steeringF))&0ffh
-	line	377
-	
-l5914:; BSR set to: 0
-
-;main.c: 377:             steeringB = (+steering);
-	movff	(setSteering@steering),(setSteering@steeringB)
-	movff	(setSteering@steering+1),(setSteering@steeringB+1)
 	line	378
 ;main.c: 378:             break;
-	goto	l5922
+	goto	l5940
 	line	380
 	
-l5916:; BSR set to: 0
+l5930:; BSR set to: 0
 
 ;main.c: 380:             steeringF = 0;
 	movlw	high(0)
@@ -34017,17 +34057,36 @@ l5916:; BSR set to: 0
 	movlw	low(0)
 	movwf	((setSteering@steeringF))&0ffh
 	line	381
-;main.c: 381:             steeringB = 0;
+	
+l5932:; BSR set to: 0
+
+;main.c: 381:             steeringB = (+steering);
+	movff	(setSteering@steering),(setSteering@steeringB)
+	movff	(setSteering@steering+1),(setSteering@steeringB+1)
+	line	382
+;main.c: 382:             break;
+	goto	l5940
+	line	384
+	
+l5934:; BSR set to: 0
+
+;main.c: 384:             steeringF = 0;
+	movlw	high(0)
+	movwf	((setSteering@steeringF+1))&0ffh
+	movlw	low(0)
+	movwf	((setSteering@steeringF))&0ffh
+	line	385
+;main.c: 385:             steeringB = 0;
 	movlw	high(0)
 	movwf	((setSteering@steeringB+1))&0ffh
 	movlw	low(0)
 	movwf	((setSteering@steeringB))&0ffh
-	line	382
-;main.c: 382:             break;
-	goto	l5922
-	line	383
+	line	386
+;main.c: 386:             break;
+	goto	l5940
+	line	387
 	
-l5920:; BSR set to: 0
+l5938:; BSR set to: 0
 
 	movf	((setSteering@steeringMode))&0ffh,w
 	movwf	(??_setSteering+0+0)&0ffh
@@ -34044,10 +34103,10 @@ l5920:; BSR set to: 0
 	movf ??_setSteering+0+1&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6832
-	goto	l5916
+	goto	l6630
+	goto	l5934
 	
-l6832:; BSR set to: 0
+l6630:; BSR set to: 0
 
 ; Switch size 1, requested type "simple"
 ; Number of cases is 5, Range of values is 0 to 4
@@ -34071,124 +34130,124 @@ l6832:; BSR set to: 0
 	goto	l1371
 	xorlw	4^3	; case 4
 	skipnz
-	goto	l5912
-	goto	l5916
+	goto	l5930
+	goto	l5934
 
-	line	385
+	line	389
 	
-l5922:
-;main.c: 385:     if(steeringF > ((65))){
+l5940:
+;main.c: 389:     if(steeringF > ((65))){
 	movlb	0	; () banked
 	btfsc	((setSteering@steeringF+1))&0ffh,7
-	goto	u4741
+	goto	u4781
 	movf	((setSteering@steeringF+1))&0ffh,w
-	bnz	u4740
+	bnz	u4780
 	movlw	66
 	subwf	 ((setSteering@steeringF))&0ffh,w
 	btfss	status,0
-	goto	u4741
-	goto	u4740
+	goto	u4781
+	goto	u4780
 
-u4741:
-	goto	l5926
-u4740:
-	line	386
+u4781:
+	goto	l5944
+u4780:
+	line	390
 	
-l5924:; BSR set to: 0
+l5942:; BSR set to: 0
 
-;main.c: 386:         steeringF = ((65));
+;main.c: 390:         steeringF = ((65));
 	movlw	high(041h)
 	movwf	((setSteering@steeringF+1))&0ffh
 	movlw	low(041h)
 	movwf	((setSteering@steeringF))&0ffh
-	line	387
-;main.c: 387:     } else if(steeringF < (-(65))){
-	goto	l5930
+	line	391
+;main.c: 391:     } else if(steeringF < (-(65))){
+	goto	l5948
 	
-l5926:; BSR set to: 0
+l5944:; BSR set to: 0
 
 	btfss	((setSteering@steeringF+1))&0ffh,7
-	goto	u4751
+	goto	u4791
 	movlw	191
 	subwf	 ((setSteering@steeringF))&0ffh,w
 	movlw	255
 	subwfb	((setSteering@steeringF+1))&0ffh,w
 	btfsc	status,0
-	goto	u4751
-	goto	u4750
+	goto	u4791
+	goto	u4790
 
-u4751:
-	goto	l5930
-u4750:
-	line	388
+u4791:
+	goto	l5948
+u4790:
+	line	392
 	
-l5928:; BSR set to: 0
+l5946:; BSR set to: 0
 
-;main.c: 388:         steeringF = (-(65));
+;main.c: 392:         steeringF = (-(65));
 	movlw	high(-65)
 	movwf	((setSteering@steeringF+1))&0ffh
 	movlw	low(-65)
 	movwf	((setSteering@steeringF))&0ffh
-	line	391
+	line	395
 	
-l5930:; BSR set to: 0
+l5948:; BSR set to: 0
 
-;main.c: 391:     if(steeringB > ((40))){
+;main.c: 395:     if(steeringB > ((40))){
 	btfsc	((setSteering@steeringB+1))&0ffh,7
-	goto	u4761
+	goto	u4801
 	movf	((setSteering@steeringB+1))&0ffh,w
-	bnz	u4760
+	bnz	u4800
 	movlw	41
 	subwf	 ((setSteering@steeringB))&0ffh,w
 	btfss	status,0
-	goto	u4761
-	goto	u4760
+	goto	u4801
+	goto	u4800
 
-u4761:
-	goto	l5934
-u4760:
-	line	392
+u4801:
+	goto	l5952
+u4800:
+	line	396
 	
-l5932:; BSR set to: 0
+l5950:; BSR set to: 0
 
-;main.c: 392:         steeringB = ((40));
+;main.c: 396:         steeringB = ((40));
 	movlw	high(028h)
 	movwf	((setSteering@steeringB+1))&0ffh
 	movlw	low(028h)
 	movwf	((setSteering@steeringB))&0ffh
-	line	393
-;main.c: 393:     } else if(steeringB < (-(40))){
-	goto	l5938
+	line	397
+;main.c: 397:     } else if(steeringB < (-(40))){
+	goto	l5956
 	
-l5934:; BSR set to: 0
+l5952:; BSR set to: 0
 
 	btfss	((setSteering@steeringB+1))&0ffh,7
-	goto	u4771
+	goto	u4811
 	movlw	216
 	subwf	 ((setSteering@steeringB))&0ffh,w
 	movlw	255
 	subwfb	((setSteering@steeringB+1))&0ffh,w
 	btfsc	status,0
-	goto	u4771
-	goto	u4770
+	goto	u4811
+	goto	u4810
 
-u4771:
-	goto	l5938
-u4770:
-	line	394
+u4811:
+	goto	l5956
+u4810:
+	line	398
 	
-l5936:; BSR set to: 0
+l5954:; BSR set to: 0
 
-;main.c: 394:         steeringB = (-(40));
+;main.c: 398:         steeringB = (-(40));
 	movlw	high(-40)
 	movwf	((setSteering@steeringB+1))&0ffh
 	movlw	low(-40)
 	movwf	((setSteering@steeringB))&0ffh
-	line	398
+	line	402
 	
-l5938:; BSR set to: 0
+l5956:; BSR set to: 0
 
-;main.c: 398:     PWM6_LoadDutyValue((uint16_t)((352) + steeringF));
+;main.c: 402:     PWM6_LoadDutyValue((uint16_t)((352) + steeringF));
 	movlw	low(0160h)
 	addwf	((setSteering@steeringF))&0ffh,w
 	movwf	((c:PWM6_LoadDutyValue@dutyValue))^00h,c
@@ -34196,10 +34255,10 @@ l5938:; BSR set to: 0
 	addwfc	((setSteering@steeringF+1))&0ffh,w
 	movwf	1+((c:PWM6_LoadDutyValue@dutyValue))^00h,c
 	call	_PWM6_LoadDutyValue	;wreg free
-	line	399
+	line	403
 	
-l5940:
-;main.c: 399:     PWM5_LoadDutyValue((uint16_t)((357) + steeringB));
+l5958:
+;main.c: 403:     PWM5_LoadDutyValue((uint16_t)((357) + steeringB));
 	movlw	low(0165h)
 	movlb	0	; () banked
 	addwf	((setSteering@steeringB))&0ffh,w
@@ -34208,7 +34267,7 @@ l5940:
 	addwfc	((setSteering@steeringB+1))&0ffh,w
 	movwf	1+((c:PWM5_LoadDutyValue@dutyValue))^00h,c
 	call	_PWM5_LoadDutyValue	;wreg free
-	line	400
+	line	404
 	
 l1380:
 	return	;funcret
@@ -34216,241 +34275,6 @@ l1380:
 GLOBAL	__end_of_setSteering
 	__end_of_setSteering:
 	signat	_setSteering,8313
-	global	___awdiv
-
-;; *************** function ___awdiv *****************
-;; Defined at:
-;;		line 7 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c"
-;; Parameters:    Size  Location     Type
-;;  dividend        2    0[BANK0 ] int 
-;;  divisor         2    2[BANK0 ] int 
-;; Auto vars:     Size  Location     Type
-;;  quotient        2    6[BANK0 ] int 
-;;  sign            1    5[BANK0 ] unsigned char 
-;;  counter         1    4[BANK0 ] unsigned char 
-;; Return value:  Size  Location     Type
-;;                  2    0[BANK0 ] int 
-;; Registers used:
-;;		wreg, status,2, status,0
-;; Tracked objects:
-;;		On entry : 0/0
-;;		On exit  : 0/0
-;;		Unchanged: 0/0
-;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15
-;;      Params:         0       4       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
-;;      Locals:         0       4       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
-;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
-;;      Totals:         0       8       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
-;;Total ram usage:        8 bytes
-;; Hardware stack levels used: 1
-;; Hardware stack levels required when called: 8
-;; This function calls:
-;;		Nothing
-;; This function is called by:
-;;		_setSteering
-;; This function uses a non-reentrant model
-;;
-psect	text23,class=CODE,space=0,reloc=2,group=2
-	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c"
-	line	7
-global __ptext23
-__ptext23:
-psect	text23
-	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c"
-	line	7
-	
-___awdiv:
-;incstack = 0
-	callstack 19
-	line	13
-	
-l5858:
-	movlw	low(0)
-	movlb	0	; () banked
-	movwf	((___awdiv@sign))&0ffh
-	line	14
-	
-l5860:; BSR set to: 0
-
-	btfsc	((___awdiv@divisor+1))&0ffh,7
-	goto	u4680
-	goto	u4681
-
-u4681:
-	goto	l5866
-u4680:
-	line	15
-	
-l5862:; BSR set to: 0
-
-	negf	((___awdiv@divisor))&0ffh
-	comf	((___awdiv@divisor+1))&0ffh
-	btfsc	status,0
-	incf	((___awdiv@divisor+1))&0ffh
-	line	16
-	
-l5864:; BSR set to: 0
-
-	movlw	low(01h)
-	movwf	((___awdiv@sign))&0ffh
-	line	18
-	
-l5866:; BSR set to: 0
-
-	btfsc	((___awdiv@dividend+1))&0ffh,7
-	goto	u4690
-	goto	u4691
-
-u4691:
-	goto	l5872
-u4690:
-	line	19
-	
-l5868:; BSR set to: 0
-
-	negf	((___awdiv@dividend))&0ffh
-	comf	((___awdiv@dividend+1))&0ffh
-	btfsc	status,0
-	incf	((___awdiv@dividend+1))&0ffh
-	line	20
-	
-l5870:; BSR set to: 0
-
-	movlw	(01h)&0ffh
-	xorwf	((___awdiv@sign))&0ffh
-	line	22
-	
-l5872:; BSR set to: 0
-
-	movlw	high(0)
-	movwf	((___awdiv@quotient+1))&0ffh
-	movlw	low(0)
-	movwf	((___awdiv@quotient))&0ffh
-	line	23
-	
-l5874:; BSR set to: 0
-
-	movf	((___awdiv@divisor))&0ffh,w
-iorwf	((___awdiv@divisor+1))&0ffh,w
-	btfsc	status,2
-	goto	u4701
-	goto	u4700
-
-u4701:
-	goto	l5894
-u4700:
-	line	24
-	
-l5876:; BSR set to: 0
-
-	movlw	low(01h)
-	movwf	((___awdiv@counter))&0ffh
-	line	25
-	goto	l5880
-	line	26
-	
-l5878:; BSR set to: 0
-
-	bcf	status,0
-	rlcf	((___awdiv@divisor))&0ffh
-	rlcf	((___awdiv@divisor+1))&0ffh
-	line	27
-	incf	((___awdiv@counter))&0ffh
-	line	25
-	
-l5880:; BSR set to: 0
-
-	
-	btfss	((___awdiv@divisor+1))&0ffh,(15)&7
-	goto	u4711
-	goto	u4710
-u4711:
-	goto	l5878
-u4710:
-	line	30
-	
-l5882:; BSR set to: 0
-
-	bcf	status,0
-	rlcf	((___awdiv@quotient))&0ffh
-	rlcf	((___awdiv@quotient+1))&0ffh
-	line	31
-	
-l5884:; BSR set to: 0
-
-		movf	((___awdiv@divisor))&0ffh,w
-	subwf	((___awdiv@dividend))&0ffh,w
-	movf	((___awdiv@divisor+1))&0ffh,w
-	subwfb	((___awdiv@dividend+1))&0ffh,w
-	btfss	status,0
-	goto	u4721
-	goto	u4720
-
-u4721:
-	goto	l5890
-u4720:
-	line	32
-	
-l5886:; BSR set to: 0
-
-	movf	((___awdiv@divisor))&0ffh,w
-	subwf	((___awdiv@dividend))&0ffh
-	movf	((___awdiv@divisor+1))&0ffh,w
-	subwfb	((___awdiv@dividend+1))&0ffh
-
-	line	33
-	
-l5888:; BSR set to: 0
-
-	bsf	(0+(0/8)+(___awdiv@quotient))&0ffh,(0)&7
-	line	35
-	
-l5890:; BSR set to: 0
-
-	bcf	status,0
-	rrcf	((___awdiv@divisor+1))&0ffh
-	rrcf	((___awdiv@divisor))&0ffh
-	line	36
-	
-l5892:; BSR set to: 0
-
-	decfsz	((___awdiv@counter))&0ffh
-	
-	goto	l5882
-	line	38
-	
-l5894:; BSR set to: 0
-
-	movf	((___awdiv@sign))&0ffh,w
-	btfsc	status,2
-	goto	u4731
-	goto	u4730
-u4731:
-	goto	l5898
-u4730:
-	line	39
-	
-l5896:; BSR set to: 0
-
-	negf	((___awdiv@quotient))&0ffh
-	comf	((___awdiv@quotient+1))&0ffh
-	btfsc	status,0
-	incf	((___awdiv@quotient+1))&0ffh
-	line	40
-	
-l5898:; BSR set to: 0
-
-	movff	(___awdiv@quotient),(?___awdiv)
-	movff	(___awdiv@quotient+1),(?___awdiv+1)
-	line	41
-	
-l1614:; BSR set to: 0
-
-	return	;funcret
-	callstack 0
-GLOBAL	__end_of___awdiv
-	__end_of___awdiv:
-	signat	___awdiv,8314
 	global	_PWM6_LoadDutyValue
 
 ;; *************** function _PWM6_LoadDutyValue *****************
@@ -34482,17 +34306,16 @@ GLOBAL	__end_of___awdiv
 ;;		_setSteering
 ;; This function uses a non-reentrant model
 ;;
-psect	text24,class=CODE,space=0,reloc=2,group=0
+psect	text23,class=CODE,space=0,reloc=2,group=0
 	file	"mcc_generated_files/pwm6.c"
 	line	74
-global __ptext24
-__ptext24:
-psect	text24
+global __ptext23
+__ptext23:
+psect	text23
 	file	"mcc_generated_files/pwm6.c"
 	line	74
 	
-_PWM6_LoadDutyValue:; BSR set to: 0
-
+_PWM6_LoadDutyValue:
 ;incstack = 0
 	callstack 19
 	line	77
@@ -34564,12 +34387,12 @@ GLOBAL	__end_of_PWM6_LoadDutyValue
 ;;		_setSteering
 ;; This function uses a non-reentrant model
 ;;
-psect	text25,class=CODE,space=0,reloc=2,group=0
+psect	text24,class=CODE,space=0,reloc=2,group=0
 	file	"mcc_generated_files/pwm5.c"
 	line	74
-global __ptext25
-__ptext25:
-psect	text25
+global __ptext24
+__ptext24:
+psect	text24
 	file	"mcc_generated_files/pwm5.c"
 	line	74
 	
@@ -34619,11 +34442,11 @@ GLOBAL	__end_of_PWM5_LoadDutyValue
 
 ;; *************** function _calcSpeed *****************
 ;; Defined at:
-;;		line 250 in file "main.c"
+;;		line 254 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
-;;  speed           2   67[BANK0 ] short 
+;;  speed           2   75[BANK0 ] short 
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
@@ -34649,213 +34472,213 @@ GLOBAL	__end_of_PWM5_LoadDutyValue
 ;;		_loop
 ;; This function uses a non-reentrant model
 ;;
-psect	text26,class=CODE,space=0,reloc=2,group=0
+psect	text25,class=CODE,space=0,reloc=2,group=0
 	file	"main.c"
-	line	250
-global __ptext26
-__ptext26:
-psect	text26
+	line	254
+global __ptext25
+__ptext25:
+psect	text25
 	file	"main.c"
-	line	250
+	line	254
 	
 _calcSpeed:; BSR set to: 0
 
 ;incstack = 0
 	callstack 20
-	line	251
+	line	255
 	
-l6532:
-;main.c: 251:     int16_t speed = 0;
+l6330:
+;main.c: 255:     int16_t speed = 0;
 	movlw	high(0)
 	movlb	0	; () banked
 	movwf	((calcSpeed@speed+1))&0ffh
 	movlw	low(0)
 	movwf	((calcSpeed@speed))&0ffh
-	line	253
-;main.c: 253:     switch (driveMode){
-	goto	l6574
-	line	255
+	line	257
+;main.c: 257:     switch (driveMode){
+	goto	l6372
+	line	259
 	
-l6534:; BSR set to: 0
+l6332:; BSR set to: 0
 
-;main.c: 255:             if(distFront > (40)) {
+;main.c: 259:             if(distFront > (40)) {
 		movf	((_distFront+1))&0ffh,w	;volatile
-	bnz	u5750
+	bnz	u5360
 	movlw	41
 	subwf	 ((_distFront))&0ffh,w	;volatile
 	btfss	status,0
-	goto	u5751
-	goto	u5750
+	goto	u5361
+	goto	u5360
 
-u5751:
-	goto	l6538
-u5750:
-	line	256
+u5361:
+	goto	l6336
+u5360:
+	line	260
 	
-l6536:; BSR set to: 0
+l6334:; BSR set to: 0
 
-;main.c: 256:                 driveMode = Straight;
+;main.c: 260:                 driveMode = Straight;
 	movlw	low(0)
 	movwf	((c:_driveMode))^00h,c
-	line	258
+	line	262
 	
-l6538:; BSR set to: 0
+l6336:; BSR set to: 0
 
-;main.c: 258:             if(setSpeed > (125)){
+;main.c: 262:             if(setSpeed > (125)){
 	btfsc	((_setSpeed+1))&0ffh,7
-	goto	u5761
+	goto	u5371
 	movf	((_setSpeed+1))&0ffh,w
-	bnz	u5760
+	bnz	u5370
 	movlw	126
 	subwf	 ((_setSpeed))&0ffh,w
 	btfss	status,0
-	goto	u5761
-	goto	u5760
+	goto	u5371
+	goto	u5370
 
-u5761:
-	goto	l6576
-u5760:
-	line	259
+u5371:
+	goto	l6374
+u5370:
+	line	263
 	
-l6540:; BSR set to: 0
+l6338:; BSR set to: 0
 
-;main.c: 259:                 if(setSpeed > 0 ){
+;main.c: 263:                 if(setSpeed > 0 ){
 	btfsc	((_setSpeed+1))&0ffh,7
-	goto	u5771
+	goto	u5381
 	movf	((_setSpeed+1))&0ffh,w
-	bnz	u5770
+	bnz	u5380
 	decf	((_setSpeed))&0ffh,w
 	btfss	status,0
-	goto	u5771
-	goto	u5770
+	goto	u5381
+	goto	u5380
 
-u5771:
-	goto	l6546
-u5770:
-	line	260
+u5381:
+	goto	l6344
+u5380:
+	line	264
 	
-l6542:; BSR set to: 0
+l6340:; BSR set to: 0
 
-;main.c: 260:                     speed = setSpeed;
+;main.c: 264:                     speed = setSpeed;
 	movff	(_setSpeed),(calcSpeed@speed)
 	movff	(_setSpeed+1),(calcSpeed@speed+1)
-	line	261
+	line	265
 	
-l6544:; BSR set to: 0
+l6342:; BSR set to: 0
 
-;main.c: 261:                     speed -= 2;
+;main.c: 265:                     speed -= 2;
 	movlw	low(-2)
 	addwf	((calcSpeed@speed))&0ffh
 	movlw	high(-2)
 	addwfc	((calcSpeed@speed+1))&0ffh
-	line	262
-;main.c: 262:                 }else if( setSpeed > 0 && distFront < (20)){
-	goto	l6576
+	line	266
+;main.c: 266:                 }else if( setSpeed > 0 && distFront < (20)){
+	goto	l6374
 	
-l6546:; BSR set to: 0
+l6344:; BSR set to: 0
 
 	btfsc	((_setSpeed+1))&0ffh,7
-	goto	u5781
+	goto	u5391
 	movf	((_setSpeed+1))&0ffh,w
-	bnz	u5780
+	bnz	u5390
 	decf	((_setSpeed))&0ffh,w
 	btfss	status,0
-	goto	u5781
-	goto	u5780
+	goto	u5391
+	goto	u5390
 
-u5781:
+u5391:
 	goto	l1330
-u5780:
+u5390:
 	
-l6548:; BSR set to: 0
+l6346:; BSR set to: 0
 
 		movf	((_distFront+1))&0ffh,w	;volatile
-	bnz	u5791
+	bnz	u5401
 	movlw	20
 	subwf	 ((_distFront))&0ffh,w	;volatile
 	btfsc	status,0
-	goto	u5791
-	goto	u5790
+	goto	u5401
+	goto	u5400
 
-u5791:
+u5401:
 	goto	l1330
-u5790:
-	line	263
+u5400:
+	line	267
 	
-l6550:; BSR set to: 0
+l6348:; BSR set to: 0
 
-;main.c: 263:                     speed = setSpeed;
+;main.c: 267:                     speed = setSpeed;
 	movff	(_setSpeed),(calcSpeed@speed)
 	movff	(_setSpeed+1),(calcSpeed@speed+1)
-	line	264
+	line	268
 	
-l6552:; BSR set to: 0
+l6350:; BSR set to: 0
 
-;main.c: 264:                     speed -= 4;
+;main.c: 268:                     speed -= 4;
 	movlw	low(-4)
 	addwf	((calcSpeed@speed))&0ffh
 	movlw	high(-4)
 	addwfc	((calcSpeed@speed+1))&0ffh
-	goto	l6576
-	line	266
-;main.c: 266:             }
+	goto	l6374
+	line	270
+;main.c: 270:             }
 	
 l1330:; BSR set to: 0
 
-	line	267
-;main.c: 267:             break;
-	goto	l6576
-	line	269
+	line	271
+;main.c: 271:             break;
+	goto	l6374
+	line	273
 	
-l6554:; BSR set to: 0
+l6352:; BSR set to: 0
 
-;main.c: 269:             if(distFront < (40)) {
+;main.c: 273:             if(distFront < (40)) {
 		movf	((_distFront+1))&0ffh,w	;volatile
-	bnz	u5801
+	bnz	u5411
 	movlw	40
 	subwf	 ((_distFront))&0ffh,w	;volatile
 	btfsc	status,0
-	goto	u5801
-	goto	u5800
+	goto	u5411
+	goto	u5410
 
-u5801:
-	goto	l6558
-u5800:
-	line	270
-	
-l6556:; BSR set to: 0
-
-;main.c: 270:                 driveMode = Brake;
-	movlw	low(01h)
-	movwf	((c:_driveMode))^00h,c
-	line	273
-	
-l6558:; BSR set to: 0
-
-;main.c: 273:             if(distFront > (125)){
-		movf	((_distFront+1))&0ffh,w	;volatile
-	bnz	u5810
-	movlw	126
-	subwf	 ((_distFront))&0ffh,w	;volatile
-	btfss	status,0
-	goto	u5811
-	goto	u5810
-
-u5811:
-	goto	l6562
-u5810:
+u5411:
+	goto	l6356
+u5410:
 	line	274
 	
-l6560:; BSR set to: 0
+l6354:; BSR set to: 0
 
-;main.c: 274:                 speed = (int16_t)((0.75) * (distFront - (125)) + (220));
-	movlw	low(normalize32(0x435c0000))
+;main.c: 274:                 driveMode = Brake;
+	movlw	low(01h)
+	movwf	((c:_driveMode))^00h,c
+	line	277
+	
+l6356:; BSR set to: 0
+
+;main.c: 277:             if(distFront > (150)){
+		movf	((_distFront+1))&0ffh,w	;volatile
+	bnz	u5420
+	movlw	151
+	subwf	 ((_distFront))&0ffh,w	;volatile
+	btfss	status,0
+	goto	u5421
+	goto	u5420
+
+u5421:
+	goto	l6360
+u5420:
+	line	278
+	
+l6358:; BSR set to: 0
+
+;main.c: 278:                 speed = (int16_t)((0.75) * (distFront - (150)) + (225));
+	movlw	low(normalize32(0x43610000))
 	movwf	((___fladd@a))&0ffh
-	movlw	high(normalize32(0x435c0000))
+	movlw	high(normalize32(0x43610000))
 	movwf	((___fladd@a+1))&0ffh
-	movlw	low highword(normalize32(0x435c0000))
+	movlw	low highword(normalize32(0x43610000))
 	movwf	((___fladd@a+2))&0ffh
-	movlw	high highword(normalize32(0x435c0000))
+	movlw	high highword(normalize32(0x43610000))
 	movwf	((___fladd@a+3))&0ffh
 	movlw	low(normalize32(0x3f400000))
 	movwf	((___flmul@a))&0ffh
@@ -34865,9 +34688,9 @@ l6560:; BSR set to: 0
 	movwf	((___flmul@a+2))&0ffh
 	movlw	high highword(normalize32(0x3f400000))
 	movwf	((___flmul@a+3))&0ffh
-	movlw	low(0FF83h)
+	movlw	low(0FF6Ah)
 	movwf	(??_calcSpeed+0+0)&0ffh
-	movlw	high(0FF83h)
+	movlw	high(0FF6Ah)
 	movwf	1+(??_calcSpeed+0+0)&0ffh
 	movff	(_distFront),??_calcSpeed+2+0	;volatile
 	movff	(_distFront+1),??_calcSpeed+2+0+1	;volatile
@@ -34902,46 +34725,46 @@ l6560:; BSR set to: 0
 	call	___fltol	;wreg free
 	movff	0+?___fltol,(calcSpeed@speed)
 	movff	1+?___fltol,(calcSpeed@speed+1)
-	line	275
-;main.c: 275:             }else{
-	goto	l6576
-	line	276
+	line	279
+;main.c: 279:             }else{
+	goto	l6374
+	line	280
 	
-l6562:; BSR set to: 0
+l6360:; BSR set to: 0
 
-;main.c: 276:                 speed = (220);
-	movlw	high(0DCh)
+;main.c: 280:                 speed = (225);
+	movlw	high(0E1h)
 	movwf	((calcSpeed@speed+1))&0ffh
-	movlw	low(0DCh)
+	movlw	low(0E1h)
 	movwf	((calcSpeed@speed))&0ffh
-	goto	l6576
-	line	282
+	goto	l6374
+	line	286
 	
-l6564:; BSR set to: 0
+l6362:; BSR set to: 0
 
-;main.c: 282:             speed = (-150);
+;main.c: 286:             speed = (-150);
 	movlw	high(-150)
 	movwf	((calcSpeed@speed+1))&0ffh
 	movlw	low(-150)
 	movwf	((calcSpeed@speed))&0ffh
-	line	283
-;main.c: 283:             break;
-	goto	l6576
-	line	288
+	line	287
+;main.c: 287:             break;
+	goto	l6374
+	line	292
 	
-l6568:; BSR set to: 0
+l6366:; BSR set to: 0
 
-;main.c: 288:             speed = (200);
+;main.c: 292:             speed = (200);
 	movlw	high(0C8h)
 	movwf	((calcSpeed@speed+1))&0ffh
 	movlw	low(0C8h)
 	movwf	((calcSpeed@speed))&0ffh
-	line	289
-;main.c: 289:             break;
-	goto	l6576
 	line	293
+;main.c: 293:             break;
+	goto	l6374
+	line	297
 	
-l6574:; BSR set to: 0
+l6372:; BSR set to: 0
 
 	movf	((c:_driveMode))^00h,c,w
 	movwf	(??_calcSpeed+0+0)&0ffh
@@ -34958,10 +34781,10 @@ l6574:; BSR set to: 0
 	movf ??_calcSpeed+0+1&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6834
-	goto	l6576
+	goto	l6632
+	goto	l6374
 	
-l6834:; BSR set to: 0
+l6632:; BSR set to: 0
 
 ; Switch size 1, requested type "simple"
 ; Number of cases is 6, Range of values is 0 to 5
@@ -34973,86 +34796,86 @@ l6834:; BSR set to: 0
 	movf ??_calcSpeed+0+0&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6554
+	goto	l6352
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l6534
+	goto	l6332
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l6564
+	goto	l6362
 	xorlw	3^2	; case 3
 	skipnz
-	goto	l6564
+	goto	l6362
 	xorlw	4^3	; case 4
 	skipnz
-	goto	l6568
+	goto	l6366
 	xorlw	5^4	; case 5
 	skipnz
-	goto	l6568
-	goto	l6576
+	goto	l6366
+	goto	l6374
 
-	line	295
+	line	299
 	
-l6576:
-;main.c: 295:     if(speed > (400)){
+l6374:
+;main.c: 299:     if(speed > (400)){
 	movlb	0	; () banked
 	btfsc	((calcSpeed@speed+1))&0ffh,7
-	goto	u5821
+	goto	u5431
 	movlw	145
 	subwf	 ((calcSpeed@speed))&0ffh,w
 	movlw	1
 	subwfb	((calcSpeed@speed+1))&0ffh,w
 	btfss	status,0
-	goto	u5821
-	goto	u5820
+	goto	u5431
+	goto	u5430
 
-u5821:
-	goto	l6580
-u5820:
-	line	296
+u5431:
+	goto	l6378
+u5430:
+	line	300
 	
-l6578:; BSR set to: 0
+l6376:; BSR set to: 0
 
-;main.c: 296:         speed = (400);
+;main.c: 300:         speed = (400);
 	movlw	high(0190h)
 	movwf	((calcSpeed@speed+1))&0ffh
 	movlw	low(0190h)
 	movwf	((calcSpeed@speed))&0ffh
-	line	298
+	line	302
 	
-l6580:; BSR set to: 0
+l6378:; BSR set to: 0
 
-;main.c: 298:     if(speed < (-250)){
+;main.c: 302:     if(speed < (-250)){
 	btfss	((calcSpeed@speed+1))&0ffh,7
-	goto	u5831
+	goto	u5441
 	movlw	6
 	subwf	 ((calcSpeed@speed))&0ffh,w
 	movlw	255
 	subwfb	((calcSpeed@speed+1))&0ffh,w
 	btfsc	status,0
-	goto	u5831
-	goto	u5830
+	goto	u5441
+	goto	u5440
 
-u5831:
-	goto	l6584
-u5830:
-	line	299
+u5441:
+	goto	l6382
+u5440:
+	line	303
 	
-l6582:; BSR set to: 0
+l6380:; BSR set to: 0
 
-;main.c: 299:         speed = (-250);
+;main.c: 303:         speed = (-250);
 	movlw	high(-250)
 	movwf	((calcSpeed@speed+1))&0ffh
 	movlw	low(-250)
 	movwf	((calcSpeed@speed))&0ffh
-	line	301
+	line	305
 	
-l6584:; BSR set to: 0
+l6382:; BSR set to: 0
 
-;main.c: 301:     setSpeed = speed;
+;main.c: 305:     setSpeed = speed;
 	movff	(calcSpeed@speed),(_setSpeed)
 	movff	(calcSpeed@speed+1),(_setSpeed+1)
-	line	302
+	line	306
 	
 l1345:; BSR set to: 0
 
@@ -35067,15 +34890,15 @@ GLOBAL	__end_of_calcSpeed
 ;; Defined at:
 ;;		line 10 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcadd.c"
 ;; Parameters:    Size  Location     Type
-;;  b               4   39[BANK0 ] void 
-;;  a               4   43[BANK0 ] void 
+;;  b               4   47[BANK0 ] void 
+;;  a               4   51[BANK0 ] void 
 ;; Auto vars:     Size  Location     Type
-;;  grs             1   54[BANK0 ] unsigned char 
-;;  bexp            1   53[BANK0 ] unsigned char 
-;;  aexp            1   52[BANK0 ] unsigned char 
-;;  signs           1   51[BANK0 ] unsigned char 
+;;  grs             1   62[BANK0 ] unsigned char 
+;;  bexp            1   61[BANK0 ] unsigned char 
+;;  aexp            1   60[BANK0 ] unsigned char 
+;;  signs           1   59[BANK0 ] unsigned char 
 ;; Return value:  Size  Location     Type
-;;                  4   39[BANK0 ] unsigned char 
+;;                  4   47[BANK0 ] unsigned char 
 ;; Registers used:
 ;;		wreg, status,2, status,0
 ;; Tracked objects:
@@ -35096,12 +34919,12 @@ GLOBAL	__end_of_calcSpeed
 ;;		_calcSpeed
 ;; This function uses a non-reentrant model
 ;;
-psect	text27,class=CODE,space=0,reloc=2,group=2
+psect	text26,class=CODE,space=0,reloc=2,group=2
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcadd.c"
 	line	10
-global __ptext27
-__ptext27:
-psect	text27
+global __ptext26
+__ptext26:
+psect	text26
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcadd.c"
 	line	10
 	
@@ -35111,7 +34934,7 @@ ___fladd:; BSR set to: 0
 	callstack 20
 	line	21
 	
-l5984:
+l4464:
 	movlb	0	; () banked
 	movf	(0+(___fladd@b+03h))&0ffh,w
 	andlw	low(080h)
@@ -35122,46 +34945,46 @@ l5984:
 	movwf	((___fladd@bexp))&0ffh
 	line	23
 	
-l5986:; BSR set to: 0
+l4466:; BSR set to: 0
 
 	
 	btfss	(0+(___fladd@b+02h))&0ffh,(7)&7
-	goto	u4841
-	goto	u4840
-u4841:
-	goto	l5990
-u4840:
+	goto	u2751
+	goto	u2750
+u2751:
+	goto	l4470
+u2750:
 	line	24
 	
-l5988:; BSR set to: 0
+l4468:; BSR set to: 0
 
 	bsf	(0+(0/8)+(___fladd@bexp))&0ffh,(0)&7
 	line	28
 	
-l5990:; BSR set to: 0
+l4470:; BSR set to: 0
 
 	movf	((___fladd@bexp))&0ffh,w
 	btfsc	status,2
-	goto	u4851
-	goto	u4850
-u4851:
-	goto	l6000
-u4850:
+	goto	u2761
+	goto	u2760
+u2761:
+	goto	l4480
+u2760:
 	line	30
 	
-l5992:; BSR set to: 0
+l4472:; BSR set to: 0
 
 		incf	((___fladd@bexp))&0ffh,w
 	btfss	status,2
-	goto	u4861
-	goto	u4860
+	goto	u2771
+	goto	u2770
 
-u4861:
-	goto	l5996
-u4860:
+u2771:
+	goto	l4476
+u2770:
 	line	32
 	
-l5994:; BSR set to: 0
+l4474:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___fladd@b))&0ffh
@@ -35173,20 +34996,20 @@ l5994:; BSR set to: 0
 	movwf	((___fladd@b+3))&0ffh
 	line	35
 	
-l5996:; BSR set to: 0
+l4476:; BSR set to: 0
 
 	bsf	(0+(23/8)+(___fladd@b))&0ffh,(23)&7
 	line	37
 	
-l5998:; BSR set to: 0
+l4478:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	(0+(___fladd@b+03h))&0ffh
 	line	38
-	goto	l6002
+	goto	l4482
 	line	41
 	
-l6000:; BSR set to: 0
+l4480:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___fladd@b))&0ffh
@@ -35198,78 +35021,78 @@ l6000:; BSR set to: 0
 	movwf	((___fladd@b+3))&0ffh
 	line	44
 	
-l6002:; BSR set to: 0
+l4482:; BSR set to: 0
 
 	movf	(0+(___fladd@a+03h))&0ffh,w
 	andlw	low(080h)
 	movwf	((___fladd@aexp))&0ffh
 	line	46
 	
-l6004:; BSR set to: 0
+l4484:; BSR set to: 0
 
 	movf	((___fladd@signs))&0ffh,w
 xorwf	((___fladd@aexp))&0ffh,w
 	btfsc	status,2
-	goto	u4871
-	goto	u4870
+	goto	u2781
+	goto	u2780
 
-u4871:
-	goto	l6008
-u4870:
+u2781:
+	goto	l4488
+u2780:
 	line	47
 	
-l6006:; BSR set to: 0
+l4486:; BSR set to: 0
 
 	bsf	(0+(6/8)+(___fladd@signs))&0ffh,(6)&7
 	line	49
 	
-l6008:; BSR set to: 0
+l4488:; BSR set to: 0
 
 	movf	(0+(___fladd@a+03h))&0ffh,w
 	addwf	(0+(___fladd@a+03h))&0ffh,w
 	movwf	((___fladd@aexp))&0ffh
 	line	50
 	
-l6010:; BSR set to: 0
+l4490:; BSR set to: 0
 
 	
 	btfss	(0+(___fladd@a+02h))&0ffh,(7)&7
-	goto	u4881
-	goto	u4880
-u4881:
-	goto	l6014
-u4880:
+	goto	u2791
+	goto	u2790
+u2791:
+	goto	l4494
+u2790:
 	line	51
 	
-l6012:; BSR set to: 0
+l4492:; BSR set to: 0
 
 	bsf	(0+(0/8)+(___fladd@aexp))&0ffh,(0)&7
 	line	55
 	
-l6014:; BSR set to: 0
+l4494:; BSR set to: 0
 
 	movf	((___fladd@aexp))&0ffh,w
 	btfsc	status,2
-	goto	u4891
-	goto	u4890
-u4891:
-	goto	l6024
-u4890:
+	goto	u2801
+	goto	u2800
+u2801:
+	goto	l4504
+u2800:
 	line	57
 	
-l6016:; BSR set to: 0
+l4496:; BSR set to: 0
 
 		incf	((___fladd@aexp))&0ffh,w
 	btfss	status,2
-	goto	u4901
-	goto	u4900
+	goto	u2811
+	goto	u2810
 
-u4901:
-	goto	l6020
-u4900:
+u2811:
+	goto	l4500
+u2810:
 	line	59
 	
-l6018:; BSR set to: 0
+l4498:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___fladd@a))&0ffh
@@ -35281,20 +35104,20 @@ l6018:; BSR set to: 0
 	movwf	((___fladd@a+3))&0ffh
 	line	62
 	
-l6020:; BSR set to: 0
+l4500:; BSR set to: 0
 
 	bsf	(0+(23/8)+(___fladd@a))&0ffh,(23)&7
 	line	64
 	
-l6022:; BSR set to: 0
+l4502:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	(0+(___fladd@a+03h))&0ffh
 	line	65
-	goto	l6026
+	goto	l4506
 	line	68
 	
-l6024:; BSR set to: 0
+l4504:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___fladd@a))&0ffh
@@ -35306,118 +35129,118 @@ l6024:; BSR set to: 0
 	movwf	((___fladd@a+3))&0ffh
 	line	75
 	
-l6026:; BSR set to: 0
+l4506:; BSR set to: 0
 
 		movf	((___fladd@bexp))&0ffh,w
 	subwf	((___fladd@aexp))&0ffh,w
 	btfsc	status,0
-	goto	u4911
-	goto	u4910
+	goto	u2821
+	goto	u2820
 
-u4911:
-	goto	l6062
-u4910:
+u2821:
+	goto	l4542
+u2820:
 	line	77
 	
-l6028:; BSR set to: 0
+l4508:; BSR set to: 0
 
 	
 	btfss	((___fladd@signs))&0ffh,(6)&7
-	goto	u4921
-	goto	u4920
-u4921:
-	goto	l6032
-u4920:
+	goto	u2831
+	goto	u2830
+u2831:
+	goto	l4512
+u2830:
 	line	78
 	
-l6030:; BSR set to: 0
+l4510:; BSR set to: 0
 
 	movlw	(080h)&0ffh
 	xorwf	((___fladd@signs))&0ffh
 	line	81
 	
-l6032:; BSR set to: 0
+l4512:; BSR set to: 0
 
 	movff	(___fladd@bexp),(___fladd@grs)
 	line	82
 	
-l6034:; BSR set to: 0
+l4514:; BSR set to: 0
 
 	movff	(___fladd@aexp),(___fladd@bexp)
 	line	83
 	
-l6036:; BSR set to: 0
+l4516:; BSR set to: 0
 
 	movff	(___fladd@grs),(___fladd@aexp)
 	line	84
 	
-l6038:; BSR set to: 0
+l4518:; BSR set to: 0
 
 	movff	(___fladd@b),(___fladd@grs)
 	line	85
 	
-l6040:; BSR set to: 0
+l4520:; BSR set to: 0
 
 	movff	(___fladd@a),(___fladd@b)
 	line	86
 	
-l6042:; BSR set to: 0
+l4522:; BSR set to: 0
 
 	movff	(___fladd@grs),(___fladd@a)
 	line	87
 	
-l6044:; BSR set to: 0
+l4524:; BSR set to: 0
 
 	movff	0+(___fladd@b+01h),(___fladd@grs)
 	line	88
 	
-l6046:; BSR set to: 0
+l4526:; BSR set to: 0
 
 	movff	0+(___fladd@a+01h),0+(___fladd@b+01h)
 	line	89
 	
-l6048:; BSR set to: 0
+l4528:; BSR set to: 0
 
 	movff	(___fladd@grs),0+(___fladd@a+01h)
 	line	90
 	
-l6050:; BSR set to: 0
+l4530:; BSR set to: 0
 
 	movff	0+(___fladd@b+02h),(___fladd@grs)
 	line	91
 	
-l6052:; BSR set to: 0
+l4532:; BSR set to: 0
 
 	movff	0+(___fladd@a+02h),0+(___fladd@b+02h)
 	line	92
 	
-l6054:; BSR set to: 0
+l4534:; BSR set to: 0
 
 	movff	(___fladd@grs),0+(___fladd@a+02h)
 	line	93
 	
-l6056:; BSR set to: 0
+l4536:; BSR set to: 0
 
 	movff	0+(___fladd@b+03h),(___fladd@grs)
 	line	94
 	
-l6058:; BSR set to: 0
+l4538:; BSR set to: 0
 
 	movff	0+(___fladd@a+03h),0+(___fladd@b+03h)
 	line	95
 	
-l6060:; BSR set to: 0
+l4540:; BSR set to: 0
 
 	movff	(___fladd@grs),0+(___fladd@a+03h)
 	line	98
 	
-l6062:; BSR set to: 0
+l4542:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___fladd@grs))&0ffh
 	line	100
 	
-l6064:; BSR set to: 0
+l4544:; BSR set to: 0
 
 	movf	((___fladd@bexp))&0ffh,w
 	movff	(___fladd@aexp),??___fladd+0+0
@@ -35426,40 +35249,40 @@ l6064:; BSR set to: 0
 	movlw	0
 	subwfb	(??___fladd+0+1)&0ffh
 	btfsc	(??___fladd+0+1)&0ffh,7
-	goto	u4931
+	goto	u2841
 	movf	(??___fladd+0+1)&0ffh,w
-	bnz	u4930
+	bnz	u2840
 	movlw	26
 	subwf	 (??___fladd+0+0)&0ffh,w
 	btfss	status,0
-	goto	u4931
-	goto	u4930
+	goto	u2841
+	goto	u2840
 
-u4931:
+u2841:
 	goto	l1912
-u4930:
+u2840:
 	line	101
 	
-l6066:; BSR set to: 0
+l4546:; BSR set to: 0
 
 	movf	((___fladd@b))&0ffh,w
 iorwf	((___fladd@b+1))&0ffh,w
 iorwf	((___fladd@b+2))&0ffh,w
 iorwf	((___fladd@b+3))&0ffh,w
 	btfss	status,2
-	goto	u4941
-	goto	u4940
+	goto	u2851
+	goto	u2850
 
-u4941:
+u2851:
 	movlw	1
-	goto	u4950
-u4940:
+	goto	u2860
+u2850:
 	movlw	0
-u4950:
+u2860:
 	movwf	((___fladd@grs))&0ffh
 	line	102
 	
-l6068:; BSR set to: 0
+l4548:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___fladd@b))&0ffh
@@ -35471,7 +35294,7 @@ l6068:; BSR set to: 0
 	movwf	((___fladd@b+3))&0ffh
 	line	103
 	
-l6070:; BSR set to: 0
+l4550:; BSR set to: 0
 
 	movff	(___fladd@aexp),(___fladd@bexp)
 	line	104
@@ -35483,47 +35306,47 @@ l1913:; BSR set to: 0
 	line	109
 	
 	btfss	((___fladd@grs))&0ffh,(0)&7
-	goto	u4961
-	goto	u4960
-u4961:
-	goto	l6074
-u4960:
+	goto	u2871
+	goto	u2870
+u2871:
+	goto	l4554
+u2870:
 	line	110
 	
-l6072:; BSR set to: 0
+l4552:; BSR set to: 0
 
 	bcf	status,0
 	rrcf	((___fladd@grs))&0ffh,w
 	iorlw	low(01h)
 	movwf	((___fladd@grs))&0ffh
 	line	111
-	goto	l6076
+	goto	l4556
 	line	113
 	
-l6074:; BSR set to: 0
+l4554:; BSR set to: 0
 
 	bcf status,0
 	rrcf	((___fladd@grs))&0ffh
 
 	line	115
 	
-l6076:; BSR set to: 0
+l4556:; BSR set to: 0
 
 	
 	btfss	((___fladd@b))&0ffh,(0)&7
-	goto	u4971
-	goto	u4970
-u4971:
-	goto	l6080
-u4970:
+	goto	u2881
+	goto	u2880
+u2881:
+	goto	l4560
+u2880:
 	line	116
 	
-l6078:; BSR set to: 0
+l4558:; BSR set to: 0
 
 	bsf	(0+(7/8)+(___fladd@grs))&0ffh,(7)&7
 	line	118
 	
-l6080:; BSR set to: 0
+l4560:; BSR set to: 0
 
 	rlcf	((___fladd@b+3))&0ffh,w
 	rrcf	((___fladd@b+3))&0ffh
@@ -35532,7 +35355,7 @@ l6080:; BSR set to: 0
 	rrcf	((___fladd@b))&0ffh
 	line	119
 	
-l6082:; BSR set to: 0
+l4562:; BSR set to: 0
 
 	incf	((___fladd@bexp))&0ffh
 	line	120
@@ -35543,12 +35366,12 @@ l1912:; BSR set to: 0
 		movf	((___fladd@aexp))&0ffh,w
 	subwf	((___fladd@bexp))&0ffh,w
 	btfss	status,0
-	goto	u4981
-	goto	u4980
+	goto	u2891
+	goto	u2890
 
-u4981:
+u2891:
 	goto	l1913
-u4980:
+u2890:
 	line	121
 	
 l1911:; BSR set to: 0
@@ -35556,25 +35379,25 @@ l1911:; BSR set to: 0
 	line	124
 	
 	btfsc	((___fladd@signs))&0ffh,(6)&7
-	goto	u4991
-	goto	u4990
-u4991:
-	goto	l6108
-u4990:
+	goto	u2901
+	goto	u2900
+u2901:
+	goto	l4588
+u2900:
 	line	127
 	
-l6084:; BSR set to: 0
+l4564:; BSR set to: 0
 
 	movf	((___fladd@bexp))&0ffh,w
 	btfss	status,2
-	goto	u5001
-	goto	u5000
-u5001:
-	goto	l6090
-u5000:
+	goto	u2911
+	goto	u2910
+u2911:
+	goto	l4570
+u2910:
 	line	128
 	
-l6086:; BSR set to: 0
+l4566:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((?___fladd))&0ffh
@@ -35587,7 +35410,7 @@ l6086:; BSR set to: 0
 	goto	l1920
 	line	132
 	
-l6090:; BSR set to: 0
+l4570:; BSR set to: 0
 
 	movf	((___fladd@a))&0ffh,w
 	addwf	((___fladd@b))&0ffh
@@ -35599,62 +35422,62 @@ l6090:; BSR set to: 0
 	addwfc	((___fladd@b+3))&0ffh
 	line	134
 	
-l6092:; BSR set to: 0
+l4572:; BSR set to: 0
 
 	
 	btfss	((___fladd@b+3))&0ffh,(24)&7
-	goto	u5011
-	goto	u5010
-u5011:
-	goto	l6144
-u5010:
+	goto	u2921
+	goto	u2920
+u2921:
+	goto	l4624
+u2920:
 	line	135
 	
-l6094:; BSR set to: 0
+l4574:; BSR set to: 0
 
 	
 	btfss	((___fladd@grs))&0ffh,(0)&7
-	goto	u5021
-	goto	u5020
-u5021:
-	goto	l6098
-u5020:
+	goto	u2931
+	goto	u2930
+u2931:
+	goto	l4578
+u2930:
 	line	136
 	
-l6096:; BSR set to: 0
+l4576:; BSR set to: 0
 
 	bcf	status,0
 	rrcf	((___fladd@grs))&0ffh,w
 	iorlw	low(01h)
 	movwf	((___fladd@grs))&0ffh
 	line	137
-	goto	l6100
+	goto	l4580
 	line	139
 	
-l6098:; BSR set to: 0
+l4578:; BSR set to: 0
 
 	bcf status,0
 	rrcf	((___fladd@grs))&0ffh
 
 	line	141
 	
-l6100:; BSR set to: 0
+l4580:; BSR set to: 0
 
 	
 	btfss	((___fladd@b))&0ffh,(0)&7
-	goto	u5031
-	goto	u5030
-u5031:
-	goto	l6104
-u5030:
+	goto	u2941
+	goto	u2940
+u2941:
+	goto	l4584
+u2940:
 	line	142
 	
-l6102:; BSR set to: 0
+l4582:; BSR set to: 0
 
 	bsf	(0+(7/8)+(___fladd@grs))&0ffh,(7)&7
 	line	144
 	
-l6104:; BSR set to: 0
+l4584:; BSR set to: 0
 
 	rlcf	((___fladd@b+3))&0ffh,w
 	rrcf	((___fladd@b+3))&0ffh
@@ -35663,13 +35486,13 @@ l6104:; BSR set to: 0
 	rrcf	((___fladd@b))&0ffh
 	line	145
 	
-l6106:; BSR set to: 0
+l4586:; BSR set to: 0
 
 	incf	((___fladd@bexp))&0ffh
-	goto	l6144
+	goto	l4624
 	line	153
 	
-l6108:; BSR set to: 0
+l4588:; BSR set to: 0
 
 		movf	((___fladd@a))&0ffh,w
 	subwf	((___fladd@b))&0ffh,w
@@ -35684,15 +35507,15 @@ l6108:; BSR set to: 0
 	xorlw	80h
 	subwfb	(??___fladd+0+0)&0ffh,w
 	btfsc	status,0
-	goto	u5041
-	goto	u5040
+	goto	u2951
+	goto	u2950
 
-u5041:
-	goto	l6118
-u5040:
+u2951:
+	goto	l4598
+u2950:
 	line	154
 	
-l6110:; BSR set to: 0
+l4590:; BSR set to: 0
 
 	movf	((___fladd@b))&0ffh,w
 	subwf	((___fladd@a))&0ffh,w
@@ -35727,23 +35550,23 @@ l6110:; BSR set to: 0
 	xorwf	((___fladd@signs))&0ffh
 	line	156
 	
-l6112:; BSR set to: 0
+l4592:; BSR set to: 0
 
 	negf	((___fladd@grs))&0ffh
 	line	157
 	
-l6114:; BSR set to: 0
+l4594:; BSR set to: 0
 
 	movf	((___fladd@grs))&0ffh,w
 	btfss	status,2
-	goto	u5051
-	goto	u5050
-u5051:
+	goto	u2961
+	goto	u2960
+u2961:
 	goto	l1928
-u5050:
+u2960:
 	line	158
 	
-l6116:; BSR set to: 0
+l4596:; BSR set to: 0
 
 	movlw	low(01h)
 	addwf	((___fladd@b))&0ffh
@@ -35754,7 +35577,7 @@ l6116:; BSR set to: 0
 	goto	l1928
 	line	162
 	
-l6118:; BSR set to: 0
+l4598:; BSR set to: 0
 
 	movf	((___fladd@a))&0ffh,w
 	subwf	((___fladd@b))&0ffh
@@ -35774,25 +35597,25 @@ iorwf	((___fladd@b+1))&0ffh,w
 iorwf	((___fladd@b+2))&0ffh,w
 iorwf	((___fladd@b+3))&0ffh,w
 	btfss	status,2
-	goto	u5061
-	goto	u5060
+	goto	u2971
+	goto	u2970
 
-u5061:
-	goto	l6142
-u5060:
+u2971:
+	goto	l4622
+u2970:
 	
-l6120:; BSR set to: 0
+l4600:; BSR set to: 0
 
 	movf	((___fladd@grs))&0ffh,w
 	btfss	status,2
-	goto	u5071
-	goto	u5070
-u5071:
-	goto	l6142
-u5070:
+	goto	u2981
+	goto	u2980
+u2981:
+	goto	l4622
+u2980:
 	line	167
 	
-l6122:; BSR set to: 0
+l4602:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((?___fladd))&0ffh
@@ -35805,7 +35628,7 @@ l6122:; BSR set to: 0
 	goto	l1920
 	line	172
 	
-l6126:; BSR set to: 0
+l4606:; BSR set to: 0
 
 	bcf	status,0
 	rlcf	((___fladd@b))&0ffh
@@ -35814,107 +35637,107 @@ l6126:; BSR set to: 0
 	rlcf	((___fladd@b+3))&0ffh
 	line	173
 	
-l6128:; BSR set to: 0
+l4608:; BSR set to: 0
 
 	
 	btfss	((___fladd@grs))&0ffh,(7)&7
-	goto	u5081
-	goto	u5080
-u5081:
-	goto	l6132
-u5080:
+	goto	u2991
+	goto	u2990
+u2991:
+	goto	l4612
+u2990:
 	line	174
 	
-l6130:; BSR set to: 0
+l4610:; BSR set to: 0
 
 	bsf	(0+(0/8)+(___fladd@b))&0ffh,(0)&7
 	line	176
 	
-l6132:; BSR set to: 0
+l4612:; BSR set to: 0
 
 	
 	btfss	((___fladd@grs))&0ffh,(0)&7
-	goto	u5091
-	goto	u5090
-u5091:
-	goto	l6136
-u5090:
+	goto	u3001
+	goto	u3000
+u3001:
+	goto	l4616
+u3000:
 	line	177
 	
-l6134:; BSR set to: 0
+l4614:; BSR set to: 0
 
 	bsf	status,0
 	
 	rlcf	((___fladd@grs))&0ffh
 	line	178
-	goto	l6138
+	goto	l4618
 	line	180
 	
-l6136:; BSR set to: 0
+l4616:; BSR set to: 0
 
 	bcf status,0
 	rlcf	((___fladd@grs))&0ffh
 
 	line	182
 	
-l6138:; BSR set to: 0
+l4618:; BSR set to: 0
 
 	movf	((___fladd@bexp))&0ffh,w
 	btfsc	status,2
-	goto	u5101
-	goto	u5100
-u5101:
-	goto	l6142
-u5100:
+	goto	u3011
+	goto	u3010
+u3011:
+	goto	l4622
+u3010:
 	line	183
 	
-l6140:; BSR set to: 0
+l4620:; BSR set to: 0
 
 	decf	((___fladd@bexp))&0ffh
 	line	171
 	
-l6142:; BSR set to: 0
+l4622:; BSR set to: 0
 
 	
 	btfss	((___fladd@b+2))&0ffh,(23)&7
-	goto	u5111
-	goto	u5110
-u5111:
-	goto	l6126
-u5110:
+	goto	u3021
+	goto	u3020
+u3021:
+	goto	l4606
+u3020:
 	line	192
 	
-l6144:; BSR set to: 0
+l4624:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___fladd@aexp))&0ffh
 	line	193
 	
-l6146:; BSR set to: 0
+l4626:; BSR set to: 0
 
 	
 	btfss	((___fladd@grs))&0ffh,(7)&7
-	goto	u5121
-	goto	u5120
-u5121:
+	goto	u3031
+	goto	u3030
+u3031:
 	goto	l1937
-u5120:
+u3030:
 	line	194
 	
-l6148:; BSR set to: 0
+l4628:; BSR set to: 0
 
 	movff	(___fladd@grs),??___fladd+0+0
 	movlw	07Fh
 	andwf	(??___fladd+0+0)&0ffh
 	btfsc	status,2
-	goto	u5131
-	goto	u5130
-u5131:
+	goto	u3041
+	goto	u3040
+u3041:
 	goto	l1938
-u5130:
+u3040:
 	line	195
 	
-l6150:; BSR set to: 0
+l4630:; BSR set to: 0
 
 	movlw	low(01h)
 	movwf	((___fladd@aexp))&0ffh
@@ -35927,12 +35750,12 @@ l1938:; BSR set to: 0
 	line	198
 	
 	btfss	((___fladd@b))&0ffh,(0)&7
-	goto	u5141
-	goto	u5140
-u5141:
+	goto	u3051
+	goto	u3050
+u3051:
 	goto	l1937
-u5140:
-	goto	l6150
+u3050:
+	goto	l4630
 	line	202
 	
 l1937:; BSR set to: 0
@@ -35940,14 +35763,14 @@ l1937:; BSR set to: 0
 	line	203
 	movf	((___fladd@aexp))&0ffh,w
 	btfsc	status,2
-	goto	u5151
-	goto	u5150
-u5151:
-	goto	l6162
-u5150:
+	goto	u3061
+	goto	u3060
+u3061:
+	goto	l4642
+u3060:
 	line	204
 	
-l6154:; BSR set to: 0
+l4634:; BSR set to: 0
 
 	movlw	low(01h)
 	addwf	((___fladd@b))&0ffh
@@ -35957,18 +35780,18 @@ l6154:; BSR set to: 0
 	addwfc	((___fladd@b+3))&0ffh
 	line	205
 	
-l6156:; BSR set to: 0
+l4636:; BSR set to: 0
 
 	
 	btfss	((___fladd@b+3))&0ffh,(24)&7
-	goto	u5161
-	goto	u5160
-u5161:
-	goto	l6162
-u5160:
+	goto	u3071
+	goto	u3070
+u3071:
+	goto	l4642
+u3070:
 	line	206
 	
-l6158:; BSR set to: 0
+l4638:; BSR set to: 0
 
 	movff	(___fladd@b),??___fladd+0+0
 	movff	(___fladd@b+1),??___fladd+0+0+1
@@ -35986,42 +35809,42 @@ l6158:; BSR set to: 0
 	line	207
 		incf	((___fladd@bexp))&0ffh,w
 	btfsc	status,2
-	goto	u5171
-	goto	u5170
+	goto	u3081
+	goto	u3080
 
-u5171:
-	goto	l6162
-u5170:
+u3081:
+	goto	l4642
+u3080:
 	line	208
 	
-l6160:; BSR set to: 0
+l4640:; BSR set to: 0
 
 	incf	((___fladd@bexp))&0ffh
 	line	215
 	
-l6162:; BSR set to: 0
+l4642:; BSR set to: 0
 
 		incf	((___fladd@bexp))&0ffh,w
 	btfsc	status,2
-	goto	u5181
-	goto	u5180
+	goto	u3091
+	goto	u3090
 
-u5181:
-	goto	l6166
-u5180:
+u3091:
+	goto	l4646
+u3090:
 	
-l6164:; BSR set to: 0
+l4644:; BSR set to: 0
 
 	movf	((___fladd@bexp))&0ffh,w
 	btfss	status,2
-	goto	u5191
-	goto	u5190
-u5191:
-	goto	l6170
-u5190:
+	goto	u3101
+	goto	u3100
+u3101:
+	goto	l4650
+u3100:
 	line	216
 	
-l6166:; BSR set to: 0
+l4646:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___fladd@b))&0ffh
@@ -36034,66 +35857,66 @@ l6166:; BSR set to: 0
 	line	218
 	movf	((___fladd@bexp))&0ffh,w
 	btfss	status,2
-	goto	u5201
-	goto	u5200
-u5201:
-	goto	l6170
-u5200:
+	goto	u3111
+	goto	u3110
+u3111:
+	goto	l4650
+u3110:
 	line	219
 	
-l6168:; BSR set to: 0
+l4648:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___fladd@signs))&0ffh
 	line	225
 	
-l6170:; BSR set to: 0
+l4650:; BSR set to: 0
 
 	
 	btfss	((___fladd@bexp))&0ffh,(0)&7
-	goto	u5211
-	goto	u5210
-u5211:
-	goto	l6174
-u5210:
+	goto	u3121
+	goto	u3120
+u3121:
+	goto	l4654
+u3120:
 	line	226
 	
-l6172:; BSR set to: 0
+l4652:; BSR set to: 0
 
 	bsf	(0+(7/8)+0+(___fladd@b+02h))&0ffh,(7)&7
 	line	227
-	goto	l6176
+	goto	l4656
 	line	230
 	
-l6174:; BSR set to: 0
+l4654:; BSR set to: 0
 
 	bcf	(0+(7/8)+0+(___fladd@b+02h))&0ffh,(7)&7
 	line	232
 	
-l6176:; BSR set to: 0
+l4656:; BSR set to: 0
 
 	bcf	status,0
 	rrcf	((___fladd@bexp))&0ffh,w
 	movwf	(0+(___fladd@b+03h))&0ffh
 	line	233
 	
-l6178:; BSR set to: 0
+l4658:; BSR set to: 0
 
 	
 	btfss	((___fladd@signs))&0ffh,(7)&7
-	goto	u5221
-	goto	u5220
-u5221:
-	goto	l6182
-u5220:
+	goto	u3131
+	goto	u3130
+u3131:
+	goto	l4662
+u3130:
 	line	234
 	
-l6180:; BSR set to: 0
+l4660:; BSR set to: 0
 
 	bsf	(0+(7/8)+0+(___fladd@b+03h))&0ffh,(7)&7
 	line	236
 	
-l6182:; BSR set to: 0
+l4662:; BSR set to: 0
 
 	movff	(___fladd@b),(?___fladd)
 	movff	(___fladd@b+1),(?___fladd+1)
@@ -36112,13 +35935,13 @@ GLOBAL	__end_of___fladd
 
 ;; *************** function _calcMotorPow *****************
 ;; Defined at:
-;;		line 304 in file "main.c"
+;;		line 308 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
-;;  oldSpeedDelt    2   67[BANK0 ] short 
-;;  setSpeedDelt    2   65[BANK0 ] short 
-;;  addMPow         1   69[BANK0 ] char 
+;;  oldSpeedDelt    2   75[BANK0 ] short 
+;;  setSpeedDelt    2   73[BANK0 ] short 
+;;  addMPow         1   77[BANK0 ] char 
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
 ;; Registers used:
@@ -36136,6 +35959,7 @@ GLOBAL	__end_of___fladd
 ;; Hardware stack levels used: 1
 ;; Hardware stack levels required when called: 10
 ;; This function calls:
+;;		___awdiv
 ;;		___flmul
 ;;		___fltol
 ;;		___xxtofl
@@ -36145,23 +35969,23 @@ GLOBAL	__end_of___fladd
 ;;		_loop
 ;; This function uses a non-reentrant model
 ;;
-psect	text28,class=CODE,space=0,reloc=2,group=0
+psect	text27,class=CODE,space=0,reloc=2,group=0
 	file	"main.c"
-	line	304
-global __ptext28
-__ptext28:
-psect	text28
+	line	308
+global __ptext27
+__ptext27:
+psect	text27
 	file	"main.c"
-	line	304
+	line	308
 	
 _calcMotorPow:; BSR set to: 0
 
 ;incstack = 0
 	callstack 19
-	line	305
+	line	309
 	
-l6590:
-;main.c: 305:     int16_t setSpeedDelta = setSpeed - currentSpeed;
+l6388:
+;main.c: 309:     int16_t setSpeedDelta = setSpeed - currentSpeed;
 	movlb	0	; () banked
 	movf	((_currentSpeed))&0ffh,w
 	subwf	((_setSpeed))&0ffh,w
@@ -36169,30 +35993,30 @@ l6590:
 	movf	((_currentSpeed+1))&0ffh,w
 	subwfb	((_setSpeed+1))&0ffh,w
 	movwf	1+((calcMotorPow@setSpeedDelta))&0ffh
-	line	306
-;main.c: 306:     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
+	line	310
+;main.c: 310:     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
 	movf	((_oldSpeed))&0ffh,w
 	subwf	((_currentSpeed))&0ffh,w
 	movwf	((calcMotorPow@oldSpeedDelta))&0ffh
 	movf	((_oldSpeed+1))&0ffh,w
 	subwfb	((_currentSpeed+1))&0ffh,w
 	movwf	1+((calcMotorPow@oldSpeedDelta))&0ffh
-	line	307
+	line	311
 	
-l6592:; BSR set to: 0
+l6390:; BSR set to: 0
 
-	line	309
+	line	313
 	
-l6594:; BSR set to: 0
+l6392:; BSR set to: 0
 
-;main.c: 309:     currentSpeed = actSpeed();
+;main.c: 313:     currentSpeed = actSpeed();
 	call	_actSpeed	;wreg free
 	movff	0+?_actSpeed,(_currentSpeed)
 	movff	1+?_actSpeed,(_currentSpeed+1)
-	line	313
+	line	317
 	
-l6596:
-;main.c: 313:  addMPow = (int8_t)((0.025) * (setSpeedDelta - (oldSpeedDelta / (1))));
+l6394:
+;main.c: 317:  addMPow = (int8_t)((0.025) * (setSpeedDelta - (oldSpeedDelta / (2))));
 	movlw	low(normalize32(0x3ccccccd))
 	movlb	0	; () banked
 	movwf	((___flmul@a))&0ffh
@@ -36202,12 +36026,20 @@ l6596:
 	movwf	((___flmul@a+2))&0ffh
 	movlw	high highword(normalize32(0x3ccccccd))
 	movwf	((___flmul@a+3))&0ffh
-	movf	((calcMotorPow@oldSpeedDelta))&0ffh,w
-	subwf	((calcMotorPow@setSpeedDelta))&0ffh,w
-	movwf	(??_calcMotorPow+0+0)&0ffh
-	movf	((calcMotorPow@oldSpeedDelta+1))&0ffh,w
-	subwfb	((calcMotorPow@setSpeedDelta+1))&0ffh,w
-	movwf	(??_calcMotorPow+0+0+1)&0ffh
+	movlw	high(02h)
+	movwf	((___awdiv@divisor+1))&0ffh
+	movlw	low(02h)
+	movwf	((___awdiv@divisor))&0ffh
+	movff	(calcMotorPow@oldSpeedDelta),(___awdiv@dividend)
+	movff	(calcMotorPow@oldSpeedDelta+1),(___awdiv@dividend+1)
+	call	___awdiv	;wreg free
+	movff	(calcMotorPow@setSpeedDelta),??_calcMotorPow+0+0
+	movff	(calcMotorPow@setSpeedDelta+1),??_calcMotorPow+0+0+1
+	movlb	0	; () banked
+	movf	(0+?___awdiv)&0ffh,w
+	subwf	(??_calcMotorPow+0+0)&0ffh
+	movf	(1+?___awdiv)&0ffh,w
+	subwfb	(??_calcMotorPow+0+1)&0ffh
 	movff	??_calcMotorPow+0+0,(___xxtofl@val)
 	movff	??_calcMotorPow+0+1,(___xxtofl@val+1)
 	movlw	0
@@ -36233,56 +36065,56 @@ l6596:
 	movlb	0	; () banked
 	movf	(0+?___fltol)&0ffh,w
 	movwf	((calcMotorPow@addMPow))&0ffh
-	line	315
+	line	319
 	
-l6598:; BSR set to: 0
+l6396:; BSR set to: 0
 
-;main.c: 315:     if(addMPow > (4)){
+;main.c: 319:     if(addMPow > (4)){
 		movf	((calcMotorPow@addMPow))&0ffh,w
 	xorlw	80h
 	addlw	-(80h^05h)
 	btfss	status,0
-	goto	u5841
-	goto	u5840
+	goto	u5451
+	goto	u5450
 
-u5841:
-	goto	l6602
-u5840:
-	line	316
+u5451:
+	goto	l6400
+u5450:
+	line	320
 	
-l6600:; BSR set to: 0
+l6398:; BSR set to: 0
 
-;main.c: 316:         addMPow = (4);
+;main.c: 320:         addMPow = (4);
 	movlw	low(04h)
 	movwf	((calcMotorPow@addMPow))&0ffh
-	line	317
-;main.c: 317:     }else if(addMPow < -(4)){
-	goto	l6606
+	line	321
+;main.c: 321:     }else if(addMPow < -(4)){
+	goto	l6404
 	
-l6602:; BSR set to: 0
+l6400:; BSR set to: 0
 
 		movf	((calcMotorPow@addMPow))&0ffh,w
 	xorlw	80h
 	addlw	-(80h^-4)
 	btfsc	status,0
-	goto	u5851
-	goto	u5850
+	goto	u5461
+	goto	u5460
 
-u5851:
-	goto	l6606
-u5850:
-	line	318
+u5461:
+	goto	l6404
+u5460:
+	line	322
 	
-l6604:; BSR set to: 0
+l6402:; BSR set to: 0
 
-;main.c: 318:         addMPow = -(4);
+;main.c: 322:         addMPow = -(4);
 	movlw	low(low(-4))
 	movwf	((calcMotorPow@addMPow))&0ffh
-	line	321
+	line	325
 	
-l6606:; BSR set to: 0
+l6404:; BSR set to: 0
 
-;main.c: 321:  actMotorPow = actMotorPow + addMPow;
+;main.c: 325:  actMotorPow = actMotorPow + addMPow;
 	movf	((c:_actMotorPow))^00h,c,w
 	addwf	((calcMotorPow@addMPow))&0ffh,w
 	movwf	((c:_actMotorPow))^00h,c
@@ -36291,76 +36123,76 @@ l6606:; BSR set to: 0
 	movlw	0ffh
 	addwfc	((c:_actMotorPow+1))^00h,c,w
 	movwf	1+((c:_actMotorPow))^00h,c
-	line	323
+	line	327
 	
-l6608:; BSR set to: 0
+l6406:; BSR set to: 0
 
-;main.c: 323:  if(actMotorPow > (600)){
+;main.c: 327:  if(actMotorPow > (600)){
 	btfsc	((c:_actMotorPow+1))^00h,c,7
-	goto	u5861
+	goto	u5471
 	movlw	89
 	subwf	 ((c:_actMotorPow))^00h,c,w
 	movlw	2
 	subwfb	((c:_actMotorPow+1))^00h,c,w
 	btfss	status,0
-	goto	u5861
-	goto	u5860
+	goto	u5471
+	goto	u5470
 
-u5861:
-	goto	l6612
-u5860:
-	line	324
+u5471:
+	goto	l6410
+u5470:
+	line	328
 	
-l6610:; BSR set to: 0
+l6408:; BSR set to: 0
 
-;main.c: 324:   actMotorPow = (600);
+;main.c: 328:   actMotorPow = (600);
 	movlw	high(0258h)
 	movwf	((c:_actMotorPow+1))^00h,c
 	movlw	low(0258h)
 	movwf	((c:_actMotorPow))^00h,c
-	line	325
-;main.c: 325:  }else if(actMotorPow < (-400)){
-	goto	l6616
+	line	329
+;main.c: 329:  }else if(actMotorPow < (-400)){
+	goto	l6414
 	
-l6612:; BSR set to: 0
+l6410:; BSR set to: 0
 
 	btfss	((c:_actMotorPow+1))^00h,c,7
-	goto	u5871
+	goto	u5481
 	movlw	112
 	subwf	 ((c:_actMotorPow))^00h,c,w
 	movlw	254
 	subwfb	((c:_actMotorPow+1))^00h,c,w
 	btfsc	status,0
-	goto	u5871
-	goto	u5870
+	goto	u5481
+	goto	u5480
 
-u5871:
-	goto	l6616
-u5870:
-	line	326
+u5481:
+	goto	l6414
+u5480:
+	line	330
 	
-l6614:; BSR set to: 0
+l6412:; BSR set to: 0
 
-;main.c: 326:   actMotorPow = (-400);
+;main.c: 330:   actMotorPow = (-400);
 	movlw	high(-400)
 	movwf	((c:_actMotorPow+1))^00h,c
 	movlw	low(-400)
 	movwf	((c:_actMotorPow))^00h,c
-	line	329
+	line	333
 	
-l6616:; BSR set to: 0
+l6414:; BSR set to: 0
 
-;main.c: 329:     setMotor(actMotorPow);
+;main.c: 333:     setMotor(actMotorPow);
 	movff	(c:_actMotorPow),(setMotor@motorPower)
 	movff	(c:_actMotorPow+1),(setMotor@motorPower+1)
 	call	_setMotor	;wreg free
-	line	331
+	line	335
 	
-l6618:
-;main.c: 331:     oldSpeed = currentSpeed;
+l6416:
+;main.c: 335:     oldSpeed = currentSpeed;
 	movff	(_currentSpeed),(_oldSpeed)
 	movff	(_currentSpeed+1),(_oldSpeed+1)
-	line	332
+	line	336
 	
 l1354:
 	return	;funcret
@@ -36372,7 +36204,7 @@ GLOBAL	__end_of_calcMotorPow
 
 ;; *************** function _setMotor *****************
 ;; Defined at:
-;;		line 334 in file "main.c"
+;;		line 338 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;  motorPower      2    2[BANK0 ] short 
 ;; Auto vars:     Size  Location     Type
@@ -36397,143 +36229,144 @@ GLOBAL	__end_of_calcMotorPow
 ;;		_PWM7_LoadDutyValue
 ;;		_PWM8_LoadDutyValue
 ;; This function is called by:
+;;		_loop
 ;;		_startAccell
 ;;		_calcMotorPow
 ;; This function uses a non-reentrant model
 ;;
-psect	text29,class=CODE,space=0,reloc=2,group=0
-	line	334
-global __ptext29
-__ptext29:
-psect	text29
+psect	text28,class=CODE,space=0,reloc=2,group=0
+	line	338
+global __ptext28
+__ptext28:
+psect	text28
 	file	"main.c"
-	line	334
+	line	338
 	
 _setMotor:
 ;incstack = 0
 	callstack 19
-	line	335
+	line	339
 	
-l5962:
-;main.c: 335:     if(motorPower > (100)){
+l5902:
+;main.c: 339:     if(motorPower > (100)){
 	movlb	0	; () banked
 	btfsc	((setMotor@motorPower+1))&0ffh,7
-	goto	u4801
+	goto	u4741
 	movf	((setMotor@motorPower+1))&0ffh,w
-	bnz	u4800
+	bnz	u4740
 	movlw	101
 	subwf	 ((setMotor@motorPower))&0ffh,w
 	btfss	status,0
-	goto	u4801
-	goto	u4800
+	goto	u4741
+	goto	u4740
 
-u4801:
-	goto	l5972
-u4800:
-	line	336
+u4741:
+	goto	l5912
+u4740:
+	line	340
 	
-l5964:; BSR set to: 0
+l5904:; BSR set to: 0
 
-;main.c: 336:        if(motorPower > (600)){
+;main.c: 340:        if(motorPower > (600)){
 	btfsc	((setMotor@motorPower+1))&0ffh,7
-	goto	u4811
+	goto	u4751
 	movlw	89
 	subwf	 ((setMotor@motorPower))&0ffh,w
 	movlw	2
 	subwfb	((setMotor@motorPower+1))&0ffh,w
 	btfss	status,0
-	goto	u4811
-	goto	u4810
+	goto	u4751
+	goto	u4750
 
-u4811:
-	goto	l5968
-u4810:
-	line	337
+u4751:
+	goto	l5908
+u4750:
+	line	341
 	
-l5966:; BSR set to: 0
+l5906:; BSR set to: 0
 
-;main.c: 337:             motorPower = (600);
+;main.c: 341:             motorPower = (600);
 	movlw	high(0258h)
 	movwf	((setMotor@motorPower+1))&0ffh
 	movlw	low(0258h)
 	movwf	((setMotor@motorPower))&0ffh
-	line	339
+	line	343
 	
-l5968:; BSR set to: 0
+l5908:; BSR set to: 0
 
-;main.c: 339:         PWM7_LoadDutyValue((uint16_t)(motorPower));
+;main.c: 343:         PWM7_LoadDutyValue((uint16_t)(motorPower));
 	movff	(setMotor@motorPower),(c:PWM7_LoadDutyValue@dutyValue)
 	movff	(setMotor@motorPower+1),(c:PWM7_LoadDutyValue@dutyValue+1)
 	call	_PWM7_LoadDutyValue	;wreg free
-	line	340
+	line	344
 	
-l5970:
-;main.c: 340:         PWM8_LoadDutyValue(0);
+l5910:
+;main.c: 344:         PWM8_LoadDutyValue(0);
 	movlw	high(0)
 	movwf	((c:PWM8_LoadDutyValue@dutyValue+1))^00h,c
 	movlw	low(0)
 	movwf	((c:PWM8_LoadDutyValue@dutyValue))^00h,c
 	call	_PWM8_LoadDutyValue	;wreg free
-	line	341
-;main.c: 341:     } else if(motorPower < -(100)){
+	line	345
+;main.c: 345:     } else if(motorPower < -(100)){
 	goto	l1363
 	
-l5972:; BSR set to: 0
+l5912:; BSR set to: 0
 
 	btfss	((setMotor@motorPower+1))&0ffh,7
-	goto	u4821
+	goto	u4761
 	movlw	156
 	subwf	 ((setMotor@motorPower))&0ffh,w
 	movlw	255
 	subwfb	((setMotor@motorPower+1))&0ffh,w
 	btfsc	status,0
-	goto	u4821
-	goto	u4820
+	goto	u4761
+	goto	u4760
 
-u4821:
-	goto	l5982
-u4820:
-	line	342
+u4761:
+	goto	l5922
+u4760:
+	line	346
 	
-l5974:; BSR set to: 0
+l5914:; BSR set to: 0
 
-;main.c: 342:         if(motorPower < (-400)){
+;main.c: 346:         if(motorPower < (-400)){
 	btfss	((setMotor@motorPower+1))&0ffh,7
-	goto	u4831
+	goto	u4771
 	movlw	112
 	subwf	 ((setMotor@motorPower))&0ffh,w
 	movlw	254
 	subwfb	((setMotor@motorPower+1))&0ffh,w
 	btfsc	status,0
-	goto	u4831
-	goto	u4830
+	goto	u4771
+	goto	u4770
 
-u4831:
-	goto	l5978
-u4830:
-	line	343
+u4771:
+	goto	l5918
+u4770:
+	line	347
 	
-l5976:; BSR set to: 0
+l5916:; BSR set to: 0
 
-;main.c: 343:             motorPower = (-400);
+;main.c: 347:             motorPower = (-400);
 	movlw	high(-400)
 	movwf	((setMotor@motorPower+1))&0ffh
 	movlw	low(-400)
 	movwf	((setMotor@motorPower))&0ffh
-	line	345
+	line	349
 	
-l5978:; BSR set to: 0
+l5918:; BSR set to: 0
 
-;main.c: 345:         PWM7_LoadDutyValue(0);
+;main.c: 349:         PWM7_LoadDutyValue(0);
 	movlw	high(0)
 	movwf	((c:PWM7_LoadDutyValue@dutyValue+1))^00h,c
 	movlw	low(0)
 	movwf	((c:PWM7_LoadDutyValue@dutyValue))^00h,c
 	call	_PWM7_LoadDutyValue	;wreg free
-	line	346
+	line	350
 	
-l5980:
-;main.c: 346:         PWM8_LoadDutyValue((uint16_t)(-motorPower));
+l5920:
+;main.c: 350:         PWM8_LoadDutyValue((uint16_t)(-motorPower));
 	movff	(setMotor@motorPower),??_setMotor+0+0
 	movff	(setMotor@motorPower+1),??_setMotor+0+0+1
 	movlb	0	; () banked
@@ -36544,27 +36377,27 @@ l5980:
 	movff	??_setMotor+0+0,(c:PWM8_LoadDutyValue@dutyValue)
 	movff	??_setMotor+0+1,(c:PWM8_LoadDutyValue@dutyValue+1)
 	call	_PWM8_LoadDutyValue	;wreg free
-	line	347
-;main.c: 347:     } else {
+	line	351
+;main.c: 351:     } else {
 	goto	l1363
-	line	348
+	line	352
 	
-l5982:; BSR set to: 0
+l5922:; BSR set to: 0
 
-;main.c: 348:         PWM7_LoadDutyValue(0);
+;main.c: 352:         PWM7_LoadDutyValue(0);
 	movlw	high(0)
 	movwf	((c:PWM7_LoadDutyValue@dutyValue+1))^00h,c
 	movlw	low(0)
 	movwf	((c:PWM7_LoadDutyValue@dutyValue))^00h,c
 	call	_PWM7_LoadDutyValue	;wreg free
-	line	349
-;main.c: 349:         PWM8_LoadDutyValue(0);
+	line	353
+;main.c: 353:         PWM8_LoadDutyValue(0);
 	movlw	high(0)
 	movwf	((c:PWM8_LoadDutyValue@dutyValue+1))^00h,c
 	movlw	low(0)
 	movwf	((c:PWM8_LoadDutyValue@dutyValue))^00h,c
 	call	_PWM8_LoadDutyValue	;wreg free
-	line	351
+	line	355
 	
 l1363:
 	return	;funcret
@@ -36603,12 +36436,12 @@ GLOBAL	__end_of_setMotor
 ;;		_setMotor
 ;; This function uses a non-reentrant model
 ;;
-psect	text30,class=CODE,space=0,reloc=2,group=0
+psect	text29,class=CODE,space=0,reloc=2,group=0
 	file	"mcc_generated_files/pwm8.c"
 	line	74
-global __ptext30
-__ptext30:
-psect	text30
+global __ptext29
+__ptext29:
+psect	text29
 	file	"mcc_generated_files/pwm8.c"
 	line	74
 	
@@ -36684,12 +36517,12 @@ GLOBAL	__end_of_PWM8_LoadDutyValue
 ;;		_setMotor
 ;; This function uses a non-reentrant model
 ;;
-psect	text31,class=CODE,space=0,reloc=2,group=0
+psect	text30,class=CODE,space=0,reloc=2,group=0
 	file	"mcc_generated_files/pwm7.c"
 	line	74
-global __ptext31
-__ptext31:
-psect	text31
+global __ptext30
+__ptext30:
+psect	text30
 	file	"mcc_generated_files/pwm7.c"
 	line	74
 	
@@ -36739,7 +36572,7 @@ GLOBAL	__end_of_PWM7_LoadDutyValue
 
 ;; *************** function _actSpeed *****************
 ;; Defined at:
-;;		line 68 in file "main.c"
+;;		line 71 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -36766,61 +36599,61 @@ GLOBAL	__end_of_PWM7_LoadDutyValue
 ;;		_calcMotorPow
 ;; This function uses a non-reentrant model
 ;;
-psect	text32,class=CODE,space=0,reloc=2,group=0
+psect	text31,class=CODE,space=0,reloc=2,group=0
 	file	"main.c"
-	line	68
-global __ptext32
-__ptext32:
-psect	text32
+	line	71
+global __ptext31
+__ptext31:
+psect	text31
 	file	"main.c"
-	line	68
+	line	71
 	
 _actSpeed:; BSR set to: 0
 
 ;incstack = 0
 	callstack 19
-	line	69
+	line	72
 	
-l5948:
-;main.c: 69:     int16_t speed = 0;
+l5970:
+;main.c: 72:     int16_t speed = 0;
 	movlw	high(0)
 	movlb	0	; () banked
 	movwf	((actSpeed@speed+1))&0ffh
 	movlw	low(0)
 	movwf	((actSpeed@speed))&0ffh
-	line	70
+	line	73
 	
-l5950:; BSR set to: 0
+l5972:; BSR set to: 0
 
-;main.c: 70:     if(smtPeriod){
+;main.c: 73:     if(smtPeriod){
 	movf	((c:_smtPeriod))^00h,c,w	;volatile
 iorwf	((c:_smtPeriod+1))^00h,c,w	;volatile
 iorwf	((c:_smtPeriod+2))^00h,c,w	;volatile
 iorwf	((c:_smtPeriod+3))^00h,c,w	;volatile
 	btfsc	status,2
-	goto	u4781
-	goto	u4780
+	goto	u4821
+	goto	u4820
 
-u4781:
-	goto	l5958
-u4780:
-	line	71
+u4821:
+	goto	l5980
+u4820:
+	line	74
 	
-l5952:; BSR set to: 0
+l5974:; BSR set to: 0
 
-;main.c: 71:         if(CLC3CONbits.LC3OUT){
+;main.c: 74:         if(CLC3CONbits.LC3OUT){
 	movlb	60	; () banked
 	btfss	((15456))&0ffh,5	;volatile
-	goto	u4791
-	goto	u4790
-u4791:
-	goto	l5956
-u4790:
-	line	72
+	goto	u4831
+	goto	u4830
+u4831:
+	goto	l5978
+u4830:
+	line	75
 	
-l5954:; BSR set to: 60
+l5976:; BSR set to: 60
 
-;main.c: 72:             speed = (int16_t)((int32_t)(500000 / (int32_t)smtPeriod));
+;main.c: 75:             speed = (int16_t)((int32_t)(500000 / (int32_t)smtPeriod));
 	movlw	low(07A120h)
 	movlb	0	; () banked
 	movwf	((___aldiv@dividend))&0ffh
@@ -36837,14 +36670,14 @@ l5954:; BSR set to: 60
 	call	___aldiv	;wreg free
 	movff	0+?___aldiv,(actSpeed@speed)
 	movff	1+?___aldiv,(actSpeed@speed+1)
-	line	73
-;main.c: 73:         } else {
-	goto	l5958
-	line	74
+	line	76
+;main.c: 76:         } else {
+	goto	l5980
+	line	77
 	
-l5956:; BSR set to: 60
+l5978:; BSR set to: 60
 
-;main.c: 74:             speed = (int16_t)((int32_t)(-500000 / (int32_t)smtPeriod));
+;main.c: 77:             speed = (int16_t)((int32_t)(-500000 / (int32_t)smtPeriod));
 	movlw	low(-500000)
 	movlb	0	; () banked
 	movwf	((___aldiv@dividend))&0ffh
@@ -36861,13 +36694,13 @@ l5956:; BSR set to: 60
 	call	___aldiv	;wreg free
 	movff	0+?___aldiv,(actSpeed@speed)
 	movff	1+?___aldiv,(actSpeed@speed+1)
-	line	77
+	line	80
 	
-l5958:
-;main.c: 77:     return speed;
+l5980:
+;main.c: 80:     return speed;
 	movff	(actSpeed@speed),(c:?_actSpeed)
 	movff	(actSpeed@speed+1),(c:?_actSpeed+1)
-	line	78
+	line	81
 	
 l1250:
 	return	;funcret
@@ -36909,12 +36742,12 @@ GLOBAL	__end_of_actSpeed
 ;;		_actSpeed
 ;; This function uses a non-reentrant model
 ;;
-psect	text33,class=CODE,space=0,reloc=2,group=2
+psect	text32,class=CODE,space=0,reloc=2,group=2
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\aldiv.c"
 	line	7
-global __ptext33
-__ptext33:
-psect	text33
+global __ptext32
+__ptext32:
+psect	text32
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\aldiv.c"
 	line	7
 	
@@ -37150,13 +36983,13 @@ GLOBAL	__end_of___aldiv
 ;;		line 10 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\xxtofl.c"
 ;; Parameters:    Size  Location     Type
 ;;  sign            1    wreg     unsigned char 
-;;  val             4    0[BANK0 ] long 
+;;  val             4    8[BANK0 ] long 
 ;; Auto vars:     Size  Location     Type
-;;  sign            1    8[BANK0 ] unsigned char 
-;;  arg             4   10[BANK0 ] unsigned long 
-;;  exp             1    9[BANK0 ] unsigned char 
+;;  sign            1   16[BANK0 ] unsigned char 
+;;  arg             4   18[BANK0 ] unsigned long 
+;;  exp             1   17[BANK0 ] unsigned char 
 ;; Return value:  Size  Location     Type
-;;                  4    0[BANK0 ] unsigned char 
+;;                  4    8[BANK0 ] unsigned char 
 ;; Registers used:
 ;;		wreg, status,2, status,0
 ;; Tracked objects:
@@ -37180,12 +37013,12 @@ GLOBAL	__end_of___aldiv
 ;;		_calcMotorPow
 ;; This function uses a non-reentrant model
 ;;
-psect	text34,class=CODE,space=0,reloc=2,group=2
+psect	text33,class=CODE,space=0,reloc=2,group=2
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\xxtofl.c"
 	line	10
-global __ptext34
-__ptext34:
-psect	text34
+global __ptext33
+__ptext33:
+psect	text33
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\xxtofl.c"
 	line	10
 	
@@ -37198,28 +37031,28 @@ ___xxtofl:; BSR set to: 0
 	movwf	((___xxtofl@sign))&0ffh
 	line	15
 	
-l6338:
+l6136:
 	movlb	0	; () banked
 	movf	((___xxtofl@sign))&0ffh,w
 	btfsc	status,2
-	goto	u5471
-	goto	u5470
-u5471:
+	goto	u5081
+	goto	u5080
+u5081:
 	goto	l2038
-u5470:
+u5080:
 	
-l6340:; BSR set to: 0
+l6138:; BSR set to: 0
 
 	btfsc	((___xxtofl@val+3))&0ffh,7
-	goto	u5480
-	goto	u5481
+	goto	u5090
+	goto	u5091
 
-u5481:
+u5091:
 	goto	l2038
-u5480:
+u5090:
 	line	16
 	
-l6342:; BSR set to: 0
+l6140:; BSR set to: 0
 
 	movff	(___xxtofl@val),??___xxtofl+0+0
 	movff	(___xxtofl@val+1),??___xxtofl+0+0+1
@@ -37239,7 +37072,7 @@ l6342:; BSR set to: 0
 	movff	??___xxtofl+0+2,(___xxtofl@arg+2)
 	movff	??___xxtofl+0+3,(___xxtofl@arg+3)
 	line	17
-	goto	l6344
+	goto	l6142
 	line	18
 	
 l2038:; BSR set to: 0
@@ -37251,22 +37084,22 @@ l2038:; BSR set to: 0
 	movff	(___xxtofl@val+3),(___xxtofl@arg+3)
 	line	21
 	
-l6344:; BSR set to: 0
+l6142:; BSR set to: 0
 
 	movf	((___xxtofl@val))&0ffh,w
 iorwf	((___xxtofl@val+1))&0ffh,w
 iorwf	((___xxtofl@val+2))&0ffh,w
 iorwf	((___xxtofl@val+3))&0ffh,w
 	btfss	status,2
-	goto	u5491
-	goto	u5490
+	goto	u5101
+	goto	u5100
 
-u5491:
-	goto	l6350
-u5490:
+u5101:
+	goto	l6148
+u5100:
 	line	22
 	
-l6346:; BSR set to: 0
+l6144:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((?___xxtofl))&0ffh
@@ -37279,15 +37112,15 @@ l6346:; BSR set to: 0
 	goto	l2041
 	line	23
 	
-l6350:; BSR set to: 0
+l6148:; BSR set to: 0
 
 	movlw	low(096h)
 	movwf	((___xxtofl@exp))&0ffh
 	line	24
-	goto	l6354
+	goto	l6152
 	line	25
 	
-l6352:; BSR set to: 0
+l6150:; BSR set to: 0
 
 	incf	((___xxtofl@exp))&0ffh
 	line	26
@@ -37298,7 +37131,7 @@ l6352:; BSR set to: 0
 	rrcf	((___xxtofl@arg))&0ffh
 	line	24
 	
-l6354:; BSR set to: 0
+l6152:; BSR set to: 0
 
 	movlw	0
 	andwf	((___xxtofl@arg))&0ffh,w
@@ -37319,21 +37152,21 @@ iorwf	(??___xxtofl+0+1)&0ffh,w
 iorwf	(??___xxtofl+0+2)&0ffh,w
 iorwf	(??___xxtofl+0+3)&0ffh,w
 	btfss	status,2
-	goto	u5501
-	goto	u5500
+	goto	u5111
+	goto	u5110
 
-u5501:
-	goto	l6352
-u5500:
+u5111:
+	goto	l6150
+u5110:
 	goto	l2045
 	line	29
 	
-l6356:; BSR set to: 0
+l6154:; BSR set to: 0
 
 	incf	((___xxtofl@exp))&0ffh
 	line	30
 	
-l6358:; BSR set to: 0
+l6156:; BSR set to: 0
 
 	movlw	low(01h)
 	addwf	((___xxtofl@arg))&0ffh
@@ -37343,7 +37176,7 @@ l6358:; BSR set to: 0
 	addwfc	((___xxtofl@arg+3))&0ffh
 	line	31
 	
-l6360:; BSR set to: 0
+l6158:; BSR set to: 0
 
 	bcf	status,0
 	rrcf	((___xxtofl@arg+3))&0ffh
@@ -37374,16 +37207,16 @@ iorwf	(??___xxtofl+0+1)&0ffh,w
 iorwf	(??___xxtofl+0+2)&0ffh,w
 iorwf	(??___xxtofl+0+3)&0ffh,w
 	btfss	status,2
-	goto	u5511
-	goto	u5510
+	goto	u5121
+	goto	u5120
 
-u5511:
-	goto	l6356
-u5510:
-	goto	l6364
+u5121:
+	goto	l6154
+u5120:
+	goto	l6162
 	line	34
 	
-l6362:; BSR set to: 0
+l6160:; BSR set to: 0
 
 	decf	((___xxtofl@exp))&0ffh
 	line	35
@@ -37394,52 +37227,52 @@ l6362:; BSR set to: 0
 	rlcf	((___xxtofl@arg+3))&0ffh
 	line	33
 	
-l6364:; BSR set to: 0
+l6162:; BSR set to: 0
 
 	
 	btfsc	((___xxtofl@arg+2))&0ffh,(23)&7
-	goto	u5521
-	goto	u5520
-u5521:
+	goto	u5131
+	goto	u5130
+u5131:
 	goto	l2052
-u5520:
+u5130:
 	
-l6366:; BSR set to: 0
+l6164:; BSR set to: 0
 
 		movlw	02h-0
 	cpfslt	((___xxtofl@exp))&0ffh
-	goto	u5531
-	goto	u5530
+	goto	u5141
+	goto	u5140
 
-u5531:
-	goto	l6362
-u5530:
+u5141:
+	goto	l6160
+u5140:
 	
 l2052:; BSR set to: 0
 
 	line	37
 	
 	btfsc	((___xxtofl@exp))&0ffh,(0)&7
-	goto	u5541
-	goto	u5540
-u5541:
-	goto	l6370
-u5540:
+	goto	u5151
+	goto	u5150
+u5151:
+	goto	l6168
+u5150:
 	line	38
 	
-l6368:; BSR set to: 0
+l6166:; BSR set to: 0
 
 	bcf	(0+(23/8)+(___xxtofl@arg))&0ffh,(23)&7
 	line	39
 	
-l6370:; BSR set to: 0
+l6168:; BSR set to: 0
 
 	bcf status,0
 	rrcf	((___xxtofl@exp))&0ffh
 
 	line	40
 	
-l6372:; BSR set to: 0
+l6170:; BSR set to: 0
 
 	movff	(___xxtofl@exp),??___xxtofl+0+0
 	clrf	(??___xxtofl+0+0+1)&0ffh
@@ -37460,33 +37293,33 @@ l6372:; BSR set to: 0
 
 	line	41
 	
-l6374:; BSR set to: 0
+l6172:; BSR set to: 0
 
 	movf	((___xxtofl@sign))&0ffh,w
 	btfsc	status,2
-	goto	u5551
-	goto	u5550
-u5551:
-	goto	l6380
-u5550:
+	goto	u5161
+	goto	u5160
+u5161:
+	goto	l6178
+u5160:
 	
-l6376:; BSR set to: 0
+l6174:; BSR set to: 0
 
 	btfsc	((___xxtofl@val+3))&0ffh,7
-	goto	u5560
-	goto	u5561
+	goto	u5170
+	goto	u5171
 
-u5561:
-	goto	l6380
-u5560:
+u5171:
+	goto	l6178
+u5170:
 	line	42
 	
-l6378:; BSR set to: 0
+l6176:; BSR set to: 0
 
 	bsf	(0+(31/8)+(___xxtofl@arg))&0ffh,(31)&7
 	line	43
 	
-l6380:; BSR set to: 0
+l6178:; BSR set to: 0
 
 	movff	(___xxtofl@arg),(?___xxtofl)
 	movff	(___xxtofl@arg+1),(?___xxtofl+1)
@@ -37507,12 +37340,12 @@ GLOBAL	__end_of___xxtofl
 ;; Defined at:
 ;;		line 43 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\fltol.c"
 ;; Parameters:    Size  Location     Type
-;;  f1              4   55[BANK0 ] unsigned char 
+;;  f1              4   63[BANK0 ] unsigned char 
 ;; Auto vars:     Size  Location     Type
 ;;  exp1            1   32[COMRAM] unsigned char 
 ;;  sign1           1   31[COMRAM] unsigned char 
 ;; Return value:  Size  Location     Type
-;;                  4   55[BANK0 ] long 
+;;                  4   63[BANK0 ] long 
 ;; Registers used:
 ;;		wreg, status,2, status,0
 ;; Tracked objects:
@@ -37534,12 +37367,12 @@ GLOBAL	__end_of___xxtofl
 ;;		_calcMotorPow
 ;; This function uses a non-reentrant model
 ;;
-psect	text35,class=CODE,space=0,reloc=2,group=2
+psect	text34,class=CODE,space=0,reloc=2,group=2
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\fltol.c"
 	line	43
-global __ptext35
-__ptext35:
-psect	text35
+global __ptext34
+__ptext34:
+psect	text34
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\fltol.c"
 	line	43
 	
@@ -37741,17 +37574,17 @@ GLOBAL	__end_of___fltol
 ;; Defined at:
 ;;		line 8 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcmul.c"
 ;; Parameters:    Size  Location     Type
-;;  b               4   14[BANK0 ] long 
-;;  a               4   18[BANK0 ] long 
+;;  b               4   22[BANK0 ] long 
+;;  a               4   26[BANK0 ] long 
 ;; Auto vars:     Size  Location     Type
-;;  prod            4   33[BANK0 ] struct .
-;;  grs             4   28[BANK0 ] unsigned long 
-;;  temp            2   37[BANK0 ] struct .
-;;  bexp            1   32[BANK0 ] unsigned char 
-;;  aexp            1   27[BANK0 ] unsigned char 
-;;  sign            1   26[BANK0 ] unsigned char 
+;;  prod            4   41[BANK0 ] struct .
+;;  grs             4   36[BANK0 ] unsigned long 
+;;  temp            2   45[BANK0 ] struct .
+;;  bexp            1   40[BANK0 ] unsigned char 
+;;  aexp            1   35[BANK0 ] unsigned char 
+;;  sign            1   34[BANK0 ] unsigned char 
 ;; Return value:  Size  Location     Type
-;;                  4   14[BANK0 ] unsigned char 
+;;                  4   22[BANK0 ] unsigned char 
 ;; Registers used:
 ;;		wreg, status,2, status,0, prodl, prodh
 ;; Tracked objects:
@@ -37773,12 +37606,12 @@ GLOBAL	__end_of___fltol
 ;;		_calcMotorPow
 ;; This function uses a non-reentrant model
 ;;
-psect	text36,class=CODE,space=0,reloc=2,group=2
+psect	text35,class=CODE,space=0,reloc=2,group=2
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcmul.c"
 	line	8
-global __ptext36
-__ptext36:
-psect	text36
+global __ptext35
+__ptext35:
+psect	text35
 	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcmul.c"
 	line	8
 	
@@ -37788,7 +37621,7 @@ ___flmul:; BSR set to: 0
 	callstack 20
 	line	17
 	
-l6186:
+l5984:
 	movlb	0	; () banked
 	movf	(0+(___flmul@b+03h))&0ffh,w
 	andlw	low(080h)
@@ -37799,46 +37632,46 @@ l6186:
 	movwf	((___flmul@bexp))&0ffh
 	line	19
 	
-l6188:; BSR set to: 0
+l5986:; BSR set to: 0
 
 	
 	btfss	(0+(___flmul@b+02h))&0ffh,(7)&7
-	goto	u5231
-	goto	u5230
-u5231:
-	goto	l6192
-u5230:
+	goto	u4841
+	goto	u4840
+u4841:
+	goto	l5990
+u4840:
 	line	20
 	
-l6190:; BSR set to: 0
+l5988:; BSR set to: 0
 
 	bsf	(0+(0/8)+(___flmul@bexp))&0ffh,(0)&7
 	line	24
 	
-l6192:; BSR set to: 0
+l5990:; BSR set to: 0
 
 	movf	((___flmul@bexp))&0ffh,w
 	btfsc	status,2
-	goto	u5241
-	goto	u5240
-u5241:
-	goto	l6200
-u5240:
+	goto	u4851
+	goto	u4850
+u4851:
+	goto	l5998
+u4850:
 	line	26
 	
-l6194:; BSR set to: 0
+l5992:; BSR set to: 0
 
 		incf	((___flmul@bexp))&0ffh,w
 	btfss	status,2
-	goto	u5251
-	goto	u5250
+	goto	u4861
+	goto	u4860
 
-u5251:
-	goto	l6198
-u5250:
+u4861:
+	goto	l5996
+u4860:
 	line	28
 	
-l6196:; BSR set to: 0
+l5994:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___flmul@b))&0ffh
@@ -37850,14 +37683,14 @@ l6196:; BSR set to: 0
 	movwf	((___flmul@b+3))&0ffh
 	line	31
 	
-l6198:; BSR set to: 0
+l5996:; BSR set to: 0
 
 	bsf	(0+(23/8)+(___flmul@b))&0ffh,(23)&7
 	line	33
-	goto	l6202
+	goto	l6000
 	line	36
 	
-l6200:; BSR set to: 0
+l5998:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___flmul@b))&0ffh
@@ -37869,60 +37702,60 @@ l6200:; BSR set to: 0
 	movwf	((___flmul@b+3))&0ffh
 	line	39
 	
-l6202:; BSR set to: 0
+l6000:; BSR set to: 0
 
 	movf	(0+(___flmul@a+03h))&0ffh,w
 	andlw	low(080h)
 	xorwf	((___flmul@sign))&0ffh
 	line	40
 	
-l6204:; BSR set to: 0
+l6002:; BSR set to: 0
 
 	movf	(0+(___flmul@a+03h))&0ffh,w
 	addwf	(0+(___flmul@a+03h))&0ffh,w
 	movwf	((___flmul@aexp))&0ffh
 	line	41
 	
-l6206:; BSR set to: 0
+l6004:; BSR set to: 0
 
 	
 	btfss	(0+(___flmul@a+02h))&0ffh,(7)&7
-	goto	u5261
-	goto	u5260
-u5261:
-	goto	l6210
-u5260:
+	goto	u4871
+	goto	u4870
+u4871:
+	goto	l6008
+u4870:
 	line	42
 	
-l6208:; BSR set to: 0
+l6006:; BSR set to: 0
 
 	bsf	(0+(0/8)+(___flmul@aexp))&0ffh,(0)&7
 	line	45
 	
-l6210:; BSR set to: 0
+l6008:; BSR set to: 0
 
 	movf	((___flmul@aexp))&0ffh,w
 	btfsc	status,2
-	goto	u5271
-	goto	u5270
-u5271:
-	goto	l6218
-u5270:
+	goto	u4881
+	goto	u4880
+u4881:
+	goto	l6016
+u4880:
 	line	48
 	
-l6212:; BSR set to: 0
+l6010:; BSR set to: 0
 
 		incf	((___flmul@aexp))&0ffh,w
 	btfss	status,2
-	goto	u5281
-	goto	u5280
+	goto	u4891
+	goto	u4890
 
-u5281:
-	goto	l6216
-u5280:
+u4891:
+	goto	l6014
+u4890:
 	line	50
 	
-l6214:; BSR set to: 0
+l6012:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___flmul@a))&0ffh
@@ -37934,14 +37767,14 @@ l6214:; BSR set to: 0
 	movwf	((___flmul@a+3))&0ffh
 	line	53
 	
-l6216:; BSR set to: 0
+l6014:; BSR set to: 0
 
 	bsf	(0+(23/8)+(___flmul@a))&0ffh,(23)&7
 	line	54
 	goto	l1997
 	line	57
 	
-l6218:; BSR set to: 0
+l6016:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((___flmul@a))&0ffh
@@ -37958,24 +37791,24 @@ l1997:; BSR set to: 0
 	line	65
 	movf	((___flmul@aexp))&0ffh,w
 	btfsc	status,2
-	goto	u5291
-	goto	u5290
-u5291:
-	goto	l6222
-u5290:
+	goto	u4901
+	goto	u4900
+u4901:
+	goto	l6020
+u4900:
 	
-l6220:; BSR set to: 0
+l6018:; BSR set to: 0
 
 	movf	((___flmul@bexp))&0ffh,w
 	btfss	status,2
-	goto	u5301
-	goto	u5300
-u5301:
-	goto	l6226
-u5300:
+	goto	u4911
+	goto	u4910
+u4911:
+	goto	l6024
+u4910:
 	line	66
 	
-l6222:; BSR set to: 0
+l6020:; BSR set to: 0
 
 	movlw	low(normalize32(0x0))
 	movwf	((?___flmul))&0ffh
@@ -37988,7 +37821,7 @@ l6222:; BSR set to: 0
 	goto	l2001
 	line	95
 	
-l6226:; BSR set to: 0
+l6024:; BSR set to: 0
 
 	movf	(0+(___flmul@a+02h))&0ffh,w
 	mulwf	((___flmul@b))&0ffh
@@ -37996,7 +37829,7 @@ l6226:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	96
 	
-l6228:; BSR set to: 0
+l6026:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	movwf	((___flmul@grs))&0ffh
@@ -38006,7 +37839,7 @@ l6228:; BSR set to: 0
 
 	line	97
 	
-l6230:; BSR set to: 0
+l6028:; BSR set to: 0
 
 	movf	(0+(___flmul@temp+01h))&0ffh,w
 	movwf	((___flmul@prod))&0ffh
@@ -38021,7 +37854,7 @@ l6230:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	99
 	
-l6232:; BSR set to: 0
+l6030:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	addwf	((___flmul@grs))&0ffh
@@ -38031,7 +37864,7 @@ l6232:; BSR set to: 0
 	addwfc	((___flmul@grs+3))&0ffh
 	line	100
 	
-l6234:; BSR set to: 0
+l6032:; BSR set to: 0
 
 	movf	(0+(___flmul@temp+01h))&0ffh,w
 	addwf	((___flmul@prod))&0ffh
@@ -38046,7 +37879,7 @@ l6234:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	102
 	
-l6236:; BSR set to: 0
+l6034:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	addwf	((___flmul@grs))&0ffh
@@ -38056,7 +37889,7 @@ l6236:; BSR set to: 0
 	addwfc	((___flmul@grs+3))&0ffh
 	line	103
 	
-l6238:; BSR set to: 0
+l6036:; BSR set to: 0
 
 	movf	(0+(___flmul@temp+01h))&0ffh,w
 	addwf	((___flmul@prod))&0ffh
@@ -38066,7 +37899,7 @@ l6238:; BSR set to: 0
 	addwfc	((___flmul@prod+3))&0ffh
 	line	104
 	
-l6240:; BSR set to: 0
+l6038:; BSR set to: 0
 
 	movff	(___flmul@grs+2),(___flmul@grs+3)
 	movff	(___flmul@grs+1),(___flmul@grs+2)
@@ -38074,7 +37907,7 @@ l6240:; BSR set to: 0
 	clrf	((___flmul@grs))&0ffh
 	line	105
 	
-l6242:; BSR set to: 0
+l6040:; BSR set to: 0
 
 	movf	((___flmul@a))&0ffh,w
 	mulwf	(0+(___flmul@b+01h))&0ffh
@@ -38082,7 +37915,7 @@ l6242:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	106
 	
-l6244:; BSR set to: 0
+l6042:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	addwf	((___flmul@grs))&0ffh
@@ -38095,7 +37928,7 @@ l6244:; BSR set to: 0
 
 	line	107
 	
-l6246:; BSR set to: 0
+l6044:; BSR set to: 0
 
 	movf	(0+(___flmul@a+01h))&0ffh,w
 	mulwf	((___flmul@b))&0ffh
@@ -38103,7 +37936,7 @@ l6246:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	108
 	
-l6248:; BSR set to: 0
+l6046:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	addwf	((___flmul@grs))&0ffh
@@ -38116,7 +37949,7 @@ l6248:; BSR set to: 0
 
 	line	109
 	
-l6250:; BSR set to: 0
+l6048:; BSR set to: 0
 
 	movff	(___flmul@grs+2),(___flmul@grs+3)
 	movff	(___flmul@grs+1),(___flmul@grs+2)
@@ -38129,7 +37962,7 @@ l6250:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	111
 	
-l6252:; BSR set to: 0
+l6050:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	addwf	((___flmul@grs))&0ffh
@@ -38142,7 +37975,7 @@ l6252:; BSR set to: 0
 
 	line	112
 	
-l6254:; BSR set to: 0
+l6052:; BSR set to: 0
 
 	movf	(0+(___flmul@a+02h))&0ffh,w
 	mulwf	(0+(___flmul@b+01h))&0ffh
@@ -38160,7 +37993,7 @@ l6254:; BSR set to: 0
 
 	line	114
 	
-l6256:; BSR set to: 0
+l6054:; BSR set to: 0
 
 	movf	(0+(___flmul@a+01h))&0ffh,w
 	mulwf	(0+(___flmul@b+02h))&0ffh
@@ -38168,7 +38001,7 @@ l6256:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	115
 	
-l6258:; BSR set to: 0
+l6056:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	addwf	((___flmul@prod))&0ffh
@@ -38186,7 +38019,7 @@ l6258:; BSR set to: 0
 	movff	prodh,(___flmul@temp+1)
 	line	117
 	
-l6260:; BSR set to: 0
+l6058:; BSR set to: 0
 
 	movf	((___flmul@temp))&0ffh,w
 	movwf	(??___flmul+0+0)&0ffh
@@ -38211,23 +38044,23 @@ l6260:; BSR set to: 0
 
 	line	145
 	
-l6262:; BSR set to: 0
+l6060:; BSR set to: 0
 
 	movff	(___flmul@grs),??___flmul+0+0
 	movff	(___flmul@grs+1),??___flmul+0+0+1
 	movff	(___flmul@grs+2),??___flmul+0+0+2
 	movff	(___flmul@grs+3),??___flmul+0+0+3
 	movlw	018h+1
-	goto	u5310
-u5315:
+	goto	u4920
+u4925:
 	bcf	status,0
 	rrcf	(??___flmul+0+3)&0ffh
 	rrcf	(??___flmul+0+2)&0ffh
 	rrcf	(??___flmul+0+1)&0ffh
 	rrcf	(??___flmul+0+0)&0ffh
-u5310:
+u4920:
 	decfsz	wreg
-	goto	u5315
+	goto	u4925
 	movf	(??___flmul+0+0)&0ffh,w
 	addwf	((___flmul@prod))&0ffh
 	movf	(??___flmul+0+1)&0ffh,w
@@ -38239,7 +38072,7 @@ u5310:
 
 	line	146
 	
-l6264:; BSR set to: 0
+l6062:; BSR set to: 0
 
 	movff	(___flmul@grs+2),(___flmul@grs+3)
 	movff	(___flmul@grs+1),(___flmul@grs+2)
@@ -38247,7 +38080,7 @@ l6264:; BSR set to: 0
 	clrf	((___flmul@grs))&0ffh
 	line	149
 	
-l6266:; BSR set to: 0
+l6064:; BSR set to: 0
 
 	movf	((___flmul@aexp))&0ffh,w
 	movff	(___flmul@bexp),??___flmul+0+0
@@ -38262,10 +38095,10 @@ l6266:; BSR set to: 0
 	addwfc	(??___flmul+0+1)&0ffh,w
 	movwf	1+((___flmul@temp))&0ffh
 	line	152
-	goto	l6274
+	goto	l6072
 	line	153
 	
-l6268:; BSR set to: 0
+l6066:; BSR set to: 0
 
 	bcf	status,0
 	rlcf	((___flmul@prod))&0ffh
@@ -38274,18 +38107,18 @@ l6268:; BSR set to: 0
 	rlcf	((___flmul@prod+3))&0ffh
 	line	154
 	
-l6270:; BSR set to: 0
+l6068:; BSR set to: 0
 
 	
 	btfss	((___flmul@grs+3))&0ffh,(31)&7
-	goto	u5321
-	goto	u5320
-u5321:
+	goto	u4931
+	goto	u4930
+u4931:
 	goto	l2004
-u5320:
+u4930:
 	line	155
 	
-l6272:; BSR set to: 0
+l6070:; BSR set to: 0
 
 	bsf	(0+(0/8)+(___flmul@prod))&0ffh,(0)&7
 	line	156
@@ -38304,35 +38137,35 @@ l2004:; BSR set to: 0
 	decf	((___flmul@temp+1))&0ffh
 	line	152
 	
-l6274:; BSR set to: 0
+l6072:; BSR set to: 0
 
 	
 	btfss	((___flmul@prod+2))&0ffh,(23)&7
-	goto	u5331
-	goto	u5330
-u5331:
-	goto	l6268
-u5330:
+	goto	u4941
+	goto	u4940
+u4941:
+	goto	l6066
+u4940:
 	line	163
 	
-l6276:; BSR set to: 0
+l6074:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___flmul@aexp))&0ffh
 	line	164
 	
-l6278:; BSR set to: 0
+l6076:; BSR set to: 0
 
 	
 	btfss	((___flmul@grs+3))&0ffh,(31)&7
-	goto	u5341
-	goto	u5340
-u5341:
+	goto	u4951
+	goto	u4950
+u4951:
 	goto	l2006
-u5340:
+u4950:
 	line	165
 	
-l6280:; BSR set to: 0
+l6078:; BSR set to: 0
 
 	movlw	0FFh
 	andwf	((___flmul@grs))&0ffh,w
@@ -38353,15 +38186,15 @@ iorwf	(??___flmul+0+1)&0ffh,w
 iorwf	(??___flmul+0+2)&0ffh,w
 iorwf	(??___flmul+0+3)&0ffh,w
 	btfsc	status,2
-	goto	u5351
-	goto	u5350
+	goto	u4961
+	goto	u4960
 
-u5351:
+u4961:
 	goto	l2007
-u5350:
+u4960:
 	line	166
 	
-l6282:; BSR set to: 0
+l6080:; BSR set to: 0
 
 	movlw	low(01h)
 	movwf	((___flmul@aexp))&0ffh
@@ -38374,12 +38207,12 @@ l2007:; BSR set to: 0
 	line	169
 	
 	btfss	((___flmul@prod))&0ffh,(0)&7
-	goto	u5361
-	goto	u5360
-u5361:
+	goto	u4971
+	goto	u4970
+u4971:
 	goto	l2006
-u5360:
-	goto	l6282
+u4970:
+	goto	l6080
 	line	173
 	
 l2006:; BSR set to: 0
@@ -38387,14 +38220,14 @@ l2006:; BSR set to: 0
 	line	174
 	movf	((___flmul@aexp))&0ffh,w
 	btfsc	status,2
-	goto	u5371
-	goto	u5370
-u5371:
-	goto	l6294
-u5370:
+	goto	u4981
+	goto	u4980
+u4981:
+	goto	l6092
+u4980:
 	line	175
 	
-l6286:; BSR set to: 0
+l6084:; BSR set to: 0
 
 	movlw	low(01h)
 	addwf	((___flmul@prod))&0ffh
@@ -38404,18 +38237,18 @@ l6286:; BSR set to: 0
 	addwfc	((___flmul@prod+3))&0ffh
 	line	176
 	
-l6288:; BSR set to: 0
+l6086:; BSR set to: 0
 
 	
 	btfss	((___flmul@prod+3))&0ffh,(24)&7
-	goto	u5381
-	goto	u5380
-u5381:
-	goto	l6294
-u5380:
+	goto	u4991
+	goto	u4990
+u4991:
+	goto	l6092
+u4990:
 	line	177
 	
-l6290:; BSR set to: 0
+l6088:; BSR set to: 0
 
 	movff	(___flmul@prod),??___flmul+0+0
 	movff	(___flmul@prod+1),??___flmul+0+0+1
@@ -38432,29 +38265,29 @@ l6290:; BSR set to: 0
 	movff	??___flmul+0+3,(___flmul@prod+3)
 	line	178
 	
-l6292:; BSR set to: 0
+l6090:; BSR set to: 0
 
 	infsnz	((___flmul@temp))&0ffh
 	incf	((___flmul@temp+1))&0ffh
 	line	183
 	
-l6294:; BSR set to: 0
+l6092:; BSR set to: 0
 
 	btfsc	((___flmul@temp+1))&0ffh,7
-	goto	u5391
+	goto	u5001
 	movf	((___flmul@temp+1))&0ffh,w
-	bnz	u5390
+	bnz	u5000
 	incf	((___flmul@temp))&0ffh,w
 	btfss	status,0
-	goto	u5391
-	goto	u5390
+	goto	u5001
+	goto	u5000
 
-u5391:
-	goto	l6298
-u5390:
+u5001:
+	goto	l6096
+u5000:
 	line	184
 	
-l6296:; BSR set to: 0
+l6094:; BSR set to: 0
 
 	movlw	low(07F800000h)
 	movwf	((___flmul@prod))&0ffh
@@ -38465,26 +38298,26 @@ l6296:; BSR set to: 0
 	movlw	high highword(07F800000h)
 	movwf	((___flmul@prod+3))&0ffh
 	line	185
-	goto	l6310
+	goto	l6108
 	line	187
 	
-l6298:; BSR set to: 0
+l6096:; BSR set to: 0
 
 	btfsc	((___flmul@temp+1))&0ffh,7
-	goto	u5400
+	goto	u5010
 	movf	((___flmul@temp+1))&0ffh,w
-	bnz	u5401
+	bnz	u5011
 	decf	((___flmul@temp))&0ffh,w
 	btfsc	status,0
-	goto	u5401
-	goto	u5400
+	goto	u5011
+	goto	u5010
 
-u5401:
+u5011:
 	goto	l2014
-u5400:
+u5010:
 	line	188
 	
-l6300:; BSR set to: 0
+l6098:; BSR set to: 0
 
 	movlw	low(0)
 	movwf	((___flmul@prod))&0ffh
@@ -38498,7 +38331,7 @@ l6300:; BSR set to: 0
 	movlw	low(0)
 	movwf	((___flmul@sign))&0ffh
 	line	191
-	goto	l6310
+	goto	l6108
 	line	192
 	
 l2014:; BSR set to: 0
@@ -38507,7 +38340,7 @@ l2014:; BSR set to: 0
 	movff	(___flmul@temp),(___flmul@bexp)
 	line	195
 	
-l6302:; BSR set to: 0
+l6100:; BSR set to: 0
 
 	movlw	0FFh
 	andwf	((___flmul@prod))&0ffh
@@ -38519,36 +38352,36 @@ l6302:; BSR set to: 0
 	andwf	((___flmul@prod+3))&0ffh
 	line	196
 	
-l6304:; BSR set to: 0
+l6102:; BSR set to: 0
 
 	
 	btfss	((___flmul@bexp))&0ffh,(0)&7
-	goto	u5411
-	goto	u5410
-u5411:
-	goto	l6308
-u5410:
+	goto	u5021
+	goto	u5020
+u5021:
+	goto	l6106
+u5020:
 	line	197
 	
-l6306:; BSR set to: 0
+l6104:; BSR set to: 0
 
 	bsf	(0+(7/8)+0+(___flmul@prod+02h))&0ffh,(7)&7
 	line	199
 	
-l6308:; BSR set to: 0
+l6106:; BSR set to: 0
 
 	bcf	status,0
 	rrcf	((___flmul@bexp))&0ffh,w
 	movwf	(0+(___flmul@prod+03h))&0ffh
 	line	201
 	
-l6310:; BSR set to: 0
+l6108:; BSR set to: 0
 
 	movf	((___flmul@sign))&0ffh,w
 	iorwf	(0+(___flmul@prod+03h))&0ffh
 	line	203
 	
-l6312:; BSR set to: 0
+l6110:; BSR set to: 0
 
 	movff	(___flmul@prod),(?___flmul)
 	movff	(___flmul@prod+1),(?___flmul+1)
@@ -38563,6 +38396,243 @@ l2001:; BSR set to: 0
 GLOBAL	__end_of___flmul
 	__end_of___flmul:
 	signat	___flmul,8316
+	global	___awdiv
+
+;; *************** function ___awdiv *****************
+;; Defined at:
+;;		line 7 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c"
+;; Parameters:    Size  Location     Type
+;;  dividend        2    0[BANK0 ] int 
+;;  divisor         2    2[BANK0 ] int 
+;; Auto vars:     Size  Location     Type
+;;  quotient        2    6[BANK0 ] int 
+;;  sign            1    5[BANK0 ] unsigned char 
+;;  counter         1    4[BANK0 ] unsigned char 
+;; Return value:  Size  Location     Type
+;;                  2    0[BANK0 ] int 
+;; Registers used:
+;;		wreg, status,2, status,0
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15
+;;      Params:         0       4       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+;;      Locals:         0       4       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+;;      Totals:         0       8       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+;;Total ram usage:        8 bytes
+;; Hardware stack levels used: 1
+;; Hardware stack levels required when called: 8
+;; This function calls:
+;;		Nothing
+;; This function is called by:
+;;		_calcMotorPow
+;;		_setSteering
+;; This function uses a non-reentrant model
+;;
+psect	text36,class=CODE,space=0,reloc=2,group=2
+	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c"
+	line	7
+global __ptext36
+__ptext36:
+psect	text36
+	file	"C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c"
+	line	7
+	
+___awdiv:; BSR set to: 0
+
+;incstack = 0
+	callstack 19
+	line	13
+	
+l5858:
+	movlw	low(0)
+	movlb	0	; () banked
+	movwf	((___awdiv@sign))&0ffh
+	line	14
+	
+l5860:; BSR set to: 0
+
+	btfsc	((___awdiv@divisor+1))&0ffh,7
+	goto	u4680
+	goto	u4681
+
+u4681:
+	goto	l5866
+u4680:
+	line	15
+	
+l5862:; BSR set to: 0
+
+	negf	((___awdiv@divisor))&0ffh
+	comf	((___awdiv@divisor+1))&0ffh
+	btfsc	status,0
+	incf	((___awdiv@divisor+1))&0ffh
+	line	16
+	
+l5864:; BSR set to: 0
+
+	movlw	low(01h)
+	movwf	((___awdiv@sign))&0ffh
+	line	18
+	
+l5866:; BSR set to: 0
+
+	btfsc	((___awdiv@dividend+1))&0ffh,7
+	goto	u4690
+	goto	u4691
+
+u4691:
+	goto	l5872
+u4690:
+	line	19
+	
+l5868:; BSR set to: 0
+
+	negf	((___awdiv@dividend))&0ffh
+	comf	((___awdiv@dividend+1))&0ffh
+	btfsc	status,0
+	incf	((___awdiv@dividend+1))&0ffh
+	line	20
+	
+l5870:; BSR set to: 0
+
+	movlw	(01h)&0ffh
+	xorwf	((___awdiv@sign))&0ffh
+	line	22
+	
+l5872:; BSR set to: 0
+
+	movlw	high(0)
+	movwf	((___awdiv@quotient+1))&0ffh
+	movlw	low(0)
+	movwf	((___awdiv@quotient))&0ffh
+	line	23
+	
+l5874:; BSR set to: 0
+
+	movf	((___awdiv@divisor))&0ffh,w
+iorwf	((___awdiv@divisor+1))&0ffh,w
+	btfsc	status,2
+	goto	u4701
+	goto	u4700
+
+u4701:
+	goto	l5894
+u4700:
+	line	24
+	
+l5876:; BSR set to: 0
+
+	movlw	low(01h)
+	movwf	((___awdiv@counter))&0ffh
+	line	25
+	goto	l5880
+	line	26
+	
+l5878:; BSR set to: 0
+
+	bcf	status,0
+	rlcf	((___awdiv@divisor))&0ffh
+	rlcf	((___awdiv@divisor+1))&0ffh
+	line	27
+	incf	((___awdiv@counter))&0ffh
+	line	25
+	
+l5880:; BSR set to: 0
+
+	
+	btfss	((___awdiv@divisor+1))&0ffh,(15)&7
+	goto	u4711
+	goto	u4710
+u4711:
+	goto	l5878
+u4710:
+	line	30
+	
+l5882:; BSR set to: 0
+
+	bcf	status,0
+	rlcf	((___awdiv@quotient))&0ffh
+	rlcf	((___awdiv@quotient+1))&0ffh
+	line	31
+	
+l5884:; BSR set to: 0
+
+		movf	((___awdiv@divisor))&0ffh,w
+	subwf	((___awdiv@dividend))&0ffh,w
+	movf	((___awdiv@divisor+1))&0ffh,w
+	subwfb	((___awdiv@dividend+1))&0ffh,w
+	btfss	status,0
+	goto	u4721
+	goto	u4720
+
+u4721:
+	goto	l5890
+u4720:
+	line	32
+	
+l5886:; BSR set to: 0
+
+	movf	((___awdiv@divisor))&0ffh,w
+	subwf	((___awdiv@dividend))&0ffh
+	movf	((___awdiv@divisor+1))&0ffh,w
+	subwfb	((___awdiv@dividend+1))&0ffh
+
+	line	33
+	
+l5888:; BSR set to: 0
+
+	bsf	(0+(0/8)+(___awdiv@quotient))&0ffh,(0)&7
+	line	35
+	
+l5890:; BSR set to: 0
+
+	bcf	status,0
+	rrcf	((___awdiv@divisor+1))&0ffh
+	rrcf	((___awdiv@divisor))&0ffh
+	line	36
+	
+l5892:; BSR set to: 0
+
+	decfsz	((___awdiv@counter))&0ffh
+	
+	goto	l5882
+	line	38
+	
+l5894:; BSR set to: 0
+
+	movf	((___awdiv@sign))&0ffh,w
+	btfsc	status,2
+	goto	u4731
+	goto	u4730
+u4731:
+	goto	l5898
+u4730:
+	line	39
+	
+l5896:; BSR set to: 0
+
+	negf	((___awdiv@quotient))&0ffh
+	comf	((___awdiv@quotient+1))&0ffh
+	btfsc	status,0
+	incf	((___awdiv@quotient+1))&0ffh
+	line	40
+	
+l5898:; BSR set to: 0
+
+	movff	(___awdiv@quotient),(?___awdiv)
+	movff	(___awdiv@quotient+1),(?___awdiv+1)
+	line	41
+	
+l1614:; BSR set to: 0
+
+	return	;funcret
+	callstack 0
+GLOBAL	__end_of___awdiv
+	__end_of___awdiv:
+	signat	___awdiv,8314
 	global	_SYSTEM_Initialize
 
 ;; *************** function _SYSTEM_Initialize *****************
@@ -38626,7 +38696,7 @@ _SYSTEM_Initialize:; BSR set to: 0
 	callstack 20
 	line	52
 	
-l6620:
+l6418:
 ;mcc_generated_files/mcc.c: 52:     INTERRUPT_Initialize();
 	call	_INTERRUPT_Initialize	;wreg free
 	line	53
@@ -38640,12 +38710,12 @@ l6620:
 	call	_OSCILLATOR_Initialize	;wreg free
 	line	56
 	
-l6622:
+l6420:
 ;mcc_generated_files/mcc.c: 56:     CCP3_Initialize();
 	call	_CCP3_Initialize	;wreg free
 	line	57
 	
-l6624:
+l6422:
 ;mcc_generated_files/mcc.c: 57:     ADCC_Initialize();
 	call	_ADCC_Initialize	;wreg free
 	line	58
@@ -38653,22 +38723,22 @@ l6624:
 	call	_TMR4_Initialize	;wreg free
 	line	59
 	
-l6626:
+l6424:
 ;mcc_generated_files/mcc.c: 59:     SMT1_Initialize();
 	call	_SMT1_Initialize	;wreg free
 	line	60
 	
-l6628:
+l6426:
 ;mcc_generated_files/mcc.c: 60:     PWM8_Initialize();
 	call	_PWM8_Initialize	;wreg free
 	line	61
 	
-l6630:
+l6428:
 ;mcc_generated_files/mcc.c: 61:     TMR2_Initialize();
 	call	_TMR2_Initialize	;wreg free
 	line	62
 	
-l6632:
+l6430:
 ;mcc_generated_files/mcc.c: 62:     PWM6_Initialize();
 	call	_PWM6_Initialize	;wreg free
 	line	63
@@ -38676,12 +38746,12 @@ l6632:
 	call	_CCP4_Initialize	;wreg free
 	line	64
 	
-l6634:
+l6432:
 ;mcc_generated_files/mcc.c: 64:     CLC3_Initialize();
 	call	_CLC3_Initialize	;wreg free
 	line	65
 	
-l6636:
+l6434:
 ;mcc_generated_files/mcc.c: 65:     TMR3_Initialize();
 	call	_TMR3_Initialize	;wreg free
 	line	66
@@ -38689,12 +38759,12 @@ l6636:
 	call	_PWM5_Initialize	;wreg free
 	line	67
 	
-l6638:
+l6436:
 ;mcc_generated_files/mcc.c: 67:     TMR5_Initialize();
 	call	_TMR5_Initialize	;wreg free
 	line	68
 	
-l6640:
+l6438:
 ;mcc_generated_files/mcc.c: 68:     PWM7_Initialize();
 	call	_PWM7_Initialize	;wreg free
 	line	69
@@ -38937,7 +39007,8 @@ l5000:
 	line	152
 ;mcc_generated_files/uart1.c: 152:     uart1TxBufferRemaining = sizeof(uart1TxBuffer);
 	movlw	low(08h)
-	movwf	((c:_uart1TxBufferRemaining))^00h,c	;volatile
+	movlb	0	; () banked
+	movwf	((_uart1TxBufferRemaining))&0ffh	;volatile
 	line	153
 ;mcc_generated_files/uart1.c: 153:     uart1RxHead = 0;
 	movlw	low(0)
@@ -38952,7 +39023,8 @@ l5000:
 	movwf	((c:_uart1RxCount))^00h,c	;volatile
 	line	158
 	
-l5002:
+l5002:; BSR set to: 0
+
 ;mcc_generated_files/uart1.c: 158:     PIE3bits.U1RXIE = 1;
 	movlb	57	; () banked
 	bsf	((14739))&0ffh,3	;volatile
@@ -39301,7 +39373,7 @@ _TMR5_Initialize:
 	callstack 20
 	line	72
 	
-l6384:
+l6182:
 ;mcc_generated_files/tmr5.c: 72:     T5GCON = 0xC0;
 	movlw	low(0C0h)
 	movwf	((c:16283))^03f00h,c	;volatile
@@ -39323,13 +39395,13 @@ l6384:
 	movwf	((c:16280))^03f00h,c	;volatile
 	line	87
 	
-l6386:
+l6184:
 ;mcc_generated_files/tmr5.c: 87:     PIR8bits.TMR5IF = 0;
 	movlb	57	; () banked
 	bcf	((14760))&0ffh,6	;volatile
 	line	90
 	
-l6388:; BSR set to: 57
+l6186:; BSR set to: 57
 
 ;mcc_generated_files/tmr5.c: 90:     timer5ReloadVal=(uint16_t)((TMR5H << 8) | TMR5L);
 	movf	((c:16280))^03f00h,c,w	;volatile
@@ -39344,20 +39416,20 @@ l6388:; BSR set to: 57
 	movwf	1+((_timer5ReloadVal))&0ffh	;volatile
 	line	93
 	
-l6390:; BSR set to: 0
+l6188:; BSR set to: 0
 
 ;mcc_generated_files/tmr5.c: 93:     PIR8bits.TMR5GIF = 0;
 	movlb	57	; () banked
 	bcf	((14760))&0ffh,7	;volatile
 	line	96
 	
-l6392:; BSR set to: 57
+l6190:; BSR set to: 57
 
 ;mcc_generated_files/tmr5.c: 96:     PIE8bits.TMR5GIE = 1;
 	bsf	((14744))&0ffh,7	;volatile
 	line	99
 	
-l6394:; BSR set to: 57
+l6192:; BSR set to: 57
 
 ;mcc_generated_files/tmr5.c: 99:     TMR5_SetGateInterruptHandler(TMR5_DefaultGateInterruptHandler);
 		movlw	low(_TMR5_DefaultGateInterruptHandler)
@@ -39368,7 +39440,7 @@ l6394:; BSR set to: 57
 	call	_TMR5_SetGateInterruptHandler	;wreg free
 	line	102
 	
-l6396:
+l6194:
 ;mcc_generated_files/tmr5.c: 102:     T5CON = 0x03;
 	movlw	low(03h)
 	movwf	((c:16282))^03f00h,c	;volatile
@@ -41540,7 +41612,8 @@ _UART1_Transmit_ISR:
 i1l5304:
 ;mcc_generated_files/uart1.c: 256:     if(sizeof(uart1TxBuffer) > uart1TxBufferRemaining)
 		movlw	08h-0
-	cpfslt	((c:_uart1TxBufferRemaining))^00h,c	;volatile
+	movlb	0	; () banked
+	cpfslt	((_uart1TxBufferRemaining))&0ffh	;volatile
 	goto	i1u395_21
 	goto	i1u395_20
 
@@ -41549,7 +41622,8 @@ i1u395_21:
 i1u395_20:
 	line	258
 	
-i1l5306:
+i1l5306:; BSR set to: 0
+
 ;mcc_generated_files/uart1.c: 257:     {;mcc_generated_files/uart1.c: 258:         U1TXB = uart1TxBuffer[uart1TxTail++];
 	movlw	low(_uart1TxBuffer)
 	addwf	((c:_uart1TxTail))^00h,c,w	;volatile
@@ -41589,14 +41663,16 @@ i1l5312:; BSR set to: 61
 i1l5314:; BSR set to: 61
 
 ;mcc_generated_files/uart1.c: 263:         uart1TxBufferRemaining++;
-	incf	((c:_uart1TxBufferRemaining))^00h,c	;volatile
+	movlb	0	; () banked
+	incf	((_uart1TxBufferRemaining))&0ffh	;volatile
 	line	264
 ;mcc_generated_files/uart1.c: 264:     }
 	goto	i1l336
 	line	265
 ;mcc_generated_files/uart1.c: 265:     else
 	
-i1l333:
+i1l333:; BSR set to: 0
+
 	line	267
 ;mcc_generated_files/uart1.c: 266:     {;mcc_generated_files/uart1.c: 267:         PIE3bits.U1TXIE = 0;
 	movlb	57	; () banked
@@ -42323,7 +42399,7 @@ GLOBAL	__end_of_TMR4_CallBack
 
 ;; *************** function _TMR4_10msISR *****************
 ;; Defined at:
-;;		line 64 in file "main.c"
+;;		line 67 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
@@ -42353,22 +42429,22 @@ GLOBAL	__end_of_TMR4_CallBack
 ;;
 psect	text75,class=CODE,space=0,reloc=2,group=0
 	file	"main.c"
-	line	64
+	line	67
 global __ptext75
 __ptext75:
 psect	text75
 	file	"main.c"
-	line	64
+	line	67
 	
 _TMR4_10msISR:
 ;incstack = 0
 	callstack 12
-	line	65
+	line	68
 	
 i1l5258:
-;main.c: 65:     ++cycle10ms;
+;main.c: 68:     ++cycle10ms;
 	incf	((c:_cycle10ms))^00h,c	;volatile
-	line	66
+	line	69
 	
 i1l1244:
 	return	;funcret

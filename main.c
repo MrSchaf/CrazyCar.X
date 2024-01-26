@@ -18,7 +18,9 @@ void main(void) {
 }
 
 void loop(void){
-    while(!diStart_GetValue());
+    setMotor(0);
+    setSteering(0,Front);
+    while(diStart_GetValue());
     
     do{
         while(!cycle10ms);
@@ -36,17 +38,18 @@ void loop(void){
         while(!cycle10ms);
         cycle10ms = 0;
         
-        if(diStop_GetValue()){
+        if(!diStop_GetValue()){
             setSpeed = 0;
+            actMotorPow = 0;
             setSteering(0,Front);
             break;
         }
          
-        ++tempCNT;
-        if(tempCNT > 1000){
-            tempCNT = 0;
-            printf("tempCNT Overflow");
-        }
+//        ++tempCNT;
+//        if(tempCNT > 1000){
+//            tempCNT = 0;
+//            printf("tempCNT Overflow");
+//        }
         
         if(checkBatt()){
             break;
@@ -193,6 +196,7 @@ void getReverse(void){
 //            printf("Stop Reverse\n");
              driveMode = Straight;
              reverseCount = 0;
+             reverseTime = 0;
         }
     } 
 }

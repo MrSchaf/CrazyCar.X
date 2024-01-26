@@ -6,8 +6,8 @@
 
 
 
-#define minBatValue                    (7.5)     // Mindestspg in Volt adc = (vbat * 409.6)
-#define BattCheckPeriod                (100)     
+#define minBatValue                    (3)     // Mindestspg in Volt adc = (vbat * 409.6)
+#define BattCheckPeriod                (500)     
 
 
 #define steeringFOffset                (352)     // höher = links | niedriger = rechts
@@ -42,20 +42,20 @@
 #define startCurveDelta                (40)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta             (300)
 #define MaxOldDist                     (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
-#define endCurveDist                   (30)      // distF < endKurveValue --> Kurvenende
-#define curveSteering                  (45)       
+#define endCurveDist                   (35)      // distF < endKurveValue --> Kurvenende
+#define curveSteering                  (55)       
 
 
 #define startReverseDist               (15)      // distFront < startReverseDist --> reverseCount++
 #define minReverseTime                 (50)
 #define stopReverseDist                (30)      // distFront > stopReverseDist  --> fahrModus = Gerade
 #define reverseSpeed                   (-150)
-#define maxReverseTime                 (200)
+#define maxReverseTime                 (300)
         
 
 #define speedIncrease                  (0.75)
-#define MinDistAccel                   (125)
-#define MinStraightSpeed               (220)
+#define MinDistAccel                   (150)
+#define MinStraightSpeed               (225)
 
 
 #define BrakeDistance                  (40)

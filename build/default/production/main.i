@@ -28594,17 +28594,17 @@ DriveMode driveMode = Straight;
 CurveMode curveMode = OutCurve;
 
 volatile uint8_t cycle10ms = 0;
+
 uint8_t delay = 0;
 uint8_t reverseCount = 0;
-
 uint16_t oldDistLeft, oldDistRight;
+uint16_t battCheckCount = 0;
 
 int16_t motPow = 0;
 int16_t setSpeed = 0;
 int16_t currentSpeed = 0;
 int16_t oldSpeed = 0;
 int16_t actMotorPow = 0;
-uint8_t battCheckCount = 0;
 int16_t reverseTime = 0;
 int16_t tempCNT;
 
@@ -28646,14 +28646,16 @@ void main(void) {
 }
 
 void loop(void){
-    while(!PORTBbits.RB4);
+    setMotor(0);
+    setSteering(0,Front);
+    while(PORTBbits.RB4);
 
     do{
         while(!cycle10ms);
         cycle10ms = 0;
         getBatteryVoltage();
 
-    }while(BatteryVolt < ((7.5) * 409.6));
+    }while(BatteryVolt < ((3) * 409.6));
 
     startAccell();
 
@@ -28664,8 +28666,9 @@ void loop(void){
         while(!cycle10ms);
         cycle10ms = 0;
 
-        if(PORTBbits.RB5){
+        if(!PORTBbits.RB5){
             setSpeed = 0;
+            actMotorPow = 0;
             setSteering(0,Front);
             break;
         }
@@ -28715,7 +28718,7 @@ _Bool checkBatt(){
     if(battCheckCount > (100)){
         battCheckCount = 0;
         getBatteryVoltage();
-        if(BatteryVolt < (7.5) * 409.6){
+        if(BatteryVolt < (3) * 409.6){
             setSpeed = 0;
             setSteering(0,Front);
             return 1;
@@ -28768,14 +28771,14 @@ void getCurve(void){
             }
             break;
         case InCurve:
-            if(delay > (30)){
+            if(delay > (25)){
                 if(driveMode == CurveLeft){
 
                 } else if(driveMode == CurveLeft){
 
                 }
 
-                if(distLeft < (40) || distRight < (40)){
+                if(distLeft < (35) || distRight < (35)){
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;
@@ -28817,10 +28820,11 @@ void getReverse(void){
             }
         }
 
-        if(distFront > (30) || reverseTime > (200)){
+        if(distFront > (30) || reverseTime > (300)){
 
              driveMode = Straight;
              reverseCount = 0;
+             reverseTime = 0;
         }
     }
 }
@@ -28860,14 +28864,14 @@ void calcSteering(void){
             break;
         case CurveLeft:
             if(curveMode == InCurve){
-                setSteering((45), Ratio);
+                setSteering((55), Ratio);
             } else {
                 setSteering(delta, Front);
             }
             break;
         case CurveRight:
             if(curveMode == InCurve){
-                setSteering(-(45), Ratio);
+                setSteering(-(55), Ratio);
             } else {
                 setSteering(delta, Front);
             }
@@ -28898,10 +28902,10 @@ void calcSpeed(void){
                 driveMode = Brake;
             }
 
-            if(distFront > (125)){
-                speed = (int16_t)((0.75) * (distFront - (125)) + (220));
+            if(distFront > (150)){
+                speed = (int16_t)((0.75) * (distFront - (150)) + (225));
             }else{
-                speed = (220);
+                speed = (225);
             }
 
 
@@ -28938,7 +28942,7 @@ void calcMotorPow(void){
 
 
 
- addMPow = (int8_t)((0.025) * (setSpeedDelta - (oldSpeedDelta / (1))));
+ addMPow = (int8_t)((0.025) * (setSpeedDelta - (oldSpeedDelta / (2))));
 
     if(addMPow > (4)){
         addMPow = (4);
