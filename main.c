@@ -100,11 +100,17 @@ bool checkBatt(){
 }
 
 void startAccell(){
-    actMotorPow = startMPower;
-    setMotor(actMotorPow);
     setSteering(0,Front);
+    actMotorPow = MinMPower - startAccellStep;    
+    for(int16_t i = 0; i < (int16_t)(startAccellSteps - (MinMPower / startAccellStep)); ++i){
+        actMotorPow += startAccellStep;
+        setMotor(actMotorPow);
+        cycle10ms = 0;   
+        while(!cycle10ms);
+    }
+    
     cycle10ms = 0;   
-    while(cycle10ms < startAccelTime);
+    while(cycle10ms < (startAccelTime - (MinMPower / startAccellStep)));
 }
 
 void getCurve(void){
@@ -186,17 +192,21 @@ void getReverse(void){
         
         if(driveMode != ReverseRight && driveMode != ReverseLeft){
             if(distLeft > distRight){
-//                printf("ReverseRigth\n");
+                printf("ReverseRigth\n");
                 driveMode = ReverseRight;
             }else{
-//                printf("ReverseLeft\n");
+                printf("ReverseLeft\n");
                 driveMode = ReverseLeft;
             }
         }
 
         if(distFront > stopReverseDist || reverseTime > maxReverseTime){
-//            printf("Stop Reverse\n");
-             driveMode = Straight;
+            printf("Stop Reverse\n");
+            if(distLeft > distRight){
+                driveMode = CurveLeft;
+            }else{
+                driveMode = CurveRight;
+            }
              reverseCount = 0;
              reverseTime = 0;
         }

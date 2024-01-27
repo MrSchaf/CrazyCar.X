@@ -20,13 +20,13 @@
 #define maxSteeringB                   (40)
 #define maxSteeringStraight            (40)      //kann beim geradeaus fahren nicht mehr lenken
 #define steeringRatio                  (2)
-#define steeringDivisor                (1)       // distLeft - distRight /= lenkungDivisor;
+#define steeringDivisor                (1.25)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
 
 
 
-#define maxMPowForward                 (600)
+#define maxMPowForward                 (700)
 #define maxSpeedForward                (400)
 #define defaultMotorPowerForward       (250)
 
@@ -34,7 +34,7 @@
 #define maxSpeedBackward               (-250)
 #define defaultMotorPowerBackward      (-150)
 
-#define maxAddMPow                     (4)
+#define maxAddMPow                     (3)
 #define MotorPowFactor                 (0.025)
 #define oldSpeedDeltaDivisor           (2)
 #define MinMPower                      (100) 
@@ -53,12 +53,12 @@
 
 #define startReverseDist               (15)      // distFront < startReverseDist --> reverseCount++
 #define minReverseTime                 (50)
-#define stopReverseDist                (30)      // distFront > stopReverseDist  --> fahrModus = Gerade
+#define stopReverseDist                (35)      // distFront > stopReverseDist  --> fahrModus = Gerade
 #define reverseSpeed                   (-125)
 #define maxReverseTime                 (300)
         
 
-#define speedIncrease                  (0.8)
+#define speedIncrease                  (0.9)
 #define MinDistAccel                   (150)
 #define MinStraightSpeed               (250)
 
@@ -67,8 +67,10 @@
 #define BrakeDistanceStrong            (20)
 #define minDriveSpeed                  (100)
 
-#define startAccelTime                 (30)
-#define startMPower                    (225)
+#define startAccelTime                 (30)       //how long the function runs in total
+#define startMPower                    (250)      //to what MPow the function accelerates
+#define startAccellSteps               (10)       //in how many steps does the function accelerate to startMPower
+#define startAccellStep     (int16_t)(startMPower / startAccellSteps)   //increment Mpow by this value
 
                  
     
