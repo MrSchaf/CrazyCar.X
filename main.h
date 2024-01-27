@@ -56,7 +56,7 @@
 #define stopReverseDist                (35)      // distFront > stopReverseDist  --> fahrModus = Gerade
 #define reverseSpeed                   (-125)
 #define maxReverseTime                 (300)
-        
+
 
 #define speedIncrease                  (0.9)
 #define MinDistAccel                   (150)
@@ -72,26 +72,24 @@
 #define startAccellSteps               (10)       //in how many steps does the function accelerate to startMPower
 #define startAccellStep     (int16_t)(startMPower / startAccellSteps)   //increment Mpow by this value
 
-                 
-    
-typedef enum{
+typedef enum {
     Straight,
     Brake,
     ReverseRight,
-    ReverseLeft,   
+    ReverseLeft,
     CurveLeft,
     CurveRight
-}DriveMode;
+} DriveMode;
 
-typedef enum{
+typedef enum {
     Inverted,
     Same,
     Ratio,
     Front,
     Back
-}SteeringMode;
+} SteeringMode;
 
-typedef enum{
+typedef enum {
     OutCurve,
     BeforeCurve,
     InCurve,
@@ -99,7 +97,7 @@ typedef enum{
 } CurveMode;
 
 extern uint16_t distFront, distLeft, distRight;
-extern int32_t smtWay;      //1 increment == 2,7mm ;370 == 1m
+extern int32_t smtWay; //1 increment == 2,7mm ;370 == 1m
 extern uint32_t smtPeriod;
 
 DriveMode driveMode = Straight;
@@ -107,6 +105,9 @@ CurveMode curveMode = OutCurve;
 
 volatile uint8_t cycle10ms = 0;
 
+
+uint8_t curveLeftCount = 0;
+uint8_t curveRightCount = 0;
 uint8_t delay = 0;
 uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
@@ -118,7 +119,9 @@ int16_t currentSpeed = 0;
 int16_t oldSpeed = 0;
 int16_t actMotorPow = 0;
 int16_t reverseTime = 0;
-int16_t tempCNT;
+int16_t roundTimeCount;
+
+
 
 adc_result_t BatteryVolt = 0;
 
@@ -128,10 +131,11 @@ void TMR4_10msISR(void);
 
 void loop(void);
 
-bool checkBatt();       //returns true whenn BatVolt * 409.6 < minBatValue
+bool checkBatt(); //returns true whenn BatVolt * 409.6 < minBatValue
 int16_t actSpeed();
 void startAccell();
 void getBatteryVoltage(void);
+void checkCurveCount();
 
 void getCurve(void);
 void getReverse(void);
@@ -142,9 +146,6 @@ void calcMotorPow(void);
 
 void setSteering(int16_t, SteeringMode);
 void setMotor(int16_t);
-
-                         
-
 
 
 #endif	/* XC_HEADER_TEMPLATE_H */
