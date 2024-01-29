@@ -44,11 +44,11 @@ void loop(void) {
             break;
         }
 
-        ++roundTimeCount;
-        if (roundTimeCount > 1000) {
-            roundTimeCount = 0;
-            printf("10s passed\n");
-        }
+//        ++roundTimeCount;
+//        if (roundTimeCount > 1000) {
+//            roundTimeCount = 0;
+//            printf("10s passed\n");
+//        }
 
         if (checkBatt()) {
             break;
@@ -110,6 +110,7 @@ void startAccell() {
         cycle10ms = 0;
         while (!cycle10ms);
     }
+    printf("starAccelPower: %d", actMotorPow);
 
     cycle10ms = 0;
     while (cycle10ms < (startAccelTime - (MinMPower / startAccellStep)));

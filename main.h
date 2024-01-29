@@ -19,7 +19,7 @@
 #define maxSteeringF                   (65)
 #define maxSteeringB                   (40)
 #define maxSteeringStraight            (40)      //kann beim geradeaus fahren nicht mehr lenken
-#define steeringRatio                  (2)
+#define steeringRatio                  (1.5)
 #define steeringDivisor                (1.25)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
@@ -39,17 +39,17 @@
 #define oldSpeedDeltaDivisor           (2)
 #define MinMPower                      (100) 
 
-#define setDelayStart                  (25)       // Delay bevor man zu Lenken beginnt
+#define setDelayStart                  (15)       // Delay bevor man zu Lenken beginnt
 #define setDelayEnd                    (25)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                    (5)      // Delay bevor man eine neue Kurve erkennen kann
 
-#define startCurveDelta                (40)      // ((oldDist - actDist) > startCurveDelta  \n
+#define startCurveDelta                (30)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta             (300)
-#define MaxOldDist                     (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
+#define MaxOldDist                     (100)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveDist                   (35)      // distL || distR < endKurveValue --> Kurvenende
 #define endCurveDistFront              (180)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                  (55)       
-#define curveSpeed                     (210)
+#define curveSpeed                     (200)
 
 #define startReverseDist               (15)      // distFront < startReverseDist --> reverseCount++
 #define minReverseTime                 (50)

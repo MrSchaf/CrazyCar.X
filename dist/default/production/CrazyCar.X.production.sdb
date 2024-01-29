@@ -1,10 +1,10 @@
-[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK ]
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
 [d version 1.1 ]
 [d edition pro ]
 [d chip 18F46K42 ]
 [d frameptr 16353 ]
-"97 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr4.c
-[e E16065 . `uc
+"97 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr4.c
+[e E16056 . `uc
 TMR4_ROP_STARTS_TMRON 0
 TMR4_ROP_STARTS_TMRON_ERSHIGH 1
 TMR4_ROP_STARTS_TMRON_ERSLOW 2
@@ -28,7 +28,7 @@ TMR4_MS_STARTS_TMRON_ERSFALLINGEDGEDETECT 18
 TMR4_MS_STARTS_TMRON_ERSBOTHEDGE 19
 ]
 "103
-[e E16088 . `uc
+[e E16079 . `uc
 TMR4_T4INPPS 0
 TMR4_T2POSTSCALED 1
 TMR4_RESERVED 2
@@ -55,8 +55,8 @@ TMR4_UART1_TX_EDGE 22
 TMR4_UART2_RX_EDGE 23
 TMR4_UART2_TX_EDGE 24
 ]
-"88 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr2.c
-[e E16065 . `uc
+"88 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr2.c
+[e E16056 . `uc
 TMR2_ROP_STARTS_TMRON 0
 TMR2_ROP_STARTS_TMRON_ERSHIGH 1
 TMR2_ROP_STARTS_TMRON_ERSLOW 2
@@ -80,7 +80,7 @@ TMR2_MS_STARTS_TMRON_ERSFALLINGEDGEDETECT 18
 TMR2_MS_STARTS_TMRON_ERSBOTHEDGE 19
 ]
 "94
-[e E16088 . `uc
+[e E16079 . `uc
 TMR2_T2INPPS 0
 TMR2_RESERVED 1
 TMR2_T4POSTSCALED 2
@@ -107,8 +107,8 @@ TMR2_UART1_TX_EDGE 22
 TMR2_UART2_RX_EDGE 23
 TMR2_UART2_TX_EDGE 24
 ]
-"113 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/adcc.c
-[e E16067 . `uc
+"113 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/adcc.c
+[e E16058 . `uc
 aiBatt 34
 channel_VSS 59
 channel_Temp 60
@@ -116,8 +116,8 @@ channel_DAC1 61
 channel_FVR_Buffer1 62
 channel_FVR_Buffer2 63
 ]
-"105 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X/main.h
-[e E17291 . `uc
+"103 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X/main.h
+[e E17295 . `uc
 Straight 0
 Brake 1
 ReverseRight 2
@@ -125,23 +125,23 @@ ReverseLeft 3
 CurveLeft 4
 CurveRight 5
 ]
-"106
-[e E17306 . `uc
+"104
+[e E17310 . `uc
 OutCurve 0
 BeforeCurve 1
 InCurve 2
 AfterCurve 3
 ]
-"22 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
-[e E17299 . `uc
+"21 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
+[e E17303 . `uc
 Inverted 0
 Same 1
 Ratio 2
 Front 3
 Back 4
 ]
-"84
-[e E16405 . `uc
+"86
+[e E16091 . `uc
 aiBatt 34
 channel_VSS 59
 channel_Temp 60
@@ -149,93 +149,121 @@ channel_DAC1 61
 channel_FVR_Buffer1 62
 channel_FVR_Buffer2 63
 ]
-"7 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\aldiv.c
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\__fpclassifyf.c
+[v ___fpclassifyf __fpclassifyf `(i  1 e 2 0 ]
+"1 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\abs.c
+[v _abs abs `(i  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
-"7 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+"7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
-"72 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\doprnt.c
+"7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"72 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\doprnt.c
 [v _pad pad `(i  1 s 2 pad ]
+"287
+[v _dtoa dtoa `(i  1 s 2 dtoa ]
+"332
+[v _efgtoa efgtoa `(i  1 s 2 efgtoa ]
 "615
 [v _utoa utoa `(i  1 s 2 utoa ]
 "692
 [v _vfpfcnvrt vfpfcnvrt `(i  1 s 2 vfpfcnvrt ]
 "1390
 [v _vfprintf vfprintf `(i  1 e 2 0 ]
-"4 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\fleq.c
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\fleq.c
 [v ___fleq __fleq `(b  1 e 0 0 ]
-"4 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\flge.c
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\flge.c
 [v ___flge __flge `(b  1 e 0 0 ]
-"62 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\float.c
+"15 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\flneg.c
+[v ___flneg __flneg `(d  1 e 4 0 ]
+"62 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\float.c
 [v ___ftpack __ftpack `(f  1 e 4 0 ]
-"43 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\fltol.c
+"3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\floorf.c
+[v _floorf floorf `(f  1 e 4 0 ]
+"43 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\fltol.c
 [v ___fltol __fltol `(l  1 e 4 0 ]
-"86 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\ftadd.c
+"86 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 4 0 ]
-"54 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\ftdiv.c
+"54 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftdiv.c
 [v ___ftdiv __ftdiv `(f  1 e 4 0 ]
-"62 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\ftmul.c
+"62 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftmul.c
 [v ___ftmul __ftmul `(f  1 e 4 0 ]
-"19 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\ftsub.c
+"19 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 4 0 ]
-"9 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\lodiv.c
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\isupper.c
+[v _isupper isupper `(i  1 e 2 0 ]
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\lodiv.c
 [v ___lodiv __lodiv `(uo  1 e 8 0 ]
-"9 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\lomod.c
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\lomod.c
 [v ___lomod __lomod `(uo  1 e 8 0 ]
-"8 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\nf_fputc.c
+"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\nf_fputc.c
 [v _fputc fputc `(i  1 e 2 0 ]
-"8 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\nf_fputs.c
+"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\nf_fputs.c
 [v _fputs fputs `(i  1 e 2 0 ]
-"5 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\printf.c
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\printf.c
 [v _printf printf `(i  1 e 2 0 ]
-"10 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcadd.c
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "245
 [v ___flsub __flsub `(d  1 e 4 0 ]
-"11 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcdiv.c
+"11 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcdiv.c
 [v ___fldiv __fldiv `(d  1 e 4 0 ]
-"8 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcmul.c
+"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
-"5 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\strlen.c
+"3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strcpy.c
+[v _strcpy strcpy `(*.39uc  1 e 2 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strlen.c
 [v _strlen strlen `(ui  1 e 2 0 ]
-"15 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\Umul32.c
+"3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strncmp.c
+[v _strncmp strncmp `(i  1 e 2 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\tolower.c
+[v _tolower tolower `(i  1 e 2 0 ]
+"15 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"91 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\Umul64.c
+"91 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"10 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\xxtofl.c
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\xxtofl.c
 [v ___xxtofl __xxtofl `(d  1 e 4 0 ]
-"9 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+"8 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"20
+"19
 [v _loop loop `(v  1 e 1 0 ]
-"67
+"68
 [v _TMR4_10msISR TMR4_10msISR `(v  1 e 1 0 ]
-"71
+"73
 [v _actSpeed actSpeed `(s  1 e 2 0 ]
-"83
+"85
 [v _getBatteryVoltage getBatteryVoltage `(v  1 e 1 0 ]
-"88
+"90
 [v _checkBatt checkBatt `(a  1 e 1 0 ]
-"102
+"104
 [v _startAccell startAccell `(v  1 e 1 0 ]
-"116
+"119
+[v _checkCurveCount checkCurveCount `(v  1 e 1 0 ]
+"132
 [v _getCurve getCurve `(v  1 e 1 0 ]
-"183
+"195
 [v _getReverse getReverse `(v  1 e 1 0 ]
-"216
+"228
 [v _calcSteering calcSteering `(v  1 e 1 0 ]
-"266
+"278
 [v _calcSpeed calcSpeed `(v  1 e 1 0 ]
-"320
+"332
 [v _calcMotorPow calcMotorPow `(v  1 e 1 0 ]
-"350
+"362
 [v _setMotor setMotor `(v  1 e 1 0 ]
-"372
+"385
 [v _setSteering setSteering `(v  1 e 1 0 ]
-"62 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/adcc.c
+"62 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/adcc.c
 [v _ADCC_Initialize ADCC_Initialize `(v  1 e 1 0 ]
 "137
 [v _ADCC_GetSingleConversion ADCC_GetSingleConversion `(us  1 e 2 0 ]
-"64 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp3.c
+"64 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp3.c
 [v _CCP3_DefaultCallBack CCP3_DefaultCallBack `(v  1 s 1 CCP3_DefaultCallBack ]
 "75
 [v _CCP3_Initialize CCP3_Initialize `(v  1 e 1 0 ]
@@ -243,7 +271,7 @@ channel_FVR_Buffer2 63
 [v _CCP3_CaptureISR CCP3_CaptureISR `IIH(v  1 e 1 0 ]
 "119
 [v _CCP3_SetCallBack CCP3_SetCallBack `(v  1 e 1 0 ]
-"64 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp4.c
+"64 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp4.c
 [v _CCP4_DefaultCallBack CCP4_DefaultCallBack `(v  1 s 1 CCP4_DefaultCallBack ]
 "75
 [v _CCP4_SetCallBack CCP4_SetCallBack `(v  1 e 1 0 ]
@@ -251,37 +279,37 @@ channel_FVR_Buffer2 63
 [v _CCP4_Initialize CCP4_Initialize `(v  1 e 1 0 ]
 "107
 [v _CCP4_CaptureISR CCP4_CaptureISR `IIH(v  1 e 1 0 ]
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/clc3.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/clc3.c
 [v _CLC3_Initialize CLC3_Initialize `(v  1 e 1 0 ]
-"52 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/interrupt_manager.c
+"52 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 1 0 ]
 "83
 [v _Default_ISR Default_ISR `IIH(v  1 e 1 0 ]
-"50 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/mcc.c
+"50 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
 "72
 [v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 1 0 ]
 "86
 [v _PMD_Initialize PMD_Initialize `(v  1 e 1 0 ]
-"55 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pin_manager.c
+"55 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm5.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm5.c
 [v _PWM5_Initialize PWM5_Initialize `(v  1 e 1 0 ]
 "74
 [v _PWM5_LoadDutyValue PWM5_LoadDutyValue `(v  1 e 1 0 ]
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm6.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm6.c
 [v _PWM6_Initialize PWM6_Initialize `(v  1 e 1 0 ]
 "74
 [v _PWM6_LoadDutyValue PWM6_LoadDutyValue `(v  1 e 1 0 ]
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm7.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm7.c
 [v _PWM7_Initialize PWM7_Initialize `(v  1 e 1 0 ]
 "74
 [v _PWM7_LoadDutyValue PWM7_LoadDutyValue `(v  1 e 1 0 ]
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm8.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm8.c
 [v _PWM8_Initialize PWM8_Initialize `(v  1 e 1 0 ]
 "74
 [v _PWM8_LoadDutyValue PWM8_LoadDutyValue `(v  1 e 1 0 ]
-"60 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/smt1.c
+"60 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/smt1.c
 [v _SMT1_Initialize SMT1_Initialize `(v  1 e 1 0 ]
 "192
 [v _SMT1_PR_ACQ_ISR SMT1_PR_ACQ_ISR `IIH(v  1 e 1 0 ]
@@ -289,7 +317,7 @@ channel_FVR_Buffer2 63
 [v _SMT1_PW_ACQ_ISR SMT1_PW_ACQ_ISR `IIH(v  1 e 1 0 ]
 "213
 [v _SMT1_Overflow_ISR SMT1_Overflow_ISR `IIH(v  1 e 1 0 ]
-"62 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr2.c
+"62 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr2.c
 [v _TMR2_Initialize TMR2_Initialize `(v  1 e 1 0 ]
 "100
 [v _TMR2_Start TMR2_Start `(v  1 e 1 0 ]
@@ -301,11 +329,11 @@ channel_FVR_Buffer2 63
 [v _TMR2_Counter8BitSet TMR2_Counter8BitSet `(v  1 e 1 0 ]
 "147
 [v _TMR2_Period8BitSet TMR2_Period8BitSet `(v  1 e 1 0 ]
-"63 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr3.c
+"63 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr3.c
 [v _TMR3_Initialize TMR3_Initialize `(v  1 e 1 0 ]
 "120
 [v _TMR3_WriteTimer TMR3_WriteTimer `(v  1 e 1 0 ]
-"65 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr4.c
+"65 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr4.c
 [v _TMR4_Initialize TMR4_Initialize `(v  1 e 1 0 ]
 "109
 [v _TMR4_Start TMR4_Start `(v  1 e 1 0 ]
@@ -325,7 +353,7 @@ channel_FVR_Buffer2 63
 [v _TMR4_SetInterruptHandler TMR4_SetInterruptHandler `(v  1 e 1 0 ]
 "198
 [v _TMR4_DefaultInterruptHandler TMR4_DefaultInterruptHandler `(v  1 e 1 0 ]
-"67 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr5.c
+"67 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr5.c
 [v _TMR5_Initialize TMR5_Initialize `(v  1 e 1 0 ]
 "117
 [v _TMR5_ReadTimer TMR5_ReadTimer `(us  1 e 2 0 ]
@@ -339,7 +367,7 @@ channel_FVR_Buffer2 63
 [v _TMR5_SetGateInterruptHandler TMR5_SetGateInterruptHandler `(v  1 e 1 0 ]
 "190
 [v _TMR5_DefaultGateInterruptHandler TMR5_DefaultGateInterruptHandler `(v  1 s 1 TMR5_DefaultGateInterruptHandler ]
-"87 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/uart1.c
+"87 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/uart1.c
 [v _UART1_Initialize UART1_Initialize `(v  1 e 1 0 ]
 "180
 [v _UART1_Read UART1_Read `(uc  1 e 1 0 ]
@@ -373,36 +401,40 @@ channel_FVR_Buffer2 63
 [v _UART1_SetRxInterruptHandler UART1_SetRxInterruptHandler `(v  1 e 1 0 ]
 "333
 [v _UART1_SetTxInterruptHandler UART1_SetTxInterruptHandler `(v  1 e 1 0 ]
-"105 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X/main.h
-[v _driveMode driveMode `E17291  1 e 1 0 ]
+"103 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X/main.h
+[v _driveMode driveMode `E17295  1 e 1 0 ]
+"104
+[v _curveMode curveMode `E17310  1 e 1 0 ]
 "106
-[v _curveMode curveMode `E17306  1 e 1 0 ]
-"108
 [v _cycle10ms cycle10ms `VEuc  1 e 1 0 ]
+"109
+[v _curveLeftCount curveLeftCount `uc  1 e 1 0 ]
 "110
-[v _delay delay `uc  1 e 1 0 ]
+[v _curveRightCount curveRightCount `uc  1 e 1 0 ]
 "111
-[v _reverseCount reverseCount `us  1 e 2 0 ]
+[v _delay delay `uc  1 e 1 0 ]
 "112
+[v _reverseCount reverseCount `us  1 e 2 0 ]
+"113
 [v _oldDistLeft oldDistLeft `us  1 e 2 0 ]
 [v _oldDistRight oldDistRight `us  1 e 2 0 ]
-"113
+"114
 [v _battCheckCount battCheckCount `us  1 e 2 0 ]
-"116
-[v _setSpeed setSpeed `s  1 e 2 0 ]
 "117
-[v _currentSpeed currentSpeed `s  1 e 2 0 ]
+[v _setSpeed setSpeed `s  1 e 2 0 ]
 "118
-[v _oldSpeed oldSpeed `s  1 e 2 0 ]
+[v _currentSpeed currentSpeed `s  1 e 2 0 ]
 "119
-[v _actMotorPow actMotorPow `s  1 e 2 0 ]
+[v _oldSpeed oldSpeed `s  1 e 2 0 ]
 "120
-[v _reverseTime reverseTime `s  1 e 2 0 ]
+[v _actMotorPow actMotorPow `s  1 e 2 0 ]
 "121
-[v _tempCNT tempCNT `s  1 e 2 0 ]
-"123
+[v _reverseTime reverseTime `s  1 e 2 0 ]
+"122
+[v _roundTimeCount roundTimeCount `s  1 e 2 0 ]
+"126
 [v _BatteryVolt BatteryVolt `us  1 e 2 0 ]
-"518 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X/mcc_generated_files/uart1.h
+"518 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X/mcc_generated_files/uart1.h
 [v _UART1_RxInterruptHandler UART1_RxInterruptHandler `*.37(v  1 e 2 0 ]
 "536
 [v _UART1_TxInterruptHandler UART1_TxInterruptHandler `*.37(v  1 e 2 0 ]
@@ -1623,43 +1655,43 @@ channel_FVR_Buffer2 63
 [v _IVTBASEU IVTBASEU `VEuc  1 e 1 @16343 ]
 "52406
 [v _GIE GIE `VEb  1 e 0 @130711 ]
-"55 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\doprnt.c
+"55 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\doprnt.c
 [v _flags flags `i  1 s 2 flags ]
 [v _prec prec `i  1 s 2 prec ]
 [v _width width `i  1 s 2 width ]
 "66
-[v _dbuf dbuf `[32]uc  1 s 32 dbuf ]
+[v _dbuf dbuf `[80]uc  1 s 80 dbuf ]
 "69
 [v _nout nout `i  1 s 2 nout ]
-"55 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp3.c
+"55 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp3.c
 [v _distLeft distLeft `VEus  1 e 2 0 ]
 "56
 [v _distLeftM distLeftM `us  1 e 2 0 ]
 "58
 [v _CCP3_CallBack CCP3_CallBack `*.37(v  1 s 2 CCP3_CallBack ]
-"55 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp4.c
+"55 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp4.c
 [v _distRight distRight `VEus  1 e 2 0 ]
 "56
 [v _distRightM distRightM `us  1 e 2 0 ]
 "58
 [v _CCP4_CallBack CCP4_CallBack `*.37(v  1 s 2 CCP4_CallBack ]
-"188 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/smt1.c
+"188 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/smt1.c
 [v _smtPeriod smtPeriod `VEul  1 e 4 0 ]
 "189
 [v _smtDuty smtDuty `VEul  1 e 4 0 ]
 "190
 [v _smtWay smtWay `VEl  1 e 4 0 ]
-"57 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr3.c
+"57 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr3.c
 [v _timer3ReloadVal timer3ReloadVal `VEus  1 e 2 0 ]
-"59 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr4.c
+"59 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr4.c
 [v _TMR4_InterruptHandler TMR4_InterruptHandler `*.37(v  1 e 2 0 ]
-"57 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr5.c
+"57 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr5.c
 [v _timer5ReloadVal timer5ReloadVal `VEus  1 e 2 0 ]
 "58
 [v _distFront distFront `VEus  1 e 2 0 ]
 "60
 [v _TMR5_GateInterruptHandler TMR5_GateInterruptHandler `*.37(v  1 e 2 0 ]
-"64 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/uart1.c
+"64 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/uart1.c
 [v _uart1TxHead uart1TxHead `VEuc  1 s 1 uart1TxHead ]
 "65
 [v _uart1TxTail uart1TxTail `VEuc  1 s 1 uart1TxTail ]
@@ -1691,64 +1723,71 @@ channel_FVR_Buffer2 63
 [v _UART1_OverrunErrorHandler UART1_OverrunErrorHandler `*.37(v  1 e 2 0 ]
 "81
 [v _UART1_ErrorHandler UART1_ErrorHandler `*.37(v  1 e 2 0 ]
-"9 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+"8 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"18
+"17
 } 0
-"20
+"19
 [v _loop loop `(v  1 e 1 0 ]
 {
-"65
+"66
 } 0
-"102
+"104
 [v _startAccell startAccell `(v  1 e 1 0 ]
 {
-"105
-[v startAccell@i i `s  1 a 2 17 ]
-"114
+"107
+[v startAccell@i i `s  1 a 2 16 ]
+"117
 } 0
-"183
+"195
 [v _getReverse getReverse `(v  1 e 1 0 ]
 {
-"214
+"226
 } 0
-"116
+"132
 [v _getCurve getCurve `(v  1 e 1 0 ]
 {
-"118
-[v getCurve@deltaRight deltaRight `s  1 a 2 2 ]
-"117
-[v getCurve@deltaLeft deltaLeft `s  1 a 2 0 ]
-"181
+"134
+[v getCurve@deltaRight deltaRight `s  1 a 2 23 ]
+"133
+[v getCurve@deltaLeft deltaLeft `s  1 a 2 21 ]
+"193
 } 0
-"88
+"119
+[v _checkCurveCount checkCurveCount `(v  1 e 1 0 ]
+{
+"121
+[v checkCurveCount@roundTime roundTime `f  1 a 4 16 ]
+"130
+} 0
+"90
 [v _checkBatt checkBatt `(a  1 e 1 0 ]
 {
-"100
+"102
 } 0
-"83
+"85
 [v _getBatteryVoltage getBatteryVoltage `(v  1 e 1 0 ]
 {
-"86
+"88
 } 0
-"5 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\printf.c
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\printf.c
 [v _printf printf `(i  1 e 2 0 ]
 {
 "8
-[v printf@ap ap `[1]*.39v  1 a 2 12 ]
+[v printf@ap ap `[1]*.39v  1 a 2 14 ]
 "5
 [v printf@fmt fmt `*.32Cuc  1 p 2 8 ]
 "13
 } 0
-"1390 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\doprnt.c
+"1390 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\doprnt.c
 [v _vfprintf vfprintf `(i  1 e 2 0 ]
 {
 "1393
 [v vfprintf@cfmt cfmt `*.32uc  1 a 2 6 ]
-[s S3452 _IO_FILE 0 ]
+[s S3459 _IO_FILE 0 ]
 "1390
-[v vfprintf@fp fp `*.2S3452  1 p 2 0 ]
+[v vfprintf@fp fp `*.2S3459  1 p 2 0 ]
 [v vfprintf@fmt fmt `*.32Cuc  1 p 2 2 ]
 [v vfprintf@ap ap `*.39*.39v  1 p 2 4 ]
 "1404
@@ -1757,81 +1796,259 @@ channel_FVR_Buffer2 63
 [v _vfpfcnvrt vfpfcnvrt `(i  1 s 2 vfpfcnvrt ]
 {
 "697
-[v vfpfcnvrt@llu llu `uo  1 a 8 69 ]
-[s S3452 _IO_FILE 0 ]
+[v vfpfcnvrt@llu llu `uo  1 a 8 121 ]
+"696
+[v vfpfcnvrt@ll ll `o  1 a 8 113 ]
+"698
+[v vfpfcnvrt@f f `d  1 a 4 131 ]
+"694
+[v vfpfcnvrt@ct ct `[3]uc  1 a 3 135 ]
+[v vfpfcnvrt@c c `uc  1 a 1 138 ]
+[s S3459 _IO_FILE 0 ]
 "692
-[v vfpfcnvrt@fp fp `*.2S3452  1 p 2 59 ]
-[v vfpfcnvrt@fmt fmt `*.39*.32uc  1 p 2 61 ]
-[v vfpfcnvrt@ap ap `*.39*.39v  1 p 2 63 ]
+[v vfpfcnvrt@fp fp `*.2S3459  1 p 2 103 ]
+[v vfpfcnvrt@fmt fmt `*.39*.32uc  1 p 2 105 ]
+[v vfpfcnvrt@ap ap `*.39*.39v  1 p 2 107 ]
 "1387
 } 0
 "615
 [v _utoa utoa `(i  1 s 2 utoa ]
 {
 "618
-[v utoa@n n `uo  1 a 8 49 ]
+[v utoa@n n `uo  1 a 8 14 ]
 "617
-[v utoa@i i `i  1 a 2 57 ]
-[v utoa@w w `i  1 a 2 47 ]
-[v utoa@p p `i  1 a 2 45 ]
-[s S3452 _IO_FILE 0 ]
+[v utoa@i i `i  1 a 2 22 ]
+[v utoa@w w `i  1 a 2 12 ]
+[v utoa@p p `i  1 a 2 10 ]
+[s S3459 _IO_FILE 0 ]
 "615
-[v utoa@fp fp `*.2S3452  1 p 2 27 ]
-[v utoa@d d `uo  1 p 8 29 ]
+[v utoa@fp fp `*.2S3459  1 p 2 0 ]
+[v utoa@d d `uo  1 p 8 2 ]
 "641
+} 0
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\lomod.c
+[v ___lomod __lomod `(uo  1 e 8 0 ]
+{
+"12
+[v ___lomod@counter counter `uc  1 a 1 35 ]
+"9
+[v ___lomod@dividend dividend `uo  1 p 8 19 ]
+[v ___lomod@divisor divisor `uo  1 p 8 27 ]
+"27
+} 0
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\lodiv.c
+[v ___lodiv __lodiv `(uo  1 e 8 0 ]
+{
+"12
+[v ___lodiv@quotient quotient `uo  1 a 8 35 ]
+"13
+[v ___lodiv@counter counter `uc  1 a 1 43 ]
+"9
+[v ___lodiv@dividend dividend `uo  1 p 8 19 ]
+[v ___lodiv@divisor divisor `uo  1 p 8 27 ]
+"32
+} 0
+"3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strncmp.c
+[v _strncmp strncmp `(i  1 e 2 0 ]
+{
+"5
+[v strncmp@r r `*.32Cuc  1 a 2 28 ]
+[v strncmp@l l `*.39Cuc  1 a 2 26 ]
+"3
+[v strncmp@_l _l `*.39Cuc  1 p 2 19 ]
+[v strncmp@_r _r `*.32Cuc  1 p 2 21 ]
+[v strncmp@n n `ui  1 p 2 23 ]
+"9
+} 0
+"332 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\doprnt.c
+[v _efgtoa efgtoa `(i  1 s 2 efgtoa ]
+{
+"336
+[v efgtoa@u u `d  1 a 4 99 ]
+[v efgtoa@g g `d  1 a 4 91 ]
+[v efgtoa@l l `d  1 a 4 85 ]
+[v efgtoa@h h `d  1 a 4 81 ]
+[v efgtoa@ou ou `d  1 a 4 67 ]
+"335
+[v efgtoa@n n `i  1 a 2 97 ]
+[v efgtoa@e e `i  1 a 2 95 ]
+[v efgtoa@i i `i  1 a 2 89 ]
+[v efgtoa@w w `i  1 a 2 77 ]
+[v efgtoa@p p `i  1 a 2 75 ]
+[v efgtoa@sign sign `i  1 a 2 73 ]
+[v efgtoa@d d `i  1 a 2 71 ]
+[v efgtoa@m m `i  1 a 2 65 ]
+[v efgtoa@ne ne `i  1 a 2 63 ]
+[v efgtoa@pp pp `i  1 a 2 61 ]
+[v efgtoa@t t `i  1 a 2 59 ]
+"334
+[v efgtoa@mode mode `uc  1 a 1 80 ]
+[v efgtoa@nmode nmode `uc  1 a 1 79 ]
+[s S3459 _IO_FILE 0 ]
+"332
+[v efgtoa@fp fp `*.2S3459  1 p 2 35 ]
+[v efgtoa@f f `d  1 p 4 37 ]
+[v efgtoa@c c `uc  1 p 1 41 ]
+"525
+} 0
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\tolower.c
+[v _tolower tolower `(i  1 e 2 0 ]
+{
+[v tolower@c c `i  1 p 2 25 ]
+"8
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\isupper.c
+[v _isupper isupper `(i  1 e 2 0 ]
+{
+[v isupper@c c `i  1 p 2 19 ]
+"8
+} 0
+"3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strcpy.c
+[v _strcpy strcpy `(*.39uc  1 e 2 0 ]
+{
+"6
+[v strcpy@d d `*.39uc  1 a 2 27 ]
+"5
+[v strcpy@s s `*.34Cuc  1 a 2 25 ]
+"3
+[v strcpy@dest dest `*.39uc  1 p 2 19 ]
+[v strcpy@src src `*.34Cuc  1 p 2 21 ]
+"9
+} 0
+"3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\floorf.c
+[v _floorf floorf `(f  1 e 4 0 ]
+{
+[u S3612 . 4 `f 1 f 4 0 `ul 1 i 4 0 ]
+"5
+[v floorf@u u `S3612  1 a 4 25 ]
+"7
+[v floorf@m m `ul  1 a 4 19 ]
+"6
+[v floorf@e e `i  1 a 2 23 ]
+"3
+[v floorf@x x `f  1 p 4 53 ]
+"4
+[v floorf@F527 F527 `S3612  1 s 4 F527 ]
+"27
+} 0
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\__fpclassifyf.c
+[v ___fpclassifyf __fpclassifyf `(i  1 e 2 0 ]
+{
+[u S3612 . 4 `f 1 f 4 0 `ul 1 i 4 0 ]
+"6
+[v ___fpclassifyf@u u `S3612  1 a 4 29 ]
+"7
+[v ___fpclassifyf@e e `i  1 a 2 27 ]
+"4
+[v ___fpclassifyf@x x `f  1 p 4 19 ]
+"5
+[v ___fpclassifyf@F465 F465 `S3612  1 s 4 F465 ]
+"11
+} 0
+"245 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
+[v ___flsub __flsub `(d  1 e 4 0 ]
+{
+[v ___flsub@b b `d  1 p 4 25 ]
+[v ___flsub@a a `d  1 p 4 29 ]
+"250
+} 0
+"15 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\flneg.c
+[v ___flneg __flneg `(d  1 e 4 0 ]
+{
+[v ___flneg@f1 f1 `d  1 p 4 19 ]
+"20
+} 0
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\flge.c
+[v ___flge __flge `(b  1 e 0 0 ]
+{
+[v ___flge@ff1 ff1 `d  1 p 4 13 ]
+[v ___flge@ff2 ff2 `d  1 p 4 17 ]
+"19
+} 0
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+{
+[v ___fleq@ff1 ff1 `d  1 p 4 19 ]
+[v ___fleq@ff2 ff2 `d  1 p 4 23 ]
+"12
+} 0
+"7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+{
+"10
+[v ___awmod@sign sign `uc  1 a 1 24 ]
+[v ___awmod@counter counter `uc  1 a 1 23 ]
+"7
+[v ___awmod@dividend dividend `i  1 p 2 19 ]
+[v ___awmod@divisor divisor `i  1 p 2 21 ]
+"34
+} 0
+"287 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\doprnt.c
+[v _dtoa dtoa `(i  1 s 2 dtoa ]
+{
+"290
+[v dtoa@n n `o  1 a 8 18 ]
+"289
+[v dtoa@i i `i  1 a 2 26 ]
+[v dtoa@s s `i  1 a 2 16 ]
+[v dtoa@w w `i  1 a 2 14 ]
+[v dtoa@p p `i  1 a 2 12 ]
+[s S3459 _IO_FILE 0 ]
+"287
+[v dtoa@fp fp `*.2S3459  1 p 2 0 ]
+[v dtoa@d d `o  1 p 8 2 ]
+"328
 } 0
 "72
 [v _pad pad `(i  1 s 2 pad ]
 {
 "74
-[v pad@w w `i  1 a 2 25 ]
-[v pad@i i `i  1 a 2 23 ]
-[s S3452 _IO_FILE 0 ]
+[v pad@w w `i  1 a 2 46 ]
+[v pad@i i `i  1 a 2 44 ]
+[s S3459 _IO_FILE 0 ]
 "72
-[v pad@fp fp `*.2S3452  1 p 2 16 ]
-[v pad@buf buf `*.39uc  1 p 2 18 ]
-[v pad@p p `i  1 p 2 20 ]
+[v pad@fp fp `*.2S3459  1 p 2 37 ]
+[v pad@buf buf `*.39uc  1 p 2 39 ]
+[v pad@p p `i  1 p 2 41 ]
 "95
 } 0
-"5 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\strlen.c
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strlen.c
 [v _strlen strlen `(ui  1 e 2 0 ]
 {
 "7
-[v strlen@a a `*.39Cuc  1 a 2 0 ]
+[v strlen@a a `*.39Cuc  1 a 2 21 ]
 "5
-[v strlen@s s `*.39Cuc  1 p 2 31 ]
+[v strlen@s s `*.39Cuc  1 p 2 19 ]
 "12
 } 0
-"8 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\nf_fputs.c
+"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\nf_fputs.c
 [v _fputs fputs `(i  1 e 2 0 ]
 {
 "11
-[v fputs@i i `i  1 a 2 14 ]
+[v fputs@i i `i  1 a 2 35 ]
 "10
-[v fputs@c c `uc  1 a 1 13 ]
+[v fputs@c c `uc  1 a 1 34 ]
 "8
-[v fputs@s s `*.39Cuc  1 p 2 9 ]
-[u S3430 . 3 `*.2uc 1 buffer 3 0 `*.2Cuc 1 source 3 0 ]
-[s S3433 _IO_FILE 11 `S3430 1 . 3 0 `i 1 count 2 3 `[2]uc 1 ungetbuf 2 5 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
-[v fputs@fp fp `*.2S3433  1 p 2 11 ]
+[v fputs@s s `*.39Cuc  1 p 2 30 ]
+[s S3442 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputs@fp fp `*.2S3442  1 p 2 32 ]
 "19
 } 0
-"8 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\nf_fputc.c
+"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\nf_fputc.c
 [v _fputc fputc `(i  1 e 2 0 ]
 {
-[v fputc@c c `i  1 p 2 0 ]
-[u S3430 . 3 `*.2uc 1 buffer 3 0 `*.2Cuc 1 source 3 0 ]
-[s S3433 _IO_FILE 11 `S3430 1 . 3 0 `i 1 count 2 3 `[2]uc 1 ungetbuf 2 5 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
-[v fputc@fp fp `*.2S3433  1 p 2 2 ]
+[v fputc@c c `i  1 p 2 21 ]
+[s S3442 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputc@fp fp `*.2S3442  1 p 2 23 ]
 "24
 } 0
-"230 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/uart1.c
+"230 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/uart1.c
 [v _putch putch `(v  1 e 1 0 ]
 {
 [v putch@txData txData `uc  1 a 1 wreg ]
 [v putch@txData txData `uc  1 a 1 wreg ]
 "232
-[v putch@txData txData `uc  1 a 1 32 ]
+[v putch@txData txData `uc  1 a 1 20 ]
 "233
 } 0
 "202
@@ -1839,238 +2056,239 @@ channel_FVR_Buffer2 63
 {
 [v UART1_Write@txData txData `uc  1 a 1 wreg ]
 [v UART1_Write@txData txData `uc  1 a 1 wreg ]
-[v UART1_Write@txData txData `uc  1 a 1 31 ]
+[v UART1_Write@txData txData `uc  1 a 1 19 ]
 "223
 } 0
-"9 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\lomod.c
-[v ___lomod __lomod `(uo  1 e 8 0 ]
+"1 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\abs.c
+[v _abs abs `(i  1 e 2 0 ]
 {
-"12
-[v ___lomod@counter counter `uc  1 a 1 31 ]
-"9
-[v ___lomod@dividend dividend `uo  1 p 8 0 ]
-[v ___lomod@divisor divisor `uo  1 p 8 8 ]
-"27
+[v abs@a a `i  1 p 2 37 ]
+"4
 } 0
-"9 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\lodiv.c
-[v ___lodiv __lodiv `(uo  1 e 8 0 ]
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
 {
 "12
-[v ___lodiv@quotient quotient `uo  1 a 8 16 ]
+[v ___aomod@sign sign `uc  1 a 1 36 ]
+[v ___aomod@counter counter `uc  1 a 1 35 ]
+"9
+[v ___aomod@dividend dividend `o  1 p 8 19 ]
+[v ___aomod@divisor divisor `o  1 p 8 27 ]
+"36
+} 0
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+{
+"12
+[v ___aodiv@quotient quotient `o  1 a 8 37 ]
 "13
-[v ___lodiv@counter counter `uc  1 a 1 24 ]
+[v ___aodiv@sign sign `uc  1 a 1 36 ]
+[v ___aodiv@counter counter `uc  1 a 1 35 ]
 "9
-[v ___lodiv@dividend dividend `uo  1 p 8 0 ]
-[v ___lodiv@divisor divisor `uo  1 p 8 8 ]
-"32
+[v ___aodiv@dividend dividend `o  1 p 8 19 ]
+[v ___aodiv@divisor divisor `o  1 p 8 27 ]
+"43
 } 0
-"137 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/adcc.c
+"137 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/adcc.c
 [v _ADCC_GetSingleConversion ADCC_GetSingleConversion `(us  1 e 2 0 ]
 {
-[v ADCC_GetSingleConversion@channel channel `E16067  1 a 1 wreg ]
-[v ADCC_GetSingleConversion@channel channel `E16067  1 a 1 wreg ]
+[v ADCC_GetSingleConversion@channel channel `E16058  1 a 1 wreg ]
+[v ADCC_GetSingleConversion@channel channel `E16058  1 a 1 wreg ]
 "140
-[v ADCC_GetSingleConversion@channel channel `E16067  1 a 1 2 ]
+[v ADCC_GetSingleConversion@channel channel `E16058  1 a 1 23 ]
 "160
 } 0
-"4 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\flge.c
-[v ___flge __flge `(b  1 e 0 0 ]
-{
-[v ___flge@ff1 ff1 `d  1 p 4 22 ]
-[v ___flge@ff2 ff2 `d  1 p 4 26 ]
-"19
-} 0
-"216 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+"228 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _calcSteering calcSteering `(v  1 e 1 0 ]
 {
-"217
-[v calcSteering@delta delta `s  1 a 2 73 ]
-"264
+"229
+[v calcSteering@delta delta `s  1 a 2 46 ]
+"276
 } 0
-"372
+"385
 [v _setSteering setSteering `(v  1 e 1 0 ]
 {
-"373
-[v setSteering@steeringB steeringB `s  1 a 2 15 ]
-[v setSteering@steeringF steeringF `s  1 a 2 13 ]
-"372
-[v setSteering@steering steering `s  1 p 2 8 ]
-[v setSteering@steeringMode steeringMode `E17299  1 p 1 10 ]
-"416
+"386
+[v setSteering@steeringB steeringB `s  1 a 2 42 ]
+[v setSteering@steeringF steeringF `s  1 a 2 40 ]
+"385
+[v setSteering@steering steering `s  1 p 2 35 ]
+[v setSteering@steeringMode steeringMode `E17303  1 p 1 37 ]
+"429
 } 0
-"74 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm6.c
-[v _PWM6_LoadDutyValue PWM6_LoadDutyValue `(v  1 e 1 0 ]
-{
-[v PWM6_LoadDutyValue@dutyValue dutyValue `us  1 p 2 31 ]
-"81
-} 0
-"74 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm5.c
-[v _PWM5_LoadDutyValue PWM5_LoadDutyValue `(v  1 e 1 0 ]
-{
-[v PWM5_LoadDutyValue@dutyValue dutyValue `us  1 p 2 31 ]
-"81
-} 0
-"11 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcdiv.c
+"11 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcdiv.c
 [v ___fldiv __fldiv `(d  1 e 4 0 ]
 {
 "21
-[v ___fldiv@grs grs `ul  1 a 4 41 ]
+[v ___fldiv@grs grs `ul  1 a 4 7 ]
 "22
-[v ___fldiv@rem rem `ul  1 a 4 34 ]
+[v ___fldiv@rem rem `ul  1 a 4 0 ]
 "20
-[v ___fldiv@new_exp new_exp `s  1 a 2 39 ]
+[v ___fldiv@new_exp new_exp `s  1 a 2 5 ]
 "19
-[v ___fldiv@aexp aexp `uc  1 a 1 46 ]
+[v ___fldiv@aexp aexp `uc  1 a 1 12 ]
 "18
-[v ___fldiv@bexp bexp `uc  1 a 1 45 ]
+[v ___fldiv@bexp bexp `uc  1 a 1 11 ]
 "16
-[v ___fldiv@sign sign `uc  1 a 1 38 ]
+[v ___fldiv@sign sign `uc  1 a 1 4 ]
 "11
-[v ___fldiv@b b `d  1 p 4 22 ]
-[v ___fldiv@a a `d  1 p 4 26 ]
+[v ___fldiv@b b `d  1 p 4 41 ]
+[v ___fldiv@a a `d  1 p 4 45 ]
 "185
 } 0
-"266 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm6.c
+[v _PWM6_LoadDutyValue PWM6_LoadDutyValue `(v  1 e 1 0 ]
+{
+[v PWM6_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
+"81
+} 0
+"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm5.c
+[v _PWM5_LoadDutyValue PWM5_LoadDutyValue `(v  1 e 1 0 ]
+{
+[v PWM5_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
+"81
+} 0
+"278 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _calcSpeed calcSpeed `(v  1 e 1 0 ]
 {
-"267
-[v calcSpeed@speed speed `s  1 a 2 75 ]
-"318
+"279
+[v calcSpeed@speed speed `s  1 a 2 39 ]
+"330
 } 0
-"10 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcadd.c
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 {
 "17
-[v ___fladd@grs grs `uc  1 a 1 62 ]
+[v ___fladd@grs grs `uc  1 a 1 24 ]
 "15
-[v ___fladd@bexp bexp `uc  1 a 1 61 ]
+[v ___fladd@bexp bexp `uc  1 a 1 23 ]
 "16
-[v ___fladd@aexp aexp `uc  1 a 1 60 ]
+[v ___fladd@aexp aexp `uc  1 a 1 22 ]
 "13
-[v ___fladd@signs signs `uc  1 a 1 59 ]
+[v ___fladd@signs signs `uc  1 a 1 21 ]
 "10
-[v ___fladd@b b `d  1 p 4 47 ]
-[v ___fladd@a a `d  1 p 4 51 ]
+[v ___fladd@b b `d  1 p 4 13 ]
+[v ___fladd@a a `d  1 p 4 17 ]
 "237
 } 0
-"320 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+"332 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _calcMotorPow calcMotorPow `(v  1 e 1 0 ]
 {
-"322
-[v calcMotorPow@oldSpeedDelta oldSpeedDelta `s  1 a 2 75 ]
-"321
-[v calcMotorPow@setSpeedDelta setSpeedDelta `s  1 a 2 73 ]
-"323
-[v calcMotorPow@addMPow addMPow `c  1 a 1 77 ]
-"348
+"334
+[v calcMotorPow@oldSpeedDelta oldSpeedDelta `s  1 a 2 39 ]
+"333
+[v calcMotorPow@setSpeedDelta setSpeedDelta `s  1 a 2 37 ]
+"335
+[v calcMotorPow@addMPow addMPow `c  1 a 1 41 ]
+"360
 } 0
-"350
+"362
 [v _setMotor setMotor `(v  1 e 1 0 ]
 {
-[v setMotor@motorPower motorPower `s  1 p 2 2 ]
-"367
+[v setMotor@motorPower motorPower `s  1 p 2 23 ]
+"379
 } 0
-"74 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm8.c
+"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm8.c
 [v _PWM8_LoadDutyValue PWM8_LoadDutyValue `(v  1 e 1 0 ]
 {
-[v PWM8_LoadDutyValue@dutyValue dutyValue `us  1 p 2 31 ]
+[v PWM8_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
 "81
 } 0
-"74 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm7.c
+"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm7.c
 [v _PWM7_LoadDutyValue PWM7_LoadDutyValue `(v  1 e 1 0 ]
 {
-[v PWM7_LoadDutyValue@dutyValue dutyValue `us  1 p 2 31 ]
+[v PWM7_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
 "81
 } 0
-"71 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+"73 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _actSpeed actSpeed `(s  1 e 2 0 ]
 {
-"72
-[v actSpeed@speed speed `s  1 a 2 14 ]
-"81
+"74
+[v actSpeed@speed speed `s  1 a 2 35 ]
+"83
 } 0
-"7 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\aldiv.c
+"7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
 {
 "10
-[v ___aldiv@quotient quotient `l  1 a 4 10 ]
+[v ___aldiv@quotient quotient `l  1 a 4 29 ]
 "11
-[v ___aldiv@sign sign `uc  1 a 1 9 ]
-[v ___aldiv@counter counter `uc  1 a 1 8 ]
+[v ___aldiv@sign sign `uc  1 a 1 28 ]
+[v ___aldiv@counter counter `uc  1 a 1 27 ]
 "7
-[v ___aldiv@dividend dividend `l  1 p 4 0 ]
-[v ___aldiv@divisor divisor `l  1 p 4 4 ]
+[v ___aldiv@dividend dividend `l  1 p 4 19 ]
+[v ___aldiv@divisor divisor `l  1 p 4 23 ]
 "41
 } 0
-"10 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\xxtofl.c
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\xxtofl.c
 [v ___xxtofl __xxtofl `(d  1 e 4 0 ]
 {
 [v ___xxtofl@sign sign `uc  1 a 1 wreg ]
 "13
-[v ___xxtofl@arg arg `ul  1 a 4 18 ]
+[v ___xxtofl@arg arg `ul  1 a 4 37 ]
 "12
-[v ___xxtofl@exp exp `uc  1 a 1 17 ]
+[v ___xxtofl@exp exp `uc  1 a 1 36 ]
 "10
 [v ___xxtofl@sign sign `uc  1 a 1 wreg ]
-[v ___xxtofl@val val `l  1 p 4 8 ]
+[v ___xxtofl@val val `l  1 p 4 27 ]
 "15
-[v ___xxtofl@sign sign `uc  1 a 1 16 ]
+[v ___xxtofl@sign sign `uc  1 a 1 35 ]
 "44
 } 0
-"43 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\fltol.c
+"43 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\fltol.c
 [v ___fltol __fltol `(l  1 e 4 0 ]
 {
 "45
-[v ___fltol@exp1 exp1 `uc  1 a 1 32 ]
-[v ___fltol@sign1 sign1 `uc  1 a 1 31 ]
+[v ___fltol@exp1 exp1 `uc  1 a 1 34 ]
+[v ___fltol@sign1 sign1 `uc  1 a 1 33 ]
 "43
-[v ___fltol@f1 f1 `d  1 p 4 63 ]
+[v ___fltol@f1 f1 `d  1 p 4 25 ]
 "70
 } 0
-"8 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\sprcmul.c
+"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
 {
-[s S3291 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
+[s S3303 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
 "13
-[s S3296 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
-[u S3299 . 4 `l 1 i 4 0 `d 1 f 4 0 `S3291 1 fAsBytes 4 0 `S3296 1 fAsWords 4 0 ]
-[v ___flmul@prod prod `S3299  1 a 4 41 ]
+[s S3308 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
+[u S3311 . 4 `l 1 i 4 0 `d 1 f 4 0 `S3303 1 fAsBytes 4 0 `S3308 1 fAsWords 4 0 ]
+[v ___flmul@prod prod `S3311  1 a 4 7 ]
 "12
-[v ___flmul@grs grs `ul  1 a 4 36 ]
-[s S3367 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
+[v ___flmul@grs grs `ul  1 a 4 2 ]
+[s S3379 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
 "14
-[u S3370 . 2 `s 1 i 2 0 `us 1 n 2 0 `S3367 1 nAsBytes 2 0 ]
-[v ___flmul@temp temp `S3370  1 a 2 45 ]
+[u S3382 . 2 `s 1 i 2 0 `us 1 n 2 0 `S3379 1 nAsBytes 2 0 ]
+[v ___flmul@temp temp `S3382  1 a 2 11 ]
 "10
-[v ___flmul@bexp bexp `uc  1 a 1 40 ]
+[v ___flmul@bexp bexp `uc  1 a 1 6 ]
 "11
-[v ___flmul@aexp aexp `uc  1 a 1 35 ]
+[v ___flmul@aexp aexp `uc  1 a 1 1 ]
 "9
-[v ___flmul@sign sign `uc  1 a 1 34 ]
+[v ___flmul@sign sign `uc  1 a 1 0 ]
 "8
-[v ___flmul@b b `d  1 p 4 22 ]
-[v ___flmul@a a `d  1 p 4 26 ]
+[v ___flmul@b b `d  1 p 4 41 ]
+[v ___flmul@a a `d  1 p 4 45 ]
 "205
 } 0
-"7 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\awdiv.c
+"7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
 {
 "10
-[v ___awdiv@quotient quotient `i  1 a 2 6 ]
+[v ___awdiv@quotient quotient `i  1 a 2 25 ]
 "11
-[v ___awdiv@sign sign `uc  1 a 1 5 ]
-[v ___awdiv@counter counter `uc  1 a 1 4 ]
+[v ___awdiv@sign sign `uc  1 a 1 24 ]
+[v ___awdiv@counter counter `uc  1 a 1 23 ]
 "7
-[v ___awdiv@dividend dividend `i  1 p 2 0 ]
-[v ___awdiv@divisor divisor `i  1 p 2 2 ]
+[v ___awdiv@dividend dividend `i  1 p 2 19 ]
+[v ___awdiv@divisor divisor `i  1 p 2 21 ]
 "41
 } 0
-"50 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/mcc.c
+"50 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
 {
 "70
 } 0
-"87 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/uart1.c
+"87 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/uart1.c
 [v _UART1_Initialize UART1_Initialize `(v  1 e 1 0 ]
 {
 "159
@@ -2078,34 +2296,34 @@ channel_FVR_Buffer2 63
 "333
 [v _UART1_SetTxInterruptHandler UART1_SetTxInterruptHandler `(v  1 e 1 0 ]
 {
-[v UART1_SetTxInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 31 ]
+[v UART1_SetTxInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 19 ]
 "335
 } 0
 "329
 [v _UART1_SetRxInterruptHandler UART1_SetRxInterruptHandler `(v  1 e 1 0 ]
 {
-[v UART1_SetRxInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 31 ]
+[v UART1_SetRxInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 19 ]
 "331
 } 0
 "319
 [v _UART1_SetOverrunErrorHandler UART1_SetOverrunErrorHandler `(v  1 e 1 0 ]
 {
-[v UART1_SetOverrunErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 31 ]
+[v UART1_SetOverrunErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 19 ]
 "321
 } 0
 "315
 [v _UART1_SetFramingErrorHandler UART1_SetFramingErrorHandler `(v  1 e 1 0 ]
 {
-[v UART1_SetFramingErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 31 ]
+[v UART1_SetFramingErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 19 ]
 "317
 } 0
 "323
 [v _UART1_SetErrorHandler UART1_SetErrorHandler `(v  1 e 1 0 ]
 {
-[v UART1_SetErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 31 ]
+[v UART1_SetErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 19 ]
 "325
 } 0
-"67 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr5.c
+"67 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr5.c
 [v _TMR5_Initialize TMR5_Initialize `(v  1 e 1 0 ]
 {
 "103
@@ -2113,10 +2331,10 @@ channel_FVR_Buffer2 63
 "186
 [v _TMR5_SetGateInterruptHandler TMR5_SetGateInterruptHandler `(v  1 e 1 0 ]
 {
-[v TMR5_SetGateInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 31 ]
+[v TMR5_SetGateInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 19 ]
 "188
 } 0
-"65 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr4.c
+"65 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr4.c
 [v _TMR4_Initialize TMR4_Initialize `(v  1 e 1 0 ]
 {
 "95
@@ -2124,72 +2342,72 @@ channel_FVR_Buffer2 63
 "194
 [v _TMR4_SetInterruptHandler TMR4_SetInterruptHandler `(v  1 e 1 0 ]
 {
-[v TMR4_SetInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 31 ]
+[v TMR4_SetInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 19 ]
 "196
 } 0
-"63 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr3.c
+"63 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr3.c
 [v _TMR3_Initialize TMR3_Initialize `(v  1 e 1 0 ]
 {
 "90
 } 0
-"62 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr2.c
+"62 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr2.c
 [v _TMR2_Initialize TMR2_Initialize `(v  1 e 1 0 ]
 {
 "86
 } 0
-"60 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/smt1.c
+"60 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/smt1.c
 [v _SMT1_Initialize SMT1_Initialize `(v  1 e 1 0 ]
 {
 "101
 } 0
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm8.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm8.c
 [v _PWM8_Initialize PWM8_Initialize `(v  1 e 1 0 ]
 {
 "72
 } 0
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm7.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm7.c
 [v _PWM7_Initialize PWM7_Initialize `(v  1 e 1 0 ]
 {
 "72
 } 0
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm6.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm6.c
 [v _PWM6_Initialize PWM6_Initialize `(v  1 e 1 0 ]
 {
 "72
 } 0
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm5.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm5.c
 [v _PWM5_Initialize PWM5_Initialize `(v  1 e 1 0 ]
 {
 "72
 } 0
-"86 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/mcc.c
+"86 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/mcc.c
 [v _PMD_Initialize PMD_Initialize `(v  1 e 1 0 ]
 {
 "104
 } 0
-"55 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pin_manager.c
+"55 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
 {
 "151
 } 0
-"72 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/mcc.c
+"72 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/mcc.c
 [v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 1 0 ]
 {
 "84
 } 0
-"52 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/interrupt_manager.c
+"52 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 1 0 ]
 {
 "56
-[v INTERRUPT_Initialize@state state `a  1 a 1 31 ]
+[v INTERRUPT_Initialize@state state `a  1 a 1 19 ]
 "81
 } 0
-"58 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/clc3.c
+"58 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/clc3.c
 [v _CLC3_Initialize CLC3_Initialize `(v  1 e 1 0 ]
 {
 "83
 } 0
-"78 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp4.c
+"78 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp4.c
 [v _CCP4_Initialize CCP4_Initialize `(v  1 e 1 0 ]
 {
 "105
@@ -2197,10 +2415,10 @@ channel_FVR_Buffer2 63
 "75
 [v _CCP4_SetCallBack CCP4_SetCallBack `(v  1 e 1 0 ]
 {
-[v CCP4_SetCallBack@customCallBack customCallBack `*.37(v  1 p 2 31 ]
+[v CCP4_SetCallBack@customCallBack customCallBack `*.37(v  1 p 2 19 ]
 "77
 } 0
-"75 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp3.c
+"75 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp3.c
 [v _CCP3_Initialize CCP3_Initialize `(v  1 e 1 0 ]
 {
 "102
@@ -2208,15 +2426,15 @@ channel_FVR_Buffer2 63
 "119
 [v _CCP3_SetCallBack CCP3_SetCallBack `(v  1 e 1 0 ]
 {
-[v CCP3_SetCallBack@customCallBack customCallBack `*.37(v  1 p 2 31 ]
+[v CCP3_SetCallBack@customCallBack customCallBack `*.37(v  1 p 2 19 ]
 "121
 } 0
-"62 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/adcc.c
+"62 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/adcc.c
 [v _ADCC_Initialize ADCC_Initialize `(v  1 e 1 0 ]
 {
 "111
 } 0
-"235 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/uart1.c
+"235 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/uart1.c
 [v _UART1_tx_vect_isr UART1_tx_vect_isr `IIL(v  1 e 1 0 ]
 {
 "241
@@ -2254,7 +2472,7 @@ channel_FVR_Buffer2 63
 {
 "305
 } 0
-"166 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr4.c
+"166 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr4.c
 [v _TMR4_ISR TMR4_ISR `IIL(v  1 e 1 0 ]
 {
 "168
@@ -2266,29 +2484,29 @@ channel_FVR_Buffer2 63
 {
 "192
 } 0
-"67 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+"68 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _TMR4_10msISR TMR4_10msISR `(v  1 e 1 0 ]
 {
-"69
+"71
 } 0
-"198 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr4.c
+"198 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr4.c
 [v _TMR4_DefaultInterruptHandler TMR4_DefaultInterruptHandler `(v  1 e 1 0 ]
 {
 "201
 } 0
-"83 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/interrupt_manager.c
+"83 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/interrupt_manager.c
 [v _Default_ISR Default_ISR `IIH(v  1 e 1 0 ]
 {
 "85
 } 0
-"104 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp3.c
+"104 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp3.c
 [v _CCP3_CaptureISR CCP3_CaptureISR `IIH(v  1 e 1 0 ]
 {
 [s S745 . 2 `uc 1 ccpr3l 1 0 `uc 1 ccpr3h 1 1 ]
 "106
 [s S748 . 2 `us 1 ccpr3_16Bit 2 0 ]
 [u S750 CCPR3Reg_tag 2 `S745 1 . 2 0 `S748 1 . 2 0 ]
-[v CCP3_CaptureISR@module module `S750  1 a 2 4 ]
+[v CCP3_CaptureISR@module module `S750  1 a 2 2 ]
 "117
 } 0
 "64
@@ -2297,23 +2515,23 @@ channel_FVR_Buffer2 63
 [v CCP3_DefaultCallBack@capturedValue capturedValue `us  1 p 2 0 ]
 "73
 } 0
-"107 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/ccp4.c
+"107 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/ccp4.c
 [v _CCP4_CaptureISR CCP4_CaptureISR `IIH(v  1 e 1 0 ]
 {
 [s S864 . 2 `uc 1 ccpr4l 1 0 `uc 1 ccpr4h 1 1 ]
 "109
 [s S867 . 2 `us 1 ccpr4_16Bit 2 0 ]
 [u S869 CCPR4Reg_tag 2 `S864 1 . 2 0 `S867 1 . 2 0 ]
-[v CCP4_CaptureISR@module module `S869  1 a 2 10 ]
+[v CCP4_CaptureISR@module module `S869  1 a 2 6 ]
 "120
 } 0
 "64
 [v _CCP4_DefaultCallBack CCP4_DefaultCallBack `(v  1 s 1 CCP4_DefaultCallBack ]
 {
-[v CCP4_DefaultCallBack@capturedValue capturedValue `us  1 p 2 6 ]
+[v CCP4_DefaultCallBack@capturedValue capturedValue `us  1 p 2 4 ]
 "74
 } 0
-"175 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/tmr5.c
+"175 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/tmr5.c
 [v _TMR5_GATE_ISR TMR5_GATE_ISR `IIH(v  1 e 1 0 ]
 {
 "184
@@ -2331,21 +2549,21 @@ channel_FVR_Buffer2 63
 "133
 [v _TMR5_WriteTimer TMR5_WriteTimer `(v  1 e 1 0 ]
 {
-[v TMR5_WriteTimer@timerVal timerVal `us  1 p 2 12 ]
+[v TMR5_WriteTimer@timerVal timerVal `us  1 p 2 8 ]
 "153
 } 0
 "117
 [v _TMR5_ReadTimer TMR5_ReadTimer `(us  1 e 2 0 ]
 {
 "119
-[v TMR5_ReadTimer@readVal readVal `us  1 a 2 16 ]
+[v TMR5_ReadTimer@readVal readVal `us  1 a 2 12 ]
 "121
-[v TMR5_ReadTimer@readValLow readValLow `uc  1 a 1 19 ]
+[v TMR5_ReadTimer@readValLow readValLow `uc  1 a 1 15 ]
 "120
-[v TMR5_ReadTimer@readValHigh readValHigh `uc  1 a 1 18 ]
+[v TMR5_ReadTimer@readValHigh readValHigh `uc  1 a 1 14 ]
 "131
 } 0
-"192 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/smt1.c
+"192 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/smt1.c
 [v _SMT1_PR_ACQ_ISR SMT1_PR_ACQ_ISR `IIH(v  1 e 1 0 ]
 {
 "201

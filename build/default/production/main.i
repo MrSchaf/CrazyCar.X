@@ -17,35 +17,35 @@ extern double __fpnormalize(double);
 
 
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\xc8debug.h" 1 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\xc8debug.h" 1 3
 
 
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdlib.h" 1 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 1 3
 
 
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\musl_xc8.h" 1 3
-# 4 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdlib.h" 2 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\musl_xc8.h" 1 3
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 2 3
 
 
 
 
 
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\features.h" 1 3
-# 10 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdlib.h" 2 3
-# 21 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdlib.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 1 3
-# 18 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\features.h" 1 3
+# 10 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 2 3
+# 21 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 18 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef long int wchar_t;
-# 122 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 122 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef unsigned size_t;
-# 168 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 168 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef __int24 int24_t;
-# 204 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 204 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef __uint24 uint24_t;
-# 21 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdlib.h" 2 3
+# 21 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 2 3
 
 
 int atoi (const char *);
@@ -67,23 +67,12 @@ unsigned long long strtoull (const char *restrict, char **restrict, int);
 int rand (void);
 void srand (unsigned);
 
-void *malloc (size_t);
-void *calloc (size_t, size_t);
-void *realloc (void *, size_t);
-void free (void *);
-
           void abort (void);
 int atexit (void (*) (void));
           void exit (int);
           void _Exit (int);
 
 void *bsearch (const void *, const void *, size_t, size_t, int (*)(const void *, const void *));
-
-
-
-
-
-
 
 __attribute__((nonreentrant)) void qsort (void *, size_t, size_t, int (*)(const void *, const void *));
 
@@ -103,7 +92,13 @@ typedef struct { unsigned int quot, rem; } udiv_t;
 typedef struct { unsigned long quot, rem; } uldiv_t;
 udiv_t udiv (unsigned int, unsigned int);
 uldiv_t uldiv (unsigned long, unsigned long);
-# 4 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\xc8debug.h" 2 3
+
+
+
+
+
+size_t __ctype_get_mb_cur_max(void);
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\xc8debug.h" 2 3
 
 
 
@@ -27062,21 +27057,21 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 void PIN_MANAGER_Initialize (void);
 # 51 "./mcc_generated_files/mcc.h" 2
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdint.h" 1 3
-# 22 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdint.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 1 3
-# 127 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdint.h" 1 3
+# 22 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdint.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 127 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef unsigned long uintptr_t;
-# 142 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 142 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef long intptr_t;
-# 158 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 158 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef signed char int8_t;
 
 
 
 
 typedef short int16_t;
-# 173 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 173 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef long int32_t;
 
 
@@ -27084,7 +27079,7 @@ typedef long int32_t;
 
 
 typedef long long int64_t;
-# 188 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 188 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef long long intmax_t;
 
 
@@ -27097,7 +27092,7 @@ typedef unsigned char uint8_t;
 
 
 typedef unsigned short uint16_t;
-# 209 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 209 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef unsigned long uint32_t;
 
 
@@ -27105,9 +27100,9 @@ typedef unsigned long uint32_t;
 
 
 typedef unsigned long long uint64_t;
-# 229 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 229 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef unsigned long long uintmax_t;
-# 22 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdint.h" 2 3
+# 22 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdint.h" 2 3
 
 
 typedef int8_t int_fast8_t;
@@ -27140,161 +27135,19 @@ typedef uint24_t uint_fast24_t;
 typedef uint32_t uint_least32_t;
 
 typedef uint64_t uint_least64_t;
-# 144 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdint.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/stdint.h" 1 3
+# 144 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdint.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/stdint.h" 1 3
 typedef int16_t int_fast16_t;
 typedef int32_t int_fast32_t;
 typedef uint16_t uint_fast16_t;
 typedef uint32_t uint_fast32_t;
-# 144 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdint.h" 2 3
+# 144 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdint.h" 2 3
 # 52 "./mcc_generated_files/mcc.h" 2
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdbool.h" 1 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdbool.h" 1 3
 # 53 "./mcc_generated_files/mcc.h" 2
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\conio.h" 1 3
-
-
-
-
-
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdio.h" 1 3
-# 24 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdio.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 1 3
-
-
-
-
-
-typedef void * va_list[1];
-
-
-
-
-typedef void * __isoc_va_list[1];
-# 137 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef long ssize_t;
-# 246 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef long long off_t;
-# 399 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef struct _IO_FILE FILE;
-# 24 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdio.h" 2 3
-# 52 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\stdio.h" 3
-typedef union _G_fpos64_t {
- char __opaque[16];
- double __align;
-} fpos_t;
-
-extern FILE *const stdin;
-extern FILE *const stdout;
-extern FILE *const stderr;
-
-
-
-
-
-FILE *fopen(const char *restrict, const char *restrict);
-FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
-int fclose(FILE *);
-
-int remove(const char *);
-int rename(const char *, const char *);
-
-int feof(FILE *);
-int ferror(FILE *);
-int fflush(FILE *);
-void clearerr(FILE *);
-
-int fseek(FILE *, long, int);
-long ftell(FILE *);
-void rewind(FILE *);
-
-int fgetpos(FILE *restrict, fpos_t *restrict);
-int fsetpos(FILE *, const fpos_t *);
-
-size_t fread(void *restrict, size_t, size_t, FILE *restrict);
-size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
-
-int fgetc(FILE *);
-int getc(FILE *);
-int getchar(void);
-int ungetc(int, FILE *);
-
-int fputc(int, FILE *);
-int putc(int, FILE *);
-int putchar(int);
-
-char *fgets(char *restrict, int, FILE *restrict);
-
-char *gets(char *);
-
-
-int fputs(const char *restrict, FILE *restrict);
-int puts(const char *);
-
-__attribute__((__format__(__printf__, 1, 2)))
-int printf(const char *restrict, ...);
-__attribute__((__format__(__printf__, 2, 3)))
-int fprintf(FILE *restrict, const char *restrict, ...);
-__attribute__((__format__(__printf__, 2, 3)))
-int sprintf(char *restrict, const char *restrict, ...);
-__attribute__((__format__(__printf__, 3, 4)))
-int snprintf(char *restrict, size_t, const char *restrict, ...);
-
-__attribute__((__format__(__printf__, 1, 0)))
-int vprintf(const char *restrict, __isoc_va_list);
-int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__printf__, 2, 0)))
-int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__printf__, 3, 0)))
-int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
-
-__attribute__((__format__(__scanf__, 1, 2)))
-int scanf(const char *restrict, ...);
-__attribute__((__format__(__scanf__, 2, 3)))
-int fscanf(FILE *restrict, const char *restrict, ...);
-__attribute__((__format__(__scanf__, 2, 3)))
-int sscanf(const char *restrict, const char *restrict, ...);
-
-__attribute__((__format__(__scanf__, 1, 0)))
-int vscanf(const char *restrict, __isoc_va_list);
-int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__scanf__, 2, 0)))
-int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
-
-void perror(const char *);
-
-int setvbuf(FILE *restrict, char *restrict, int, size_t);
-void setbuf(FILE *restrict, char *restrict);
-
-char *tmpnam(char *);
-FILE *tmpfile(void);
-
-
-
-
-FILE *fmemopen(void *restrict, size_t, const char *restrict);
-FILE *open_memstream(char **, size_t *);
-FILE *fdopen(int, const char *);
-FILE *popen(const char *, const char *);
-int pclose(FILE *);
-int fileno(FILE *);
-int fseeko(FILE *, off_t, int);
-off_t ftello(FILE *);
-int dprintf(int, const char *restrict, ...);
-int vdprintf(int, const char *restrict, __isoc_va_list);
-void flockfile(FILE *);
-int ftrylockfile(FILE *);
-void funlockfile(FILE *);
-int getc_unlocked(FILE *);
-int getchar_unlocked(void);
-int putc_unlocked(int, FILE *);
-int putchar_unlocked(int);
-ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
-ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
-int renameat(int, const char *, int, const char *);
-char *ctermid(char *);
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\conio.h" 1 3
 
 
 
@@ -27302,8 +27155,29 @@ char *ctermid(char *);
 
 
 
-char *tempnam(const char *, const char *);
-# 7 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\conio.h" 2 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\errno.h" 1 3
+# 12 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\errno.h" 3
+extern int errno;
+# 8 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\conio.h" 2 3
+
+# 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\\pic\\include\\__null.h" 1 3
+# 9 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\conio.h" 2 3
+
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+
+
+extern char * cgets(char *);
+extern void cputs(const char *);
 # 54 "./mcc_generated_files/mcc.h" 2
 
 # 1 "./mcc_generated_files/interrupt_manager.h" 1
@@ -28027,6 +27901,146 @@ _Bool CLC3_OutputStatusGet(void);
 # 68 "./mcc_generated_files/mcc.h" 2
 
 # 1 "./mcc_generated_files/uart1.h" 1
+# 57 "./mcc_generated_files/uart1.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 1 3
+# 24 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
+
+
+
+
+
+typedef void * va_list[1];
+
+
+
+
+typedef void * __isoc_va_list[1];
+# 137 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef long ssize_t;
+# 246 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef long long off_t;
+# 399 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct _IO_FILE FILE;
+# 24 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 2 3
+# 52 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 3
+typedef union _G_fpos64_t {
+ char __opaque[16];
+ double __align;
+} fpos_t;
+
+extern FILE *const stdin;
+extern FILE *const stdout;
+extern FILE *const stderr;
+
+
+
+
+
+FILE *fopen(const char *restrict, const char *restrict);
+FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
+int fclose(FILE *);
+
+int remove(const char *);
+int rename(const char *, const char *);
+
+int feof(FILE *);
+int ferror(FILE *);
+int fflush(FILE *);
+void clearerr(FILE *);
+
+int fseek(FILE *, long, int);
+long ftell(FILE *);
+void rewind(FILE *);
+
+int fgetpos(FILE *restrict, fpos_t *restrict);
+int fsetpos(FILE *, const fpos_t *);
+
+size_t fread(void *restrict, size_t, size_t, FILE *restrict);
+size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
+
+int fgetc(FILE *);
+int getc(FILE *);
+int getchar(void);
+int ungetc(int, FILE *);
+
+int fputc(int, FILE *);
+int putc(int, FILE *);
+int putchar(int);
+
+char *fgets(char *restrict, int, FILE *restrict);
+
+char *gets(char *);
+
+
+int fputs(const char *restrict, FILE *restrict);
+int puts(const char *);
+
+#pragma printf_check(printf) const
+#pragma printf_check(vprintf) const
+#pragma printf_check(sprintf) const
+#pragma printf_check(snprintf) const
+#pragma printf_check(vsprintf) const
+#pragma printf_check(vsnprintf) const
+
+int printf(const char *restrict, ...);
+int fprintf(FILE *restrict, const char *restrict, ...);
+int sprintf(char *restrict, const char *restrict, ...);
+int snprintf(char *restrict, size_t, const char *restrict, ...);
+
+int vprintf(const char *restrict, __isoc_va_list);
+int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
+int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
+int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
+
+int scanf(const char *restrict, ...);
+int fscanf(FILE *restrict, const char *restrict, ...);
+int sscanf(const char *restrict, const char *restrict, ...);
+int vscanf(const char *restrict, __isoc_va_list);
+int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
+int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
+
+void perror(const char *);
+
+int setvbuf(FILE *restrict, char *restrict, int, size_t);
+void setbuf(FILE *restrict, char *restrict);
+
+char *tmpnam(char *);
+FILE *tmpfile(void);
+
+
+
+
+FILE *fmemopen(void *restrict, size_t, const char *restrict);
+FILE *open_memstream(char **, size_t *);
+FILE *fdopen(int, const char *);
+FILE *popen(const char *, const char *);
+int pclose(FILE *);
+int fileno(FILE *);
+int fseeko(FILE *, off_t, int);
+off_t ftello(FILE *);
+int dprintf(int, const char *restrict, ...);
+int vdprintf(int, const char *restrict, __isoc_va_list);
+void flockfile(FILE *);
+int ftrylockfile(FILE *);
+void funlockfile(FILE *);
+int getc_unlocked(FILE *);
+int getchar_unlocked(void);
+int putc_unlocked(int, FILE *);
+int putchar_unlocked(int);
+ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
+ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
+int renameat(int, const char *, int, const char *);
+char *ctermid(char *);
+
+
+
+
+
+
+
+char *tempnam(const char *, const char *);
+# 57 "./mcc_generated_files/uart1.h" 2
 # 75 "./mcc_generated_files/uart1.h"
 typedef union {
     struct {
@@ -28087,18 +28101,18 @@ void PMD_Initialize(void);
 # 1 "main.c" 2
 
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\math.h" 1 3
-# 15 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\math.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 1 3
-# 33 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 1 3
+# 15 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 33 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef float float_t;
 
 
 
 
 typedef double double_t;
-# 15 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\math.h" 2 3
-# 42 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\math.h" 3
+# 15 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 2 3
+# 42 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 3
 int __fpclassifyf(float);
 
 
@@ -28108,7 +28122,7 @@ int __fpclassifyf(float);
 
 
 int __signbitf(float);
-# 59 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\math.h" 3
+# 59 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 3
 double acos(double);
 float acosf(float);
 long double acosl(long double);
@@ -28364,7 +28378,10 @@ long double nextafterl(long double, long double);
 double nexttoward(double, long double);
 float nexttowardf(float, long double);
 long double nexttowardl(long double, long double);
-# 323 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\math.h" 3
+
+
+
+
 double pow(double, double);
 __attribute__((nonreentrant)) float powf(float, float);
 long double powl(long double, long double);
@@ -28446,7 +28463,7 @@ long double tgammal(long double);
 double trunc(double);
 float truncf(float);
 long double truncl(long double);
-# 428 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\math.h" 3
+# 423 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\math.h" 3
 extern int signgam;
 
 double j0(double);
@@ -28459,12 +28476,12 @@ double yn(int, double);
 # 3 "main.c" 2
 
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\time.h" 1 3
-# 33 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\time.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 1 3
-# 76 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\time.h" 1 3
+# 33 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\time.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 76 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef long long time_t;
-# 293 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 293 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef void * timer_t;
 
 
@@ -28476,7 +28493,7 @@ typedef int clockid_t;
 
 
 typedef unsigned long clock_t;
-# 313 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 313 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 struct timespec { time_t tv_sec; long tv_nsec; };
 
 
@@ -28484,9 +28501,9 @@ struct timespec { time_t tv_sec; long tv_nsec; };
 
 
 typedef int pid_t;
-# 411 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\bits/alltypes.h" 3
+# 411 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef struct __locale_struct * locale_t;
-# 33 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\time.h" 2 3
+# 33 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\time.h" 2 3
 
 
 
@@ -28518,7 +28535,7 @@ struct tm *localtime (const time_t *);
 char *asctime (const struct tm *);
 char *ctime (const time_t *);
 int timespec_get(struct timespec *, int);
-# 73 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\time.h" 3
+# 73 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\time.h" 3
 size_t strftime_l (char * restrict, size_t, const char * restrict, const struct tm * restrict, locale_t);
 
 struct tm *gmtime_r (const time_t *restrict, struct tm *restrict);
@@ -28532,7 +28549,7 @@ struct itimerspec {
  struct timespec it_interval;
  struct timespec it_value;
 };
-# 102 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c99\\time.h" 3
+# 102 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\time.h" 3
 int nanosleep (const struct timespec *, struct timespec *);
 int clock_getres (clockid_t, struct timespec *);
 int clock_gettime (clockid_t, struct timespec *);
@@ -28561,25 +28578,25 @@ struct tm *getdate (const char *);
 # 5 "main.c" 2
 
 # 1 "./main.h" 1
-# 77 "./main.h"
-typedef enum{
+# 75 "./main.h"
+typedef enum {
     Straight,
     Brake,
     ReverseRight,
     ReverseLeft,
     CurveLeft,
     CurveRight
-}DriveMode;
+} DriveMode;
 
-typedef enum{
+typedef enum {
     Inverted,
     Same,
     Ratio,
     Front,
     Back
-}SteeringMode;
+} SteeringMode;
 
-typedef enum{
+typedef enum {
     OutCurve,
     BeforeCurve,
     InCurve,
@@ -28595,6 +28612,9 @@ CurveMode curveMode = OutCurve;
 
 volatile uint8_t cycle10ms = 0;
 
+
+uint8_t curveLeftCount = 0;
+uint8_t curveRightCount = 0;
 uint8_t delay = 0;
 uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
@@ -28606,7 +28626,9 @@ int16_t currentSpeed = 0;
 int16_t oldSpeed = 0;
 int16_t actMotorPow = 0;
 int16_t reverseTime = 0;
-int16_t tempCNT;
+int16_t roundTimeCount;
+
+
 
 adc_result_t BatteryVolt = 0;
 
@@ -28620,6 +28642,7 @@ _Bool checkBatt();
 int16_t actSpeed();
 void startAccell();
 void getBatteryVoltage(void);
+void checkCurveCount();
 
 void getCurve(void);
 void getReverse(void);
@@ -28633,53 +28656,52 @@ void setMotor(int16_t);
 # 6 "main.c" 2
 
 
-
 void main(void) {
     SYSTEM_Initialize();
     (INTCON0bits.GIEH = 1);
     (INTCON0bits.GIEL = 1);
     TMR4_SetInterruptHandler(TMR4_10msISR);
 
-    while(1){
+    while (1) {
         loop();
     }
 }
 
-void loop(void){
+void loop(void) {
     setMotor(0);
-    setSteering(0,Front);
-    while(PORTBbits.RB4);
+    setSteering(0, Front);
+    while (PORTBbits.RB4);
 
-    do{
-        while(!cycle10ms);
+    do {
+        while (!cycle10ms);
         cycle10ms = 0;
         getBatteryVoltage();
 
-    }while(BatteryVolt < ((3) * 409.6));
+    } while (BatteryVolt < ((3) * 409.6));
 
     startAccell();
 
     oldDistLeft = distLeft;
     oldDistRight = distRight;
     cycle10ms = 0;
-    while(1){
-        while(!cycle10ms);
+    while (1) {
+        while (!cycle10ms);
         cycle10ms = 0;
 
-        if(!PORTBbits.RB5){
+        if (!PORTBbits.RB5) {
             setSpeed = 0;
             actMotorPow = 0;
-            setSteering(0,Front);
+            setSteering(0, Front);
             break;
         }
 
-        ++tempCNT;
-        if(tempCNT > 1000){
-            tempCNT = 0;
-            printf("10s passed\n");
-        }
 
-        if(checkBatt()){
+
+
+
+
+
+        if (checkBatt()) {
             break;
         }
 
@@ -28689,78 +28711,97 @@ void loop(void){
         calcSteering();
         calcSpeed();
         calcMotorPow();
+
+        checkCurveCount();
     }
 }
 
-void TMR4_10msISR(void){
+void TMR4_10msISR(void) {
     ++cycle10ms;
+    ++roundTimeCount;
 }
 
-int16_t actSpeed(){
+int16_t actSpeed() {
     int16_t speed = 0;
-    if(smtPeriod){
-        if(CLC3CONbits.LC3OUT){
-            speed = (int16_t)((int32_t)(500000 / (int32_t)smtPeriod));
+    if (smtPeriod) {
+        if (CLC3CONbits.LC3OUT) {
+            speed = (int16_t) ((int32_t) (500000 / (int32_t) smtPeriod));
         } else {
-            speed = (int16_t)((int32_t)(-500000 / (int32_t)smtPeriod));
+            speed = (int16_t) ((int32_t) (-500000 / (int32_t) smtPeriod));
         }
     }
     return speed;
 }
 
-void getBatteryVoltage(void){
+void getBatteryVoltage(void) {
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
     printf("BVolt: %u\n", (uint16_t) BatteryVolt);
 }
 
-_Bool checkBatt(){
+_Bool checkBatt() {
     ++battCheckCount;
-    if(battCheckCount > (500)){
+    if (battCheckCount > (500)) {
         battCheckCount = 0;
         getBatteryVoltage();
-        if(BatteryVolt < (3) * 409.6){
+        if (BatteryVolt < (3) * 409.6) {
             setSpeed = 0;
-            setSteering(0,Front);
+            setSteering(0, Front);
             return 1;
         }
     }
     return 0;
 }
 
-void startAccell(){
-    setSteering(0,Front);
+void startAccell() {
+    setSteering(0, Front);
     actMotorPow = (100) - (int16_t)((250) / (10));
-    for(int16_t i = 0; i < (int16_t)((10) - ((100) / (int16_t)((250) / (10)))); ++i){
+    for (int16_t i = 0; i < (int16_t) ((10) - ((100) / (int16_t)((250) / (10)))); ++i) {
         actMotorPow += (int16_t)((250) / (10));
         setMotor(actMotorPow);
         cycle10ms = 0;
-        while(!cycle10ms);
+        while (!cycle10ms);
     }
+    printf("starAccelPower: %d", actMotorPow);
 
     cycle10ms = 0;
-    while(cycle10ms < ((30) - ((100) / (int16_t)((250) / (10)))));
+    while (cycle10ms < ((30) - ((100) / (int16_t)((250) / (10)))));
 }
 
-void getCurve(void){
+void checkCurveCount() {
+    if (distFront > 450) {
+        float roundTime = roundTimeCount / 100;
+        printf("Reset CurveCount!  |   ");
+        printf("CurveLeftCount: %u   |   ", curveLeftCount);
+        printf("CurveRightCount: %u\n", curveRightCount);
+        printf("RoundTimeCount: %f\n\n", roundTime);
+        roundTimeCount = 0;
+        curveRightCount = 0;
+        curveLeftCount = 0;
+    }
+}
+
+void getCurve(void) {
     int16_t deltaLeft;
     int16_t deltaRight;
 
-    switch (curveMode){
+    switch (curveMode) {
         case OutCurve:
-            deltaLeft = (int16_t)(distLeft - oldDistLeft);
-            deltaRight = (int16_t)(distRight - oldDistRight);
+            deltaLeft = (int16_t) (distLeft - oldDistLeft);
+            deltaRight = (int16_t) (distRight - oldDistRight);
 
 
-            if(deltaLeft > (40) && deltaLeft < (300) && oldDistLeft < (150)){
+            if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (100)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
+                ++curveLeftCount;
 
 
-            } else if(deltaRight > (40) && deltaRight < (300) && oldDistRight < (150)){
+            } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (100)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
+                ++curveRightCount;
 
 
             }
@@ -28768,39 +28809,33 @@ void getCurve(void){
 
             break;
         case BeforeCurve:
-            if(delay > (25)){
+            if (delay > (15)) {
                 delay = 0;
                 curveMode = InCurve;
 
             } else {
-                delay++;
+                ++delay;
             }
             break;
         case InCurve:
-            if(delay > (25)){
-                if(driveMode == CurveLeft){
-
-                } else if(driveMode == CurveLeft){
-
-                }
-
-                if(distLeft < (35) || distRight < (35) || distFront > (180)){
+            if (delay > (25)) {
+                if (distLeft < (35) || distRight < (35) || distFront > (180)) {
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;
 
                 }
             } else {
-                delay++;
+                ++delay;
             }
             break;
         case AfterCurve:
-            if(delay > (5)){
+            if (delay > (5)) {
                 delay = 0;
                 curveMode = OutCurve;
 
             } else {
-                delay++;
+                ++delay;
             }
             break;
     };
@@ -28808,52 +28843,52 @@ void getCurve(void){
     oldDistRight = distRight;
 }
 
-void getReverse(void){
-    if(distFront < (15)){
+void getReverse(void) {
+    if (distFront < (15)) {
         ++reverseCount;
-    }else{
+    } else {
         reverseCount = 0;
     }
 
-    if(reverseCount > (50)){
+    if (reverseCount > (50)) {
         ++reverseTime;
 
-        if(driveMode != ReverseRight && driveMode != ReverseLeft){
-            if(distLeft > distRight){
+        if (driveMode != ReverseRight && driveMode != ReverseLeft) {
+            if (distLeft > distRight) {
                 printf("ReverseRigth\n");
                 driveMode = ReverseRight;
-            }else{
+            } else {
                 printf("ReverseLeft\n");
                 driveMode = ReverseLeft;
             }
         }
 
-        if(distFront > (30) || reverseTime > (300)){
+        if (distFront > (35) || reverseTime > (300)) {
             printf("Stop Reverse\n");
-            if(distLeft > distRight){
+            if (distLeft > distRight) {
                 driveMode = CurveLeft;
-            }else{
+            } else {
                 driveMode = CurveRight;
             }
-             reverseCount = 0;
-             reverseTime = 0;
+            reverseCount = 0;
+            reverseTime = 0;
         }
     }
 }
 
-void calcSteering(void){
-    int16_t delta = (int16_t)(distLeft - distRight ) - (int16_t)((0) * 1.4142135);
+void calcSteering(void) {
+    int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) ((0) * 1.4142135);
     delta /= (1.25);
 
 
-    switch (driveMode){
+    switch (driveMode) {
         case Brake:
         case Straight:
         case CurveLeft:
         case CurveRight:
-            if(delta > (40)){
+            if (delta > (40)) {
                 delta = (40);
-            }else if(delta < -(40)){
+            } else if (delta < -(40)) {
                 delta = -(40);
             }
             break;
@@ -28861,7 +28896,7 @@ void calcSteering(void){
             break;
     }
 
-    switch (driveMode){
+    switch (driveMode) {
         case Brake:
             setSteering(delta, Ratio);
             break;
@@ -28875,14 +28910,14 @@ void calcSteering(void){
             setSteering((65), Inverted);
             break;
         case CurveLeft:
-            if(curveMode == InCurve){
+            if (curveMode == InCurve) {
                 setSteering((55), Ratio);
             } else {
                 setSteering(delta, Front);
             }
             break;
         case CurveRight:
-            if(curveMode == InCurve){
+            if (curveMode == InCurve) {
                 setSteering(-(55), Ratio);
             } else {
                 setSteering(delta, Front);
@@ -28891,32 +28926,32 @@ void calcSteering(void){
     };
 }
 
-void calcSpeed(void){
+void calcSpeed(void) {
     int16_t speed = 0;
 
-    switch (driveMode){
+    switch (driveMode) {
         case Brake:
-            if(distFront > (40)) {
+            if (distFront > (40)) {
                 driveMode = Straight;
             }
-            if(setSpeed > (100)){
-                if(setSpeed > 0 ){
+            if (setSpeed > (100)) {
+                if (setSpeed > 0) {
                     speed = setSpeed;
                     speed -= 2;
-                }else if( setSpeed > 0 && distFront < (20)){
+                } else if (setSpeed > 0 && distFront < (20)) {
                     speed = setSpeed;
                     speed -= 4;
                 }
             }
             break;
         case Straight:
-            if(distFront < (40)) {
+            if (distFront < (40)) {
                 driveMode = Brake;
             }
 
-            if(distFront > (150)){
-                speed = (int16_t)((0.9) * (distFront - (150)) + (250));
-            }else{
+            if (distFront > (150)) {
+                speed = (int16_t) ((0.9) * (distFront - (150)) + (250));
+            } else {
                 speed = (250);
             }
 
@@ -28929,23 +28964,23 @@ void calcSpeed(void){
             speed = (-125);
             break;
         case CurveLeft:
-            speed = (210);
+            speed = (200);
             break;
         case CurveRight:
-            speed = (210);
+            speed = (200);
             break;
     };
 
-    if(speed > (400)){
+    if (speed > (400)) {
         speed = (400);
     }
-    if(speed < (-250)){
+    if (speed < (-250)) {
         speed = (-250);
     }
     setSpeed = speed;
 }
 
-void calcMotorPow(void){
+void calcMotorPow(void) {
     int16_t setSpeedDelta = setSpeed - currentSpeed;
     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
     int8_t addMPow = 0;
@@ -28954,40 +28989,40 @@ void calcMotorPow(void){
 
 
 
- addMPow = (int8_t)((0.025) * (setSpeedDelta - (oldSpeedDelta / (2))));
+    addMPow = (int8_t) ((0.025) * (setSpeedDelta - (oldSpeedDelta / (2))));
 
-    if(addMPow > (3)){
+    if (addMPow > (3)) {
         addMPow = (3);
-    }else if(addMPow < -(3)){
+    } else if (addMPow < -(3)) {
         addMPow = -(3);
     }
 
- actMotorPow = actMotorPow + addMPow;
+    actMotorPow = actMotorPow + addMPow;
 
- if(actMotorPow > (700)){
-  actMotorPow = (700);
- }else if(actMotorPow < (-400)){
-  actMotorPow = (-400);
- }
+    if (actMotorPow > (700)) {
+        actMotorPow = (700);
+    } else if (actMotorPow < (-400)) {
+        actMotorPow = (-400);
+    }
 
     setMotor(actMotorPow);
 
     oldSpeed = currentSpeed;
 }
 
-void setMotor(int16_t motorPower){
-    if(motorPower > (100)){
-       if(motorPower > (700)){
+void setMotor(int16_t motorPower) {
+    if (motorPower > (100)) {
+        if (motorPower > (700)) {
             motorPower = (700);
         }
-        PWM7_LoadDutyValue((uint16_t)(motorPower));
+        PWM7_LoadDutyValue((uint16_t) (motorPower));
         PWM8_LoadDutyValue(0);
-    } else if(motorPower < -(100)){
-        if(motorPower < (-400)){
+    } else if (motorPower < -(100)) {
+        if (motorPower < (-400)) {
             motorPower = (-400);
         }
         PWM7_LoadDutyValue(0);
-        PWM8_LoadDutyValue((uint16_t)(-motorPower));
+        PWM8_LoadDutyValue((uint16_t) (-motorPower));
     } else {
         PWM7_LoadDutyValue(0);
         PWM8_LoadDutyValue(0);
@@ -28997,9 +29032,10 @@ void setMotor(int16_t motorPower){
 
 
 
-void setSteering(int16_t steering, SteeringMode steeringMode){
+
+void setSteering(int16_t steering, SteeringMode steeringMode) {
     int16_t steeringF = 0, steeringB = 0;
-    switch(steeringMode){
+    switch (steeringMode) {
         case Inverted:
             steeringF = (+steering);
             steeringB = -steering;
@@ -29010,7 +29046,7 @@ void setSteering(int16_t steering, SteeringMode steeringMode){
             break;
         case Ratio:
             steeringF = (+steering);
-            steeringB = (-steering / (2));
+            steeringB = (-steering / (1.5));
             break;
         case Front:
             steeringF = (+steering);
@@ -29026,19 +29062,19 @@ void setSteering(int16_t steering, SteeringMode steeringMode){
             break;
     }
 
-    if(steeringF > ((65))){
+    if (steeringF > ((65))) {
         steeringF = ((65));
-    } else if(steeringF < (-(65))){
+    } else if (steeringF < (-(65))) {
         steeringF = (-(65));
     }
 
-    if(steeringB > ((40))){
+    if (steeringB > ((40))) {
         steeringB = ((40));
-    } else if(steeringB < (-(40))){
+    } else if (steeringB < (-(40))) {
         steeringB = (-(40));
     }
 
 
-    PWM6_LoadDutyValue((uint16_t)((352) + steeringF));
-    PWM5_LoadDutyValue((uint16_t)((357) + steeringB));
+    PWM6_LoadDutyValue((uint16_t) ((352) + steeringF));
+    PWM5_LoadDutyValue((uint16_t) ((357) + steeringB));
 }
