@@ -92,6 +92,7 @@ bool checkBatt() {
     if (battCheckCount > BattCheckPeriod) {
         battCheckCount = 0;
         getBatteryVoltage();
+        
         if (BatteryVolt < minBatValue * 409.6) {
             setSpeed = 0;
             setSteering(0, Front);
@@ -104,25 +105,25 @@ bool checkBatt() {
 void startAccell() {
     setSteering(0, Front);
     actMotorPow = MinMPower - startAccellStep;
-    for (int16_t i = 0; i < (int16_t) (startAccellSteps - (MinMPower / startAccellStep)); ++i) {
+    for (int16_t i = 0; i <= (int16_t) (startAccellSteps - (MinMPower / startAccellStep)); ++i) {
         actMotorPow += startAccellStep;
         setMotor(actMotorPow);
         cycle10ms = 0;
         while (!cycle10ms);
     }
-    printf("starAccelPower: %d", actMotorPow);
+    printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
     while (cycle10ms < (startAccelTime - (MinMPower / startAccellStep)));
 }
 
 void checkCurveCount() {
-    if (distFront > 450) {
+    if (distFront > 480 && roundTimeCount > 500 ) {
         float roundTime = roundTimeCount / 100;
         printf("Reset CurveCount!  |   ");
         printf("CurveLeftCount: %u   |   ", curveLeftCount);
         printf("CurveRightCount: %u\n", curveRightCount);
-        printf("RoundTimeCount: %f\n\n", roundTime);
+        printf("RoundTime: %f\n\n", roundTime);
         roundTimeCount = 0;
         curveRightCount = 0;
         curveLeftCount = 0;
@@ -195,7 +196,7 @@ void getCurve(void) {
 void getReverse(void) {
     if (distFront < startReverseDist) {
         ++reverseCount;
-    } else {
+    } else if(driveMode != ReverseRight && driveMode != ReverseLeft) {
         reverseCount = 0;
     }
 
@@ -253,10 +254,10 @@ void calcSteering(void) {
             setSteering(delta, Front);
             break;
         case ReverseRight:
-            setSteering(maxSteeringF, Inverted);
+            setSteering(-curveSteering, Inverted);
             break;
         case ReverseLeft:
-            setSteering(maxSteeringF, Inverted);
+            setSteering(curveSteering, Inverted);
             break;
         case CurveLeft:
             if (curveMode == InCurve) {
@@ -360,13 +361,13 @@ void calcMotorPow(void) {
 }
 
 void setMotor(int16_t motorPower) {
-    if (motorPower > MinMPower) {
+    if (motorPower >= MinMPower) {
         if (motorPower > maxMPowForward) {
             motorPower = maxMPowForward;
         }
         PWM7_LoadDutyValue((uint16_t) (motorPower));
         PWM8_LoadDutyValue(0);
-    } else if (motorPower < -MinMPower) {
+    } else if (motorPower <= -MinMPower) {
         if (motorPower < maxMPowBackward) {
             motorPower = maxMPowBackward;
         }
