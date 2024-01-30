@@ -10,7 +10,7 @@
 //all speed Values are in [unknown]
 
 
-#define minBatValue                    (7.2)     // Mindestspg in Volt adc = (vbat * 409.6)
+#define minBatValue                    (7.4)     // Mindestspg in Volt adc = (vbat * 409.6)
 #define BattCheckPeriod                (500)     
 
 
@@ -18,7 +18,7 @@
 #define steeringBOffset                (357)     // höher = links | niedriger = rechts
 #define maxSteeringF                   (65)
 #define maxSteeringB                   (40)
-#define maxSteeringStraight            (40)      //kann beim geradeaus fahren nicht mehr lenken
+#define maxSteeringStraight            (40)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                  (1.25)
 #define steeringDivisor                (1.25)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
@@ -35,7 +35,7 @@
 #define defaultMotorPowerBackward      (-150)
 
 #define maxAddMPow                     (3)
-#define MotorPowFactor                 (0.025)
+#define MotorPowFactor                 (0.020)
 #define oldSpeedDeltaDivisor           (2)
 #define MinMPower                      (100) 
 
@@ -47,15 +47,15 @@
 #define maxStartCurveDelta             (300)
 #define MaxOldDist                     (100)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveDist                   (45)      // distL || distR < endKurveValue --> Kurvenende
-#define endCurveDistFront              (180)     //distFront > endCurveDistFront   --> Kurvenende
-#define curveSteering                  (55)       
+#define endCurveDistFront              (300)     //distFront > endCurveDistFront   --> Kurvenende
+#define curveSteering                  (50)       
 #define curveSpeed                     (200)
 
 #define startReverseDist               (15)      // distFront < startReverseDist --> reverseCount++
 #define minReverseTime                 (50)
 #define stopReverseDist                (35)      // distFront > stopReverseDist  --> fahrModus = Gerade
 #define reverseSpeed                   (-125)
-#define maxReverseTime                 (500)
+#define maxReverseTime                 (300)
 
 
 #define speedIncrease                  (0.85)
@@ -70,7 +70,7 @@
 #define startAccelTime                 (30)       //how long the function runs in total
 #define startMPower                    (240)      //to what MPow the function accelerates
 #define startAccellSteps               (20)       //in how many steps does the function accelerate to startMPower
-#define startAccellStep     (int16_t)(startMPower / startAccellSteps)   //increment Mpow by this value
+#define startAccellStep     (int16_t)(startMPower / startAccellSteps)   //increment AcctMpow by this value
 
 typedef enum {
     Straight,

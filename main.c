@@ -299,7 +299,7 @@ void calcSpeed(void) {
                 driveMode = Brake;
             }
 
-            if (distFront > MinDistAccel) {
+            if (distFront >= MinDistAccel) {
                 speed = (int16_t) (speedIncrease * (distFront - MinDistAccel) + MinStraightSpeed);
             } else {
                 speed = MinStraightSpeed;
