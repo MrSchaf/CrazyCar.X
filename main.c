@@ -28,7 +28,7 @@ void loop(void) {
         getBatteryVoltage();
     } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
 
-//    startAccell();
+    startAccell();
 
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -87,7 +87,7 @@ bool checkBatt() {
         battCheckCount = 0;
         getBatteryVoltage();
         
-        if (BatteryVolt < minBatValue * 409.6) {
+        if (BatteryVolt < minBatValue * 409.6f) {
             setSpeed = 0;
             setSteering(0, Front);
             return true;
@@ -102,6 +102,7 @@ void startAccell() {
     for (int16_t i = 0; i <= (int16_t) (startAccellSteps - (MinMPower / startAccellStep)); ++i) {
         actMotorPow += startAccellStep;
         setMotor(actMotorPow);
+        calcSteering();
         cycle10ms = 0;
         while (!cycle10ms);
     }
@@ -132,8 +133,8 @@ void getCurve(void) {
         case OutCurve:
             deltaLeft = (int16_t) (distLeft - oldDistLeft);
             deltaRight = (int16_t) (distRight - oldDistRight);
-//            printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
-
+            //printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
+            delay = 0;
             if (deltaLeft > startCurveDelta && deltaLeft < maxStartCurveDelta && oldDistLeft < MaxOldDist) {
                 delay = 0;
                 curveMode = BeforeCurve;
@@ -177,8 +178,6 @@ void getCurve(void) {
                     driveMode = Straight;
                     printf("AfterCurve\n");
                 }
-            } else {
-                
             }
             ++delay;
             break;
@@ -267,14 +266,14 @@ void calcSteering(void) {
             if (curveMode == InCurve) {
                 setSteering(curveSteering, Ratio);
             } else {
-                setSteering(-5, Front);
+                setSteering(delta, Ratio);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
                 setSteering(-curveSteering, Ratio);
             } else {
-                setSteering(5, Front);
+                setSteering(delta, Ratio);
             }
             break;
     };

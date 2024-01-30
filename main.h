@@ -7,7 +7,7 @@
 //all Time Values are in [10ms]
 //all speed Values are in [unknown]
 
-#define minBatValue                     (6.5)     // Mindestspg in Volt adc = (vbat * 409.6)
+#define minBatValue                     (6.8)     // Mindestspg in Volt adc = (vbat * 409.6)
 #define BattCheckPeriod                 (500)     
 
 
@@ -34,15 +34,15 @@
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
-#define setDelayStart                   (1)       // Delay bevor man zu Lenken beginnt
-#define setDelayEnd                     (35)      // Delay bevor man die Kurve abbrechen kann
+#define setDelayStart                   (10)       // Delay bevor man zu Lenken beginnt
+#define setDelayEnd                     (30)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
 #define startCurveDelta                 (40)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta              (200)
 #define MaxOldDist                      (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
-#define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
-#define endCurveDistFront               (300)     //distFront > endCurveDistFront   --> Kurvenende
+#define endCurveDist                    (50)      // distL || distR < endKurveValue --> Kurvenende
+#define endCurveDistFront               (250)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                   (60)       
 #define curveSpeed                      (200)
 
@@ -53,9 +53,9 @@
 #define maxReverseTime                  (300)
 
 
-#define speedIncrease                   (0.4)
-#define MinDistAccel                    (175)
-#define MinStraightSpeed                (275)
+#define speedIncrease                   (0.5)
+#define MinDistAccel                    (200)
+#define MinStraightSpeed                (300)
 
 
 #define BrakeDistance                   (30)

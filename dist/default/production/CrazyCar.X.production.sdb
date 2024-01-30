@@ -239,19 +239,21 @@ channel_FVR_Buffer2 63
 [v _getBatteryVoltage getBatteryVoltage `(v  1 e 1 0 ]
 "84
 [v _checkBatt checkBatt `(a  1 e 1 0 ]
-"127
+"99
+[v _startAccell startAccell `(v  1 e 1 0 ]
+"128
 [v _getCurve getCurve `(v  1 e 1 0 ]
-"199
+"198
 [v _getReverse getReverse `(v  1 e 1 0 ]
-"233
+"232
 [v _calcSteering calcSteering `(v  1 e 1 0 ]
-"283
+"282
 [v _calcSpeed calcSpeed `(v  1 e 1 0 ]
-"337
+"336
 [v _calcMotorPow calcMotorPow `(v  1 e 1 0 ]
-"368
+"367
 [v _setMotor setMotor `(v  1 e 1 0 ]
-"391
+"390
 [v _setSteering setSteering `(v  1 e 1 0 ]
 "62 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/adcc.c
 [v _ADCC_Initialize ADCC_Initialize `(v  1 e 1 0 ]
@@ -1727,26 +1729,63 @@ channel_FVR_Buffer2 63
 {
 "60
 } 0
-"199
+"99
+[v _startAccell startAccell `(v  1 e 1 0 ]
+{
+"102
+[v startAccell@i i `s  1 a 2 48 ]
+"113
+} 0
+"232
+[v _calcSteering calcSteering `(v  1 e 1 0 ]
+{
+"233
+[v calcSteering@delta delta `s  1 a 2 46 ]
+"280
+} 0
+"198
 [v _getReverse getReverse `(v  1 e 1 0 ]
 {
-"231
+"230
 } 0
-"127
+"128
 [v _getCurve getCurve `(v  1 e 1 0 ]
 {
-"129
+"130
 [v getCurve@deltaRight deltaRight `s  1 a 2 18 ]
-"128
+"129
 [v getCurve@deltaLeft deltaLeft `s  1 a 2 16 ]
-"197
+"196
 } 0
 "84
 [v _checkBatt checkBatt `(a  1 e 1 0 ]
 {
 "97
 } 0
-"79
+"390
+[v _setSteering setSteering `(v  1 e 1 0 ]
+{
+"391
+[v setSteering@steeringB steeringB `s  1 a 2 42 ]
+[v setSteering@steeringF steeringF `s  1 a 2 40 ]
+"390
+[v setSteering@steering steering `s  1 p 2 35 ]
+[v setSteering@steeringMode steeringMode `E17305  1 p 1 37 ]
+"434
+} 0
+"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm6.c
+[v _PWM6_LoadDutyValue PWM6_LoadDutyValue `(v  1 e 1 0 ]
+{
+[v PWM6_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
+"81
+} 0
+"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm5.c
+[v _PWM5_LoadDutyValue PWM5_LoadDutyValue `(v  1 e 1 0 ]
+{
+[v PWM5_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
+"81
+} 0
+"79 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _getBatteryVoltage getBatteryVoltage `(v  1 e 1 0 ]
 {
 "82
@@ -1765,9 +1804,9 @@ channel_FVR_Buffer2 63
 {
 "1393
 [v vfprintf@cfmt cfmt `*.32uc  1 a 2 131 ]
-[s S3460 _IO_FILE 0 ]
+[s S3464 _IO_FILE 0 ]
 "1390
-[v vfprintf@fp fp `*.2S3460  1 p 2 0 ]
+[v vfprintf@fp fp `*.2S3464  1 p 2 0 ]
 [v vfprintf@fmt fmt `*.32Cuc  1 p 2 2 ]
 [v vfprintf@ap ap `*.39*.39v  1 p 2 4 ]
 "1404
@@ -1782,9 +1821,9 @@ channel_FVR_Buffer2 63
 "694
 [v vfpfcnvrt@ct ct `[3]uc  1 a 3 127 ]
 [v vfpfcnvrt@c c `uc  1 a 1 130 ]
-[s S3460 _IO_FILE 0 ]
+[s S3464 _IO_FILE 0 ]
 "692
-[v vfpfcnvrt@fp fp `*.2S3460  1 p 2 103 ]
+[v vfpfcnvrt@fp fp `*.2S3464  1 p 2 103 ]
 [v vfpfcnvrt@fmt fmt `*.39*.32uc  1 p 2 105 ]
 [v vfpfcnvrt@ap ap `*.39*.39v  1 p 2 107 ]
 "1387
@@ -1825,9 +1864,9 @@ channel_FVR_Buffer2 63
 "334
 [v efgtoa@mode mode `uc  1 a 1 80 ]
 [v efgtoa@nmode nmode `uc  1 a 1 79 ]
-[s S3460 _IO_FILE 0 ]
+[s S3464 _IO_FILE 0 ]
 "332
-[v efgtoa@fp fp `*.2S3460  1 p 2 35 ]
+[v efgtoa@fp fp `*.2S3464  1 p 2 35 ]
 [v efgtoa@f f `d  1 p 4 37 ]
 [v efgtoa@c c `uc  1 p 1 41 ]
 "525
@@ -1859,9 +1898,9 @@ channel_FVR_Buffer2 63
 "3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\floorf.c
 [v _floorf floorf `(f  1 e 4 0 ]
 {
-[u S3605 . 4 `f 1 f 4 0 `ul 1 i 4 0 ]
+[u S3609 . 4 `f 1 f 4 0 `ul 1 i 4 0 ]
 "5
-[v floorf@u u `S3605  1 a 4 25 ]
+[v floorf@u u `S3609  1 a 4 25 ]
 "7
 [v floorf@m m `ul  1 a 4 19 ]
 "6
@@ -1869,21 +1908,21 @@ channel_FVR_Buffer2 63
 "3
 [v floorf@x x `f  1 p 4 53 ]
 "4
-[v floorf@F527 F527 `S3605  1 s 4 F527 ]
+[v floorf@F527 F527 `S3609  1 s 4 F527 ]
 "27
 } 0
 "4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\__fpclassifyf.c
 [v ___fpclassifyf __fpclassifyf `(i  1 e 2 0 ]
 {
-[u S3605 . 4 `f 1 f 4 0 `ul 1 i 4 0 ]
+[u S3609 . 4 `f 1 f 4 0 `ul 1 i 4 0 ]
 "6
-[v ___fpclassifyf@u u `S3605  1 a 4 29 ]
+[v ___fpclassifyf@u u `S3609  1 a 4 29 ]
 "7
 [v ___fpclassifyf@e e `i  1 a 2 27 ]
 "4
 [v ___fpclassifyf@x x `f  1 p 4 19 ]
 "5
-[v ___fpclassifyf@F465 F465 `S3605  1 s 4 F465 ]
+[v ___fpclassifyf@F465 F465 `S3609  1 s 4 F465 ]
 "11
 } 0
 "245 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
@@ -1913,6 +1952,26 @@ channel_FVR_Buffer2 63
 [v ___fleq@ff2 ff2 `d  1 p 4 23 ]
 "12
 } 0
+"11 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+{
+"21
+[v ___fldiv@grs grs `ul  1 a 4 7 ]
+"22
+[v ___fldiv@rem rem `ul  1 a 4 0 ]
+"20
+[v ___fldiv@new_exp new_exp `s  1 a 2 5 ]
+"19
+[v ___fldiv@aexp aexp `uc  1 a 1 12 ]
+"18
+[v ___fldiv@bexp bexp `uc  1 a 1 11 ]
+"16
+[v ___fldiv@sign sign `uc  1 a 1 4 ]
+"11
+[v ___fldiv@b b `d  1 p 4 41 ]
+[v ___fldiv@a a `d  1 p 4 45 ]
+"185
+} 0
 "7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\awmod.c
 [v ___awmod __awmod `(i  1 e 2 0 ]
 {
@@ -1934,9 +1993,9 @@ channel_FVR_Buffer2 63
 [v dtoa@s s `i  1 a 2 16 ]
 [v dtoa@w w `i  1 a 2 14 ]
 [v dtoa@p p `i  1 a 2 12 ]
-[s S3460 _IO_FILE 0 ]
+[s S3464 _IO_FILE 0 ]
 "287
-[v dtoa@fp fp `*.2S3460  1 p 2 0 ]
+[v dtoa@fp fp `*.2S3464  1 p 2 0 ]
 [v dtoa@d d `o  1 p 8 2 ]
 "328
 } 0
@@ -1946,9 +2005,9 @@ channel_FVR_Buffer2 63
 "74
 [v pad@w w `i  1 a 2 46 ]
 [v pad@i i `i  1 a 2 44 ]
-[s S3460 _IO_FILE 0 ]
+[s S3464 _IO_FILE 0 ]
 "72
-[v pad@fp fp `*.2S3460  1 p 2 37 ]
+[v pad@fp fp `*.2S3464  1 p 2 37 ]
 [v pad@buf buf `*.39uc  1 p 2 39 ]
 [v pad@p p `i  1 p 2 41 ]
 "95
@@ -1971,16 +2030,16 @@ channel_FVR_Buffer2 63
 [v fputs@c c `uc  1 a 1 34 ]
 "8
 [v fputs@s s `*.39Cuc  1 p 2 30 ]
-[s S3443 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
-[v fputs@fp fp `*.2S3443  1 p 2 32 ]
+[s S3447 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputs@fp fp `*.2S3447  1 p 2 32 ]
 "19
 } 0
 "8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\nf_fputc.c
 [v _fputc fputc `(i  1 e 2 0 ]
 {
 [v fputc@c c `i  1 p 2 21 ]
-[s S3443 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
-[v fputc@fp fp `*.2S3443  1 p 2 23 ]
+[s S3447 _IO_FILE 6 `*.2uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputc@fp fp `*.2S3447  1 p 2 23 ]
 "24
 } 0
 "230 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/uart1.c
@@ -2039,62 +2098,12 @@ channel_FVR_Buffer2 63
 [v ADCC_GetSingleConversion@channel channel `E16058  1 a 1 23 ]
 "160
 } 0
-"233 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
-[v _calcSteering calcSteering `(v  1 e 1 0 ]
-{
-"234
-[v calcSteering@delta delta `s  1 a 2 46 ]
-"281
-} 0
-"391
-[v _setSteering setSteering `(v  1 e 1 0 ]
-{
-"392
-[v setSteering@steeringB steeringB `s  1 a 2 42 ]
-[v setSteering@steeringF steeringF `s  1 a 2 40 ]
-"391
-[v setSteering@steering steering `s  1 p 2 35 ]
-[v setSteering@steeringMode steeringMode `E17305  1 p 1 37 ]
-"435
-} 0
-"11 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcdiv.c
-[v ___fldiv __fldiv `(d  1 e 4 0 ]
-{
-"21
-[v ___fldiv@grs grs `ul  1 a 4 7 ]
-"22
-[v ___fldiv@rem rem `ul  1 a 4 0 ]
-"20
-[v ___fldiv@new_exp new_exp `s  1 a 2 5 ]
-"19
-[v ___fldiv@aexp aexp `uc  1 a 1 12 ]
-"18
-[v ___fldiv@bexp bexp `uc  1 a 1 11 ]
-"16
-[v ___fldiv@sign sign `uc  1 a 1 4 ]
-"11
-[v ___fldiv@b b `d  1 p 4 41 ]
-[v ___fldiv@a a `d  1 p 4 45 ]
-"185
-} 0
-"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm6.c
-[v _PWM6_LoadDutyValue PWM6_LoadDutyValue `(v  1 e 1 0 ]
-{
-[v PWM6_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
-"81
-} 0
-"74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm5.c
-[v _PWM5_LoadDutyValue PWM5_LoadDutyValue `(v  1 e 1 0 ]
-{
-[v PWM5_LoadDutyValue@dutyValue dutyValue `us  1 p 2 19 ]
-"81
-} 0
-"283 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
+"282 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _calcSpeed calcSpeed `(v  1 e 1 0 ]
 {
-"284
+"283
 [v calcSpeed@speed speed `s  1 a 2 39 ]
-"335
+"334
 } 0
 "10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
@@ -2112,22 +2121,22 @@ channel_FVR_Buffer2 63
 [v ___fladd@a a `d  1 p 4 17 ]
 "237
 } 0
-"337 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
+"336 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\main.c
 [v _calcMotorPow calcMotorPow `(v  1 e 1 0 ]
 {
-"341
-[v calcMotorPow@oldSpeedDelta oldSpeedDelta `s  1 a 2 39 ]
 "340
+[v calcMotorPow@oldSpeedDelta oldSpeedDelta `s  1 a 2 39 ]
+"339
 [v calcMotorPow@setSpeedDelta setSpeedDelta `s  1 a 2 37 ]
-"342
+"341
 [v calcMotorPow@addMPow addMPow `c  1 a 1 41 ]
-"366
+"365
 } 0
-"368
+"367
 [v _setMotor setMotor `(v  1 e 1 0 ]
 {
 [v setMotor@motorPower motorPower `s  1 p 2 23 ]
-"386
+"385
 } 0
 "74 C:\Users\morit\OneDrive - HTBLuVA Salzburg\Dokumente\HTL 4\CrazyCar\Code\C00\CrazyCar.X\mcc_generated_files/pwm8.c
 [v _PWM8_LoadDutyValue PWM8_LoadDutyValue `(v  1 e 1 0 ]
@@ -2189,17 +2198,17 @@ channel_FVR_Buffer2 63
 "8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
 {
-[s S3304 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
+[s S3308 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
 "13
-[s S3309 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
-[u S3312 . 4 `l 1 i 4 0 `d 1 f 4 0 `S3304 1 fAsBytes 4 0 `S3309 1 fAsWords 4 0 ]
-[v ___flmul@prod prod `S3312  1 a 4 7 ]
+[s S3313 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
+[u S3316 . 4 `l 1 i 4 0 `d 1 f 4 0 `S3308 1 fAsBytes 4 0 `S3313 1 fAsWords 4 0 ]
+[v ___flmul@prod prod `S3316  1 a 4 7 ]
 "12
 [v ___flmul@grs grs `ul  1 a 4 2 ]
-[s S3380 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
+[s S3384 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
 "14
-[u S3383 . 2 `s 1 i 2 0 `us 1 n 2 0 `S3380 1 nAsBytes 2 0 ]
-[v ___flmul@temp temp `S3383  1 a 2 11 ]
+[u S3387 . 2 `s 1 i 2 0 `us 1 n 2 0 `S3384 1 nAsBytes 2 0 ]
+[v ___flmul@temp temp `S3387  1 a 2 11 ]
 "10
 [v ___flmul@bexp bexp `uc  1 a 1 6 ]
 "11
