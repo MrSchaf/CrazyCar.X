@@ -28578,7 +28578,7 @@ struct tm *getdate (const char *);
 # 5 "main.c" 2
 
 # 1 "./main.h" 1
-# 75 "./main.h"
+# 70 "./main.h"
 typedef enum {
     Straight,
     Brake,
@@ -28628,10 +28628,7 @@ int16_t oldSpeed = 0;
 int16_t actMotorPow = 0;
 int16_t reverseTime = 0;
 
-
-
 adc_result_t BatteryVolt = 0;
-
 
 
 void TMR4_10msISR(void);
@@ -28675,9 +28672,9 @@ void loop(void) {
     do {
         while (!cycle10ms);
         cycle10ms = 0;
-        getBatteryVoltage();
 
-    } while (BatteryVolt < ((7.2) * 409.6));
+        getBatteryVoltage();
+    } while (BatteryVolt < ((7.4) * 409.6));
 
     startAccell();
 
@@ -28735,7 +28732,7 @@ int16_t actSpeed() {
 
 void getBatteryVoltage(void) {
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-    printf("BVolt: %u\n", (uint16_t) BatteryVolt);
+
 }
 
 _Bool checkBatt() {
@@ -28744,7 +28741,7 @@ _Bool checkBatt() {
         battCheckCount = 0;
         getBatteryVoltage();
 
-        if (BatteryVolt < (7.2) * 409.6) {
+        if (BatteryVolt < (7.4) * 409.6) {
             setSpeed = 0;
             setSteering(0, Front);
             return 1;
@@ -28765,7 +28762,7 @@ void startAccell() {
     printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
-    while (cycle10ms < ((30) - ((100) / (int16_t)((240) / (20)))));
+    while (cycle10ms < ((30) - (((240) - (100)) / (int16_t)((240) / (20)))));
 }
 
 void checkCurveCount() {
@@ -28791,14 +28788,14 @@ void getCurve(void) {
             deltaRight = (int16_t) (distRight - oldDistRight);
 
 
-            if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (100)) {
+            if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
                 ++curveLeftCount;
 
 
-            } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (100)) {
+            } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
@@ -28810,7 +28807,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay > (15)) {
+            if (delay >= (15)) {
                 delay = 0;
                 curveMode = InCurve;
 
@@ -28819,8 +28816,8 @@ void getCurve(void) {
             }
             break;
         case InCurve:
-            if (delay > (20)) {
-                if (distLeft < (45) || distRight < (45) || distFront > (180)) {
+            if (delay >= (20)) {
+                if (distLeft < (45) || distRight < (45) || distFront > (300)) {
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;
@@ -28831,7 +28828,7 @@ void getCurve(void) {
             }
             break;
         case AfterCurve:
-            if (delay > (1)) {
+            if (delay >= (1)) {
                 delay = 0;
                 curveMode = OutCurve;
 
@@ -28864,13 +28861,14 @@ void getReverse(void) {
             }
         }
 
-        if (distFront > (35) || reverseTime > (500)) {
+        if (distFront > (35) || reverseTime > (300)) {
             printf("Stop Reverse\n");
             if (distLeft > distRight) {
                 driveMode = CurveLeft;
             } else {
                 driveMode = CurveRight;
             }
+
             reverseCount = 0;
             reverseTime = 0;
         }
@@ -28879,7 +28877,7 @@ void getReverse(void) {
 
 void calcSteering(void) {
     int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) ((0) * 1.4142135);
-    delta /= (1.25);
+    delta /= (1);
 
 
     switch (driveMode) {
@@ -28905,21 +28903,21 @@ void calcSteering(void) {
             setSteering(delta, Front);
             break;
         case ReverseRight:
-            setSteering(-(55), Inverted);
+            setSteering(-(50), Inverted);
             break;
         case ReverseLeft:
-            setSteering((55), Inverted);
+            setSteering((50), Inverted);
             break;
         case CurveLeft:
             if (curveMode == InCurve) {
-                setSteering((55), Ratio);
+                setSteering((50), Ratio);
             } else {
                 setSteering(delta, Front);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
-                setSteering(-(55), Ratio);
+                setSteering(-(50), Ratio);
             } else {
                 setSteering(delta, Front);
             }
@@ -28936,12 +28934,11 @@ void calcSpeed(void) {
                 driveMode = Straight;
             }
             if (setSpeed > (115)) {
-                if (setSpeed > 0) {
                     speed = setSpeed;
-                    speed -= 2;
-                } else if (setSpeed > 0 && distFront < (15)) {
-                    speed = setSpeed;
+                if (distFront < (15)) {
                     speed -= 4;
+                } else {
+                    speed -= 2;
                 }
             }
             break;
@@ -28950,12 +28947,11 @@ void calcSpeed(void) {
                 driveMode = Brake;
             }
 
-            if (distFront > (150)) {
+            if (distFront >= (150)) {
                 speed = (int16_t) ((0.85) * (distFront - (150)) + (275));
             } else {
                 speed = (275);
             }
-
 
             break;
         case ReverseRight:
@@ -28982,15 +28978,16 @@ void calcSpeed(void) {
 }
 
 void calcMotorPow(void) {
+    currentSpeed = actSpeed();
+
     int16_t setSpeedDelta = setSpeed - currentSpeed;
     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
     int8_t addMPow = 0;
 
-    currentSpeed = actSpeed();
 
 
 
-    addMPow = (int8_t) ((0.025) * (setSpeedDelta - (oldSpeedDelta / (2))));
+    addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
 
     if (addMPow > (3)) {
         addMPow = (3);
@@ -28998,7 +28995,7 @@ void calcMotorPow(void) {
         addMPow = -(3);
     }
 
-    actMotorPow = actMotorPow + addMPow;
+    actMotorPow += addMPow;
 
     if (actMotorPow > (700)) {
         actMotorPow = (700);
@@ -29029,7 +29026,6 @@ void setMotor(int16_t motorPower) {
         PWM8_LoadDutyValue(0);
     }
 }
-
 
 
 

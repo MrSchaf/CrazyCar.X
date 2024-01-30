@@ -1,14 +1,11 @@
-
 #ifndef XC_HEADER_TEMPLATE_H
 #define	XC_HEADER_TEMPLATE_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 
-
 //all Distance Values are in[cm]
 //all Time Values are in [10ms]
 //all speed Values are in [unknown]
-
 
 #define minBatValue                    (7.4)     // Mindestspg in Volt adc = (vbat * 409.6)
 #define BattCheckPeriod                (500)     
@@ -20,10 +17,8 @@
 #define maxSteeringB                   (40)
 #define maxSteeringStraight            (40)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                  (1.25)
-#define steeringDivisor                (1.25)       // distLeft - distRight /= lenkungDivisor;
+#define steeringDivisor                (1)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                   (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
-
-
 
 
 #define maxMPowForward                 (700)
@@ -45,7 +40,7 @@
 
 #define startCurveDelta                (30)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta             (300)
-#define MaxOldDist                     (100)     //  && oldDistLeft < MaxOldDist)  --> Kurv
+#define MaxOldDist                     (125)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveDist                   (45)      // distL || distR < endKurveValue --> Kurvenende
 #define endCurveDistFront              (300)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                  (50)       
@@ -121,10 +116,7 @@ int16_t oldSpeed = 0;
 int16_t actMotorPow = 0;
 int16_t reverseTime = 0;
 
-
-
 adc_result_t BatteryVolt = 0;
-
 
 
 void TMR4_10msISR(void);
@@ -147,6 +139,4 @@ void calcMotorPow(void);
 void setSteering(int16_t, SteeringMode);
 void setMotor(int16_t);
 
-
 #endif	/* XC_HEADER_TEMPLATE_H */
-
