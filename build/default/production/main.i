@@ -28578,14 +28578,16 @@ struct tm *getdate (const char *);
 # 5 "main.c" 2
 
 # 1 "./main.h" 1
-# 70 "./main.h"
+# 75 "./main.h"
 typedef enum {
     Straight,
     Brake,
     ReverseRight,
     ReverseLeft,
     CurveLeft,
-    CurveRight
+    CurveRight,
+    FollowLeft,
+    FollowRight
 } DriveMode;
 
 typedef enum {
@@ -28620,6 +28622,8 @@ uint8_t delay = 0;
 uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
+
+uint16_t followCount = 0;
 
 int16_t motPow = 0;
 int16_t setSpeed = 0;
@@ -28752,9 +28756,9 @@ _Bool checkBatt() {
 
 void startAccell() {
     setSteering(0, Front);
-    actMotorPow = (100) - (int16_t)((240) / (20));
-    for (int16_t i = 0; i <= (int16_t) ((20) - ((100) / (int16_t)((240) / (20)))); ++i) {
-        actMotorPow += (int16_t)((240) / (20));
+    actMotorPow = (100) - (int16_t) ((240) / (20));
+    for (int16_t i = 0; i <= (int16_t) ((20) - ((100) / (int16_t) ((240) / (20)))); ++i) {
+        actMotorPow += (int16_t) ((240) / (20));
         setMotor(actMotorPow);
         cycle10ms = 0;
         while (!cycle10ms);
@@ -28762,7 +28766,7 @@ void startAccell() {
     printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
-    while (cycle10ms < ((30) - (((240) - (100)) / (int16_t)((240) / (20)))));
+    while (cycle10ms < ((30) - (((240) - (100)) / (int16_t) ((240) / (20)))));
 }
 
 void checkCurveCount() {
@@ -28922,6 +28926,14 @@ void calcSteering(void) {
                 setSteering(delta, Front);
             }
             break;
+        case FollowLeft:
+            delta = (50) - distLeft;
+            setSteering(delta, Front);
+            break;
+        case FollowRight:
+            delta = (50) - distRight;
+            setSteering(-delta, Front);
+            break;
     };
 }
 
@@ -28965,6 +28977,12 @@ void calcSpeed(void) {
             break;
         case CurveRight:
             speed = (200);
+            break;
+        case FollowLeft:
+            speed = (250);
+            break;
+        case FollowRight:
+            speed = (250);
             break;
     };
 
