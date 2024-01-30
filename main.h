@@ -60,7 +60,7 @@
 #define maxReverseTime                  (300)
 
 
-#define speedIncrease                   (0.85)
+#define speedIncrease                   (0.0)
 #define MinDistAccel                    (150)
 #define MinStraightSpeed                (275)
 

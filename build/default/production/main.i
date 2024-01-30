@@ -28680,7 +28680,7 @@ void loop(void) {
         getBatteryVoltage();
     } while (BatteryVolt < ((7.4) * 409.6));
 
-    startAccell();
+
 
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -28827,15 +28827,21 @@ void getCurve(void) {
 
                     int16_t delta = (int16_t) (distLeft - distRight);
                     float ratio = (distLeft / distRight);
-
+                    printf("ratio: &f   ",ratio);
                     if(ratio >= (2)){
-                        driveMode = FollowRight;
+
+                        printf("Follow Right\n");
                         followCount = 0;
                     } else if(ratio <= (1 / (2))){
-                        driveMode = FollowLeft;
+
+                        printf("Follow Left\n");
                         followCount = 0;
+                    } else {
+                        driveMode = Straight;
+                        printf("Strait\n");
                     }
 
+                    driveMode = Straight;
 
 
                 }
@@ -28952,6 +28958,7 @@ void calcSteering(void) {
         if(followCount >= (100)){
             driveMode = Straight;
             followCount = 0;
+            printf("Ende Follow\n");
         } else {
             followCount++;
         }
@@ -28981,7 +28988,7 @@ void calcSpeed(void) {
             }
 
             if (distFront >= (150)) {
-                speed = (int16_t) ((0.85) * (distFront - (150)) + (275));
+                speed = (int16_t) ((0.0) * (distFront - (150)) + (275));
             } else {
                 speed = (275);
             }

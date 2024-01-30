@@ -28,7 +28,7 @@ void loop(void) {
         getBatteryVoltage();
     } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
 
-    startAccell();
+    //startAccell();
 
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -175,16 +175,21 @@ void getCurve(void) {
                     
                     int16_t delta = (int16_t) (distLeft - distRight);
                     float ratio = (distLeft / distRight);
-                    
+                    printf("ratio: %f   ",ratio);
                     if(ratio >= followRightRatio){
-                        driveMode = FollowRight;
+                        //driveMode = FollowRight;
+                        printf("Follow Right\n");
                         followCount = 0;                        
                     } else if(ratio <= followLeftRatio){
-                        driveMode = FollowLeft;
+                        //driveMode = FollowLeft;
+                        printf("Follow Left\n");
                         followCount = 0;
                     } else {
                         driveMode = Straight;
+                        printf("Strait\n");
                     }
+                    
+                    driveMode = Straight;
                     
                     //printf("AfterCurve\n");
                 }
@@ -301,6 +306,7 @@ void calcSteering(void) {
         if(followCount >= followTime){
             driveMode = Straight;
             followCount = 0;
+            printf("Ende Follow\n");
         } else {
             followCount++;
         }
