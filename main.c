@@ -28,7 +28,7 @@ void loop(void) {
         getBatteryVoltage();
     } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
 
-    //startAccell();
+//    startAccell();
 
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -44,12 +44,6 @@ void loop(void) {
             break;
         }
 
-//        ++roundTimeCount;
-//        if (roundTimeCount > 1000) {
-//            roundTimeCount = 0;
-//            printf("10s passed\n");
-//        }
-
         if (checkBatt()) {
             break;
         }
@@ -61,7 +55,7 @@ void loop(void) {
         calcSpeed();
         calcMotorPow();
         
-        checkCurveCount();
+//        checkCurveCount();
     }
 }
 
@@ -84,7 +78,7 @@ int16_t actSpeed() {
 
 void getBatteryVoltage(void) {
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-    //printf("BVolt: %u\n", (uint16_t) BatteryVolt);
+    printf("BVolt: %f\n", BatteryVolt / 409.6f);
 }
 
 bool checkBatt() {
@@ -111,7 +105,7 @@ void startAccell() {
         cycle10ms = 0;
         while (!cycle10ms);
     }
-    printf("starAccelPower: %d\n", actMotorPow);
+//    printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
     while (cycle10ms < (startAccelTime - ((startMPower - MinMPower) / startAccellStep)));
@@ -120,10 +114,10 @@ void startAccell() {
 void checkCurveCount() {
     if (distFront > 480 && roundTimeCount > 500 ) {
         float roundTime = roundTimeCount / 100;
-        printf("Reset CurveCount!  |   ");
-        printf("CurveLeftCount: %u   |   ", curveLeftCount);
-        printf("CurveRightCount: %u\n", curveRightCount);
-        printf("RoundTime: %f\n\n", roundTime);
+//        printf("Reset CurveCount!  |   ");
+//        printf("CurveLeftCount: %u   |   ", curveLeftCount);
+//        printf("CurveRightCount: %u\n", curveRightCount);
+//        printf("RoundTime: %f\n\n", roundTime);
         roundTimeCount = 0;
         curveRightCount = 0;
         curveLeftCount = 0;
@@ -138,60 +132,62 @@ void getCurve(void) {
         case OutCurve:
             deltaLeft = (int16_t) (distLeft - oldDistLeft);
             deltaRight = (int16_t) (distRight - oldDistRight);
-            //printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
+//            printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
 
             if (deltaLeft > startCurveDelta && deltaLeft < maxStartCurveDelta && oldDistLeft < MaxOldDist) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
                 ++curveLeftCount;
-                //printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
-                //printf("   CurveLeft");
+                printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
+                printf("   CurveLeft\n");
             } else if (deltaRight > startCurveDelta && deltaRight < maxStartCurveDelta && oldDistRight < MaxOldDist) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
                 ++curveRightCount;
-                //printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
-                //printf("   CurveRight");
+                printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
+                printf("   CurveRight\n");
             }
-            //printf("\n");
 
             break;
         case BeforeCurve:
             if (delay >= setDelayStart) {
                 delay = 0;
                 curveMode = InCurve;
-                //printf("InCurve\n");
+                printf("InCurve\n");
             } else {
                 ++delay;
             }
             break;
         case InCurve:
             if (delay >= setDelayEnd) {
-                if (distLeft < endCurveDist || distRight < endCurveDist || distFront > endCurveDistFront) {
+                if ((driveMode == CurveLeft && distLeft < endCurveDist) || (driveMode == CurveRight && distRight < endCurveDist) || distFront > endCurveDistFront) {
+                    if(distLeft < endCurveDist){
+                        printf("Left Out!\n");
+                    } else if(distRight < endCurveDist){
+                        printf("Right Out!\n");
+                    } else {
+                        printf("Front Out!\n");
+                    }
+                    
                     delay = 0;
                     curveMode = AfterCurve;
-                    
-                    int16_t delta = (int16_t) (distLeft - distRight);
-                    float ratio = (distLeft / distRight);
-                    printf("ratio: %f   ",ratio);
-                    if(ratio >= followRightRatio){
-                        //driveMode = FollowRight;
+                  
+                    if(driveMode == CurveRight){
+                        driveMode = FollowRight;
                         printf("Follow Right\n");
-                        followCount = 0;                        
-                    } else if(ratio <= followLeftRatio){
-                        //driveMode = FollowLeft;
+                        followCount = 0;
+                    } else if(driveMode == CurveLeft){
+                        driveMode = FollowLeft;
                         printf("Follow Left\n");
                         followCount = 0;
                     } else {
                         driveMode = Straight;
-                        printf("Strait\n");
+                        //printf("Strait\n");
                     }
                     
-                    driveMode = Straight;
-                    
-                    //printf("AfterCurve\n");
+                    printf("AfterCurve\n");
                 }
             } else {
                 ++delay;
@@ -201,7 +197,7 @@ void getCurve(void) {
             if (delay >= setDelayNew) {
                 delay = 0;
                 curveMode = OutCurve;
-                //printf("OutCurve\n");
+                printf("OutCurve\n");
             } else {
                 ++delay;
             }
@@ -234,9 +230,9 @@ void getReverse(void) {
         if (distFront > stopReverseDist || reverseTime > maxReverseTime) {
             printf("Stop Reverse\n");
             if (distLeft > distRight) {
-                driveMode = CurveLeft;
+                driveMode = Straight;
             } else {
-                driveMode = CurveRight;
+                driveMode = Straight;
             }
             
             reverseCount = 0;
@@ -282,27 +278,30 @@ void calcSteering(void) {
             if (curveMode == InCurve) {
                 setSteering(curveSteering, Ratio);
             } else {
-                setSteering(delta, Front);
+                setSteering(-5, Front);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
                 setSteering(-curveSteering, Ratio);
             } else {
-                setSteering(delta, Front);
+                setSteering(5, Front);
             }
             break;
         case FollowLeft:
             delta = followLeftDist - distLeft;
-            setSteering(delta, Front);
+            delta /= 2;
+            setSteering(-delta, Front);
             break;
         case FollowRight:
             delta = followRightDist - distRight;
-            setSteering(-delta, Front);
+            delta /= 2;
+            setSteering(delta, Front);
             break;
     };
     
     if(driveMode == FollowLeft || driveMode == FollowRight){
+//        printf("Following\n");
         if(followCount >= followTime){
             driveMode = Straight;
             followCount = 0;
@@ -328,6 +327,8 @@ void calcSpeed(void) {
                 } else {
                     speed -= 2;
                 }
+            }else{
+                speed = minDriveSpeed;
             }
             break;
         case Straight:
@@ -378,8 +379,8 @@ void calcMotorPow(void) {
     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
     int8_t addMPow = 0;
 
-    //    printf("actSpeed:= %d | setSpeed= %d |", currentSpeed,setSpeed);
-    //    printf("setSpeedDelta:= %d | oldSpeedDelta= %d |", setSpeedDelta,oldSpeedDelta);
+    //printf("actSpeed:= %d | setSpeed= %d |", currentSpeed,setSpeed);
+    //printf("setSpeedDelta:= %d | oldSpeedDelta= %d |", setSpeedDelta,oldSpeedDelta);
 
     addMPow = (int8_t) (MotorPowFactor * (setSpeedDelta - (oldSpeedDelta / oldSpeedDeltaDivisor)));
 
@@ -416,6 +417,7 @@ void setMotor(int16_t motorPower) {
         PWM7_LoadDutyValue(0);
         PWM8_LoadDutyValue((uint16_t) (-motorPower));
     } else {
+//        printf("MotorPower: %d\n", motorPower);
         PWM7_LoadDutyValue(0);
         PWM8_LoadDutyValue(0);
     }
