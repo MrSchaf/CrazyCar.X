@@ -28578,7 +28578,7 @@ struct tm *getdate (const char *);
 # 5 "main.c" 2
 
 # 1 "./main.h" 1
-# 75 "./main.h"
+# 77 "./main.h"
 typedef enum {
     Straight,
     Brake,
@@ -28824,7 +28824,19 @@ void getCurve(void) {
                 if (distLeft < (45) || distRight < (45) || distFront > (300)) {
                     delay = 0;
                     curveMode = AfterCurve;
-                    driveMode = Straight;
+
+                    int16_t delta = (int16_t) (distLeft - distRight);
+                    float ratio = (distLeft / distRight);
+
+                    if(ratio >= (2)){
+                        driveMode = FollowRight;
+                        followCount = 0;
+                    } else if(ratio <= (1 / (2))){
+                        driveMode = FollowLeft;
+                        followCount = 0;
+                    }
+
+
 
                 }
             } else {
@@ -28935,6 +28947,15 @@ void calcSteering(void) {
             setSteering(-delta, Front);
             break;
     };
+
+    if(driveMode == FollowLeft || driveMode == FollowRight){
+        if(followCount >= (100)){
+            driveMode = Straight;
+            followCount = 0;
+        } else {
+            followCount++;
+        }
+    }
 }
 
 void calcSpeed(void) {

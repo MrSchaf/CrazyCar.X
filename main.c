@@ -173,18 +173,19 @@ void getCurve(void) {
                     delay = 0;
                     curveMode = AfterCurve;
                     
-//                    if(driveMode == CurveLeft){
-////                        driveMode = FollowRight;
-//                        driveMode = FollowLeft;
-//                        followCount = 0;
-//                    }
-//                    if(driveMode == CurveRight){
-////                        driveMode = FollowLeft;
-//                        driveMode = FollowRight;
-//                        followCount = 0;
-//                    }
+                    int16_t delta = (int16_t) (distLeft - distRight);
+                    float ratio = (distLeft / distRight);
                     
-                    //driveMode = Straight;
+                    if(ratio >= followRightRatio){
+                        driveMode = FollowRight;
+                        followCount = 0;                        
+                    } else if(ratio <= followLeftRatio){
+                        driveMode = FollowLeft;
+                        followCount = 0;
+                    } else {
+                        driveMode = Straight;
+                    }
+                    
                     //printf("AfterCurve\n");
                 }
             } else {
@@ -295,6 +296,15 @@ void calcSteering(void) {
             setSteering(-delta, Front);
             break;
     };
+    
+    if(driveMode == FollowLeft || driveMode == FollowRight){
+        if(followCount >= followTime){
+            driveMode = Straight;
+            followCount = 0;
+        } else {
+            followCount++;
+        }
+    }
 }
 
 void calcSpeed(void) {

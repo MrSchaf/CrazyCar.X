@@ -20,6 +20,8 @@
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
+#define followRightRatio                (2)
+#define followLeftRatio                 (1 / followRightRatio)
 #define followTime                      (100)
 #define followSpeed                     (250)
 #define followLeftDist                  (50)
