@@ -20,13 +20,6 @@
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
-#define followRightRatio                (2)
-#define followLeftRatio                 (1 / followRightRatio)
-#define followTime                      (50)
-#define followSpeed                     (250)
-#define followLeftDist                  (50)
-#define followRightDist                 (50)
-
 
 #define maxMPowForward                  (700)
 #define maxSpeedForward                 (400)
@@ -41,16 +34,16 @@
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
-#define setDelayStart                   (15)       // Delay bevor man zu Lenken beginnt
+#define setDelayStart                   (1)       // Delay bevor man zu Lenken beginnt
 #define setDelayEnd                     (35)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
-#define startCurveDelta                 (35)      // ((oldDist - actDist) > startCurveDelta  \n
+#define startCurveDelta                 (40)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta              (200)
-#define MaxOldDist                      (100)     //  && oldDistLeft < MaxOldDist)  --> Kurv
-#define endCurveDist                    (40)      // distL || distR < endKurveValue --> Kurvenende
+#define MaxOldDist                      (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
+#define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
 #define endCurveDistFront               (300)     //distFront > endCurveDistFront   --> Kurvenende
-#define curveSteering                   (55)       
+#define curveSteering                   (60)       
 #define curveSpeed                      (200)
 
 #define startReverseDist                (15)      // distFront < startReverseDist --> reverseCount++

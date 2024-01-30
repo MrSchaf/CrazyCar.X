@@ -28578,7 +28578,7 @@ struct tm *getdate (const char *);
 # 5 "main.c" 2
 
 # 1 "./main.h" 1
-# 77 "./main.h"
+# 70 "./main.h"
 typedef enum {
     Straight,
     Brake,
@@ -28786,14 +28786,14 @@ void getCurve(void) {
             deltaRight = (int16_t) (distRight - oldDistRight);
 
 
-            if (deltaLeft > (35) && deltaLeft < (200) && oldDistLeft < (100)) {
+            if (deltaLeft > (40) && deltaLeft < (200) && oldDistLeft < (150)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
                 ++curveLeftCount;
                 printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
                 printf("   CurveLeft\n");
-            } else if (deltaRight > (35) && deltaRight < (200) && oldDistRight < (100)) {
+            } else if (deltaRight > (40) && deltaRight < (200) && oldDistRight < (150)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
@@ -28804,7 +28804,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay >= (15)) {
+            if (delay >= (1)) {
                 delay = 0;
                 curveMode = InCurve;
                 printf("InCurve\n");
@@ -28814,36 +28814,25 @@ void getCurve(void) {
             break;
         case InCurve:
             if (delay >= (35)) {
-                if ((driveMode == CurveLeft && distLeft < (40)) || (driveMode == CurveRight && distRight < (40)) || distFront > (300)) {
-                    if(distLeft < (40)){
+                if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
+                    if(distLeft < (45)){
                         printf("Left Out!\n");
-                    } else if(distRight < (40)){
+                    } else if(distRight < (45)){
                         printf("Right Out!\n");
                     } else {
                         printf("Front Out!\n");
                     }
-
+                    printf("CurveTime: %d\n", delay);
                     delay = 0;
                     curveMode = AfterCurve;
 
-                    if(driveMode == CurveRight){
-                        driveMode = FollowRight;
-                        printf("Follow Right\n");
-                        followCount = 0;
-                    } else if(driveMode == CurveLeft){
-                        driveMode = FollowLeft;
-                        printf("Follow Left\n");
-                        followCount = 0;
-                    } else {
-                        driveMode = Straight;
-
-                    }
-
+                    driveMode = Straight;
                     printf("AfterCurve\n");
                 }
             } else {
-                ++delay;
+
             }
+            ++delay;
             break;
         case AfterCurve:
             if (delay >= (1)) {
@@ -28921,47 +28910,26 @@ void calcSteering(void) {
             setSteering(delta, Front);
             break;
         case ReverseRight:
-            setSteering(-(55), Inverted);
+            setSteering(-(60), Inverted);
             break;
         case ReverseLeft:
-            setSteering((55), Inverted);
+            setSteering((60), Inverted);
             break;
         case CurveLeft:
             if (curveMode == InCurve) {
-                setSteering((55), Ratio);
+                setSteering((60), Ratio);
             } else {
                 setSteering(-5, Front);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
-                setSteering(-(55), Ratio);
+                setSteering(-(60), Ratio);
             } else {
                 setSteering(5, Front);
             }
             break;
-        case FollowLeft:
-            delta = (50) - distLeft;
-            delta /= 2;
-            setSteering(-delta, Front);
-            break;
-        case FollowRight:
-            delta = (50) - distRight;
-            delta /= 2;
-            setSteering(delta, Front);
-            break;
     };
-
-    if(driveMode == FollowLeft || driveMode == FollowRight){
-
-        if(followCount >= (50)){
-            driveMode = Straight;
-            followCount = 0;
-            printf("Ende Follow\n");
-        } else {
-            followCount++;
-        }
-    }
 }
 
 void calcSpeed(void) {
@@ -29006,12 +28974,6 @@ void calcSpeed(void) {
             break;
         case CurveRight:
             speed = (200);
-            break;
-        case FollowLeft:
-            speed = (250);
-            break;
-        case FollowRight:
-            speed = (250);
             break;
     };
 

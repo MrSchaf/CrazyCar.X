@@ -170,28 +170,17 @@ void getCurve(void) {
                     } else {
                         printf("Front Out!\n");
                     }
-                    
+                    printf("CurveTime: %d\n", delay);
                     delay = 0;
                     curveMode = AfterCurve;
-                  
-                    if(driveMode == CurveRight){
-                        driveMode = FollowRight;
-                        printf("Follow Right\n");
-                        followCount = 0;
-                    } else if(driveMode == CurveLeft){
-                        driveMode = FollowLeft;
-                        printf("Follow Left\n");
-                        followCount = 0;
-                    } else {
-                        driveMode = Straight;
-                        //printf("Strait\n");
-                    }
-                    
+                
+                    driveMode = Straight;
                     printf("AfterCurve\n");
                 }
             } else {
-                ++delay;
+                
             }
+            ++delay;
             break;
         case AfterCurve:
             if (delay >= setDelayNew) {
@@ -288,28 +277,7 @@ void calcSteering(void) {
                 setSteering(5, Front);
             }
             break;
-        case FollowLeft:
-            delta = followLeftDist - distLeft;
-            delta /= 2;
-            setSteering(-delta, Front);
-            break;
-        case FollowRight:
-            delta = followRightDist - distRight;
-            delta /= 2;
-            setSteering(delta, Front);
-            break;
     };
-    
-    if(driveMode == FollowLeft || driveMode == FollowRight){
-//        printf("Following\n");
-        if(followCount >= followTime){
-            driveMode = Straight;
-            followCount = 0;
-            printf("Ende Follow\n");
-        } else {
-            followCount++;
-        }
-    }
 }
 
 void calcSpeed(void) {
@@ -354,12 +322,6 @@ void calcSpeed(void) {
             break;
         case CurveRight:
             speed = curveSpeed;
-            break;
-        case FollowLeft:
-            speed = followSpeed;
-            break;
-        case FollowRight:
-            speed = followSpeed;
             break;
     };
 
