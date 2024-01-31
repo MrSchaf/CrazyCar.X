@@ -21,6 +21,9 @@ void loop(void) {
     setSteering(0, Front);
     while (diStart_GetValue());
 
+    driveMode = Straight;
+    curveMode = OutCurve;
+    
     do {
         while (!cycle10ms);
         cycle10ms = 0;
