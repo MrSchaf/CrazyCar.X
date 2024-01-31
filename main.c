@@ -19,7 +19,10 @@ void main(void) {
 void loop(void) {
     setMotor(0);
     setSteering(0, Front);
-    while (diStart_GetValue());
+    while (diStart_GetValue()){
+        
+            printf("Simon Low");
+    }
 
     do {
         while (!cycle10ms);
@@ -28,7 +31,7 @@ void loop(void) {
         getBatteryVoltage();
     } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
 
-    startAccell();
+//    startAccell();
     driveMode = Straight;
     curveMode = OutCurve;
     oldDistLeft = distLeft;
@@ -101,12 +104,10 @@ void startAccell() {
     
     actMotorPow = MinMPower;
     float MPow = actMotorPow;
-        printf("MPow: %f\n",MPow);
     while (MPow < startMPower) {
         MPow *= startAccelMult;
         actMotorPow = (int16_t) MPow;
         setMotor(actMotorPow);
-        printf("actMPow: %d\n",actMotorPow);
         calcSteering();
         
         cycle10ms = 0;
@@ -115,7 +116,6 @@ void startAccell() {
     
     actMotorPow = startMPower;
     setMotor(actMotorPow);
-    printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
     while (cycle10ms < (startAccelTime - startAccellSteps)){
@@ -158,14 +158,22 @@ void getCurve(void) {
         case InCurve:
             if (delay >= setDelayEnd) {
                 if ((driveMode == CurveLeft && distLeft < endCurveDist) || (driveMode == CurveRight && distRight < endCurveDist) || distFront > endCurveDistFront) {
-//                    printf("CurveTime: %d\n", delay);
+                    printf("Time: \t%d     \t", delay);
+                    if(delay >= 90){
+                        printf("stay Left\n");
+                        middleOffSet = -10;
+                    } else {
+                        printf("stay Right\n");
+                        middleOffSet = 10;
+                    }
+                    
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;
-                    
 //                    printf("AfterCurve\n");
                 } else if(driveMode == CurveRight && deltaLeft > switchCurveDelta){
 //                    printf("DeltLeft: %d\n", deltaLeft);
+                    
                     delay = 0;
                     curveMode = BeforeCurve;
                     driveMode = CurveLeft;

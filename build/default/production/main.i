@@ -28578,7 +28578,7 @@ struct tm *getdate (const char *);
 # 5 "main.c" 2
 
 # 1 "./main.h" 1
-# 71 "./main.h"
+# 72 "./main.h"
 typedef enum {
     Accel,
     Straight,
@@ -28612,6 +28612,9 @@ DriveMode driveMode = Straight;
 CurveMode curveMode = OutCurve;
 
 volatile uint8_t cycle10ms = 0;
+
+
+int8_t middleOffSet = -10;
 
 uint8_t delay = 0;
 uint16_t reverseCount = 0;
@@ -28663,7 +28666,10 @@ void main(void) {
 void loop(void) {
     setMotor(0);
     setSteering(0, Front);
-    while (PORTBbits.RB4);
+    while (PORTBbits.RB4){
+
+            printf("Simon Low");
+    }
 
     do {
         while (!cycle10ms);
@@ -28672,7 +28678,7 @@ void loop(void) {
         getBatteryVoltage();
     } while (BatteryVolt < ((6.8) * 409.6));
 
-    startAccell();
+
     driveMode = Straight;
     curveMode = OutCurve;
     oldDistLeft = distLeft;
@@ -28745,12 +28751,10 @@ void startAccell() {
 
     actMotorPow = (40);
     float MPow = actMotorPow;
-        printf("MPow: %f\n",MPow);
     while (MPow < (250)) {
         MPow *= (1.1);
         actMotorPow = (int16_t) MPow;
         setMotor(actMotorPow);
-        printf("actMPow: %d\n",actMotorPow);
         calcSteering();
 
         cycle10ms = 0;
@@ -28759,7 +28763,6 @@ void startAccell() {
 
     actMotorPow = (250);
     setMotor(actMotorPow);
-    printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
     while (cycle10ms < ((50) - (20))){
@@ -28791,7 +28794,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay >= (10)) {
+            if (delay >= (15)) {
                 delay = 0;
                 curveMode = InCurve;
 
@@ -28800,15 +28803,23 @@ void getCurve(void) {
             }
             break;
         case InCurve:
-            if (delay >= (20)) {
-                if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
+            if (delay >= (40)) {
+                if ((driveMode == CurveLeft && distLeft < (50)) || (driveMode == CurveRight && distRight < (50)) || distFront > (300)) {
+                    printf("Time: \t%d     \t", delay);
+                    if(delay >= 90){
+                        printf("stay Left\n");
+                        middleOffSet = -10;
+                    } else {
+                        printf("stay Right\n");
+                        middleOffSet = 10;
+                    }
 
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;
 
-
                 } else if(driveMode == CurveRight && deltaLeft > (30)){
+
 
                     delay = 0;
                     curveMode = BeforeCurve;
@@ -28868,7 +28879,7 @@ void getReverse(void) {
 }
 
 void calcSteering(void) {
-    int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) ((0) * 1.4142135);
+    int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) (middleOffSet * 1.4142135);
     delta /= (1);
 
 
@@ -28900,21 +28911,21 @@ void calcSteering(void) {
 
             break;
         case ReverseRight:
-            setSteering(-(50), Inverted);
+            setSteering(-(65), Inverted);
             break;
         case ReverseLeft:
-            setSteering((50), Inverted);
+            setSteering((65), Inverted);
             break;
         case CurveLeft:
             if (curveMode == InCurve) {
-                setSteering((50), Ratio);
+                setSteering((65), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
-                setSteering(-(50), Ratio);
+                setSteering(-(65), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
@@ -28988,10 +28999,10 @@ void calcMotorPow(void) {
 
     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
 
-    if (addMPow > (3)) {
-        addMPow = (3);
-    } else if (addMPow < -(3)) {
-        addMPow = -(3);
+    if (addMPow > (5)) {
+        addMPow = (5);
+    } else if (addMPow < -(5)) {
+        addMPow = -(5);
     }
 
     actMotorPow += addMPow;
@@ -29043,7 +29054,7 @@ void setSteering(int16_t steering, SteeringMode steeringMode) {
             break;
         case Ratio:
             steeringF = (+steering);
-            steeringB = (-steering / (1.25));
+            steeringB = (-steering / (2));
             break;
         case Front:
             steeringF = (+steering);
