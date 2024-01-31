@@ -1,12 +1,12 @@
 Version 4.0 HI-TECH Software Intermediate Code
 [v F16704 `(v ~T0 @X0 0 tf ]
 [v F16706 `(v ~T0 @X0 0 tf ]
-"101 ./main.h
-[; ;./main.h: 101: DriveMode driveMode = Straight;
+"100 ./main.h
+[; ;./main.h: 100: DriveMode driveMode = Straight;
 [c E17295 0 1 2 3 4 5 6 .. ]
 [n E17295 . Accel Straight Brake ReverseRight ReverseLeft CurveLeft CurveRight  ]
-"102
-[; ;./main.h: 102: CurveMode curveMode = OutCurve;
+"101
+[; ;./main.h: 101: CurveMode curveMode = OutCurve;
 [c E17311 0 1 2 3 .. ]
 [n E17311 . OutCurve BeforeCurve InCurve AfterCurve  ]
 [p mainexit ]
@@ -32,24 +32,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 "847 ./mcc_generated_files/tmr4.h
 [; ;./mcc_generated_files/tmr4.h: 847:  void TMR4_SetInterruptHandler(void (* InterruptHandler)(void));
 [v _TMR4_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F16264 ]
-"124 ./main.h
-[; ;./main.h: 124: void TMR4_10msISR(void);
+"123 ./main.h
+[; ;./main.h: 123: void TMR4_10msISR(void);
 [v _TMR4_10msISR `(v ~T0 @X0 0 ef ]
-"126
-[; ;./main.h: 126: void loop(void);
+"125
+[; ;./main.h: 125: void loop(void);
 [v _loop `(v ~T0 @X0 0 ef ]
-"141
-[; ;./main.h: 141: void setMotor(int16_t);
+"140
+[; ;./main.h: 140: void setMotor(int16_t);
 [v _setMotor `(v ~T0 @X0 0 ef1`s ]
 "21 main.c
 [; ;main.c: 21:     setSteering(0, Front);
 [c E17304 0 1 2 3 4 .. ]
 [n E17304 . Inverted Same Ratio Front Back  ]
-"140 ./main.h
-[; ;./main.h: 140: void setSteering(int16_t, SteeringMode);
+"139 ./main.h
+[; ;./main.h: 139: void setSteering(int16_t, SteeringMode);
 [v _setSteering `(v ~T0 @X0 0 ef2`s`E17304 ]
-"111 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "46596 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46596:     struct {
 [s S2101 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -65,33 +63,38 @@ Version 4.0 HI-TECH Software Intermediate Code
 "46611
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46611: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x3FCB)));
 [v _PORTBbits `VS2100 ~T0 @X0 0 e@16331 ]
-"131 ./main.h
-[; ;./main.h: 131: void getBatteryVoltage(void);
+"130 ./main.h
+[; ;./main.h: 130: void getBatteryVoltage(void);
 [v _getBatteryVoltage `(v ~T0 @X0 0 ef ]
-"97
-[; ;./main.h: 97: extern uint16_t distFront, distLeft, distRight;
+"129
+[; ;./main.h: 129: void startAccell();
+[v _startAccell `(v ~T0 @X0 0 e? ]
+"96
+[; ;./main.h: 96: extern uint16_t distFront, distLeft, distRight;
 [v _distLeft `us ~T0 @X0 0 e ]
 [v _distRight `us ~T0 @X0 0 e ]
-"128
-[; ;./main.h: 128: _Bool checkBatt();
+"127
+[; ;./main.h: 127: _Bool checkBatt();
 [v _checkBatt `(a ~T0 @X0 0 e? ]
-"133
-[; ;./main.h: 133: void getCurve(void);
+"111 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"132 ./main.h
+[; ;./main.h: 132: void getCurve(void);
 [v _getCurve `(v ~T0 @X0 0 ef ]
-"134
-[; ;./main.h: 134: void getReverse(void);
+"133
+[; ;./main.h: 133: void getReverse(void);
 [v _getReverse `(v ~T0 @X0 0 ef ]
-"136
-[; ;./main.h: 136: void calcSteering(void);
+"135
+[; ;./main.h: 135: void calcSteering(void);
 [v _calcSteering `(v ~T0 @X0 0 ef ]
-"137
-[; ;./main.h: 137: void calcSpeed(void);
+"136
+[; ;./main.h: 136: void calcSpeed(void);
 [v _calcSpeed `(v ~T0 @X0 0 ef ]
-"138
-[; ;./main.h: 138: void calcMotorPow(void);
+"137
+[; ;./main.h: 137: void calcMotorPow(void);
 [v _calcMotorPow `(v ~T0 @X0 0 ef ]
-"99
-[; ;./main.h: 99: extern uint32_t smtPeriod;
+"98
+[; ;./main.h: 98: extern uint32_t smtPeriod;
 [v _smtPeriod `ul ~T0 @X0 0 e ]
 "18791 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18791:     struct {
@@ -116,15 +119,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "18818
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 18818: extern volatile CLC3CONbits_t CLC3CONbits __attribute__((address(0x3C60)));
 [v _CLC3CONbits `VS847 ~T0 @X0 0 e@15456 ]
-"82 main.c
-[; ;main.c: 82:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
+"79 main.c
+[; ;main.c: 79:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
 [c E16091 34 59 60 61 62 63 .. ]
 [n E16091 . aiBatt channel_VSS channel_Temp channel_DAC1 channel_FVR_Buffer1 channel_FVR_Buffer2  ]
 "253 ./mcc_generated_files/adcc.h
 [; ;./mcc_generated_files/adcc.h: 253: adc_result_t ADCC_GetSingleConversion(adcc_channel_t channel);
 [v _ADCC_GetSingleConversion `(us ~T0 @X0 0 ef1`E16091 ]
-"97 ./main.h
-[; ;./main.h: 97: extern uint16_t distFront, distLeft, distRight;
+"96 ./main.h
+[; ;./main.h: 96: extern uint16_t distFront, distLeft, distRight;
 [v _distFront `us ~T0 @X0 0 e ]
 "129 ./mcc_generated_files/pwm7.h
 [; ;./mcc_generated_files/pwm7.h: 129:  void PWM7_LoadDutyValue(uint16_t dutyValue);
@@ -2376,90 +2379,90 @@ Version 4.0 HI-TECH Software Intermediate Code
 "536
 [; ;./mcc_generated_files/uart1.h: 536: void (*UART1_TxInterruptHandler)(void);
 [v _UART1_TxInterruptHandler `*F16706 ~T0 @X0 1 e ]
-"101 ./main.h
-[; ;./main.h: 101: DriveMode driveMode = Straight;
+"100 ./main.h
+[; ;./main.h: 100: DriveMode driveMode = Straight;
 [v _driveMode `E17295 ~T0 @X0 1 e ]
 [i _driveMode
 . `E17295 1
 ]
-"102
-[; ;./main.h: 102: CurveMode curveMode = OutCurve;
+"101
+[; ;./main.h: 101: CurveMode curveMode = OutCurve;
 [v _curveMode `E17311 ~T0 @X0 1 e ]
 [i _curveMode
 . `E17311 0
 ]
-"104
-[; ;./main.h: 104: volatile uint8_t cycle10ms = 0;
+"103
+[; ;./main.h: 103: volatile uint8_t cycle10ms = 0;
 [v _cycle10ms `Vuc ~T0 @X0 1 e ]
 [i _cycle10ms
 -> -> 0 `i `uc
 ]
-"107
-[; ;./main.h: 107: int8_t middleOffSet = -10;
-[v _middleOffSet `c ~T0 @X0 1 e ]
-[i _middleOffSet
--> -U -> 10 `i `c
-]
-"109
-[; ;./main.h: 109: uint8_t delay = 0;
+"105
+[; ;./main.h: 105: uint8_t delay = 0;
 [v _delay `uc ~T0 @X0 1 e ]
 [i _delay
 -> -> 0 `i `uc
 ]
-"110
-[; ;./main.h: 110: uint16_t reverseCount = 0;
+"106
+[; ;./main.h: 106: uint16_t reverseCount = 0;
 [v _reverseCount `us ~T0 @X0 1 e ]
 [i _reverseCount
 -> -> 0 `i `us
 ]
-"111
-[; ;./main.h: 111: uint16_t oldDistLeft, oldDistRight;
+"107
+[; ;./main.h: 107: uint16_t oldDistLeft, oldDistRight;
 [v _oldDistLeft `us ~T0 @X0 1 e ]
 [v _oldDistRight `us ~T0 @X0 1 e ]
-"112
-[; ;./main.h: 112: uint16_t battCheckCount = 0;
+"108
+[; ;./main.h: 108: uint16_t battCheckCount = 0;
 [v _battCheckCount `us ~T0 @X0 1 e ]
 [i _battCheckCount
 -> -> 0 `i `us
 ]
-"114
-[; ;./main.h: 114: int16_t motPow = 0;
+"112
+[; ;./main.h: 112: int16_t middleOffSet = -10;
+[v _middleOffSet `s ~T0 @X0 1 e ]
+[i _middleOffSet
+-> -U -> 10 `i `s
+]
+"113
+[; ;./main.h: 113: int16_t motPow = 0;
 [v _motPow `s ~T0 @X0 1 e ]
 [i _motPow
 -> -> 0 `i `s
 ]
-"115
-[; ;./main.h: 115: int16_t setSpeed = 0;
+"114
+[; ;./main.h: 114: int16_t setSpeed = 0;
 [v _setSpeed `s ~T0 @X0 1 e ]
 [i _setSpeed
 -> -> 0 `i `s
 ]
-"116
-[; ;./main.h: 116: int16_t currentSpeed = 0;
+"115
+[; ;./main.h: 115: int16_t currentSpeed = 0;
 [v _currentSpeed `s ~T0 @X0 1 e ]
 [i _currentSpeed
 -> -> 0 `i `s
 ]
-"117
-[; ;./main.h: 117: int16_t oldSpeed = 0;
+"116
+[; ;./main.h: 116: int16_t oldSpeed = 0;
 [v _oldSpeed `s ~T0 @X0 1 e ]
 [i _oldSpeed
 -> -> 0 `i `s
 ]
-"118
-[; ;./main.h: 118: int16_t actMotorPow = 0;
+"117
+[; ;./main.h: 117: int16_t actMotorPow = 0;
 [v _actMotorPow `s ~T0 @X0 1 e ]
 [i _actMotorPow
 -> -> 0 `i `s
 ]
-"119
-[; ;./main.h: 119: int16_t reverseTime = 0;
+"118
+[; ;./main.h: 118: int16_t reverseTime = 0;
 [v _reverseTime `s ~T0 @X0 1 e ]
 [i _reverseTime
 -> -> 0 `i `s
 ]
-"121
-[; ;./main.h: 121: adc_result_t BatteryVolt = 0;
+"120
+[; ;./main.h: 120: adc_result_t BatteryVolt = 0;
 [v _BatteryVolt `us ~T0 @X0 1 e ]
 [i _BatteryVolt
 -> -> 0 `i `us
@@ -2513,312 +2516,315 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 21:     setSteering(0, Front);
 [e ( _setSteering (2 , -> -> 0 `i `s . `E17304 3 ]
 "22
-[; ;main.c: 22:     while (PORTBbits.RB4){
+[; ;main.c: 22:     while (PORTBbits.RB4);
 [e $U 2249  ]
 [e :U 2250 ]
-{
-"24
-[; ;main.c: 24:             printf("Simon Low");
-[e ( _printf :s 1C ]
-"25
-[; ;main.c: 25:     }
-}
 [e :U 2249 ]
-"22
-[; ;main.c: 22:     while (PORTBbits.RB4){
 [e $ != -> . . _PORTBbits 0 4 `i -> 0 `i 2250  ]
 [e :U 2251 ]
-"27
-[; ;main.c: 27:     do {
+"24
+[; ;main.c: 24:     do {
 [e :U 2254 ]
 {
-"28
-[; ;main.c: 28:         while (!cycle10ms);
+"25
+[; ;main.c: 25:         while (!cycle10ms);
 [e $U 2255  ]
 [e :U 2256 ]
 [e :U 2255 ]
 [e $ ! != -> _cycle10ms `i -> 0 `i 2256  ]
 [e :U 2257 ]
-"29
-[; ;main.c: 29:         cycle10ms = 0;
+"26
+[; ;main.c: 26:         cycle10ms = 0;
 [e = _cycle10ms -> -> 0 `i `uc ]
-"31
-[; ;main.c: 31:         getBatteryVoltage();
+"28
+[; ;main.c: 28:         getBatteryVoltage();
 [e ( _getBatteryVoltage ..  ]
-"32
-[; ;main.c: 32:     } while (BatteryVolt < ((6.8) * 409.6));
+"29
+[; ;main.c: 29:     } while (BatteryVolt < ((6.8) * 409.6));
 }
 [e $ < -> -> _BatteryVolt `ui `d * .6.8 .409.6 2254  ]
 [e :U 2253 ]
-"35
-[; ;main.c: 35:     driveMode = Straight;
+"31
+[; ;main.c: 31:     startAccell();
+[e ( _startAccell ..  ]
+"32
+[; ;main.c: 32:     driveMode = Straight;
 [e = _driveMode . `E17295 1 ]
-"36
-[; ;main.c: 36:     curveMode = OutCurve;
+"33
+[; ;main.c: 33:     curveMode = OutCurve;
 [e = _curveMode . `E17311 0 ]
-"37
-[; ;main.c: 37:     oldDistLeft = distLeft;
+"34
+[; ;main.c: 34:     oldDistLeft = distLeft;
 [e = _oldDistLeft _distLeft ]
-"38
-[; ;main.c: 38:     oldDistRight = distRight;
+"35
+[; ;main.c: 35:     oldDistRight = distRight;
 [e = _oldDistRight _distRight ]
-"39
-[; ;main.c: 39:     cycle10ms = 0;
+"36
+[; ;main.c: 36:     cycle10ms = 0;
 [e = _cycle10ms -> -> 0 `i `uc ]
-"40
-[; ;main.c: 40:     while (1) {
+"37
+[; ;main.c: 37:     while (1) {
 [e :U 2259 ]
 {
-"41
-[; ;main.c: 41:         while (!cycle10ms);
+"38
+[; ;main.c: 38:         while (!cycle10ms);
 [e $U 2261  ]
 [e :U 2262 ]
 [e :U 2261 ]
 [e $ ! != -> _cycle10ms `i -> 0 `i 2262  ]
 [e :U 2263 ]
-"42
-[; ;main.c: 42:         cycle10ms = 0;
+"39
+[; ;main.c: 39:         cycle10ms = 0;
 [e = _cycle10ms -> -> 0 `i `uc ]
-"44
-[; ;main.c: 44:         if (!PORTBbits.RB5) {
+"41
+[; ;main.c: 41:         if (!PORTBbits.RB5) {
 [e $ ! ! != -> . . _PORTBbits 0 5 `i -> 0 `i 2264  ]
 {
-"45
-[; ;main.c: 45:             setSpeed = 0;
+"42
+[; ;main.c: 42:             setSpeed = 0;
 [e = _setSpeed -> -> 0 `i `s ]
-"46
-[; ;main.c: 46:             actMotorPow = 0;
+"43
+[; ;main.c: 43:             actMotorPow = 0;
 [e = _actMotorPow -> -> 0 `i `s ]
-"47
-[; ;main.c: 47:             setSteering(0, Front);
+"44
+[; ;main.c: 44:             setSteering(0, Front);
 [e ( _setSteering (2 , -> -> 0 `i `s . `E17304 3 ]
-"48
-[; ;main.c: 48:             break;
+"45
+[; ;main.c: 45:             break;
 [e $U 2260  ]
-"49
-[; ;main.c: 49:         }
+"46
+[; ;main.c: 46:         }
 }
 [e :U 2264 ]
-"51
-[; ;main.c: 51:         if (checkBatt()) {
+"48
+[; ;main.c: 48:         if (checkBatt()) {
 [e $ ! != -> ( _checkBatt ..  `i -> 0 `i 2265  ]
 {
-"52
-[; ;main.c: 52:             printf("Battery Low");
-[e ( _printf :s 2C ]
-"53
-[; ;main.c: 53:             break;
+"49
+[; ;main.c: 49:             printf("Battery Low");
+[e ( _printf :s 1C ]
+"50
+[; ;main.c: 50:             break;
 [e $U 2260  ]
-"54
-[; ;main.c: 54:         }
+"51
+[; ;main.c: 51:         }
 }
 [e :U 2265 ]
-"56
-[; ;main.c: 56:         getCurve();
+"53
+[; ;main.c: 53:         getCurve();
 [e ( _getCurve ..  ]
-"57
-[; ;main.c: 57:         getReverse();
+"54
+[; ;main.c: 54:         getReverse();
 [e ( _getReverse ..  ]
-"59
-[; ;main.c: 59:         calcSteering();
+"56
+[; ;main.c: 56:         calcSteering();
 [e ( _calcSteering ..  ]
-"60
-[; ;main.c: 60:         calcSpeed();
+"57
+[; ;main.c: 57:         calcSpeed();
 [e ( _calcSpeed ..  ]
-"61
-[; ;main.c: 61:         calcMotorPow();
+"58
+[; ;main.c: 58:         calcMotorPow();
 [e ( _calcMotorPow ..  ]
-"62
-[; ;main.c: 62:     }
+"59
+[; ;main.c: 59:     }
 }
 [e :U 2258 ]
 [e $U 2259  ]
 [e :U 2260 ]
-"63
-[; ;main.c: 63: }
+"60
+[; ;main.c: 60: }
 [e :UE 2248 ]
 }
-"65
-[; ;main.c: 65: void TMR4_10msISR(void) {
+"62
+[; ;main.c: 62: void TMR4_10msISR(void) {
 [v _TMR4_10msISR `(v ~T0 @X0 1 ef ]
 {
 [e :U _TMR4_10msISR ]
 [f ]
-"66
-[; ;main.c: 66:     ++cycle10ms;
+"63
+[; ;main.c: 63:     ++cycle10ms;
 [e =+ _cycle10ms -> -> 1 `i `Vuc ]
-"67
-[; ;main.c: 67: }
+"64
+[; ;main.c: 64: }
 [e :UE 2266 ]
 }
-"69
-[; ;main.c: 69: int16_t actSpeed() {
+"66
+[; ;main.c: 66: int16_t actSpeed() {
 [v _actSpeed `(s ~T0 @X0 1 ef ]
 {
 [e :U _actSpeed ]
 [f ]
-"70
-[; ;main.c: 70:     int16_t speed = 0;
+"67
+[; ;main.c: 67:     int16_t speed = 0;
 [v _speed `s ~T0 @X0 1 a ]
 [e = _speed -> -> 0 `i `s ]
-"71
-[; ;main.c: 71:     if (smtPeriod) {
+"68
+[; ;main.c: 68:     if (smtPeriod) {
 [e $ ! != _smtPeriod -> -> -> 0 `i `l `ul 2268  ]
 {
-"72
-[; ;main.c: 72:         if (CLC3CONbits.LC3OUT) {
+"69
+[; ;main.c: 69:         if (CLC3CONbits.LC3OUT) {
 [e $ ! != -> . . _CLC3CONbits 2 3 `i -> 0 `i 2269  ]
 {
-"73
-[; ;main.c: 73:             speed = (int16_t) ((int32_t) (500000 / (int32_t) smtPeriod));
+"70
+[; ;main.c: 70:             speed = (int16_t) ((int32_t) (500000 / (int32_t) smtPeriod));
 [e = _speed -> / -> 500000 `l -> _smtPeriod `l `s ]
-"74
-[; ;main.c: 74:         } else {
+"71
+[; ;main.c: 71:         } else {
 }
 [e $U 2270  ]
 [e :U 2269 ]
 {
-"75
-[; ;main.c: 75:             speed = (int16_t) ((int32_t) (-500000 / (int32_t) smtPeriod));
+"72
+[; ;main.c: 72:             speed = (int16_t) ((int32_t) (-500000 / (int32_t) smtPeriod));
 [e = _speed -> / -U -> 500000 `l -> _smtPeriod `l `s ]
-"76
-[; ;main.c: 76:         }
+"73
+[; ;main.c: 73:         }
 }
 [e :U 2270 ]
-"77
-[; ;main.c: 77:     }
+"74
+[; ;main.c: 74:     }
 }
 [e :U 2268 ]
-"78
-[; ;main.c: 78:     return speed;
+"75
+[; ;main.c: 75:     return speed;
 [e ) _speed ]
 [e $UE 2267  ]
-"79
-[; ;main.c: 79: }
+"76
+[; ;main.c: 76: }
 [e :UE 2267 ]
 }
-"81
-[; ;main.c: 81: void getBatteryVoltage(void) {
+"78
+[; ;main.c: 78: void getBatteryVoltage(void) {
 [v _getBatteryVoltage `(v ~T0 @X0 1 ef ]
 {
 [e :U _getBatteryVoltage ]
 [f ]
-"82
-[; ;main.c: 82:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
+"79
+[; ;main.c: 79:     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
 [e = _BatteryVolt ( _ADCC_GetSingleConversion (1 . `E16091 0 ]
-"84
-[; ;main.c: 84: }
+"81
+[; ;main.c: 81: }
 [e :UE 2271 ]
 }
-"86
-[; ;main.c: 86: _Bool checkBatt() {
+"83
+[; ;main.c: 83: _Bool checkBatt() {
 [v _checkBatt `(a ~T0 @X0 1 ef ]
 {
 [e :U _checkBatt ]
 [f ]
-"87
-[; ;main.c: 87:     ++battCheckCount;
+"84
+[; ;main.c: 84:     ++battCheckCount;
 [e =+ _battCheckCount -> -> 1 `i `us ]
-"88
-[; ;main.c: 88:     if (battCheckCount > (500)) {
+"85
+[; ;main.c: 85:     if (battCheckCount > (500)) {
 [e $ ! > -> _battCheckCount `ui -> -> 500 `i `ui 2273  ]
 {
-"89
-[; ;main.c: 89:         battCheckCount = 0;
+"86
+[; ;main.c: 86:         battCheckCount = 0;
 [e = _battCheckCount -> -> 0 `i `us ]
-"90
-[; ;main.c: 90:         getBatteryVoltage();
+"87
+[; ;main.c: 87:         getBatteryVoltage();
 [e ( _getBatteryVoltage ..  ]
-"92
-[; ;main.c: 92:         if (BatteryVolt < (6.8) * 409.6f) {
+"89
+[; ;main.c: 89:         if (BatteryVolt < (6.8) * 409.6f) {
 [e $ ! < -> -> _BatteryVolt `ui `d * .6.8 -> -> .409.6 `f `d 2274  ]
 {
-"93
-[; ;main.c: 93:             setSpeed = 0;
+"90
+[; ;main.c: 90:             setSpeed = 0;
 [e = _setSpeed -> -> 0 `i `s ]
-"94
-[; ;main.c: 94:             setSteering(0, Front);
+"91
+[; ;main.c: 91:             setSteering(0, Front);
 [e ( _setSteering (2 , -> -> 0 `i `s . `E17304 3 ]
-"95
-[; ;main.c: 95:             return 1;
+"92
+[; ;main.c: 92:             return 1;
 [e ) -> -> 1 `i `a ]
 [e $UE 2272  ]
-"96
-[; ;main.c: 96:         }
+"93
+[; ;main.c: 93:         }
 }
 [e :U 2274 ]
-"97
-[; ;main.c: 97:     }
+"94
+[; ;main.c: 94:     }
 }
 [e :U 2273 ]
-"98
-[; ;main.c: 98:     return 0;
+"95
+[; ;main.c: 95:     return 0;
 [e ) -> -> 0 `i `a ]
 [e $UE 2272  ]
-"99
-[; ;main.c: 99: }
+"96
+[; ;main.c: 96: }
 [e :UE 2272 ]
 }
-"101
-[; ;main.c: 101: void startAccell() {
+"98
+[; ;main.c: 98: void startAccell() {
 [v _startAccell `(v ~T0 @X0 1 ef ]
 {
 [e :U _startAccell ]
 [f ]
-"102
-[; ;main.c: 102:     setSteering(0, Front);
+"99
+[; ;main.c: 99:     setSteering(0, Front);
 [e ( _setSteering (2 , -> -> 0 `i `s . `E17304 3 ]
-"103
-[; ;main.c: 103:     driveMode = Accel;
+"100
+[; ;main.c: 100:     driveMode = Accel;
 [e = _driveMode . `E17295 0 ]
-"105
-[; ;main.c: 105:     actMotorPow = (40);
+"102
+[; ;main.c: 102:     actMotorPow = (40);
 [e = _actMotorPow -> -> 40 `i `s ]
-"106
-[; ;main.c: 106:     float MPow = actMotorPow;
+"103
+[; ;main.c: 103:     float MPow = actMotorPow;
 [v _MPow `f ~T0 @X0 1 a ]
 [e = _MPow -> _actMotorPow `f ]
-"107
-[; ;main.c: 107:     while (MPow < (250)) {
+"104
+[; ;main.c: 104:         printf("MPow: %f\n",MPow);
+[e ( _printf , (. :s 2C -> _MPow `d ]
+"105
+[; ;main.c: 105:     while (MPow < (250)) {
 [e $U 2276  ]
 [e :U 2277 ]
 {
-"108
-[; ;main.c: 108:         MPow *= (1.1);
+"106
+[; ;main.c: 106:         MPow *= (1.1);
 [e =* _MPow -> .1.1 `f ]
-"109
-[; ;main.c: 109:         actMotorPow = (int16_t) MPow;
+"107
+[; ;main.c: 107:         actMotorPow = (int16_t) MPow;
 [e = _actMotorPow -> _MPow `s ]
-"110
-[; ;main.c: 110:         setMotor(actMotorPow);
+"108
+[; ;main.c: 108:         setMotor(actMotorPow);
 [e ( _setMotor (1 _actMotorPow ]
-"111
-[; ;main.c: 111:         calcSteering();
+"109
+[; ;main.c: 109:         printf("actMPow: %d\n",actMotorPow);
+[e ( _printf , (. :s 3C -> _actMotorPow `i ]
+"110
+[; ;main.c: 110:         calcSteering();
 [e ( _calcSteering ..  ]
-"113
-[; ;main.c: 113:         cycle10ms = 0;
+"112
+[; ;main.c: 112:         cycle10ms = 0;
 [e = _cycle10ms -> -> 0 `i `uc ]
-"114
-[; ;main.c: 114:         while (!cycle10ms);
+"113
+[; ;main.c: 113:         while (!cycle10ms);
 [e $U 2279  ]
 [e :U 2280 ]
 [e :U 2279 ]
 [e $ ! != -> _cycle10ms `i -> 0 `i 2280  ]
 [e :U 2281 ]
-"115
-[; ;main.c: 115:     }
+"114
+[; ;main.c: 114:     }
 }
 [e :U 2276 ]
-"107
-[; ;main.c: 107:     while (MPow < (250)) {
+"105
+[; ;main.c: 105:     while (MPow < (250)) {
 [e $ < _MPow -> -> 250 `i `f 2277  ]
 [e :U 2278 ]
-"117
-[; ;main.c: 117:     actMotorPow = (250);
+"116
+[; ;main.c: 116:     actMotorPow = (250);
 [e = _actMotorPow -> -> 250 `i `s ]
-"118
-[; ;main.c: 118:     setMotor(actMotorPow);
+"117
+[; ;main.c: 117:     setMotor(actMotorPow);
 [e ( _setMotor (1 _actMotorPow ]
+"118
+[; ;main.c: 118:     printf("starAccelPower: %d\n", actMotorPow);
+[e ( _printf , (. :s 4C -> _actMotorPow `i ]
 "120
 [; ;main.c: 120:     cycle10ms = 0;
 [e = _cycle10ms -> -> 0 `i `uc ]
@@ -2939,26 +2945,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 158:         case InCurve:
 [e :U 2295 ]
 "159
-[; ;main.c: 159:             if (delay >= (40)) {
-[e $ ! >= -> _delay `i -> 40 `i 2296  ]
+[; ;main.c: 159:             if (delay >= (30)) {
+[e $ ! >= -> _delay `i -> 30 `i 2296  ]
 {
 "160
-[; ;main.c: 160:                 if ((driveMode == CurveLeft && distLeft < (50)) || (driveMode == CurveRight && distRight < (50)) || distFront > (300)) {
-[e $ ! || || && == -> _driveMode `ui -> . `E17295 5 `ui < -> _distLeft `ui -> -> 50 `i `ui && == -> _driveMode `ui -> . `E17295 6 `ui < -> _distRight `ui -> -> 50 `i `ui > -> _distFront `ui -> -> 300 `i `ui 2297  ]
+[; ;main.c: 160:                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
+[e $ ! || || && == -> _driveMode `ui -> . `E17295 5 `ui < -> _distLeft `ui -> -> 45 `i `ui && == -> _driveMode `ui -> . `E17295 6 `ui < -> _distRight `ui -> -> 45 `i `ui > -> _distFront `ui -> -> 300 `i `ui 2297  ]
 {
 "161
 [; ;main.c: 161:                     printf("Time: \t%d     \t", delay);
-[e ( _printf , (. :s 3C -> _delay `i ]
+[e ( _printf , (. :s 5C -> _delay `i ]
 "162
-[; ;main.c: 162:                     if(delay >= 90){
+[; ;main.c: 162:                     if (delay >= 90) {
 [e $ ! >= -> _delay `i -> 90 `i 2298  ]
 {
 "163
 [; ;main.c: 163:                         printf("stay Left\n");
-[e ( _printf :s 4C ]
+[e ( _printf :s 6C ]
 "164
 [; ;main.c: 164:                         middleOffSet = -10;
-[e = _middleOffSet -> -U -> 10 `i `c ]
+[e = _middleOffSet -> -U -> 10 `i `s ]
 "165
 [; ;main.c: 165:                     } else {
 }
@@ -2967,10 +2973,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 "166
 [; ;main.c: 166:                         printf("stay Right\n");
-[e ( _printf :s 5C ]
+[e ( _printf :s 7C ]
 "167
 [; ;main.c: 167:                         middleOffSet = 10;
-[e = _middleOffSet -> -> 10 `i `c ]
+[e = _middleOffSet -> -> 10 `i `s ]
 "168
 [; ;main.c: 168:                     }
 }
@@ -2984,8 +2990,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "172
 [; ;main.c: 172:                     driveMode = Straight;
 [e = _driveMode . `E17295 1 ]
-"174
-[; ;main.c: 174:                 } else if(driveMode == CurveRight && deltaLeft > (30)){
+"175
+[; ;main.c: 175:                 } else if(driveMode == CurveRight && deltaLeft > (30)){
 }
 [e $U 2300  ]
 [e :U 2297 ]
@@ -3581,22 +3587,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 353:     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
 [e = _addMPow -> * .0.020 -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 2 `i `d `c ]
 "355
-[; ;main.c: 355:     if (addMPow > (5)) {
-[e $ ! > -> _addMPow `i -> 5 `i 2362  ]
+[; ;main.c: 355:     if (addMPow > (3)) {
+[e $ ! > -> _addMPow `i -> 3 `i 2362  ]
 {
 "356
-[; ;main.c: 356:         addMPow = (5);
-[e = _addMPow -> -> 5 `i `c ]
+[; ;main.c: 356:         addMPow = (3);
+[e = _addMPow -> -> 3 `i `c ]
 "357
-[; ;main.c: 357:     } else if (addMPow < -(5)) {
+[; ;main.c: 357:     } else if (addMPow < -(3)) {
 }
 [e $U 2363  ]
 [e :U 2362 ]
-[e $ ! < -> _addMPow `i -U -> 5 `i 2364  ]
+[e $ ! < -> _addMPow `i -U -> 3 `i 2364  ]
 {
 "358
-[; ;main.c: 358:         addMPow = -(5);
-[e = _addMPow -> -U -> 5 `i `c ]
+[; ;main.c: 358:         addMPow = -(3);
+[e = _addMPow -> -U -> 3 `i `c ]
 "359
 [; ;main.c: 359:     }
 }
@@ -3866,9 +3872,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 441: }
 [e :UE 2375 ]
 }
-[p f _printf 8388736 ]
-[a 2C 66 97 116 116 101 114 121 32 76 111 119 0 ]
-[a 1C 83 105 109 111 110 32 76 111 119 0 ]
-[a 5C 115 116 97 121 32 82 105 103 104 116 10 0 ]
-[a 4C 115 116 97 121 32 76 101 102 116 10 0 ]
-[a 3C 84 105 109 101 58 32 9 37 100 32 32 32 32 32 9 0 ]
+[p f _printf 8396928 ]
+[a 1C 66 97 116 116 101 114 121 32 76 111 119 0 ]
+[a 7C 115 116 97 121 32 82 105 103 104 116 10 0 ]
+[a 6C 115 116 97 121 32 76 101 102 116 10 0 ]
+[a 2C 77 80 111 119 58 32 37 102 10 0 ]
+[a 3C 97 99 116 77 80 111 119 58 32 37 100 10 0 ]
+[a 4C 115 116 97 114 65 99 99 101 108 80 111 119 101 114 58 32 37 100 10 0 ]
+[a 5C 84 105 109 101 58 32 9 37 100 32 32 32 32 32 9 0 ]

@@ -18,8 +18,7 @@
 #define maxSteeringStraight             (40)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                   (2)
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
-
-//#define middleOffSet                    (-5)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
+//#define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
 #define maxMPowForward                  (700)
 #define maxSpeedForward                 (400)
@@ -29,19 +28,19 @@
 #define maxSpeedBackward                (-250)
 #define defaultMotorPowerBackward       (-150)
 
-#define maxAddMPow                      (5)
+#define maxAddMPow                      (3)
 #define MotorPowFactor                  (0.020)
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
 #define setDelayStart                   (15)       // Delay bevor man zu Lenken beginnt
-#define setDelayEnd                     (40)      // Delay bevor man die Kurve abbrechen kann
+#define setDelayEnd                     (30)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
 #define startCurveDelta                 (30)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta              (300)
 #define MaxOldDist                      (125)     //  && oldDistLeft < MaxOldDist)  --> Kurv
-#define endCurveDist                    (50)      // distL || distR < endKurveValue --> Kurvenende
+#define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
 #define endCurveDistFront               (300)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                   (65)       
 #define curveSpeed                      (200)
@@ -103,14 +102,14 @@ CurveMode curveMode = OutCurve;
 
 volatile uint8_t cycle10ms = 0;
 
-// neg: näher and der linken Wand
-int8_t  middleOffSet = -10;
-
 uint8_t delay = 0;
 uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
 
+
+// neg: naher and der linken Wand
+int16_t  middleOffSet = -10;
 int16_t motPow = 0;
 int16_t setSpeed = 0;
 int16_t currentSpeed = 0;
