@@ -28806,7 +28806,7 @@ void getCurve(void) {
             if (delay >= (30)) {
                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
                     printf("Time: \t%d     \t", delay);
-                    if (delay >= 90) {
+                    if (delay >= 70) {
                         printf("stay Left\n");
                         middleOffSet = -10;
                     } else {
@@ -28826,9 +28826,8 @@ void getCurve(void) {
                     driveMode = CurveLeft;
 
                 }
-            } else {
-                ++delay;
             }
+            ++delay;
             break;
         case AfterCurve:
             if (delay >= (1)) {
