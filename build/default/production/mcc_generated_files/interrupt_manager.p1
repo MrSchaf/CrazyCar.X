@@ -72,17 +72,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2851
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 2851: extern volatile IPR1bits_t IPR1bits __attribute__((address(0x3981)));
 [v _IPR1bits `VS129 ~T0 @X0 0 e@14721 ]
-"3392
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3392:     struct {
-[s S153 :1 `uc 1 :1 `uc 1 ]
-[n S153 . CCP4IP CLC4IP ]
-"3391
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3391: typedef union {
-[u S152 `S153 1 ]
-[n S152 . . ]
-"3397
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3397: extern volatile IPR10bits_t IPR10bits __attribute__((address(0x398A)));
-[v _IPR10bits `VS152 ~T0 @X0 0 e@14730 ]
 "3327
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3327:     struct {
 [s S149 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -94,6 +83,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "3333
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3333: extern volatile IPR8bits_t IPR8bits __attribute__((address(0x3988)));
 [v _IPR8bits `VS148 ~T0 @X0 0 e@14728 ]
+"3392
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3392:     struct {
+[s S153 :1 `uc 1 :1 `uc 1 ]
+[n S153 . CCP4IP CLC4IP ]
+"3391
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3391: typedef union {
+[u S152 `S153 1 ]
+[n S152 . . ]
+"3397
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3397: extern volatile IPR10bits_t IPR10bits __attribute__((address(0x398A)));
+[v _IPR10bits `VS152 ~T0 @X0 0 e@14730 ]
 "3282
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 3282:     struct {
 [s S147 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -2420,11 +2420,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/interrupt_manager.c: 76:     IPR1bits.SMT1PRAIP = 1;
 [e = . . _IPR1bits 0 6 -> -> 1 `i `uc ]
 "77
-[; ;mcc_generated_files/interrupt_manager.c: 77:     IPR10bits.CCP4IP = 1;
-[e = . . _IPR10bits 0 0 -> -> 1 `i `uc ]
-"78
-[; ;mcc_generated_files/interrupt_manager.c: 78:     IPR8bits.TMR5GIP = 1;
+[; ;mcc_generated_files/interrupt_manager.c: 77:     IPR8bits.TMR5GIP = 1;
 [e = . . _IPR8bits 0 2 -> -> 1 `i `uc ]
+"78
+[; ;mcc_generated_files/interrupt_manager.c: 78:     IPR10bits.CCP4IP = 1;
+[e = . . _IPR10bits 0 0 -> -> 1 `i `uc ]
 "79
 [; ;mcc_generated_files/interrupt_manager.c: 79:     IPR7bits.TMR4IP = 0;
 [e = . . _IPR7bits 0 0 -> -> 0 `i `uc ]

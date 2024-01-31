@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.32 build 20210201212658 
-                                                                                               Wed Jan 31 14:04:23 2024
+                                                                                               Wed Jan 31 14:52:27 2024
 
 Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1 
      1                           	processor	18F46K42
@@ -226,8 +226,8 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
    212  0000                     _PIR9bits	set	14761
    213  0000                     _IPR9bits	set	14729
    214  0000                     _IPR7bits	set	14727
-   215  0000                     _IPR8bits	set	14728
-   216  0000                     _IPR10bits	set	14730
+   215  0000                     _IPR10bits	set	14730
+   216  0000                     _IPR8bits	set	14728
    217  0000                     _IPR1bits	set	14721
    218  0000                     _IPR3bits	set	14723
    219  0000                     _PIE3bits	set	14739
@@ -10762,12 +10762,12 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  10363  003A16  8D81               	bsf	129,6,b	;volatile
  10364  003A18                     
  10365                           ; BSR set to: 57
- 10366                           ;mcc_generated_files/interrupt_manager.c: 77:     IPR10bits.CCP4IP = 1;
- 10367  003A18  818A               	bsf	138,0,b	;volatile
+ 10366                           ;mcc_generated_files/interrupt_manager.c: 77:     IPR8bits.TMR5GIP = 1;
+ 10367  003A18  8F88               	bsf	136,7,b	;volatile
  10368  003A1A                     
  10369                           ; BSR set to: 57
- 10370                           ;mcc_generated_files/interrupt_manager.c: 78:     IPR8bits.TMR5GIP = 1;
- 10371  003A1A  8F88               	bsf	136,7,b	;volatile
+ 10370                           ;mcc_generated_files/interrupt_manager.c: 78:     IPR10bits.CCP4IP = 1;
+ 10371  003A1A  818A               	bsf	138,0,b	;volatile
  10372  003A1C                     
  10373                           ; BSR set to: 57
  10374                           ;mcc_generated_files/interrupt_manager.c: 79:     IPR7bits.TMR4IP = 0;
@@ -15118,7 +15118,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.32 build 20210201212658 
-Symbol Table                                                                                   Wed Jan 31 14:04:23 2024
+Symbol Table                                                                                   Wed Jan 31 14:52:27 2024
 
                              _CCP4_Initialize 3F1A                        ??_CCP3_DefaultCallBack 0003  
                                           l72 41BC                                            l75 40C6  
