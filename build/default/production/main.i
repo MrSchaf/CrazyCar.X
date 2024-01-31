@@ -28697,6 +28697,7 @@ void loop(void) {
             break;
         }
 
+
         getCurve();
         getReverse();
 
@@ -28748,21 +28749,21 @@ void startAccell() {
 
     actMotorPow = (40);
     float MPow = actMotorPow;
-        printf("MPow: %f\n",MPow);
-    while (MPow < (250)) {
+
+    while (MPow < (230)) {
         MPow *= (1.1);
         actMotorPow = (int16_t) MPow;
         setMotor(actMotorPow);
-        printf("actMPow: %d\n",actMotorPow);
+
         calcSteering();
 
         cycle10ms = 0;
         while (!cycle10ms);
     }
 
-    actMotorPow = (250);
+    actMotorPow = (230);
     setMotor(actMotorPow);
-    printf("starAccelPower: %d\n", actMotorPow);
+
 
     cycle10ms = 0;
     while (cycle10ms < ((50) - (20))){
@@ -28778,13 +28779,13 @@ void getCurve(void) {
 
     switch (curveMode) {
         case OutCurve:
-            if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (125)) {
+            if (deltaLeft > (32) && deltaLeft < (300) && oldDistLeft < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
 
 
-            } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (125)) {
+            } else if (deltaRight > (32) && deltaRight < (300) && oldDistRight < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
@@ -28804,13 +28805,13 @@ void getCurve(void) {
             break;
         case InCurve:
             if (delay >= (25)) {
-                if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (150)) {
-                    printf("Time: %d     ", delay);
+                if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (175)) {
+
                     if (delay >= 70) {
-                        printf("stay Left\n");
+
                         middleOffSet = -15;
                     } else {
-                        printf("stay Right\n");
+
                         middleOffSet = 15;
                     }
 

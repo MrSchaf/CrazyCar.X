@@ -29,6 +29,7 @@ void loop(void) {
     } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
 
     startAccell();
+    
     driveMode = Straight;
     curveMode = OutCurve;
     oldDistLeft = distLeft;
@@ -45,10 +46,11 @@ void loop(void) {
             break;
         }
 
-        if (checkBatt()) {
-            printf("Battery Low");
-            break;
-        }
+//        if (checkBatt()) {
+//            printf("Battery Low");
+//            break;
+//        }
+        
 
         getCurve();
         getReverse();
@@ -101,12 +103,12 @@ void startAccell() {
     
     actMotorPow = MinMPower;
     float MPow = actMotorPow;
-        printf("MPow: %f\n",MPow);
+//        printf("MPow: %f\n",MPow);
     while (MPow < startMPower) {
         MPow *= startAccelMult;
         actMotorPow = (int16_t) MPow;
         setMotor(actMotorPow);
-        printf("actMPow: %d\n",actMotorPow);
+//        printf("actMPow: %d\n",actMotorPow);
         calcSteering();
         
         cycle10ms = 0;
@@ -115,7 +117,7 @@ void startAccell() {
     
     actMotorPow = startMPower;
     setMotor(actMotorPow);
-    printf("starAccelPower: %d\n", actMotorPow);
+//    printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
     while (cycle10ms < (startAccelTime - startAccellSteps)){
@@ -158,12 +160,12 @@ void getCurve(void) {
         case InCurve:
             if (delay >= setDelayEnd) {
                 if ((driveMode == CurveLeft && distLeft < endCurveDist) || (driveMode == CurveRight && distRight < endCurveDist) || distFront > endCurveDistFront) {
-                    printf("Time: %d     ", delay);
+//                    printf("Time: %d     ", delay);
                     if (delay >= 70) {
-                        printf("stay Left\n");
+//                        printf("stay Left\n");
                         middleOffSet = -15;
                     } else {
-                        printf("stay Right\n");
+//                        printf("stay Right\n");
                         middleOffSet = 15;
                     }
                     //                    printf("CurveTime: %d\n", delay);

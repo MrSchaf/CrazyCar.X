@@ -37,7 +37,7 @@
 #define setDelayEnd                     (25)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
-#define startCurveDelta                 (30)      // ((oldDist - actDist) > startCurveDelta  \n
+#define startCurveDelta                 (32)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta              (300)
 #define MaxOldDist                      (125)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
@@ -62,7 +62,7 @@
 #define minDriveSpeed                   (100)
 
 #define startAccelTime                  (50)      //how long the function runs in total
-#define startMPower                     (250)      //to what MPow the function accelerates
+#define startMPower                     (230)      //to what MPow the function accelerates
 #define startAccellSteps                (20)       //in how many steps does the function accelerate to startMPower
 #define startAccellStep       (int16_t) (startMPower / startAccellSteps)   //increment AcctMpow by this value
 #define startAccelMult                  (1.1)
