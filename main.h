@@ -54,7 +54,7 @@
 #define maxReverseTime                  (300)
 
 
-#define speedIncrease                   (0.0)
+#define speedIncrease                   (0.4)
 #define MinDistAccel                    (150)
 #define MinStraightSpeed                (275)
 
@@ -74,9 +74,7 @@ typedef enum {
     ReverseRight,
     ReverseLeft,
     CurveLeft,
-    CurveRight,
-    FollowLeft,
-    FollowRight
+    CurveRight
 } DriveMode;
 
 typedef enum {

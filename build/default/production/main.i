@@ -28585,9 +28585,7 @@ typedef enum {
     ReverseRight,
     ReverseLeft,
     CurveLeft,
-    CurveRight,
-    FollowLeft,
-    FollowRight
+    CurveRight
 } DriveMode;
 
 typedef enum {
@@ -28730,7 +28728,7 @@ int16_t actSpeed() {
 
 void getBatteryVoltage(void) {
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-    printf("BVolt: %f\n", BatteryVolt / 409.6f);
+
 }
 
 _Bool checkBatt() {
@@ -28804,7 +28802,7 @@ void getCurve(void) {
             if (delay >= (10)) {
                 delay = 0;
                 curveMode = InCurve;
-                printf("InCurve\n");
+
             } else {
                 ++delay;
             }
@@ -28812,21 +28810,14 @@ void getCurve(void) {
         case InCurve:
             if (delay >= (20)) {
                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
-                    if(distLeft < (45)){
-                        printf("Left Out!\n");
-                    } else if(distRight < (45)){
-                        printf("Right Out!\n");
-                    } else {
-                        printf("Front Out!\n");
-                    }
-                    printf("CurveTime: %d\n", delay);
+
                     delay = 0;
                     curveMode = AfterCurve;
-
                     driveMode = Straight;
 
+
                 } else if(driveMode == CurveRight && deltaLeft > (30)){
-                    printf("Switch!\nDeltLeft: %d\n", deltaLeft);
+                    printf("DeltLeft: %d\n", deltaLeft);
                     delay = 0;
                     curveMode = BeforeCurve;
                     driveMode = CurveLeft;
@@ -28958,7 +28949,7 @@ void calcSpeed(void) {
             }
 
             if (distFront >= (150)) {
-                speed = (int16_t) ((0.0) * (distFront - (150)) + (275));
+                speed = (int16_t) ((0.4) * (distFront - (150)) + (275));
             } else {
                 speed = (275);
             }

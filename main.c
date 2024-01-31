@@ -78,7 +78,7 @@ int16_t actSpeed() {
 
 void getBatteryVoltage(void) {
     BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-    printf("BVolt: %f\n", BatteryVolt / 409.6f);
+//    printf("BVolt: %f\n", BatteryVolt / 409.6f);
 }
 
 bool checkBatt() {
@@ -152,7 +152,7 @@ void getCurve(void) {
             if (delay >= setDelayStart) {
                 delay = 0;
                 curveMode = InCurve;
-                printf("InCurve\n");
+//                printf("InCurve\n");
             } else {
                 ++delay;
             }
@@ -160,21 +160,14 @@ void getCurve(void) {
         case InCurve:
             if (delay >= setDelayEnd) {
                 if ((driveMode == CurveLeft && distLeft < endCurveDist) || (driveMode == CurveRight && distRight < endCurveDist) || distFront > endCurveDistFront) {
-                    if(distLeft < endCurveDist){
-                        printf("Left Out!\n");
-                    } else if(distRight < endCurveDist){
-                        printf("Right Out!\n");
-                    } else {
-                        printf("Front Out!\n");
-                    }
-                    printf("CurveTime: %d\n", delay);
+//                    printf("CurveTime: %d\n", delay);
                     delay = 0;
                     curveMode = AfterCurve;
-                
                     driveMode = Straight;
+                    
 //                    printf("AfterCurve\n");
                 } else if(driveMode == CurveRight && deltaLeft > switchCurveDelta){
-                    printf("Switch!\nDeltLeft: %d\n", deltaLeft);
+                    printf("DeltLeft: %d\n", deltaLeft);
                     delay = 0;
                     curveMode = BeforeCurve;
                     driveMode = CurveLeft;
