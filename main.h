@@ -28,7 +28,7 @@
 #define maxSpeedBackward                (-250)
 #define defaultMotorPowerBackward       (-150)
 
-#define maxAddMPow                      (10)
+#define maxAddMPow                      (6)
 #define MotorPowFactor                  (0.020)
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
