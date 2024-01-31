@@ -28,12 +28,12 @@
 #define maxSpeedBackward                (-250)
 #define defaultMotorPowerBackward       (-150)
 
-#define maxAddMPow                      (6)
+#define maxAddMPow                      (5)
 #define MotorPowFactor                  (0.020)
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
-#define setDelayStart                   (17)       // Delay bevor man zu Lenken beginnt
+#define setDelayStart                   (18)       // Delay bevor man zu Lenken beginnt
 #define setDelayEnd                     (25)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
@@ -62,7 +62,7 @@
 #define minDriveSpeed                   (100)
 
 #define startAccelTime                  (50)      //how long the function runs in total
-#define startMPower                     (230)      //to what MPow the function accelerates
+#define startMPower                     (250)      //to what MPow the function accelerates
 #define startAccellSteps                (20)       //in how many steps does the function accelerate to startMPower
 #define startAccellStep       (int16_t) (startMPower / startAccellSteps)   //increment AcctMpow by this value
 #define startAccelMult                  (1.1)
