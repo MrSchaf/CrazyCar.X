@@ -15,7 +15,7 @@
 #define steeringBOffset                 (357)     // höher = links | niedriger = rechts
 #define maxSteeringF                    (65)
 #define maxSteeringB                    (40)
-#define maxSteeringStraight             (30)      //kann beim geradeaus fahren nicht stärker lenken
+#define maxSteeringStraight             (40)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                   (1.25)
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
 #define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
@@ -29,21 +29,21 @@
 #define maxSpeedBackward                (-250)
 #define defaultMotorPowerBackward       (-150)
 
-#define maxAddMPow                      (2)
+#define maxAddMPow                      (3)
 #define MotorPowFactor                  (0.020)
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
 #define setDelayStart                   (10)       // Delay bevor man zu Lenken beginnt
-#define setDelayEnd                     (30)      // Delay bevor man die Kurve abbrechen kann
+#define setDelayEnd                     (20)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
-#define startCurveDelta                 (40)      // ((oldDist - actDist) > startCurveDelta  \n
-#define maxStartCurveDelta              (200)
-#define MaxOldDist                      (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
-#define endCurveDist                    (50)      // distL || distR < endKurveValue --> Kurvenende
-#define endCurveDistFront               (250)     //distFront > endCurveDistFront   --> Kurvenende
-#define curveSteering                   (60)       
+#define startCurveDelta                 (30)      // ((oldDist - actDist) > startCurveDelta  \n
+#define maxStartCurveDelta              (300)
+#define MaxOldDist                      (125)     //  && oldDistLeft < MaxOldDist)  --> Kurv
+#define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
+#define endCurveDistFront               (300)     //distFront > endCurveDistFront   --> Kurvenende
+#define curveSteering                   (50)       
 #define curveSpeed                      (200)
 
 #define startReverseDist                (15)      // distFront < startReverseDist --> reverseCount++
@@ -53,14 +53,14 @@
 #define maxReverseTime                  (300)
 
 
-#define speedIncrease                   (0.5)
-#define MinDistAccel                    (200)
-#define MinStraightSpeed                (300)
+#define speedIncrease                   (0.0)
+#define MinDistAccel                    (150)
+#define MinStraightSpeed                (275)
 
 
 #define BrakeDistance                   (30)
 #define BrakeDistanceStrong             (15)
-#define minDriveSpeed                   (70)
+#define minDriveSpeed                   (100)
 
 #define startAccelTime                  (30)       //how long the function runs in total
 #define startMPower                     (240)      //to what MPow the function accelerates

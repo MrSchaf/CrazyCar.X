@@ -2889,8 +2889,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 137:             delay = 0;
 [e = _delay -> -> 0 `i `uc ]
 "138
-[; ;main.c: 138:             if (deltaLeft > (40) && deltaLeft < (200) && oldDistLeft < (150)) {
-[e $ ! && && > -> _deltaLeft `i -> 40 `i < -> _deltaLeft `i -> 200 `i < -> _oldDistLeft `ui -> -> 150 `i `ui 2291  ]
+[; ;main.c: 138:             if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (125)) {
+[e $ ! && && > -> _deltaLeft `i -> 30 `i < -> _deltaLeft `i -> 300 `i < -> _oldDistLeft `ui -> -> 125 `i `ui 2291  ]
 {
 "139
 [; ;main.c: 139:                 delay = 0;
@@ -2911,11 +2911,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 144:                 printf("   CurveLeft\n");
 [e ( _printf :s 3C ]
 "145
-[; ;main.c: 145:             } else if (deltaRight > (40) && deltaRight < (200) && oldDistRight < (150)) {
+[; ;main.c: 145:             } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (125)) {
 }
 [e $U 2292  ]
 [e :U 2291 ]
-[e $ ! && && > -> _deltaRight `i -> 40 `i < -> _deltaRight `i -> 200 `i < -> _oldDistRight `ui -> -> 150 `i `ui 2293  ]
+[e $ ! && && > -> _deltaRight `i -> 30 `i < -> _deltaRight `i -> 300 `i < -> _oldDistRight `ui -> -> 125 `i `ui 2293  ]
 {
 "146
 [; ;main.c: 146:                 delay = 0;
@@ -2979,26 +2979,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 164:         case InCurve:
 [e :U 2297 ]
 "165
-[; ;main.c: 165:             if (delay >= (30)) {
-[e $ ! >= -> _delay `i -> 30 `i 2298  ]
+[; ;main.c: 165:             if (delay >= (20)) {
+[e $ ! >= -> _delay `i -> 20 `i 2298  ]
 {
 "166
-[; ;main.c: 166:                 if ((driveMode == CurveLeft && distLeft < (50)) || (driveMode == CurveRight && distRight < (50)) || distFront > (250)) {
-[e $ ! || || && == -> _driveMode `ui -> . `E17295 4 `ui < -> _distLeft `ui -> -> 50 `i `ui && == -> _driveMode `ui -> . `E17295 5 `ui < -> _distRight `ui -> -> 50 `i `ui > -> _distFront `ui -> -> 250 `i `ui 2299  ]
+[; ;main.c: 166:                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
+[e $ ! || || && == -> _driveMode `ui -> . `E17295 4 `ui < -> _distLeft `ui -> -> 45 `i `ui && == -> _driveMode `ui -> . `E17295 5 `ui < -> _distRight `ui -> -> 45 `i `ui > -> _distFront `ui -> -> 300 `i `ui 2299  ]
 {
 "167
-[; ;main.c: 167:                     if(distLeft < (50)){
-[e $ ! < -> _distLeft `ui -> -> 50 `i `ui 2300  ]
+[; ;main.c: 167:                     if(distLeft < (45)){
+[e $ ! < -> _distLeft `ui -> -> 45 `i `ui 2300  ]
 {
 "168
 [; ;main.c: 168:                         printf("Left Out!\n");
 [e ( _printf :s 7C ]
 "169
-[; ;main.c: 169:                     } else if(distRight < (50)){
+[; ;main.c: 169:                     } else if(distRight < (45)){
 }
 [e $U 2301  ]
 [e :U 2300 ]
-[e $ ! < -> _distRight `ui -> -> 50 `i `ui 2302  ]
+[e $ ! < -> _distRight `ui -> -> 45 `i `ui 2302  ]
 {
 "170
 [; ;main.c: 170:                         printf("Right Out!\n");
@@ -3243,22 +3243,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 241:         case CurveRight:
 [e :U 2324 ]
 "242
-[; ;main.c: 242:             if (delta > (30)) {
-[e $ ! > -> _delta `i -> 30 `i 2325  ]
+[; ;main.c: 242:             if (delta > (40)) {
+[e $ ! > -> _delta `i -> 40 `i 2325  ]
 {
 "243
-[; ;main.c: 243:                 delta = (30);
-[e = _delta -> -> 30 `i `s ]
+[; ;main.c: 243:                 delta = (40);
+[e = _delta -> -> 40 `i `s ]
 "244
-[; ;main.c: 244:             } else if (delta < -(30)) {
+[; ;main.c: 244:             } else if (delta < -(40)) {
 }
 [e $U 2326  ]
 [e :U 2325 ]
-[e $ ! < -> _delta `i -U -> 30 `i 2327  ]
+[e $ ! < -> _delta `i -U -> 40 `i 2327  ]
 {
 "245
-[; ;main.c: 245:                 delta = -(30);
-[e = _delta -> -U -> 30 `i `s ]
+[; ;main.c: 245:                 delta = -(40);
+[e = _delta -> -U -> 40 `i `s ]
 "246
 [; ;main.c: 246:             }
 }
@@ -3310,8 +3310,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 259:         case ReverseRight:
 [e :U 2333 ]
 "260
-[; ;main.c: 260:             setSteering(-(60), Inverted);
-[e ( _setSteering (2 , -> -U -> 60 `i `s . `E17305 0 ]
+[; ;main.c: 260:             setSteering(-(50), Inverted);
+[e ( _setSteering (2 , -> -U -> 50 `i `s . `E17305 0 ]
 "261
 [; ;main.c: 261:             break;
 [e $U 2329  ]
@@ -3319,8 +3319,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 262:         case ReverseLeft:
 [e :U 2334 ]
 "263
-[; ;main.c: 263:             setSteering((60), Inverted);
-[e ( _setSteering (2 , -> -> 60 `i `s . `E17305 0 ]
+[; ;main.c: 263:             setSteering((50), Inverted);
+[e ( _setSteering (2 , -> -> 50 `i `s . `E17305 0 ]
 "264
 [; ;main.c: 264:             break;
 [e $U 2329  ]
@@ -3332,8 +3332,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! == -> _curveMode `ui -> . `E17312 2 `ui 2336  ]
 {
 "267
-[; ;main.c: 267:                 setSteering((60), Ratio);
-[e ( _setSteering (2 , -> -> 60 `i `s . `E17305 2 ]
+[; ;main.c: 267:                 setSteering((50), Ratio);
+[e ( _setSteering (2 , -> -> 50 `i `s . `E17305 2 ]
 "268
 [; ;main.c: 268:             } else {
 }
@@ -3358,8 +3358,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! == -> _curveMode `ui -> . `E17312 2 `ui 2339  ]
 {
 "274
-[; ;main.c: 274:                 setSteering(-(60), Ratio);
-[e ( _setSteering (2 , -> -U -> 60 `i `s . `E17305 2 ]
+[; ;main.c: 274:                 setSteering(-(50), Ratio);
+[e ( _setSteering (2 , -> -U -> 50 `i `s . `E17305 2 ]
 "275
 [; ;main.c: 275:             } else {
 }
@@ -3422,8 +3422,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e :U 2345 ]
 "290
-[; ;main.c: 290:             if (setSpeed > (70)) {
-[e $ ! > -> _setSpeed `i -> 70 `i 2346  ]
+[; ;main.c: 290:             if (setSpeed > (100)) {
+[e $ ! > -> _setSpeed `i -> 100 `i 2346  ]
 {
 "291
 [; ;main.c: 291:                     speed = setSpeed;
@@ -3455,8 +3455,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 2346 ]
 {
 "298
-[; ;main.c: 298:                 speed = (70);
-[e = _speed -> -> 70 `i `s ]
+[; ;main.c: 298:                 speed = (100);
+[e = _speed -> -> 100 `i `s ]
 "299
 [; ;main.c: 299:             }
 }
@@ -3479,12 +3479,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e :U 2351 ]
 "306
-[; ;main.c: 306:             if (distFront >= (200)) {
-[e $ ! >= -> _distFront `ui -> -> 200 `i `ui 2352  ]
+[; ;main.c: 306:             if (distFront >= (150)) {
+[e $ ! >= -> _distFront `ui -> -> 150 `i `ui 2352  ]
 {
 "307
-[; ;main.c: 307:                 speed = (int16_t) ((0.5) * (distFront - (200)) + (300));
-[e = _speed -> + * .0.5 -> - -> _distFront `ui -> -> 200 `i `ui `d -> -> 300 `i `d `s ]
+[; ;main.c: 307:                 speed = (int16_t) ((0.0) * (distFront - (150)) + (275));
+[e = _speed -> + * .0.0 -> - -> _distFront `ui -> -> 150 `i `ui `d -> -> 275 `i `d `s ]
 "308
 [; ;main.c: 308:             } else {
 }
@@ -3492,8 +3492,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 2352 ]
 {
 "309
-[; ;main.c: 309:                 speed = (300);
-[e = _speed -> -> 300 `i `s ]
+[; ;main.c: 309:                 speed = (275);
+[e = _speed -> -> 275 `i `s ]
 "310
 [; ;main.c: 310:             }
 }
@@ -3604,22 +3604,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 346:     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
 [e = _addMPow -> * .0.020 -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 2 `i `d `c ]
 "348
-[; ;main.c: 348:     if (addMPow > (2)) {
-[e $ ! > -> _addMPow `i -> 2 `i 2361  ]
+[; ;main.c: 348:     if (addMPow > (3)) {
+[e $ ! > -> _addMPow `i -> 3 `i 2361  ]
 {
 "349
-[; ;main.c: 349:         addMPow = (2);
-[e = _addMPow -> -> 2 `i `c ]
+[; ;main.c: 349:         addMPow = (3);
+[e = _addMPow -> -> 3 `i `c ]
 "350
-[; ;main.c: 350:     } else if (addMPow < -(2)) {
+[; ;main.c: 350:     } else if (addMPow < -(3)) {
 }
 [e $U 2362  ]
 [e :U 2361 ]
-[e $ ! < -> _addMPow `i -U -> 2 `i 2363  ]
+[e $ ! < -> _addMPow `i -U -> 3 `i 2363  ]
 {
 "351
-[; ;main.c: 351:         addMPow = -(2);
-[e = _addMPow -> -U -> 2 `i `c ]
+[; ;main.c: 351:         addMPow = -(3);
+[e = _addMPow -> -U -> 3 `i `c ]
 "352
 [; ;main.c: 352:     }
 }

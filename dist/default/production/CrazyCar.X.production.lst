@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.32 build 20210201212658 
-                                                                                               Tue Jan 30 18:21:54 2024
+                                                                                               Wed Jan 31 08:29:26 2024
 
 Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1 
      1                           	processor	18F46K42
@@ -2218,12 +2218,12 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2182  003D1C                     l8905:
   2183                           
   2184                           ; BSR set to: 0
-  2185                           ;main.c: 242:             if (delta > (30)) {
+  2185                           ;main.c: 242:             if (delta > (40)) {
   2186  003D1C  BF8F               	btfsc	(calcSteering@delta+1)& (0+255),7,b
   2187  003D1E  EF9A  F01E         	goto	u9841
   2188  003D22  518F               	movf	(calcSteering@delta+1)& (0+255),w,b
   2189  003D24  E109               	bnz	u9840
-  2190  003D26  0E1F               	movlw	31
+  2190  003D26  0E29               	movlw	41
   2191  003D28  5D8E               	subwf	calcSteering@delta& (0+255),w,b
   2192  003D2A  A0D8               	btfss	status,0,c
   2193  003D2C  EF9A  F01E         	goto	u9841
@@ -2233,20 +2233,20 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2197  003D38                     u9840:
   2198  003D38                     
   2199                           ; BSR set to: 0
-  2200                           ;main.c: 243:                 delta = (30);
+  2200                           ;main.c: 243:                 delta = (40);
   2201  003D38  0E00               	movlw	0
   2202  003D3A  6F8F               	movwf	(calcSteering@delta+1)& (0+255),b
-  2203  003D3C  0E1E               	movlw	30
+  2203  003D3C  0E28               	movlw	40
   2204  003D3E  6F8E               	movwf	calcSteering@delta& (0+255),b
   2205                           
-  2206                           ;main.c: 244:             } else if (delta < -(30)) {
+  2206                           ;main.c: 244:             } else if (delta < -(40)) {
   2207  003D40  EF23  F01F         	goto	l8939
   2208  003D44                     l8909:
   2209                           
   2210                           ; BSR set to: 0
   2211  003D44  AF8F               	btfss	(calcSteering@delta+1)& (0+255),7,b
   2212  003D46  EFAE  F01E         	goto	u9851
-  2213  003D4A  0EE2               	movlw	226
+  2213  003D4A  0ED8               	movlw	216
   2214  003D4C  5D8E               	subwf	calcSteering@delta& (0+255),w,b
   2215  003D4E  0EFF               	movlw	255
   2216  003D50  598F               	subwfb	(calcSteering@delta+1)& (0+255),w,b
@@ -2258,10 +2258,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2222  003D60                     u9850:
   2223  003D60                     
   2224                           ; BSR set to: 0
-  2225                           ;main.c: 245:                 delta = -(30);
+  2225                           ;main.c: 245:                 delta = -(40);
   2226  003D60  0EFF               	movlw	255
   2227  003D62  6F8F               	movwf	(calcSteering@delta+1)& (0+255),b
-  2228  003D64  0EE2               	movlw	226
+  2228  003D64  0ED8               	movlw	216
   2229  003D66  6F8E               	movwf	calcSteering@delta& (0+255),b
   2230  003D68  EF23  F01F         	goto	l8939
   2231  003D6C                     l8915:
@@ -2339,10 +2339,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2302  003DD2                     l8921:
   2303                           
   2304                           ; BSR set to: 0
-  2305                           ;main.c: 260:             setSteering(-(60), Inverted);
+  2305                           ;main.c: 260:             setSteering(-(50), Inverted);
   2306  003DD2  0EFF               	movlw	255
   2307  003DD4  6F84               	movwf	(setSteering@steering+1)& (0+255),b
-  2308  003DD6  0EC4               	movlw	196
+  2308  003DD6  0ECE               	movlw	206
   2309  003DD8  6F83               	movwf	setSteering@steering& (0+255),b
   2310  003DDA  0E00               	movlw	0
   2311  003DDC  6F85               	movwf	setSteering@steeringMode& (0+255),b
@@ -2353,10 +2353,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2316  003DE6                     l8923:
   2317                           
   2318                           ; BSR set to: 0
-  2319                           ;main.c: 263:             setSteering((60), Inverted);
+  2319                           ;main.c: 263:             setSteering((50), Inverted);
   2320  003DE6  0E00               	movlw	0
   2321  003DE8  6F84               	movwf	(setSteering@steering+1)& (0+255),b
-  2322  003DEA  0E3C               	movlw	60
+  2322  003DEA  0E32               	movlw	50
   2323  003DEC  6F83               	movwf	setSteering@steering& (0+255),b
   2324  003DEE  0E00               	movlw	0
   2325  003DF0  6F85               	movwf	setSteering@steeringMode& (0+255),b
@@ -2378,10 +2378,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2341  003E0C                     u9860:
   2342  003E0C                     
   2343                           ; BSR set to: 0
-  2344                           ;main.c: 267:                 setSteering((60), Ratio);
+  2344                           ;main.c: 267:                 setSteering((50), Ratio);
   2345  003E0C  0E00               	movlw	0
   2346  003E0E  6F84               	movwf	(setSteering@steering+1)& (0+255),b
-  2347  003E10  0E3C               	movlw	60
+  2347  003E10  0E32               	movlw	50
   2348  003E12  6F83               	movwf	setSteering@steering& (0+255),b
   2349  003E14  0E02               	movlw	2
   2350  003E16  6F85               	movwf	setSteering@steeringMode& (0+255),b
@@ -2403,10 +2403,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2366  003E32                     u9870:
   2367  003E32                     
   2368                           ; BSR set to: 0
-  2369                           ;main.c: 274:                 setSteering(-(60), Ratio);
+  2369                           ;main.c: 274:                 setSteering(-(50), Ratio);
   2370  003E32  0EFF               	movlw	255
   2371  003E34  6F84               	movwf	(setSteering@steering+1)& (0+255),b
-  2372  003E36  0EC4               	movlw	196
+  2372  003E36  0ECE               	movlw	206
   2373  003E38  6F83               	movwf	setSteering@steering& (0+255),b
   2374  003E3A  0E02               	movlw	2
   2375  003E3C  6F85               	movwf	setSteering@steeringMode& (0+255),b
@@ -2788,14 +2788,14 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2739  002F7E  6FF7               	movwf	_delay& (0+255),b
   2740  002F80                     
   2741                           ; BSR set to: 0
-  2742                           ;main.c: 138:             if (deltaLeft > (40) && deltaLeft < (200) && oldDistLeft < (15
-      +                          0)) {
+  2742                           ;main.c: 138:             if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (12
+      +                          5)) {
   2743  002F80  0101               	movlb	1	; () banked
   2744  002F82  BFB1               	btfsc	(getCurve@deltaLeft+1)& (0+255),7,b
   2745  002F84  EFCD  F017         	goto	u9931
   2746  002F88  51B1               	movf	(getCurve@deltaLeft+1)& (0+255),w,b
   2747  002F8A  E109               	bnz	u9930
-  2748  002F8C  0E29               	movlw	41
+  2748  002F8C  0E1F               	movlw	31
   2749  002F8E  5DB0               	subwf	getCurve@deltaLeft& (0+255),w,b
   2750  002F90  A0D8               	btfss	status,0,c
   2751  002F92  EFCD  F017         	goto	u9931
@@ -2807,10 +2807,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2757                           ; BSR set to: 1
   2758  002F9E  BFB1               	btfsc	(getCurve@deltaLeft+1)& (0+255),7,b
   2759  002FA0  EFDD  F017         	goto	u9940
-  2760  002FA4  51B1               	movf	(getCurve@deltaLeft+1)& (0+255),w,b
-  2761  002FA6  E107               	bnz	u9941
-  2762  002FA8  0EC8               	movlw	200
-  2763  002FAA  5DB0               	subwf	getCurve@deltaLeft& (0+255),w,b
+  2760  002FA4  0E2C               	movlw	44
+  2761  002FA6  5DB0               	subwf	getCurve@deltaLeft& (0+255),w,b
+  2762  002FA8  0E01               	movlw	1
+  2763  002FAA  59B1               	subwfb	(getCurve@deltaLeft+1)& (0+255),w,b
   2764  002FAC  B0D8               	btfsc	status,0,c
   2765  002FAE  EFDB  F017         	goto	u9941
   2766  002FB2  EFDD  F017         	goto	u9940
@@ -2822,7 +2822,7 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2772  002FBA  0100               	movlb	0	; () banked
   2773  002FBC  51F2               	movf	(_oldDistLeft+1)& (0+255),w,b
   2774  002FBE  E107               	bnz	u9951
-  2775  002FC0  0E96               	movlw	150
+  2775  002FC0  0E7D               	movlw	125
   2776  002FC2  5DF1               	subwf	_oldDistLeft& (0+255),w,b
   2777  002FC4  B0D8               	btfsc	status,0,c
   2778  002FC6  EFE7  F017         	goto	u9951
@@ -2869,8 +2869,8 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2819  003006  6FA7               	movwf	(printf@fmt+1)& (0+255),b
   2820  003008  EC48  F02E         	call	_printf	;wreg free
   2821                           
-  2822                           ;main.c: 145:             } else if (deltaRight > (40) && deltaRight < (200) && oldDistR
-      +                          ight < (150)) {
+  2822                           ;main.c: 145:             } else if (deltaRight > (30) && deltaRight < (300) && oldDistR
+      +                          ight < (125)) {
   2823  00300C  EF24  F019         	goto	l1286
   2824  003010                     l9023:
   2825  003010  0101               	movlb	1	; () banked
@@ -2878,7 +2878,7 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2827  003014  EF15  F018         	goto	u9961
   2828  003018  51B3               	movf	(getCurve@deltaRight+1)& (0+255),w,b
   2829  00301A  E109               	bnz	u9960
-  2830  00301C  0E29               	movlw	41
+  2830  00301C  0E1F               	movlw	31
   2831  00301E  5DB2               	subwf	getCurve@deltaRight& (0+255),w,b
   2832  003020  A0D8               	btfss	status,0,c
   2833  003022  EF15  F018         	goto	u9961
@@ -2890,10 +2890,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2839                           ; BSR set to: 1
   2840  00302E  BFB3               	btfsc	(getCurve@deltaRight+1)& (0+255),7,b
   2841  003030  EF25  F018         	goto	u9970
-  2842  003034  51B3               	movf	(getCurve@deltaRight+1)& (0+255),w,b
-  2843  003036  E107               	bnz	u9971
-  2844  003038  0EC8               	movlw	200
-  2845  00303A  5DB2               	subwf	getCurve@deltaRight& (0+255),w,b
+  2842  003034  0E2C               	movlw	44
+  2843  003036  5DB2               	subwf	getCurve@deltaRight& (0+255),w,b
+  2844  003038  0E01               	movlw	1
+  2845  00303A  59B3               	subwfb	(getCurve@deltaRight+1)& (0+255),w,b
   2846  00303C  B0D8               	btfsc	status,0,c
   2847  00303E  EF23  F018         	goto	u9971
   2848  003042  EF25  F018         	goto	u9970
@@ -2905,7 +2905,7 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2854  00304A  0100               	movlb	0	; () banked
   2855  00304C  51F0               	movf	(_oldDistRight+1)& (0+255),w,b
   2856  00304E  E107               	bnz	u9981
-  2857  003050  0E96               	movlw	150
+  2857  003050  0E7D               	movlw	125
   2858  003052  5DEF               	subwf	_oldDistRight& (0+255),w,b
   2859  003054  B0D8               	btfsc	status,0,c
   2860  003056  EF2F  F018         	goto	u9981
@@ -2994,8 +2994,8 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2943  0030D4                     l9045:
   2944                           
   2945                           ; BSR set to: 1
-  2946                           ;main.c: 165:             if (delay >= (30)) {
-  2947  0030D4  0E1D               	movlw	29
+  2946                           ;main.c: 165:             if (delay >= (20)) {
+  2947  0030D4  0E13               	movlw	19
   2948  0030D6  0100               	movlb	0	; () banked
   2949  0030D8  65F7               	cpfsgt	_delay& (0+255),b
   2950  0030DA  EF71  F018         	goto	u10001
@@ -3005,8 +3005,8 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2954  0030E6                     u10000:
   2955  0030E6                     
   2956                           ; BSR set to: 0
-  2957                           ;main.c: 166:                 if ((driveMode == CurveLeft && distLeft < (50)) || (driveM
-      +                          ode == CurveRight && distRight < (50)) || distFront > (250)) {
+  2957                           ;main.c: 166:                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveM
+      +                          ode == CurveRight && distRight < (45)) || distFront > (300)) {
   2958  0030E6  0E04               	movlw	4
   2959  0030E8  19FC               	xorwf	_driveMode& (0+255),w,b
   2960  0030EA  A4D8               	btfss	status,2,c
@@ -3019,7 +3019,7 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2967                           ; BSR set to: 0
   2968  0030F8  51F6               	movf	(_distLeft+1)& (0+255),w,b	;volatile
   2969  0030FA  E109               	bnz	u10020
-  2970  0030FC  0E32               	movlw	50
+  2970  0030FC  0E2D               	movlw	45
   2971  0030FE  5DF5               	subwf	_distLeft& (0+255),w,b	;volatile
   2972  003100  A0D8               	btfss	status,0,c
   2973  003102  EF85  F018         	goto	u10021
@@ -3042,7 +3042,7 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2990                           ; BSR set to: 0
   2991  003120  51F4               	movf	(_distRight+1)& (0+255),w,b	;volatile
   2992  003122  E109               	bnz	u10040
-  2993  003124  0E32               	movlw	50
+  2993  003124  0E2D               	movlw	45
   2994  003126  5DF3               	subwf	_distRight& (0+255),w,b	;volatile
   2995  003128  A0D8               	btfss	status,0,c
   2996  00312A  EF99  F018         	goto	u10041
@@ -3053,10 +3053,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   3001  003136                     l9055:
   3002                           
   3003                           ; BSR set to: 0
-  3004  003136  51FE               	movf	(_distFront+1)& (0+255),w,b	;volatile
-  3005  003138  E109               	bnz	u10050
-  3006  00313A  0EFB               	movlw	251
-  3007  00313C  5DFD               	subwf	_distFront& (0+255),w,b	;volatile
+  3004  003136  0E2D               	movlw	45
+  3005  003138  5DFD               	subwf	_distFront& (0+255),w,b	;volatile
+  3006  00313A  0E01               	movlw	1
+  3007  00313C  59FE               	subwfb	(_distFront+1)& (0+255),w,b	;volatile
   3008  00313E  A0D8               	btfss	status,0,c
   3009  003140  EFA4  F018         	goto	u10051
   3010  003144  EFA6  F018         	goto	u10050
@@ -3066,10 +3066,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   3014  00314C                     l9057:
   3015                           
   3016                           ; BSR set to: 0
-  3017                           ;main.c: 167:                     if(distLeft < (50)){
+  3017                           ;main.c: 167:                     if(distLeft < (45)){
   3018  00314C  51F6               	movf	(_distLeft+1)& (0+255),w,b	;volatile
   3019  00314E  E107               	bnz	u10061
-  3020  003150  0E32               	movlw	50
+  3020  003150  0E2D               	movlw	45
   3021  003152  5DF5               	subwf	_distLeft& (0+255),w,b	;volatile
   3022  003154  B0D8               	btfsc	status,0,c
   3023  003156  EFAF  F018         	goto	u10061
@@ -3087,14 +3087,14 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   3035  00316A  6FA7               	movwf	(printf@fmt+1)& (0+255),b
   3036  00316C  EC48  F02E         	call	_printf	;wreg free
   3037                           
-  3038                           ;main.c: 169:                     } else if(distRight < (50)){
+  3038                           ;main.c: 169:                     } else if(distRight < (45)){
   3039  003170  EFD5  F018         	goto	l1300
   3040  003174                     l9061:
   3041                           
   3042                           ; BSR set to: 0
   3043  003174  51F4               	movf	(_distRight+1)& (0+255),w,b	;volatile
   3044  003176  E107               	bnz	u10071
-  3045  003178  0E32               	movlw	50
+  3045  003178  0E2D               	movlw	45
   3046  00317A  5DF3               	subwf	_distRight& (0+255),w,b	;volatile
   3047  00317C  B0D8               	btfsc	status,0,c
   3048  00317E  EFC3  F018         	goto	u10071
@@ -10494,12 +10494,12 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  10080  00377E                     l9139:
  10081                           
  10082                           ; BSR set to: 0
- 10083                           ;main.c: 290:             if (setSpeed > (70)) {
+ 10083                           ;main.c: 290:             if (setSpeed > (100)) {
  10084  00377E  BFEE               	btfsc	(_setSpeed+1)& (0+255),7,b
  10085  003780  EFCB  F01B         	goto	u10191
  10086  003784  51EE               	movf	(_setSpeed+1)& (0+255),w,b
  10087  003786  E109               	bnz	u10190
- 10088  003788  0E47               	movlw	71
+ 10088  003788  0E65               	movlw	101
  10089  00378A  5DED               	subwf	_setSpeed& (0+255),w,b
  10090  00378C  A0D8               	btfss	status,0,c
  10091  00378E  EFCB  F01B         	goto	u10191
@@ -10547,10 +10547,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  10133  0037D0                     l9149:
  10134                           
  10135                           ; BSR set to: 0
- 10136                           ;main.c: 298:                 speed = (70);
+ 10136                           ;main.c: 298:                 speed = (100);
  10137  0037D0  0E00               	movlw	0
  10138  0037D2  6F88               	movwf	(calcSpeed@speed+1)& (0+255),b
- 10139  0037D4  0E46               	movlw	70
+ 10139  0037D4  0E64               	movlw	100
  10140  0037D6  6F87               	movwf	calcSpeed@speed& (0+255),b
  10141  0037D8  EF86  F01C         	goto	l9173
  10142  0037DC                     l9151:
@@ -10575,10 +10575,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  10161  0037F6                     l9155:
  10162                           
  10163                           ; BSR set to: 0
- 10164                           ;main.c: 306:             if (distFront >= (200)) {
+ 10164                           ;main.c: 306:             if (distFront >= (150)) {
  10165  0037F6  51FE               	movf	(_distFront+1)& (0+255),w,b	;volatile
  10166  0037F8  E109               	bnz	u10220
- 10167  0037FA  0EC8               	movlw	200
+ 10167  0037FA  0E96               	movlw	150
  10168  0037FC  5DFD               	subwf	_distFront& (0+255),w,b	;volatile
  10169  0037FE  A0D8               	btfss	status,0,c
  10170  003800  EF04  F01C         	goto	u10221
@@ -10588,12 +10588,12 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  10174  00380C                     u10220:
  10175  00380C                     
  10176                           ; BSR set to: 0
- 10177                           ;main.c: 307:                 speed = (int16_t) ((0.5) * (distFront - (200)) + (300));
+ 10177                           ;main.c: 307:                 speed = (int16_t) ((0.0) * (distFront - (150)) + (275));
  10178  00380C  0E00               	movlw	0
  10179  00380E  6F71               	movwf	___fladd@a& (0+255),b
- 10180  003810  0E00               	movlw	0
+ 10180  003810  0E80               	movlw	128
  10181  003812  6F72               	movwf	(___fladd@a+1)& (0+255),b
- 10182  003814  0E96               	movlw	150
+ 10182  003814  0E89               	movlw	137
  10183  003816  6F73               	movwf	(___fladd@a+2)& (0+255),b
  10184  003818  0E43               	movlw	67
  10185  00381A  6F74               	movwf	(___fladd@a+3)& (0+255),b
@@ -10603,9 +10603,9 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  10189  003822  6E2F               	movwf	(___flmul@a+1)^0,c
  10190  003824  0E00               	movlw	0
  10191  003826  6E30               	movwf	(___flmul@a+2)^0,c
- 10192  003828  0E3F               	movlw	63
+ 10192  003828  0E00               	movlw	0
  10193  00382A  6E31               	movwf	(___flmul@a+3)^0,c
- 10194  00382C  0E38               	movlw	56
+ 10194  00382C  0E6A               	movlw	106
  10195  00382E  6F83               	movwf	??_calcSpeed& (0+255),b
  10196  003830  0EFF               	movlw	255
  10197  003832  6F84               	movwf	(??_calcSpeed+1)& (0+255),b
@@ -10644,10 +10644,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  10230  00389E                     l9159:
  10231                           
  10232                           ; BSR set to: 0
- 10233                           ;main.c: 309:                 speed = (300);
+ 10233                           ;main.c: 309:                 speed = (275);
  10234  00389E  0E01               	movlw	1
  10235  0038A0  6F88               	movwf	(calcSpeed@speed+1)& (0+255),b
- 10236  0038A2  0E2C               	movlw	44
+ 10236  0038A2  0E13               	movlw	19
  10237  0038A4  6F87               	movwf	calcSpeed@speed& (0+255),b
  10238  0038A6  EF86  F01C         	goto	l9173
  10239  0038AA                     l9161:
@@ -11726,10 +11726,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  11300  004226  6F89               	movwf	calcMotorPow@addMPow& (0+255),b
  11301  004228                     
  11302                           ; BSR set to: 0
- 11303                           ;main.c: 348:     if (addMPow > (2)) {
+ 11303                           ;main.c: 348:     if (addMPow > (3)) {
  11304  004228  5189               	movf	calcMotorPow@addMPow& (0+255),w,b
  11305  00422A  0A80               	xorlw	128
- 11306  00422C  0F7D               	addlw	-131
+ 11306  00422C  0F7C               	addlw	-132
  11307  00422E  A0D8               	btfss	status,0,c
  11308  004230  EF1C  F021         	goto	u10251
  11309  004234  EF1E  F021         	goto	u10250
@@ -11738,18 +11738,18 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  11312  00423C                     u10250:
  11313  00423C                     
  11314                           ; BSR set to: 0
- 11315                           ;main.c: 349:         addMPow = (2);
- 11316  00423C  0E02               	movlw	2
+ 11315                           ;main.c: 349:         addMPow = (3);
+ 11316  00423C  0E03               	movlw	3
  11317  00423E  6F89               	movwf	calcMotorPow@addMPow& (0+255),b
  11318                           
- 11319                           ;main.c: 350:     } else if (addMPow < -(2)) {
+ 11319                           ;main.c: 350:     } else if (addMPow < -(3)) {
  11320  004240  EF2E  F021         	goto	l9205
  11321  004244                     l9201:
  11322                           
  11323                           ; BSR set to: 0
  11324  004244  5189               	movf	calcMotorPow@addMPow& (0+255),w,b
  11325  004246  0A80               	xorlw	128
- 11326  004248  0F82               	addlw	130
+ 11326  004248  0F83               	addlw	131
  11327  00424A  B0D8               	btfsc	status,0,c
  11328  00424C  EF2A  F021         	goto	u10261
  11329  004250  EF2C  F021         	goto	u10260
@@ -11758,8 +11758,8 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
  11332  004258                     u10260:
  11333  004258                     
  11334                           ; BSR set to: 0
- 11335                           ;main.c: 351:         addMPow = -(2);
- 11336  004258  0EFE               	movlw	254
+ 11335                           ;main.c: 351:         addMPow = -(3);
+ 11336  004258  0EFD               	movlw	253
  11337  00425A  6F89               	movwf	calcMotorPow@addMPow& (0+255),b
  11338  00425C                     l9205:
  11339                           
@@ -20128,7 +20128,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.32 build 20210201212658 
-Symbol Table                                                                                   Tue Jan 30 18:21:54 2024
+Symbol Table                                                                                   Wed Jan 31 08:29:26 2024
 
                              _CCP4_Initialize 5B56                        ??_CCP3_DefaultCallBack 0003  
                                 ___fldiv@aexp 006C                                  ___fldiv@bexp 006B  

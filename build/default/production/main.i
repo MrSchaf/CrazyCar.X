@@ -28787,14 +28787,14 @@ void getCurve(void) {
             deltaRight = (int16_t) (distRight - oldDistRight);
 
             delay = 0;
-            if (deltaLeft > (40) && deltaLeft < (200) && oldDistLeft < (150)) {
+            if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
                 ++curveLeftCount;
                 printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
                 printf("   CurveLeft\n");
-            } else if (deltaRight > (40) && deltaRight < (200) && oldDistRight < (150)) {
+            } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
@@ -28814,11 +28814,11 @@ void getCurve(void) {
             }
             break;
         case InCurve:
-            if (delay >= (30)) {
-                if ((driveMode == CurveLeft && distLeft < (50)) || (driveMode == CurveRight && distRight < (50)) || distFront > (250)) {
-                    if(distLeft < (50)){
+            if (delay >= (20)) {
+                if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
+                    if(distLeft < (45)){
                         printf("Left Out!\n");
-                    } else if(distRight < (50)){
+                    } else if(distRight < (45)){
                         printf("Right Out!\n");
                     } else {
                         printf("Front Out!\n");
@@ -28891,10 +28891,10 @@ void calcSteering(void) {
         case Straight:
         case CurveLeft:
         case CurveRight:
-            if (delta > (30)) {
-                delta = (30);
-            } else if (delta < -(30)) {
-                delta = -(30);
+            if (delta > (40)) {
+                delta = (40);
+            } else if (delta < -(40)) {
+                delta = -(40);
             }
             break;
         default:
@@ -28909,21 +28909,21 @@ void calcSteering(void) {
             setSteering(delta, Front);
             break;
         case ReverseRight:
-            setSteering(-(60), Inverted);
+            setSteering(-(50), Inverted);
             break;
         case ReverseLeft:
-            setSteering((60), Inverted);
+            setSteering((50), Inverted);
             break;
         case CurveLeft:
             if (curveMode == InCurve) {
-                setSteering((60), Ratio);
+                setSteering((50), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
-                setSteering(-(60), Ratio);
+                setSteering(-(50), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
@@ -28939,7 +28939,7 @@ void calcSpeed(void) {
             if (distFront > (30)) {
                 driveMode = Straight;
             }
-            if (setSpeed > (70)) {
+            if (setSpeed > (100)) {
                     speed = setSpeed;
                 if (distFront < (15)) {
                     speed -= 4;
@@ -28947,7 +28947,7 @@ void calcSpeed(void) {
                     speed -= 2;
                 }
             }else{
-                speed = (70);
+                speed = (100);
             }
             break;
         case Straight:
@@ -28955,10 +28955,10 @@ void calcSpeed(void) {
                 driveMode = Brake;
             }
 
-            if (distFront >= (200)) {
-                speed = (int16_t) ((0.5) * (distFront - (200)) + (300));
+            if (distFront >= (150)) {
+                speed = (int16_t) ((0.0) * (distFront - (150)) + (275));
             } else {
-                speed = (300);
+                speed = (275);
             }
 
             break;
@@ -28997,10 +28997,10 @@ void calcMotorPow(void) {
 
     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
 
-    if (addMPow > (2)) {
-        addMPow = (2);
-    } else if (addMPow < -(2)) {
-        addMPow = -(2);
+    if (addMPow > (3)) {
+        addMPow = (3);
+    } else if (addMPow < -(3)) {
+        addMPow = -(3);
     }
 
     actMotorPow += addMPow;
