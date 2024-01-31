@@ -45,10 +45,10 @@ void loop(void) {
             break;
         }
 
-        if (checkBatt()) {
-            printf("Battery Low");
-            break;
-        }
+//        if (checkBatt()) {
+//            printf("Battery Low");
+//            break;
+//        }
 
         getCurve();
         getReverse();
@@ -101,12 +101,12 @@ void startAccell() {
     
     actMotorPow = MinMPower;
     float MPow = actMotorPow;
-        printf("MPow: %f\n",MPow);
+//        printf("MPow: %f\n",MPow);
     while (MPow < startMPower) {
         MPow *= startAccelMult;
         actMotorPow = (int16_t) MPow;
         setMotor(actMotorPow);
-        printf("actMPow: %d\n",actMotorPow);
+//        printf("actMPow: %d\n",actMotorPow);
         calcSteering();
         
         cycle10ms = 0;
@@ -115,7 +115,7 @@ void startAccell() {
     
     actMotorPow = startMPower;
     setMotor(actMotorPow);
-    printf("starAccelPower: %d\n", actMotorPow);
+//    printf("starAccelPower: %d\n", actMotorPow);
 
     cycle10ms = 0;
     while (cycle10ms < (startAccelTime - startAccellSteps)){
@@ -158,7 +158,7 @@ void getCurve(void) {
         case InCurve:
             if (delay >= setDelayEnd) {
                 if ((driveMode == CurveLeft && distLeft < endCurveDist) || (driveMode == CurveRight && distRight < endCurveDist) || distFront > endCurveDistFront) {
-                    printf("Time: %d     ", delay);
+//                    printf("Time: %d     ", delay);
                     //printf("CurveTime: %d\n", delay);
                     delay = 0;
                     curveMode = AfterCurve;

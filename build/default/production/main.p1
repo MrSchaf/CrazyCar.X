@@ -73,12 +73,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./main.h: 96: extern uint16_t distFront, distLeft, distRight;
 [v _distLeft `us ~T0 @X0 0 e ]
 [v _distRight `us ~T0 @X0 0 e ]
-"127
-[; ;./main.h: 127: _Bool checkBatt();
-[v _checkBatt `(a ~T0 @X0 0 e? ]
-"111 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"132 ./main.h
+"132
 [; ;./main.h: 132: void getCurve(void);
 [v _getCurve `(v ~T0 @X0 0 ef ]
 "133
@@ -2596,20 +2591,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 46:         }
 }
 [e :U 2264 ]
-"48
-[; ;main.c: 48:         if (checkBatt()) {
-[e $ ! != -> ( _checkBatt ..  `i -> 0 `i 2265  ]
-{
-"49
-[; ;main.c: 49:             printf("Battery Low");
-[e ( _printf :s 1C ]
-"50
-[; ;main.c: 50:             break;
-[e $U 2260  ]
-"51
-[; ;main.c: 51:         }
-}
-[e :U 2265 ]
 "53
 [; ;main.c: 53:         getCurve();
 [e ( _getCurve ..  ]
@@ -2646,7 +2627,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e =+ _cycle10ms -> -> 1 `i `Vuc ]
 "64
 [; ;main.c: 64: }
-[e :UE 2266 ]
+[e :UE 2265 ]
 }
 "66
 [; ;main.c: 66: int16_t actSpeed() {
@@ -2660,11 +2641,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _speed -> -> 0 `i `s ]
 "68
 [; ;main.c: 68:     if (smtPeriod) {
-[e $ ! != _smtPeriod -> -> -> 0 `i `l `ul 2268  ]
+[e $ ! != _smtPeriod -> -> -> 0 `i `l `ul 2267  ]
 {
 "69
 [; ;main.c: 69:         if (CLC3CONbits.LC3OUT) {
-[e $ ! != -> . . _CLC3CONbits 2 3 `i -> 0 `i 2269  ]
+[e $ ! != -> . . _CLC3CONbits 2 3 `i -> 0 `i 2268  ]
 {
 "70
 [; ;main.c: 70:             speed = (int16_t) ((int32_t) (500000 / (int32_t) smtPeriod));
@@ -2672,8 +2653,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "71
 [; ;main.c: 71:         } else {
 }
-[e $U 2270  ]
-[e :U 2269 ]
+[e $U 2269  ]
+[e :U 2268 ]
 {
 "72
 [; ;main.c: 72:             speed = (int16_t) ((int32_t) (-500000 / (int32_t) smtPeriod));
@@ -2681,18 +2662,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "73
 [; ;main.c: 73:         }
 }
-[e :U 2270 ]
+[e :U 2269 ]
 "74
 [; ;main.c: 74:     }
 }
-[e :U 2268 ]
+[e :U 2267 ]
 "75
 [; ;main.c: 75:     return speed;
 [e ) _speed ]
-[e $UE 2267  ]
+[e $UE 2266  ]
 "76
 [; ;main.c: 76: }
-[e :UE 2267 ]
+[e :UE 2266 ]
 }
 "78
 [; ;main.c: 78: void getBatteryVoltage(void) {
@@ -2705,7 +2686,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _BatteryVolt ( _ADCC_GetSingleConversion (1 . `E16091 0 ]
 "81
 [; ;main.c: 81: }
-[e :UE 2271 ]
+[e :UE 2270 ]
 }
 "83
 [; ;main.c: 83: _Bool checkBatt() {
@@ -2718,7 +2699,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e =+ _battCheckCount -> -> 1 `i `us ]
 "85
 [; ;main.c: 85:     if (battCheckCount > (500)) {
-[e $ ! > -> _battCheckCount `ui -> -> 500 `i `ui 2273  ]
+[e $ ! > -> _battCheckCount `ui -> -> 500 `i `ui 2272  ]
 {
 "86
 [; ;main.c: 86:         battCheckCount = 0;
@@ -2728,7 +2709,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _getBatteryVoltage ..  ]
 "89
 [; ;main.c: 89:         if (BatteryVolt < (6.8) * 409.6f) {
-[e $ ! < -> -> _BatteryVolt `ui `d * .6.8 -> -> .409.6 `f `d 2274  ]
+[e $ ! < -> -> _BatteryVolt `ui `d * .6.8 -> -> .409.6 `f `d 2273  ]
 {
 "90
 [; ;main.c: 90:             setSpeed = 0;
@@ -2739,22 +2720,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 "92
 [; ;main.c: 92:             return 1;
 [e ) -> -> 1 `i `a ]
-[e $UE 2272  ]
+[e $UE 2271  ]
 "93
 [; ;main.c: 93:         }
 }
-[e :U 2274 ]
+[e :U 2273 ]
 "94
 [; ;main.c: 94:     }
 }
-[e :U 2273 ]
+[e :U 2272 ]
 "95
 [; ;main.c: 95:     return 0;
 [e ) -> -> 0 `i `a ]
-[e $UE 2272  ]
+[e $UE 2271  ]
 "96
 [; ;main.c: 96: }
-[e :UE 2272 ]
+[e :UE 2271 ]
 }
 "98
 [; ;main.c: 98: void startAccell() {
@@ -2775,13 +2756,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 103:     float MPow = actMotorPow;
 [v _MPow `f ~T0 @X0 1 a ]
 [e = _MPow -> _actMotorPow `f ]
-"104
-[; ;main.c: 104:         printf("MPow: %f\n",MPow);
-[e ( _printf , (. :s 2C -> _MPow `d ]
 "105
 [; ;main.c: 105:     while (MPow < (250)) {
-[e $U 2276  ]
-[e :U 2277 ]
+[e $U 2275  ]
+[e :U 2276 ]
 {
 "106
 [; ;main.c: 106:         MPow *= (1.1);
@@ -2792,9 +2770,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "108
 [; ;main.c: 108:         setMotor(actMotorPow);
 [e ( _setMotor (1 _actMotorPow ]
-"109
-[; ;main.c: 109:         printf("actMPow: %d\n",actMotorPow);
-[e ( _printf , (. :s 3C -> _actMotorPow `i ]
 "110
 [; ;main.c: 110:         calcSteering();
 [e ( _calcSteering ..  ]
@@ -2803,35 +2778,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _cycle10ms -> -> 0 `i `uc ]
 "113
 [; ;main.c: 113:         while (!cycle10ms);
-[e $U 2279  ]
-[e :U 2280 ]
+[e $U 2278  ]
 [e :U 2279 ]
-[e $ ! != -> _cycle10ms `i -> 0 `i 2280  ]
-[e :U 2281 ]
+[e :U 2278 ]
+[e $ ! != -> _cycle10ms `i -> 0 `i 2279  ]
+[e :U 2280 ]
 "114
 [; ;main.c: 114:     }
 }
-[e :U 2276 ]
+[e :U 2275 ]
 "105
 [; ;main.c: 105:     while (MPow < (250)) {
-[e $ < _MPow -> -> 250 `i `f 2277  ]
-[e :U 2278 ]
+[e $ < _MPow -> -> 250 `i `f 2276  ]
+[e :U 2277 ]
 "116
 [; ;main.c: 116:     actMotorPow = (250);
 [e = _actMotorPow -> -> 250 `i `s ]
 "117
 [; ;main.c: 117:     setMotor(actMotorPow);
 [e ( _setMotor (1 _actMotorPow ]
-"118
-[; ;main.c: 118:     printf("starAccelPower: %d\n", actMotorPow);
-[e ( _printf , (. :s 4C -> _actMotorPow `i ]
 "120
 [; ;main.c: 120:     cycle10ms = 0;
 [e = _cycle10ms -> -> 0 `i `uc ]
 "121
 [; ;main.c: 121:     while (cycle10ms < ((50) - (20))){
-[e $U 2282  ]
-[e :U 2283 ]
+[e $U 2281  ]
+[e :U 2282 ]
 {
 "122
 [; ;main.c: 122:         calcSteering();
@@ -2839,11 +2811,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "123
 [; ;main.c: 123:     }
 }
-[e :U 2282 ]
+[e :U 2281 ]
 "121
 [; ;main.c: 121:     while (cycle10ms < ((50) - (20))){
-[e $ < -> _cycle10ms `i - -> 50 `i -> 20 `i 2283  ]
-[e :U 2284 ]
+[e $ < -> _cycle10ms `i - -> 50 `i -> 20 `i 2282  ]
+[e :U 2283 ]
 "124
 [; ;main.c: 124:     driveMode = Straight;
 [e = _driveMode . `E17295 1 ]
@@ -2852,7 +2824,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _calcSteering ..  ]
 "126
 [; ;main.c: 126: }
-[e :UE 2275 ]
+[e :UE 2274 ]
 }
 "128
 [; ;main.c: 128: void getCurve(void) {
@@ -2870,14 +2842,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _deltaRight -> - -> _distRight `ui -> _oldDistRight `ui `s ]
 "132
 [; ;main.c: 132:     switch (curveMode) {
-[e $U 2287  ]
+[e $U 2286  ]
 {
 "133
 [; ;main.c: 133:         case OutCurve:
-[e :U 2288 ]
+[e :U 2287 ]
 "134
 [; ;main.c: 134:             if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (125)) {
-[e $ ! && && > -> _deltaLeft `i -> 30 `i < -> _deltaLeft `i -> 300 `i < -> _oldDistLeft `ui -> -> 125 `i `ui 2289  ]
+[e $ ! && && > -> _deltaLeft `i -> 30 `i < -> _deltaLeft `i -> 300 `i < -> _oldDistLeft `ui -> -> 125 `i `ui 2288  ]
 {
 "135
 [; ;main.c: 135:                 delay = 0;
@@ -2891,9 +2863,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "140
 [; ;main.c: 140:             } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (125)) {
 }
-[e $U 2290  ]
-[e :U 2289 ]
-[e $ ! && && > -> _deltaRight `i -> 30 `i < -> _deltaRight `i -> 300 `i < -> _oldDistRight `ui -> -> 125 `i `ui 2291  ]
+[e $U 2289  ]
+[e :U 2288 ]
+[e $ ! && && > -> _deltaRight `i -> 30 `i < -> _deltaRight `i -> 300 `i < -> _oldDistRight `ui -> -> 125 `i `ui 2290  ]
 {
 "141
 [; ;main.c: 141:                 delay = 0;
@@ -2907,17 +2879,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "146
 [; ;main.c: 146:             }
 }
-[e :U 2291 ]
 [e :U 2290 ]
+[e :U 2289 ]
 "148
 [; ;main.c: 148:             break;
-[e $U 2286  ]
+[e $U 2285  ]
 "149
 [; ;main.c: 149:         case BeforeCurve:
-[e :U 2292 ]
+[e :U 2291 ]
 "150
 [; ;main.c: 150:             if (delay >= (20)) {
-[e $ ! >= -> _delay `i -> 20 `i 2293  ]
+[e $ ! >= -> _delay `i -> 20 `i 2292  ]
 {
 "151
 [; ;main.c: 151:                 delay = 0;
@@ -2928,8 +2900,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "154
 [; ;main.c: 154:             } else {
 }
-[e $U 2294  ]
-[e :U 2293 ]
+[e $U 2293  ]
+[e :U 2292 ]
 {
 "155
 [; ;main.c: 155:                 ++delay;
@@ -2937,24 +2909,21 @@ Version 4.0 HI-TECH Software Intermediate Code
 "156
 [; ;main.c: 156:             }
 }
-[e :U 2294 ]
+[e :U 2293 ]
 "157
 [; ;main.c: 157:             break;
-[e $U 2286  ]
+[e $U 2285  ]
 "158
 [; ;main.c: 158:         case InCurve:
-[e :U 2295 ]
+[e :U 2294 ]
 "159
 [; ;main.c: 159:             if (delay >= (25)) {
-[e $ ! >= -> _delay `i -> 25 `i 2296  ]
+[e $ ! >= -> _delay `i -> 25 `i 2295  ]
 {
 "160
 [; ;main.c: 160:                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (150)) {
-[e $ ! || || && == -> _driveMode `ui -> . `E17295 5 `ui < -> _distLeft `ui -> -> 45 `i `ui && == -> _driveMode `ui -> . `E17295 6 `ui < -> _distRight `ui -> -> 45 `i `ui > -> _distFront `ui -> -> 150 `i `ui 2297  ]
+[e $ ! || || && == -> _driveMode `ui -> . `E17295 5 `ui < -> _distLeft `ui -> -> 45 `i `ui && == -> _driveMode `ui -> . `E17295 6 `ui < -> _distRight `ui -> -> 45 `i `ui > -> _distFront `ui -> -> 150 `i `ui 2296  ]
 {
-"161
-[; ;main.c: 161:                     printf("Time: %d     ", delay);
-[e ( _printf , (. :s 5C -> _delay `i ]
 "163
 [; ;main.c: 163:                     delay = 0;
 [e = _delay -> -> 0 `i `uc ]
@@ -2967,9 +2936,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "168
 [; ;main.c: 168:                 } else if(driveMode == CurveRight && deltaLeft > (30)){
 }
-[e $U 2298  ]
-[e :U 2297 ]
-[e $ ! && == -> _driveMode `ui -> . `E17295 6 `ui > -> _deltaLeft `i -> 30 `i 2299  ]
+[e $U 2297  ]
+[e :U 2296 ]
+[e $ ! && == -> _driveMode `ui -> . `E17295 6 `ui > -> _deltaLeft `i -> 30 `i 2298  ]
 {
 "170
 [; ;main.c: 170:                     delay = 0;
@@ -2983,24 +2952,24 @@ Version 4.0 HI-TECH Software Intermediate Code
 "174
 [; ;main.c: 174:                 }
 }
-[e :U 2299 ]
 [e :U 2298 ]
+[e :U 2297 ]
 "175
 [; ;main.c: 175:             }
 }
-[e :U 2296 ]
+[e :U 2295 ]
 "176
 [; ;main.c: 176:             ++delay;
 [e =+ _delay -> -> 1 `i `uc ]
 "177
 [; ;main.c: 177:             break;
-[e $U 2286  ]
+[e $U 2285  ]
 "178
 [; ;main.c: 178:         case AfterCurve:
-[e :U 2300 ]
+[e :U 2299 ]
 "179
 [; ;main.c: 179:             if (delay >= (1)) {
-[e $ ! >= -> _delay `i -> 1 `i 2301  ]
+[e $ ! >= -> _delay `i -> 1 `i 2300  ]
 {
 "180
 [; ;main.c: 180:                 delay = 0;
@@ -3011,8 +2980,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "183
 [; ;main.c: 183:             } else {
 }
-[e $U 2302  ]
-[e :U 2301 ]
+[e $U 2301  ]
+[e :U 2300 ]
 {
 "184
 [; ;main.c: 184:                 ++delay;
@@ -3020,21 +2989,21 @@ Version 4.0 HI-TECH Software Intermediate Code
 "185
 [; ;main.c: 185:             }
 }
-[e :U 2302 ]
+[e :U 2301 ]
 "186
 [; ;main.c: 186:             break;
-[e $U 2286  ]
+[e $U 2285  ]
 "187
 [; ;main.c: 187:     };
 }
-[e $U 2286  ]
-[e :U 2287 ]
-[e [\ -> _curveMode `ui , $ -> . `E17311 0 `ui 2288
- , $ -> . `E17311 1 `ui 2292
- , $ -> . `E17311 2 `ui 2295
- , $ -> . `E17311 3 `ui 2300
- 2286 ]
+[e $U 2285  ]
 [e :U 2286 ]
+[e [\ -> _curveMode `ui , $ -> . `E17311 0 `ui 2287
+ , $ -> . `E17311 1 `ui 2291
+ , $ -> . `E17311 2 `ui 2294
+ , $ -> . `E17311 3 `ui 2299
+ 2285 ]
+[e :U 2285 ]
 "188
 [; ;main.c: 188:     oldDistLeft = distLeft;
 [e = _oldDistLeft _distLeft ]
@@ -3043,7 +3012,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _oldDistRight _distRight ]
 "190
 [; ;main.c: 190: }
-[e :UE 2285 ]
+[e :UE 2284 ]
 }
 "192
 [; ;main.c: 192: void getReverse(void) {
@@ -3053,7 +3022,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "193
 [; ;main.c: 193:     if (distFront < (15)) {
-[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2304  ]
+[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2303  ]
 {
 "194
 [; ;main.c: 194:         ++reverseCount;
@@ -3061,9 +3030,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "195
 [; ;main.c: 195:     } else if(driveMode != ReverseRight && driveMode != ReverseLeft) {
 }
-[e $U 2305  ]
-[e :U 2304 ]
-[e $ ! && != -> _driveMode `ui -> . `E17295 3 `ui != -> _driveMode `ui -> . `E17295 4 `ui 2306  ]
+[e $U 2304  ]
+[e :U 2303 ]
+[e $ ! && != -> _driveMode `ui -> . `E17295 3 `ui != -> _driveMode `ui -> . `E17295 4 `ui 2305  ]
 {
 "196
 [; ;main.c: 196:         reverseCount = 0;
@@ -3071,22 +3040,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 "197
 [; ;main.c: 197:     }
 }
-[e :U 2306 ]
 [e :U 2305 ]
+[e :U 2304 ]
 "199
 [; ;main.c: 199:     if (reverseCount > (50)) {
-[e $ ! > -> _reverseCount `ui -> -> 50 `i `ui 2307  ]
+[e $ ! > -> _reverseCount `ui -> -> 50 `i `ui 2306  ]
 {
 "200
 [; ;main.c: 200:         ++reverseTime;
 [e =+ _reverseTime -> -> 1 `i `s ]
 "202
 [; ;main.c: 202:         if (driveMode != ReverseRight && driveMode != ReverseLeft) {
-[e $ ! && != -> _driveMode `ui -> . `E17295 3 `ui != -> _driveMode `ui -> . `E17295 4 `ui 2308  ]
+[e $ ! && != -> _driveMode `ui -> . `E17295 3 `ui != -> _driveMode `ui -> . `E17295 4 `ui 2307  ]
 {
 "203
 [; ;main.c: 203:             if (distLeft > distRight) {
-[e $ ! > -> _distLeft `ui -> _distRight `ui 2309  ]
+[e $ ! > -> _distLeft `ui -> _distRight `ui 2308  ]
 {
 "205
 [; ;main.c: 205:                 driveMode = ReverseRight;
@@ -3094,8 +3063,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "206
 [; ;main.c: 206:             } else {
 }
-[e $U 2310  ]
-[e :U 2309 ]
+[e $U 2309  ]
+[e :U 2308 ]
 {
 "208
 [; ;main.c: 208:                 driveMode = ReverseLeft;
@@ -3103,18 +3072,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "209
 [; ;main.c: 209:             }
 }
-[e :U 2310 ]
+[e :U 2309 ]
 "210
 [; ;main.c: 210:         }
 }
-[e :U 2308 ]
+[e :U 2307 ]
 "212
 [; ;main.c: 212:         if (distFront > (35) || reverseTime > (300)) {
-[e $ ! || > -> _distFront `ui -> -> 35 `i `ui > -> _reverseTime `i -> 300 `i 2311  ]
+[e $ ! || > -> _distFront `ui -> -> 35 `i `ui > -> _reverseTime `i -> 300 `i 2310  ]
 {
 "214
 [; ;main.c: 214:             if (distLeft > distRight) {
-[e $ ! > -> _distLeft `ui -> _distRight `ui 2312  ]
+[e $ ! > -> _distLeft `ui -> _distRight `ui 2311  ]
 {
 "215
 [; ;main.c: 215:                 driveMode = Straight;
@@ -3122,8 +3091,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "216
 [; ;main.c: 216:             } else {
 }
-[e $U 2313  ]
-[e :U 2312 ]
+[e $U 2312  ]
+[e :U 2311 ]
 {
 "217
 [; ;main.c: 217:                 driveMode = Straight;
@@ -3131,7 +3100,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "218
 [; ;main.c: 218:             }
 }
-[e :U 2313 ]
+[e :U 2312 ]
 "220
 [; ;main.c: 220:             reverseCount = 0;
 [e = _reverseCount -> -> 0 `i `us ]
@@ -3141,14 +3110,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 "222
 [; ;main.c: 222:         }
 }
-[e :U 2311 ]
+[e :U 2310 ]
 "223
 [; ;main.c: 223:     }
 }
-[e :U 2307 ]
+[e :U 2306 ]
 "224
 [; ;main.c: 224: }
-[e :UE 2303 ]
+[e :UE 2302 ]
 }
 "226
 [; ;main.c: 226: void calcSteering(void) {
@@ -3165,26 +3134,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e =/ _delta -> 1 `i ]
 "231
 [; ;main.c: 231:     switch (driveMode) {
-[e $U 2316  ]
+[e $U 2315  ]
 {
 "232
 [; ;main.c: 232:         case Accel:
-[e :U 2317 ]
+[e :U 2316 ]
 "233
 [; ;main.c: 233:         case Brake:
-[e :U 2318 ]
+[e :U 2317 ]
 "234
 [; ;main.c: 234:         case Straight:
-[e :U 2319 ]
+[e :U 2318 ]
 "235
 [; ;main.c: 235:         case CurveLeft:
-[e :U 2320 ]
+[e :U 2319 ]
 "236
 [; ;main.c: 236:         case CurveRight:
-[e :U 2321 ]
+[e :U 2320 ]
 "237
 [; ;main.c: 237:             if (delta > (25)) {
-[e $ ! > -> _delta `i -> 25 `i 2322  ]
+[e $ ! > -> _delta `i -> 25 `i 2321  ]
 {
 "238
 [; ;main.c: 238:                 delta = (25);
@@ -3192,9 +3161,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "239
 [; ;main.c: 239:             } else if (delta < -(25)) {
 }
-[e $U 2323  ]
-[e :U 2322 ]
-[e $ ! < -> _delta `i -U -> 25 `i 2324  ]
+[e $U 2322  ]
+[e :U 2321 ]
+[e $ ! < -> _delta `i -U -> 25 `i 2323  ]
 {
 "240
 [; ;main.c: 240:                 delta = -(25);
@@ -3202,84 +3171,84 @@ Version 4.0 HI-TECH Software Intermediate Code
 "241
 [; ;main.c: 241:             }
 }
-[e :U 2324 ]
 [e :U 2323 ]
+[e :U 2322 ]
 "242
 [; ;main.c: 242:             break;
-[e $U 2315  ]
+[e $U 2314  ]
 "243
 [; ;main.c: 243:         default:
-[e :U 2325 ]
+[e :U 2324 ]
 "244
 [; ;main.c: 244:             break;
-[e $U 2315  ]
+[e $U 2314  ]
 "245
 [; ;main.c: 245:     }
 }
-[e $U 2315  ]
-[e :U 2316 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 0 `ui 2317
- , $ -> . `E17295 2 `ui 2318
- , $ -> . `E17295 1 `ui 2319
- , $ -> . `E17295 5 `ui 2320
- , $ -> . `E17295 6 `ui 2321
- 2325 ]
+[e $U 2314  ]
 [e :U 2315 ]
+[e [\ -> _driveMode `ui , $ -> . `E17295 0 `ui 2316
+ , $ -> . `E17295 2 `ui 2317
+ , $ -> . `E17295 1 `ui 2318
+ , $ -> . `E17295 5 `ui 2319
+ , $ -> . `E17295 6 `ui 2320
+ 2324 ]
+[e :U 2314 ]
 "247
 [; ;main.c: 247:     switch (driveMode) {
-[e $U 2327  ]
+[e $U 2326  ]
 {
 "248
 [; ;main.c: 248:         case Brake:
-[e :U 2328 ]
+[e :U 2327 ]
 "249
 [; ;main.c: 249:             setSteering(delta, Ratio);
 [e ( _setSteering (2 , _delta . `E17304 2 ]
 "250
 [; ;main.c: 250:             break;
-[e $U 2326  ]
+[e $U 2325  ]
 "251
 [; ;main.c: 251:         case Straight:
-[e :U 2329 ]
+[e :U 2328 ]
 "252
 [; ;main.c: 252:             setSteering(delta, Front);
 [e ( _setSteering (2 , _delta . `E17304 3 ]
 "253
 [; ;main.c: 253:             break;
-[e $U 2326  ]
+[e $U 2325  ]
 "254
 [; ;main.c: 254:         case Accel:
-[e :U 2330 ]
+[e :U 2329 ]
 "255
 [; ;main.c: 255:             setSteering(delta / (2), Front);
 [e ( _setSteering (2 , -> / -> _delta `i -> 2 `i `s . `E17304 3 ]
 "257
 [; ;main.c: 257:             break;
-[e $U 2326  ]
+[e $U 2325  ]
 "258
 [; ;main.c: 258:         case ReverseRight:
-[e :U 2331 ]
+[e :U 2330 ]
 "259
 [; ;main.c: 259:             setSteering(-(60), Inverted);
 [e ( _setSteering (2 , -> -U -> 60 `i `s . `E17304 0 ]
 "260
 [; ;main.c: 260:             break;
-[e $U 2326  ]
+[e $U 2325  ]
 "261
 [; ;main.c: 261:         case ReverseLeft:
-[e :U 2332 ]
+[e :U 2331 ]
 "262
 [; ;main.c: 262:             setSteering((60), Inverted);
 [e ( _setSteering (2 , -> -> 60 `i `s . `E17304 0 ]
 "263
 [; ;main.c: 263:             break;
-[e $U 2326  ]
+[e $U 2325  ]
 "264
 [; ;main.c: 264:         case CurveLeft:
-[e :U 2333 ]
+[e :U 2332 ]
 "265
 [; ;main.c: 265:             if (curveMode == InCurve) {
-[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2334  ]
+[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2333  ]
 {
 "266
 [; ;main.c: 266:                 setSteering((60), Ratio);
@@ -3287,8 +3256,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "267
 [; ;main.c: 267:             } else {
 }
-[e $U 2335  ]
-[e :U 2334 ]
+[e $U 2334  ]
+[e :U 2333 ]
 {
 "268
 [; ;main.c: 268:                 setSteering(delta, Ratio);
@@ -3296,16 +3265,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 "269
 [; ;main.c: 269:             }
 }
-[e :U 2335 ]
+[e :U 2334 ]
 "270
 [; ;main.c: 270:             break;
-[e $U 2326  ]
+[e $U 2325  ]
 "271
 [; ;main.c: 271:         case CurveRight:
-[e :U 2336 ]
+[e :U 2335 ]
 "272
 [; ;main.c: 272:             if (curveMode == InCurve) {
-[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2337  ]
+[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2336  ]
 {
 "273
 [; ;main.c: 273:                 setSteering(-(60), Ratio);
@@ -3313,8 +3282,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "274
 [; ;main.c: 274:             } else {
 }
-[e $U 2338  ]
-[e :U 2337 ]
+[e $U 2337  ]
+[e :U 2336 ]
 {
 "275
 [; ;main.c: 275:                 setSteering(delta, Ratio);
@@ -3322,27 +3291,27 @@ Version 4.0 HI-TECH Software Intermediate Code
 "276
 [; ;main.c: 276:             }
 }
-[e :U 2338 ]
+[e :U 2337 ]
 "277
 [; ;main.c: 277:             break;
-[e $U 2326  ]
+[e $U 2325  ]
 "278
 [; ;main.c: 278:     };
 }
-[e $U 2326  ]
-[e :U 2327 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2328
- , $ -> . `E17295 1 `ui 2329
- , $ -> . `E17295 0 `ui 2330
- , $ -> . `E17295 3 `ui 2331
- , $ -> . `E17295 4 `ui 2332
- , $ -> . `E17295 5 `ui 2333
- , $ -> . `E17295 6 `ui 2336
- 2326 ]
+[e $U 2325  ]
 [e :U 2326 ]
+[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2327
+ , $ -> . `E17295 1 `ui 2328
+ , $ -> . `E17295 0 `ui 2329
+ , $ -> . `E17295 3 `ui 2330
+ , $ -> . `E17295 4 `ui 2331
+ , $ -> . `E17295 5 `ui 2332
+ , $ -> . `E17295 6 `ui 2335
+ 2325 ]
+[e :U 2325 ]
 "279
 [; ;main.c: 279: }
-[e :UE 2314 ]
+[e :UE 2313 ]
 }
 "281
 [; ;main.c: 281: void calcSpeed(void) {
@@ -3356,14 +3325,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _speed -> -> 0 `i `s ]
 "284
 [; ;main.c: 284:     switch (driveMode) {
-[e $U 2341  ]
+[e $U 2340  ]
 {
 "285
 [; ;main.c: 285:         case Brake:
-[e :U 2342 ]
+[e :U 2341 ]
 "286
 [; ;main.c: 286:             if (distFront > (30)) {
-[e $ ! > -> _distFront `ui -> -> 30 `i `ui 2343  ]
+[e $ ! > -> _distFront `ui -> -> 30 `i `ui 2342  ]
 {
 "287
 [; ;main.c: 287:                 driveMode = Straight;
@@ -3371,17 +3340,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "288
 [; ;main.c: 288:             }
 }
-[e :U 2343 ]
+[e :U 2342 ]
 "289
 [; ;main.c: 289:             if (setSpeed > (100)) {
-[e $ ! > -> _setSpeed `i -> 100 `i 2344  ]
+[e $ ! > -> _setSpeed `i -> 100 `i 2343  ]
 {
 "290
 [; ;main.c: 290:                     speed = setSpeed;
 [e = _speed _setSpeed ]
 "291
 [; ;main.c: 291:                 if (distFront < (15)) {
-[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2345  ]
+[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2344  ]
 {
 "292
 [; ;main.c: 292:                     speed -= 4;
@@ -3389,8 +3358,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "293
 [; ;main.c: 293:                 } else {
 }
-[e $U 2346  ]
-[e :U 2345 ]
+[e $U 2345  ]
+[e :U 2344 ]
 {
 "294
 [; ;main.c: 294:                     speed -= 2;
@@ -3398,12 +3367,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 "295
 [; ;main.c: 295:                 }
 }
-[e :U 2346 ]
+[e :U 2345 ]
 "296
 [; ;main.c: 296:             }else{
 }
-[e $U 2347  ]
-[e :U 2344 ]
+[e $U 2346  ]
+[e :U 2343 ]
 {
 "297
 [; ;main.c: 297:                 speed = (100);
@@ -3411,19 +3380,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 "298
 [; ;main.c: 298:             }
 }
-[e :U 2347 ]
+[e :U 2346 ]
 "299
 [; ;main.c: 299:             break;
-[e $U 2340  ]
+[e $U 2339  ]
 "300
 [; ;main.c: 300:         case Accel:
-[e :U 2348 ]
+[e :U 2347 ]
 "301
 [; ;main.c: 301:         case Straight:
-[e :U 2349 ]
+[e :U 2348 ]
 "302
 [; ;main.c: 302:             if (distFront < (30)) {
-[e $ ! < -> _distFront `ui -> -> 30 `i `ui 2350  ]
+[e $ ! < -> _distFront `ui -> -> 30 `i `ui 2349  ]
 {
 "303
 [; ;main.c: 303:                 driveMode = Brake;
@@ -3431,10 +3400,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "304
 [; ;main.c: 304:             }
 }
-[e :U 2350 ]
+[e :U 2349 ]
 "306
 [; ;main.c: 306:             if (distFront >= (150)) {
-[e $ ! >= -> _distFront `ui -> -> 150 `i `ui 2351  ]
+[e $ ! >= -> _distFront `ui -> -> 150 `i `ui 2350  ]
 {
 "307
 [; ;main.c: 307:                 speed = (int16_t) ((0.5) * (distFront - (150)) + (275));
@@ -3442,8 +3411,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "308
 [; ;main.c: 308:             } else {
 }
-[e $U 2352  ]
-[e :U 2351 ]
+[e $U 2351  ]
+[e :U 2350 ]
 {
 "309
 [; ;main.c: 309:                 speed = (275);
@@ -3451,63 +3420,63 @@ Version 4.0 HI-TECH Software Intermediate Code
 "310
 [; ;main.c: 310:             }
 }
-[e :U 2352 ]
+[e :U 2351 ]
 "312
 [; ;main.c: 312:             break;
-[e $U 2340  ]
+[e $U 2339  ]
 "313
 [; ;main.c: 313:         case ReverseRight:
-[e :U 2353 ]
+[e :U 2352 ]
 "314
 [; ;main.c: 314:             speed = (-125);
 [e = _speed -> -U -> 125 `i `s ]
 "315
 [; ;main.c: 315:             break;
-[e $U 2340  ]
+[e $U 2339  ]
 "316
 [; ;main.c: 316:         case ReverseLeft:
-[e :U 2354 ]
+[e :U 2353 ]
 "317
 [; ;main.c: 317:             speed = (-125);
 [e = _speed -> -U -> 125 `i `s ]
 "318
 [; ;main.c: 318:             break;
-[e $U 2340  ]
+[e $U 2339  ]
 "319
 [; ;main.c: 319:         case CurveLeft:
-[e :U 2355 ]
+[e :U 2354 ]
 "320
 [; ;main.c: 320:             speed = (200);
 [e = _speed -> -> 200 `i `s ]
 "321
 [; ;main.c: 321:             break;
-[e $U 2340  ]
+[e $U 2339  ]
 "322
 [; ;main.c: 322:         case CurveRight:
-[e :U 2356 ]
+[e :U 2355 ]
 "323
 [; ;main.c: 323:             speed = (200);
 [e = _speed -> -> 200 `i `s ]
 "324
 [; ;main.c: 324:             break;
-[e $U 2340  ]
+[e $U 2339  ]
 "325
 [; ;main.c: 325:     };
 }
-[e $U 2340  ]
-[e :U 2341 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2342
- , $ -> . `E17295 0 `ui 2348
- , $ -> . `E17295 1 `ui 2349
- , $ -> . `E17295 3 `ui 2353
- , $ -> . `E17295 4 `ui 2354
- , $ -> . `E17295 5 `ui 2355
- , $ -> . `E17295 6 `ui 2356
- 2340 ]
+[e $U 2339  ]
 [e :U 2340 ]
+[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2341
+ , $ -> . `E17295 0 `ui 2347
+ , $ -> . `E17295 1 `ui 2348
+ , $ -> . `E17295 3 `ui 2352
+ , $ -> . `E17295 4 `ui 2353
+ , $ -> . `E17295 5 `ui 2354
+ , $ -> . `E17295 6 `ui 2355
+ 2339 ]
+[e :U 2339 ]
 "327
 [; ;main.c: 327:     if (speed > (400)) {
-[e $ ! > -> _speed `i -> 400 `i 2357  ]
+[e $ ! > -> _speed `i -> 400 `i 2356  ]
 {
 "328
 [; ;main.c: 328:         speed = (400);
@@ -3515,10 +3484,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "329
 [; ;main.c: 329:     }
 }
-[e :U 2357 ]
+[e :U 2356 ]
 "330
 [; ;main.c: 330:     if (speed < (-250)) {
-[e $ ! < -> _speed `i -U -> 250 `i 2358  ]
+[e $ ! < -> _speed `i -U -> 250 `i 2357  ]
 {
 "331
 [; ;main.c: 331:         speed = (-250);
@@ -3526,13 +3495,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 "332
 [; ;main.c: 332:     }
 }
-[e :U 2358 ]
+[e :U 2357 ]
 "333
 [; ;main.c: 333:     setSpeed = speed;
 [e = _setSpeed _speed ]
 "334
 [; ;main.c: 334: }
-[e :UE 2339 ]
+[e :UE 2338 ]
 }
 "336
 [; ;main.c: 336: void calcMotorPow(void) {
@@ -3560,7 +3529,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _addMPow -> * .0.020 -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 2 `i `d `c ]
 "348
 [; ;main.c: 348:     if (addMPow > (5)) {
-[e $ ! > -> _addMPow `i -> 5 `i 2360  ]
+[e $ ! > -> _addMPow `i -> 5 `i 2359  ]
 {
 "349
 [; ;main.c: 349:         addMPow = (5);
@@ -3568,9 +3537,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "350
 [; ;main.c: 350:     } else if (addMPow < -(5)) {
 }
-[e $U 2361  ]
-[e :U 2360 ]
-[e $ ! < -> _addMPow `i -U -> 5 `i 2362  ]
+[e $U 2360  ]
+[e :U 2359 ]
+[e $ ! < -> _addMPow `i -U -> 5 `i 2361  ]
 {
 "351
 [; ;main.c: 351:         addMPow = -(5);
@@ -3578,14 +3547,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 "352
 [; ;main.c: 352:     }
 }
-[e :U 2362 ]
 [e :U 2361 ]
+[e :U 2360 ]
 "354
 [; ;main.c: 354:     actMotorPow += addMPow;
 [e =+ _actMotorPow -> _addMPow `s ]
 "356
 [; ;main.c: 356:     if (actMotorPow > (700)) {
-[e $ ! > -> _actMotorPow `i -> 700 `i 2363  ]
+[e $ ! > -> _actMotorPow `i -> 700 `i 2362  ]
 {
 "357
 [; ;main.c: 357:         actMotorPow = (700);
@@ -3593,9 +3562,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "358
 [; ;main.c: 358:     } else if (actMotorPow < (-400)) {
 }
-[e $U 2364  ]
-[e :U 2363 ]
-[e $ ! < -> _actMotorPow `i -U -> 400 `i 2365  ]
+[e $U 2363  ]
+[e :U 2362 ]
+[e $ ! < -> _actMotorPow `i -U -> 400 `i 2364  ]
 {
 "359
 [; ;main.c: 359:         actMotorPow = (-400);
@@ -3603,8 +3572,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "360
 [; ;main.c: 360:     }
 }
-[e :U 2365 ]
 [e :U 2364 ]
+[e :U 2363 ]
 "362
 [; ;main.c: 362:     setMotor(actMotorPow);
 [e ( _setMotor (1 _actMotorPow ]
@@ -3613,7 +3582,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _oldSpeed _currentSpeed ]
 "365
 [; ;main.c: 365: }
-[e :UE 2359 ]
+[e :UE 2358 ]
 }
 "367
 [; ;main.c: 367: void setMotor(int16_t motorPower) {
@@ -3624,11 +3593,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "368
 [; ;main.c: 368:     if (motorPower >= (40)) {
-[e $ ! >= -> _motorPower `i -> 40 `i 2367  ]
+[e $ ! >= -> _motorPower `i -> 40 `i 2366  ]
 {
 "369
 [; ;main.c: 369:         if (motorPower > (700)) {
-[e $ ! > -> _motorPower `i -> 700 `i 2368  ]
+[e $ ! > -> _motorPower `i -> 700 `i 2367  ]
 {
 "370
 [; ;main.c: 370:             motorPower = (700);
@@ -3636,7 +3605,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "371
 [; ;main.c: 371:         }
 }
-[e :U 2368 ]
+[e :U 2367 ]
 "372
 [; ;main.c: 372:         PWM7_LoadDutyValue((uint16_t) (motorPower));
 [e ( _PWM7_LoadDutyValue (1 -> _motorPower `us ]
@@ -3646,13 +3615,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 "374
 [; ;main.c: 374:     } else if (motorPower <= -(40)) {
 }
-[e $U 2369  ]
-[e :U 2367 ]
-[e $ ! <= -> _motorPower `i -U -> 40 `i 2370  ]
+[e $U 2368  ]
+[e :U 2366 ]
+[e $ ! <= -> _motorPower `i -U -> 40 `i 2369  ]
 {
 "375
 [; ;main.c: 375:         if (motorPower < (-400)) {
-[e $ ! < -> _motorPower `i -U -> 400 `i 2371  ]
+[e $ ! < -> _motorPower `i -U -> 400 `i 2370  ]
 {
 "376
 [; ;main.c: 376:             motorPower = (-400);
@@ -3660,7 +3629,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "377
 [; ;main.c: 377:         }
 }
-[e :U 2371 ]
+[e :U 2370 ]
 "378
 [; ;main.c: 378:         PWM7_LoadDutyValue(0);
 [e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
@@ -3670,8 +3639,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "380
 [; ;main.c: 380:     } else {
 }
-[e $U 2372  ]
-[e :U 2370 ]
+[e $U 2371  ]
+[e :U 2369 ]
 {
 "382
 [; ;main.c: 382:         PWM7_LoadDutyValue(0);
@@ -3682,11 +3651,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "384
 [; ;main.c: 384:     }
 }
-[e :U 2372 ]
-[e :U 2369 ]
+[e :U 2371 ]
+[e :U 2368 ]
 "385
 [; ;main.c: 385: }
-[e :UE 2366 ]
+[e :UE 2365 ]
 }
 "390
 [; ;main.c: 390: void setSteering(int16_t steering, SteeringMode steeringMode) {
@@ -3704,11 +3673,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _steeringB -> -> 0 `i `s ]
 "392
 [; ;main.c: 392:     switch (steeringMode) {
-[e $U 2375  ]
+[e $U 2374  ]
 {
 "393
 [; ;main.c: 393:         case Inverted:
-[e :U 2376 ]
+[e :U 2375 ]
 "394
 [; ;main.c: 394:             steeringF = (+steering);
 [e = _steeringF -> -> _steering `i `s ]
@@ -3717,10 +3686,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _steeringB -> -U -> _steering `i `s ]
 "396
 [; ;main.c: 396:             break;
-[e $U 2374  ]
+[e $U 2373  ]
 "397
 [; ;main.c: 397:         case Same:
-[e :U 2377 ]
+[e :U 2376 ]
 "398
 [; ;main.c: 398:             steeringF = (+steering);
 [e = _steeringF -> -> _steering `i `s ]
@@ -3729,10 +3698,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _steeringB -> -> _steering `i `s ]
 "400
 [; ;main.c: 400:             break;
-[e $U 2374  ]
+[e $U 2373  ]
 "401
 [; ;main.c: 401:         case Ratio:
-[e :U 2378 ]
+[e :U 2377 ]
 "402
 [; ;main.c: 402:             steeringF = (+steering);
 [e = _steeringF -> -> _steering `i `s ]
@@ -3741,10 +3710,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _steeringB -> / -U -> _steering `i -> 2 `i `s ]
 "404
 [; ;main.c: 404:             break;
-[e $U 2374  ]
+[e $U 2373  ]
 "405
 [; ;main.c: 405:         case Front:
-[e :U 2379 ]
+[e :U 2378 ]
 "406
 [; ;main.c: 406:             steeringF = (+steering);
 [e = _steeringF -> -> _steering `i `s ]
@@ -3753,10 +3722,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _steeringB -> -> 0 `i `s ]
 "408
 [; ;main.c: 408:             break;
-[e $U 2374  ]
+[e $U 2373  ]
 "409
 [; ;main.c: 409:         case Back:
-[e :U 2380 ]
+[e :U 2379 ]
 "410
 [; ;main.c: 410:             steeringF = 0;
 [e = _steeringF -> -> 0 `i `s ]
@@ -3765,10 +3734,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _steeringB -> -> _steering `i `s ]
 "412
 [; ;main.c: 412:             break;
-[e $U 2374  ]
+[e $U 2373  ]
 "413
 [; ;main.c: 413:         default:
-[e :U 2381 ]
+[e :U 2380 ]
 "414
 [; ;main.c: 414:             steeringF = 0;
 [e = _steeringF -> -> 0 `i `s ]
@@ -3777,22 +3746,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _steeringB -> -> 0 `i `s ]
 "416
 [; ;main.c: 416:             break;
-[e $U 2374  ]
+[e $U 2373  ]
 "417
 [; ;main.c: 417:     }
 }
-[e $U 2374  ]
-[e :U 2375 ]
-[e [\ -> _steeringMode `ui , $ -> . `E17304 0 `ui 2376
- , $ -> . `E17304 1 `ui 2377
- , $ -> . `E17304 2 `ui 2378
- , $ -> . `E17304 3 `ui 2379
- , $ -> . `E17304 4 `ui 2380
- 2381 ]
+[e $U 2373  ]
 [e :U 2374 ]
+[e [\ -> _steeringMode `ui , $ -> . `E17304 0 `ui 2375
+ , $ -> . `E17304 1 `ui 2376
+ , $ -> . `E17304 2 `ui 2377
+ , $ -> . `E17304 3 `ui 2378
+ , $ -> . `E17304 4 `ui 2379
+ 2380 ]
+[e :U 2373 ]
 "419
 [; ;main.c: 419:     if (steeringF > ((65))) {
-[e $ ! > -> _steeringF `i -> 65 `i 2382  ]
+[e $ ! > -> _steeringF `i -> 65 `i 2381  ]
 {
 "420
 [; ;main.c: 420:         steeringF = ((65));
@@ -3800,9 +3769,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "421
 [; ;main.c: 421:     } else if (steeringF < (-(65))) {
 }
-[e $U 2383  ]
-[e :U 2382 ]
-[e $ ! < -> _steeringF `i -U -> 65 `i 2384  ]
+[e $U 2382  ]
+[e :U 2381 ]
+[e $ ! < -> _steeringF `i -U -> 65 `i 2383  ]
 {
 "422
 [; ;main.c: 422:         steeringF = (-(65));
@@ -3810,11 +3779,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "423
 [; ;main.c: 423:     }
 }
-[e :U 2384 ]
 [e :U 2383 ]
+[e :U 2382 ]
 "425
 [; ;main.c: 425:     if (steeringB > ((40))) {
-[e $ ! > -> _steeringB `i -> 40 `i 2385  ]
+[e $ ! > -> _steeringB `i -> 40 `i 2384  ]
 {
 "426
 [; ;main.c: 426:         steeringB = ((40));
@@ -3822,9 +3791,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "427
 [; ;main.c: 427:     } else if (steeringB < (-(40))) {
 }
-[e $U 2386  ]
-[e :U 2385 ]
-[e $ ! < -> _steeringB `i -U -> 40 `i 2387  ]
+[e $U 2385  ]
+[e :U 2384 ]
+[e $ ! < -> _steeringB `i -U -> 40 `i 2386  ]
 {
 "428
 [; ;main.c: 428:         steeringB = (-(40));
@@ -3832,8 +3801,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "429
 [; ;main.c: 429:     }
 }
-[e :U 2387 ]
 [e :U 2386 ]
+[e :U 2385 ]
 "432
 [; ;main.c: 432:     PWM6_LoadDutyValue((uint16_t) ((352) + steeringF));
 [e ( _PWM6_LoadDutyValue (1 -> + -> 352 `i -> _steeringF `i `us ]
@@ -3842,11 +3811,5 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _PWM5_LoadDutyValue (1 -> + -> 357 `i -> _steeringB `i `us ]
 "434
 [; ;main.c: 434: }
-[e :UE 2373 ]
+[e :UE 2372 ]
 }
-[p f _printf 8396928 ]
-[a 1C 66 97 116 116 101 114 121 32 76 111 119 0 ]
-[a 5C 84 105 109 101 58 32 37 100 32 32 32 32 32 0 ]
-[a 2C 77 80 111 119 58 32 37 102 10 0 ]
-[a 3C 97 99 116 77 80 111 119 58 32 37 100 10 0 ]
-[a 4C 115 116 97 114 65 99 99 101 108 80 111 119 101 114 58 32 37 100 10 0 ]
