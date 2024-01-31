@@ -2888,8 +2888,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 149:         case BeforeCurve:
 [e :U 2291 ]
 "150
-[; ;main.c: 150:             if (delay >= (20)) {
-[e $ ! >= -> _delay `i -> 20 `i 2292  ]
+[; ;main.c: 150:             if (delay >= (18)) {
+[e $ ! >= -> _delay `i -> 18 `i 2292  ]
 {
 "151
 [; ;main.c: 151:                 delay = 0;
@@ -3406,8 +3406,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! >= -> _distFront `ui -> -> 150 `i `ui 2350  ]
 {
 "307
-[; ;main.c: 307:                 speed = (int16_t) ((0.5) * (distFront - (150)) + (275));
-[e = _speed -> + * .0.5 -> - -> _distFront `ui -> -> 150 `i `ui `d -> -> 275 `i `d `s ]
+[; ;main.c: 307:                 speed = (int16_t) ((0.7) * (distFront - (150)) + (285));
+[e = _speed -> + * .0.7 -> - -> _distFront `ui -> -> 150 `i `ui `d -> -> 285 `i `d `s ]
 "308
 [; ;main.c: 308:             } else {
 }
@@ -3415,8 +3415,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 2350 ]
 {
 "309
-[; ;main.c: 309:                 speed = (275);
-[e = _speed -> -> 275 `i `s ]
+[; ;main.c: 309:                 speed = (285);
+[e = _speed -> -> 285 `i `s ]
 "310
 [; ;main.c: 310:             }
 }
@@ -3475,12 +3475,12 @@ Version 4.0 HI-TECH Software Intermediate Code
  2339 ]
 [e :U 2339 ]
 "327
-[; ;main.c: 327:     if (speed > (400)) {
-[e $ ! > -> _speed `i -> 400 `i 2356  ]
+[; ;main.c: 327:     if (speed > (500)) {
+[e $ ! > -> _speed `i -> 500 `i 2356  ]
 {
 "328
-[; ;main.c: 328:         speed = (400);
-[e = _speed -> -> 400 `i `s ]
+[; ;main.c: 328:         speed = (500);
+[e = _speed -> -> 500 `i `s ]
 "329
 [; ;main.c: 329:     }
 }
@@ -3553,12 +3553,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 354:     actMotorPow += addMPow;
 [e =+ _actMotorPow -> _addMPow `s ]
 "356
-[; ;main.c: 356:     if (actMotorPow > (700)) {
-[e $ ! > -> _actMotorPow `i -> 700 `i 2362  ]
+[; ;main.c: 356:     if (actMotorPow > (800)) {
+[e $ ! > -> _actMotorPow `i -> 800 `i 2362  ]
 {
 "357
-[; ;main.c: 357:         actMotorPow = (700);
-[e = _actMotorPow -> -> 700 `i `s ]
+[; ;main.c: 357:         actMotorPow = (800);
+[e = _actMotorPow -> -> 800 `i `s ]
 "358
 [; ;main.c: 358:     } else if (actMotorPow < (-400)) {
 }
@@ -3596,12 +3596,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! >= -> _motorPower `i -> 40 `i 2366  ]
 {
 "369
-[; ;main.c: 369:         if (motorPower > (700)) {
-[e $ ! > -> _motorPower `i -> 700 `i 2367  ]
+[; ;main.c: 369:         if (motorPower > (800)) {
+[e $ ! > -> _motorPower `i -> 800 `i 2367  ]
 {
 "370
-[; ;main.c: 370:             motorPower = (700);
-[e = _motorPower -> -> 700 `i `s ]
+[; ;main.c: 370:             motorPower = (800);
+[e = _motorPower -> -> 800 `i `s ]
 "371
 [; ;main.c: 371:         }
 }

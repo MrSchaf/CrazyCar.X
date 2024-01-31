@@ -28794,7 +28794,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay >= (20)) {
+            if (delay >= (18)) {
                 delay = 0;
                 curveMode = InCurve;
 
@@ -28951,9 +28951,9 @@ void calcSpeed(void) {
             }
 
             if (distFront >= (150)) {
-                speed = (int16_t) ((0.5) * (distFront - (150)) + (275));
+                speed = (int16_t) ((0.7) * (distFront - (150)) + (285));
             } else {
-                speed = (275);
+                speed = (285);
             }
 
             break;
@@ -28971,8 +28971,8 @@ void calcSpeed(void) {
             break;
     };
 
-    if (speed > (400)) {
-        speed = (400);
+    if (speed > (500)) {
+        speed = (500);
     }
     if (speed < (-250)) {
         speed = (-250);
@@ -29000,8 +29000,8 @@ void calcMotorPow(void) {
 
     actMotorPow += addMPow;
 
-    if (actMotorPow > (700)) {
-        actMotorPow = (700);
+    if (actMotorPow > (800)) {
+        actMotorPow = (800);
     } else if (actMotorPow < (-400)) {
         actMotorPow = (-400);
     }
@@ -29013,8 +29013,8 @@ void calcMotorPow(void) {
 
 void setMotor(int16_t motorPower) {
     if (motorPower >= (40)) {
-        if (motorPower > (700)) {
-            motorPower = (700);
+        if (motorPower > (800)) {
+            motorPower = (800);
         }
         PWM7_LoadDutyValue((uint16_t) (motorPower));
         PWM8_LoadDutyValue(0);

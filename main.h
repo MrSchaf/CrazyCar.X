@@ -20,8 +20,8 @@
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
 //#define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
-#define maxMPowForward                  (700)
-#define maxSpeedForward                 (400)
+#define maxMPowForward                  (800)
+#define maxSpeedForward                 (500)
 #define defaultMotorPowerForward        (250)
 
 #define maxMPowBackward                 (-400)
@@ -33,7 +33,7 @@
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
-#define setDelayStart                   (20)       // Delay bevor man zu Lenken beginnt
+#define setDelayStart                   (18)       // Delay bevor man zu Lenken beginnt
 #define setDelayEnd                     (25)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
@@ -52,9 +52,9 @@
 #define reverseSpeed                    (-125)
 #define maxReverseTime                  (300)
 
-#define speedIncrease                   (0.5)
+#define speedIncrease                   (0.7)
 #define MinDistAccel                    (150)
-#define MinStraightSpeed                (275)
+#define MinStraightSpeed                (285)
 
 
 #define BrakeDistance                   (30)
