@@ -15,7 +15,7 @@
 #define steeringBOffset                 (357)     // höher = links | niedriger = rechts
 #define maxSteeringF                    (65)
 #define maxSteeringB                    (40)
-#define maxSteeringStraight             (40)      //kann beim geradeaus fahren nicht stärker lenken
+#define maxSteeringStraight             (25)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                   (2)
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
 //#define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
@@ -28,21 +28,21 @@
 #define maxSpeedBackward                (-250)
 #define defaultMotorPowerBackward       (-150)
 
-#define maxAddMPow                      (3)
+#define maxAddMPow                      (5)
 #define MotorPowFactor                  (0.020)
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
-#define setDelayStart                   (15)       // Delay bevor man zu Lenken beginnt
-#define setDelayEnd                     (30)      // Delay bevor man die Kurve abbrechen kann
+#define setDelayStart                   (20)       // Delay bevor man zu Lenken beginnt
+#define setDelayEnd                     (25)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
 #define startCurveDelta                 (30)      // ((oldDist - actDist) > startCurveDelta  \n
 #define maxStartCurveDelta              (300)
 #define MaxOldDist                      (125)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
-#define endCurveDistFront               (300)     //distFront > endCurveDistFront   --> Kurvenende
-#define curveSteering                   (65)       
+#define endCurveDistFront               (150)     //distFront > endCurveDistFront   --> Kurvenende
+#define curveSteering                   (60)       
 #define curveSpeed                      (200)
 #define switchCurveDelta                (30)
 
@@ -107,9 +107,9 @@ uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
 
-
 // neg: naher and der linken Wand
-int16_t  middleOffSet = -10;
+int16_t  middleOffSet = -15;
+
 int16_t motPow = 0;
 int16_t setSpeed = 0;
 int16_t currentSpeed = 0;

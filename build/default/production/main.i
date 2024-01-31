@@ -28619,8 +28619,8 @@ uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
 
 
+int16_t middleOffSet = -15;
 
-int16_t middleOffSet = -10;
 int16_t motPow = 0;
 int16_t setSpeed = 0;
 int16_t currentSpeed = 0;
@@ -28794,7 +28794,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay >= (15)) {
+            if (delay >= (20)) {
                 delay = 0;
                 curveMode = InCurve;
 
@@ -28803,15 +28803,15 @@ void getCurve(void) {
             }
             break;
         case InCurve:
-            if (delay >= (30)) {
-                if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
-                    printf("Time: \t%d     \t", delay);
+            if (delay >= (25)) {
+                if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (150)) {
+                    printf("Time: %d     ", delay);
                     if (delay >= 70) {
                         printf("stay Left\n");
-                        middleOffSet = -10;
+                        middleOffSet = -15;
                     } else {
                         printf("stay Right\n");
-                        middleOffSet = 10;
+                        middleOffSet = 15;
                     }
 
                     delay = 0;
@@ -28888,10 +28888,10 @@ void calcSteering(void) {
         case Straight:
         case CurveLeft:
         case CurveRight:
-            if (delta > (40)) {
-                delta = (40);
-            } else if (delta < -(40)) {
-                delta = -(40);
+            if (delta > (25)) {
+                delta = (25);
+            } else if (delta < -(25)) {
+                delta = -(25);
             }
             break;
         default:
@@ -28910,21 +28910,21 @@ void calcSteering(void) {
 
             break;
         case ReverseRight:
-            setSteering(-(65), Inverted);
+            setSteering(-(60), Inverted);
             break;
         case ReverseLeft:
-            setSteering((65), Inverted);
+            setSteering((60), Inverted);
             break;
         case CurveLeft:
             if (curveMode == InCurve) {
-                setSteering((65), Ratio);
+                setSteering((60), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
-                setSteering(-(65), Ratio);
+                setSteering(-(60), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
@@ -28998,10 +28998,10 @@ void calcMotorPow(void) {
 
     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
 
-    if (addMPow > (3)) {
-        addMPow = (3);
-    } else if (addMPow < -(3)) {
-        addMPow = -(3);
+    if (addMPow > (5)) {
+        addMPow = (5);
+    } else if (addMPow < -(5)) {
+        addMPow = -(5);
     }
 
     actMotorPow += addMPow;
