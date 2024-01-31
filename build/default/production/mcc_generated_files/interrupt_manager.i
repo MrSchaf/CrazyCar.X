@@ -27640,13 +27640,6 @@ void TMR4_DefaultInterruptHandler(void);
  void PWM6_LoadDutyValue(uint16_t dutyValue);
 # 64 "mcc_generated_files/mcc.h" 2
 
-# 1 "mcc_generated_files/pwm7.h" 1
-# 102 "mcc_generated_files/pwm7.h"
- void PWM7_Initialize(void);
-# 129 "mcc_generated_files/pwm7.h"
- void PWM7_LoadDutyValue(uint16_t dutyValue);
-# 65 "mcc_generated_files/mcc.h" 2
-
 # 1 "mcc_generated_files/tmr2.h" 1
 # 79 "mcc_generated_files/tmr2.h"
 typedef enum
@@ -27886,6 +27879,13 @@ void TMR2_Period8BitSet(uint8_t periodVal);
 void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 848 "mcc_generated_files/tmr2.h"
 _Bool TMR2_HasOverflowOccured(void);
+# 65 "mcc_generated_files/mcc.h" 2
+
+# 1 "mcc_generated_files/pwm7.h" 1
+# 102 "mcc_generated_files/pwm7.h"
+ void PWM7_Initialize(void);
+# 129 "mcc_generated_files/pwm7.h"
+ void PWM7_LoadDutyValue(uint16_t dutyValue);
 # 66 "mcc_generated_files/mcc.h" 2
 
 # 1 "mcc_generated_files/pwm5.h" 1

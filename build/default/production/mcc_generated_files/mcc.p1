@@ -25,12 +25,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 "92 mcc_generated_files/smt1.h
 [; ;mcc_generated_files/smt1.h: 92: void SMT1_Initialize(void);
 [v _SMT1_Initialize `(v ~T0 @X0 0 ef ]
-"102 mcc_generated_files/pwm8.h
-[; ;mcc_generated_files/pwm8.h: 102:  void PWM8_Initialize(void);
-[v _PWM8_Initialize `(v ~T0 @X0 0 ef ]
 "365 mcc_generated_files/tmr2.h
 [; ;mcc_generated_files/tmr2.h: 365: void TMR2_Initialize(void);
 [v _TMR2_Initialize `(v ~T0 @X0 0 ef ]
+"102 mcc_generated_files/pwm8.h
+[; ;mcc_generated_files/pwm8.h: 102:  void PWM8_Initialize(void);
+[v _PWM8_Initialize `(v ~T0 @X0 0 ef ]
 "102 mcc_generated_files/pwm6.h
 [; ;mcc_generated_files/pwm6.h: 102:  void PWM6_Initialize(void);
 [v _PWM6_Initialize `(v ~T0 @X0 0 ef ]
@@ -2365,11 +2365,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/mcc.c: 59:     SMT1_Initialize();
 [e ( _SMT1_Initialize ..  ]
 "60
-[; ;mcc_generated_files/mcc.c: 60:     PWM8_Initialize();
-[e ( _PWM8_Initialize ..  ]
-"61
-[; ;mcc_generated_files/mcc.c: 61:     TMR2_Initialize();
+[; ;mcc_generated_files/mcc.c: 60:     TMR2_Initialize();
 [e ( _TMR2_Initialize ..  ]
+"61
+[; ;mcc_generated_files/mcc.c: 61:     PWM8_Initialize();
+[e ( _PWM8_Initialize ..  ]
 "62
 [; ;mcc_generated_files/mcc.c: 62:     PWM6_Initialize();
 [e ( _PWM6_Initialize ..  ]
