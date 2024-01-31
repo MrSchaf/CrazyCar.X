@@ -28619,7 +28619,7 @@ uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
 
 
-int16_t middleOffSet = -15;
+int16_t middleOffSet = 0;
 
 int16_t motPow = 0;
 int16_t setSpeed = 0;
@@ -28957,7 +28957,7 @@ void calcSpeed(void) {
             }
 
             if (distFront >= (150)) {
-                speed = (int16_t) ((0.7) * (distFront - (150)) + (275));
+                speed = (int16_t) ((0.5) * (distFront - (150)) + (275));
             } else {
                 speed = (275);
             }

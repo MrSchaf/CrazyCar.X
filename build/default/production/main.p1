@@ -2420,10 +2420,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 0 `i `us
 ]
 "111
-[; ;./main.h: 111: int16_t middleOffSet = -15;
+[; ;./main.h: 111: int16_t middleOffSet = 0;
 [v _middleOffSet `s ~T0 @X0 1 e ]
 [i _middleOffSet
--> -U -> 15 `i `s
+-> -> 0 `i `s
 ]
 "113
 [; ;./main.h: 113: int16_t motPow = 0;
@@ -3460,8 +3460,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! >= -> _distFront `ui -> -> 150 `i `ui 2352  ]
 {
 "313
-[; ;main.c: 313:                 speed = (int16_t) ((0.7) * (distFront - (150)) + (275));
-[e = _speed -> + * .0.7 -> - -> _distFront `ui -> -> 150 `i `ui `d -> -> 275 `i `d `s ]
+[; ;main.c: 313:                 speed = (int16_t) ((0.5) * (distFront - (150)) + (275));
+[e = _speed -> + * .0.5 -> - -> _distFront `ui -> -> 150 `i `ui `d -> -> 275 `i `d `s ]
 "314
 [; ;main.c: 314:             } else {
 }
