@@ -32,21 +32,21 @@ Version 4.0 HI-TECH Software Intermediate Code
 "847 ./mcc_generated_files/tmr4.h
 [; ;./mcc_generated_files/tmr4.h: 847:  void TMR4_SetInterruptHandler(void (* InterruptHandler)(void));
 [v _TMR4_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F16264 ]
-"120 ./main.h
-[; ;./main.h: 120: void TMR4_10msISR(void);
+"123 ./main.h
+[; ;./main.h: 123: void TMR4_10msISR(void);
 [v _TMR4_10msISR `(v ~T0 @X0 0 ef ]
-"122
-[; ;./main.h: 122: void loop(void);
+"125
+[; ;./main.h: 125: void loop(void);
 [v _loop `(v ~T0 @X0 0 ef ]
-"137
-[; ;./main.h: 137: void setMotor(int16_t);
+"140
+[; ;./main.h: 140: void setMotor(int16_t);
 [v _setMotor `(v ~T0 @X0 0 ef1`s ]
 "21 main.c
 [; ;main.c: 21:     setSteering(0, Front);
 [c E17304 0 1 2 3 4 .. ]
 [n E17304 . Inverted Same Ratio Front Back  ]
-"136 ./main.h
-[; ;./main.h: 136: void setSteering(int16_t, SteeringMode);
+"139 ./main.h
+[; ;./main.h: 139: void setSteering(int16_t, SteeringMode);
 [v _setSteering `(v ~T0 @X0 0 ef2`s`E17304 ]
 "46596 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46596:     struct {
@@ -63,35 +63,35 @@ Version 4.0 HI-TECH Software Intermediate Code
 "46611
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-K_DFP/1.4.87/xc8\pic\include\proc\pic18f46k42.h: 46611: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x3FCB)));
 [v _PORTBbits `VS2100 ~T0 @X0 0 e@16331 ]
-"127 ./main.h
-[; ;./main.h: 127: void getBatteryVoltage(void);
+"130 ./main.h
+[; ;./main.h: 130: void getBatteryVoltage(void);
 [v _getBatteryVoltage `(v ~T0 @X0 0 ef ]
-"126
-[; ;./main.h: 126: void startAccell();
+"129
+[; ;./main.h: 129: void startAccell();
 [v _startAccell `(v ~T0 @X0 0 e? ]
 "96
 [; ;./main.h: 96: extern uint16_t distFront, distLeft, distRight;
 [v _distLeft `us ~T0 @X0 0 e ]
 [v _distRight `us ~T0 @X0 0 e ]
-"124
-[; ;./main.h: 124: _Bool checkBatt();
+"127
+[; ;./main.h: 127: _Bool checkBatt();
 [v _checkBatt `(a ~T0 @X0 0 e? ]
 "111 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"129 ./main.h
-[; ;./main.h: 129: void getCurve(void);
+"132 ./main.h
+[; ;./main.h: 132: void getCurve(void);
 [v _getCurve `(v ~T0 @X0 0 ef ]
-"130
-[; ;./main.h: 130: void getReverse(void);
-[v _getReverse `(v ~T0 @X0 0 ef ]
-"132
-[; ;./main.h: 132: void calcSteering(void);
-[v _calcSteering `(v ~T0 @X0 0 ef ]
 "133
-[; ;./main.h: 133: void calcSpeed(void);
+[; ;./main.h: 133: void getReverse(void);
+[v _getReverse `(v ~T0 @X0 0 ef ]
+"135
+[; ;./main.h: 135: void calcSteering(void);
+[v _calcSteering `(v ~T0 @X0 0 ef ]
+"136
+[; ;./main.h: 136: void calcSpeed(void);
 [v _calcSpeed `(v ~T0 @X0 0 ef ]
-"134
-[; ;./main.h: 134: void calcMotorPow(void);
+"137
+[; ;./main.h: 137: void calcMotorPow(void);
 [v _calcMotorPow `(v ~T0 @X0 0 ef ]
 "98
 [; ;./main.h: 98: extern uint32_t smtPeriod;
@@ -2419,44 +2419,50 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _battCheckCount
 -> -> 0 `i `us
 ]
-"110
-[; ;./main.h: 110: int16_t motPow = 0;
+"112
+[; ;./main.h: 112: int16_t middleOffSet = -10;
+[v _middleOffSet `s ~T0 @X0 1 e ]
+[i _middleOffSet
+-> -U -> 10 `i `s
+]
+"113
+[; ;./main.h: 113: int16_t motPow = 0;
 [v _motPow `s ~T0 @X0 1 e ]
 [i _motPow
 -> -> 0 `i `s
 ]
-"111
-[; ;./main.h: 111: int16_t setSpeed = 0;
+"114
+[; ;./main.h: 114: int16_t setSpeed = 0;
 [v _setSpeed `s ~T0 @X0 1 e ]
 [i _setSpeed
 -> -> 0 `i `s
 ]
-"112
-[; ;./main.h: 112: int16_t currentSpeed = 0;
+"115
+[; ;./main.h: 115: int16_t currentSpeed = 0;
 [v _currentSpeed `s ~T0 @X0 1 e ]
 [i _currentSpeed
 -> -> 0 `i `s
 ]
-"113
-[; ;./main.h: 113: int16_t oldSpeed = 0;
+"116
+[; ;./main.h: 116: int16_t oldSpeed = 0;
 [v _oldSpeed `s ~T0 @X0 1 e ]
 [i _oldSpeed
 -> -> 0 `i `s
 ]
-"114
-[; ;./main.h: 114: int16_t actMotorPow = 0;
+"117
+[; ;./main.h: 117: int16_t actMotorPow = 0;
 [v _actMotorPow `s ~T0 @X0 1 e ]
 [i _actMotorPow
 -> -> 0 `i `s
 ]
-"115
-[; ;./main.h: 115: int16_t reverseTime = 0;
+"118
+[; ;./main.h: 118: int16_t reverseTime = 0;
 [v _reverseTime `s ~T0 @X0 1 e ]
 [i _reverseTime
 -> -> 0 `i `s
 ]
-"117
-[; ;./main.h: 117: adc_result_t BatteryVolt = 0;
+"120
+[; ;./main.h: 120: adc_result_t BatteryVolt = 0;
 [v _BatteryVolt `us ~T0 @X0 1 e ]
 [i _BatteryVolt
 -> -> 0 `i `us
@@ -2910,8 +2916,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 149:         case BeforeCurve:
 [e :U 2292 ]
 "150
-[; ;main.c: 150:             if (delay >= (10)) {
-[e $ ! >= -> _delay `i -> 10 `i 2293  ]
+[; ;main.c: 150:             if (delay >= (15)) {
+[e $ ! >= -> _delay `i -> 15 `i 2293  ]
 {
 "151
 [; ;main.c: 151:                 delay = 0;
@@ -2939,906 +2945,938 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 158:         case InCurve:
 [e :U 2295 ]
 "159
-[; ;main.c: 159:             if (delay >= (20)) {
-[e $ ! >= -> _delay `i -> 20 `i 2296  ]
+[; ;main.c: 159:             if (delay >= (30)) {
+[e $ ! >= -> _delay `i -> 30 `i 2296  ]
 {
 "160
 [; ;main.c: 160:                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
 [e $ ! || || && == -> _driveMode `ui -> . `E17295 5 `ui < -> _distLeft `ui -> -> 45 `i `ui && == -> _driveMode `ui -> . `E17295 6 `ui < -> _distRight `ui -> -> 45 `i `ui > -> _distFront `ui -> -> 300 `i `ui 2297  ]
 {
+"161
+[; ;main.c: 161:                     printf("Time: \t%d     \t", delay);
+[e ( _printf , (. :s 5C -> _delay `i ]
 "162
-[; ;main.c: 162:                     delay = 0;
-[e = _delay -> -> 0 `i `uc ]
-"163
-[; ;main.c: 163:                     curveMode = AfterCurve;
-[e = _curveMode . `E17311 3 ]
-"164
-[; ;main.c: 164:                     driveMode = Straight;
-[e = _driveMode . `E17295 1 ]
-"167
-[; ;main.c: 167:                 } else if(driveMode == CurveRight && deltaLeft > (30)){
-}
-[e $U 2298  ]
-[e :U 2297 ]
-[e $ ! && == -> _driveMode `ui -> . `E17295 6 `ui > -> _deltaLeft `i -> 30 `i 2299  ]
+[; ;main.c: 162:                     if (delay >= 90) {
+[e $ ! >= -> _delay `i -> 90 `i 2298  ]
 {
-"169
-[; ;main.c: 169:                     delay = 0;
-[e = _delay -> -> 0 `i `uc ]
-"170
-[; ;main.c: 170:                     curveMode = BeforeCurve;
-[e = _curveMode . `E17311 1 ]
-"171
-[; ;main.c: 171:                     driveMode = CurveLeft;
-[e = _driveMode . `E17295 5 ]
-"173
-[; ;main.c: 173:                 }
+"163
+[; ;main.c: 163:                         printf("stay Left\n");
+[e ( _printf :s 6C ]
+"164
+[; ;main.c: 164:                         middleOffSet = -10;
+[e = _middleOffSet -> -U -> 10 `i `s ]
+"165
+[; ;main.c: 165:                     } else {
+}
+[e $U 2299  ]
+[e :U 2298 ]
+{
+"166
+[; ;main.c: 166:                         printf("stay Right\n");
+[e ( _printf :s 7C ]
+"167
+[; ;main.c: 167:                         middleOffSet = 10;
+[e = _middleOffSet -> -> 10 `i `s ]
+"168
+[; ;main.c: 168:                     }
 }
 [e :U 2299 ]
-[e :U 2298 ]
-"174
-[; ;main.c: 174:             } else {
+"170
+[; ;main.c: 170:                     delay = 0;
+[e = _delay -> -> 0 `i `uc ]
+"171
+[; ;main.c: 171:                     curveMode = AfterCurve;
+[e = _curveMode . `E17311 3 ]
+"172
+[; ;main.c: 172:                     driveMode = Straight;
+[e = _driveMode . `E17295 1 ]
+"175
+[; ;main.c: 175:                 } else if(driveMode == CurveRight && deltaLeft > (30)){
 }
 [e $U 2300  ]
+[e :U 2297 ]
+[e $ ! && == -> _driveMode `ui -> . `E17295 6 `ui > -> _deltaLeft `i -> 30 `i 2301  ]
+{
+"177
+[; ;main.c: 177:                     delay = 0;
+[e = _delay -> -> 0 `i `uc ]
+"178
+[; ;main.c: 178:                     curveMode = BeforeCurve;
+[e = _curveMode . `E17311 1 ]
+"179
+[; ;main.c: 179:                     driveMode = CurveLeft;
+[e = _driveMode . `E17295 5 ]
+"181
+[; ;main.c: 181:                 }
+}
+[e :U 2301 ]
+[e :U 2300 ]
+"182
+[; ;main.c: 182:             } else {
+}
+[e $U 2302  ]
 [e :U 2296 ]
 {
-"175
-[; ;main.c: 175:                 ++delay;
-[e =+ _delay -> -> 1 `i `uc ]
-"176
-[; ;main.c: 176:             }
-}
-[e :U 2300 ]
-"177
-[; ;main.c: 177:             break;
-[e $U 2286  ]
-"178
-[; ;main.c: 178:         case AfterCurve:
-[e :U 2301 ]
-"179
-[; ;main.c: 179:             if (delay >= (1)) {
-[e $ ! >= -> _delay `i -> 1 `i 2302  ]
-{
-"180
-[; ;main.c: 180:                 delay = 0;
-[e = _delay -> -> 0 `i `uc ]
-"181
-[; ;main.c: 181:                 curveMode = OutCurve;
-[e = _curveMode . `E17311 0 ]
 "183
-[; ;main.c: 183:             } else {
-}
-[e $U 2303  ]
-[e :U 2302 ]
-{
-"184
-[; ;main.c: 184:                 ++delay;
+[; ;main.c: 183:                 ++delay;
 [e =+ _delay -> -> 1 `i `uc ]
-"185
-[; ;main.c: 185:             }
+"184
+[; ;main.c: 184:             }
 }
-[e :U 2303 ]
-"186
-[; ;main.c: 186:             break;
+[e :U 2302 ]
+"185
+[; ;main.c: 185:             break;
 [e $U 2286  ]
+"186
+[; ;main.c: 186:         case AfterCurve:
+[e :U 2303 ]
 "187
-[; ;main.c: 187:     };
+[; ;main.c: 187:             if (delay >= (1)) {
+[e $ ! >= -> _delay `i -> 1 `i 2304  ]
+{
+"188
+[; ;main.c: 188:                 delay = 0;
+[e = _delay -> -> 0 `i `uc ]
+"189
+[; ;main.c: 189:                 curveMode = OutCurve;
+[e = _curveMode . `E17311 0 ]
+"191
+[; ;main.c: 191:             } else {
+}
+[e $U 2305  ]
+[e :U 2304 ]
+{
+"192
+[; ;main.c: 192:                 ++delay;
+[e =+ _delay -> -> 1 `i `uc ]
+"193
+[; ;main.c: 193:             }
+}
+[e :U 2305 ]
+"194
+[; ;main.c: 194:             break;
+[e $U 2286  ]
+"195
+[; ;main.c: 195:     };
 }
 [e $U 2286  ]
 [e :U 2287 ]
 [e [\ -> _curveMode `ui , $ -> . `E17311 0 `ui 2288
  , $ -> . `E17311 1 `ui 2292
  , $ -> . `E17311 2 `ui 2295
- , $ -> . `E17311 3 `ui 2301
+ , $ -> . `E17311 3 `ui 2303
  2286 ]
 [e :U 2286 ]
-"188
-[; ;main.c: 188:     oldDistLeft = distLeft;
+"196
+[; ;main.c: 196:     oldDistLeft = distLeft;
 [e = _oldDistLeft _distLeft ]
-"189
-[; ;main.c: 189:     oldDistRight = distRight;
+"197
+[; ;main.c: 197:     oldDistRight = distRight;
 [e = _oldDistRight _distRight ]
-"190
-[; ;main.c: 190: }
+"198
+[; ;main.c: 198: }
 [e :UE 2285 ]
 }
-"192
-[; ;main.c: 192: void getReverse(void) {
+"200
+[; ;main.c: 200: void getReverse(void) {
 [v _getReverse `(v ~T0 @X0 1 ef ]
 {
 [e :U _getReverse ]
 [f ]
-"193
-[; ;main.c: 193:     if (distFront < (15)) {
-[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2305  ]
+"201
+[; ;main.c: 201:     if (distFront < (15)) {
+[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2307  ]
 {
-"194
-[; ;main.c: 194:         ++reverseCount;
-[e =+ _reverseCount -> -> 1 `i `us ]
-"195
-[; ;main.c: 195:     } else if(driveMode != ReverseRight && driveMode != ReverseLeft) {
-}
-[e $U 2306  ]
-[e :U 2305 ]
-[e $ ! && != -> _driveMode `ui -> . `E17295 3 `ui != -> _driveMode `ui -> . `E17295 4 `ui 2307  ]
-{
-"196
-[; ;main.c: 196:         reverseCount = 0;
-[e = _reverseCount -> -> 0 `i `us ]
-"197
-[; ;main.c: 197:     }
-}
-[e :U 2307 ]
-[e :U 2306 ]
-"199
-[; ;main.c: 199:     if (reverseCount > (50)) {
-[e $ ! > -> _reverseCount `ui -> -> 50 `i `ui 2308  ]
-{
-"200
-[; ;main.c: 200:         ++reverseTime;
-[e =+ _reverseTime -> -> 1 `i `s ]
 "202
-[; ;main.c: 202:         if (driveMode != ReverseRight && driveMode != ReverseLeft) {
+[; ;main.c: 202:         ++reverseCount;
+[e =+ _reverseCount -> -> 1 `i `us ]
+"203
+[; ;main.c: 203:     } else if(driveMode != ReverseRight && driveMode != ReverseLeft) {
+}
+[e $U 2308  ]
+[e :U 2307 ]
 [e $ ! && != -> _driveMode `ui -> . `E17295 3 `ui != -> _driveMode `ui -> . `E17295 4 `ui 2309  ]
 {
-"203
-[; ;main.c: 203:             if (distLeft > distRight) {
-[e $ ! > -> _distLeft `ui -> _distRight `ui 2310  ]
-{
+"204
+[; ;main.c: 204:         reverseCount = 0;
+[e = _reverseCount -> -> 0 `i `us ]
 "205
-[; ;main.c: 205:                 driveMode = ReverseRight;
-[e = _driveMode . `E17295 3 ]
-"206
-[; ;main.c: 206:             } else {
-}
-[e $U 2311  ]
-[e :U 2310 ]
-{
-"208
-[; ;main.c: 208:                 driveMode = ReverseLeft;
-[e = _driveMode . `E17295 4 ]
-"209
-[; ;main.c: 209:             }
-}
-[e :U 2311 ]
-"210
-[; ;main.c: 210:         }
+[; ;main.c: 205:     }
 }
 [e :U 2309 ]
-"212
-[; ;main.c: 212:         if (distFront > (35) || reverseTime > (300)) {
-[e $ ! || > -> _distFront `ui -> -> 35 `i `ui > -> _reverseTime `i -> 300 `i 2312  ]
+[e :U 2308 ]
+"207
+[; ;main.c: 207:     if (reverseCount > (50)) {
+[e $ ! > -> _reverseCount `ui -> -> 50 `i `ui 2310  ]
 {
+"208
+[; ;main.c: 208:         ++reverseTime;
+[e =+ _reverseTime -> -> 1 `i `s ]
+"210
+[; ;main.c: 210:         if (driveMode != ReverseRight && driveMode != ReverseLeft) {
+[e $ ! && != -> _driveMode `ui -> . `E17295 3 `ui != -> _driveMode `ui -> . `E17295 4 `ui 2311  ]
+{
+"211
+[; ;main.c: 211:             if (distLeft > distRight) {
+[e $ ! > -> _distLeft `ui -> _distRight `ui 2312  ]
+{
+"213
+[; ;main.c: 213:                 driveMode = ReverseRight;
+[e = _driveMode . `E17295 3 ]
 "214
-[; ;main.c: 214:             if (distLeft > distRight) {
-[e $ ! > -> _distLeft `ui -> _distRight `ui 2313  ]
-{
-"215
-[; ;main.c: 215:                 driveMode = Straight;
-[e = _driveMode . `E17295 1 ]
-"216
-[; ;main.c: 216:             } else {
+[; ;main.c: 214:             } else {
 }
-[e $U 2314  ]
-[e :U 2313 ]
+[e $U 2313  ]
+[e :U 2312 ]
 {
+"216
+[; ;main.c: 216:                 driveMode = ReverseLeft;
+[e = _driveMode . `E17295 4 ]
 "217
-[; ;main.c: 217:                 driveMode = Straight;
-[e = _driveMode . `E17295 1 ]
+[; ;main.c: 217:             }
+}
+[e :U 2313 ]
 "218
-[; ;main.c: 218:             }
+[; ;main.c: 218:         }
+}
+[e :U 2311 ]
+"220
+[; ;main.c: 220:         if (distFront > (35) || reverseTime > (300)) {
+[e $ ! || > -> _distFront `ui -> -> 35 `i `ui > -> _reverseTime `i -> 300 `i 2314  ]
+{
+"222
+[; ;main.c: 222:             if (distLeft > distRight) {
+[e $ ! > -> _distLeft `ui -> _distRight `ui 2315  ]
+{
+"223
+[; ;main.c: 223:                 driveMode = Straight;
+[e = _driveMode . `E17295 1 ]
+"224
+[; ;main.c: 224:             } else {
+}
+[e $U 2316  ]
+[e :U 2315 ]
+{
+"225
+[; ;main.c: 225:                 driveMode = Straight;
+[e = _driveMode . `E17295 1 ]
+"226
+[; ;main.c: 226:             }
+}
+[e :U 2316 ]
+"228
+[; ;main.c: 228:             reverseCount = 0;
+[e = _reverseCount -> -> 0 `i `us ]
+"229
+[; ;main.c: 229:             reverseTime = 0;
+[e = _reverseTime -> -> 0 `i `s ]
+"230
+[; ;main.c: 230:         }
 }
 [e :U 2314 ]
-"220
-[; ;main.c: 220:             reverseCount = 0;
-[e = _reverseCount -> -> 0 `i `us ]
-"221
-[; ;main.c: 221:             reverseTime = 0;
-[e = _reverseTime -> -> 0 `i `s ]
-"222
-[; ;main.c: 222:         }
+"231
+[; ;main.c: 231:     }
 }
-[e :U 2312 ]
-"223
-[; ;main.c: 223:     }
+[e :U 2310 ]
+"232
+[; ;main.c: 232: }
+[e :UE 2306 ]
 }
-[e :U 2308 ]
-"224
-[; ;main.c: 224: }
-[e :UE 2304 ]
-}
-"226
-[; ;main.c: 226: void calcSteering(void) {
+"234
+[; ;main.c: 234: void calcSteering(void) {
 [v _calcSteering `(v ~T0 @X0 1 ef ]
 {
 [e :U _calcSteering ]
 [f ]
-"227
-[; ;main.c: 227:     int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) ((0) * 1.4142135);
-[v _delta `s ~T0 @X0 1 a ]
-[e = _delta -> - -> -> - -> _distLeft `ui -> _distRight `ui `s `i -> -> * -> -> 0 `i `d .1.4142135 `s `i `s ]
-"228
-[; ;main.c: 228:     delta /= (1);
-[e =/ _delta -> 1 `i ]
-"231
-[; ;main.c: 231:     switch (driveMode) {
-[e $U 2317  ]
-{
-"232
-[; ;main.c: 232:         case Accel:
-[e :U 2318 ]
-"233
-[; ;main.c: 233:         case Brake:
-[e :U 2319 ]
-"234
-[; ;main.c: 234:         case Straight:
-[e :U 2320 ]
 "235
-[; ;main.c: 235:         case CurveLeft:
-[e :U 2321 ]
+[; ;main.c: 235:     int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) (middleOffSet * 1.4142135);
+[v _delta `s ~T0 @X0 1 a ]
+[e = _delta -> - -> -> - -> _distLeft `ui -> _distRight `ui `s `i -> -> * -> -> _middleOffSet `i `d .1.4142135 `s `i `s ]
 "236
-[; ;main.c: 236:         case CurveRight:
-[e :U 2322 ]
-"237
-[; ;main.c: 237:             if (delta > (40)) {
-[e $ ! > -> _delta `i -> 40 `i 2323  ]
-{
-"238
-[; ;main.c: 238:                 delta = (40);
-[e = _delta -> -> 40 `i `s ]
+[; ;main.c: 236:     delta /= (1);
+[e =/ _delta -> 1 `i ]
 "239
-[; ;main.c: 239:             } else if (delta < -(40)) {
-}
-[e $U 2324  ]
-[e :U 2323 ]
-[e $ ! < -> _delta `i -U -> 40 `i 2325  ]
+[; ;main.c: 239:     switch (driveMode) {
+[e $U 2319  ]
 {
 "240
-[; ;main.c: 240:                 delta = -(40);
-[e = _delta -> -U -> 40 `i `s ]
+[; ;main.c: 240:         case Accel:
+[e :U 2320 ]
 "241
-[; ;main.c: 241:             }
-}
-[e :U 2325 ]
-[e :U 2324 ]
+[; ;main.c: 241:         case Brake:
+[e :U 2321 ]
 "242
-[; ;main.c: 242:             break;
-[e $U 2316  ]
+[; ;main.c: 242:         case Straight:
+[e :U 2322 ]
 "243
-[; ;main.c: 243:         default:
-[e :U 2326 ]
+[; ;main.c: 243:         case CurveLeft:
+[e :U 2323 ]
 "244
-[; ;main.c: 244:             break;
-[e $U 2316  ]
+[; ;main.c: 244:         case CurveRight:
+[e :U 2324 ]
 "245
-[; ;main.c: 245:     }
-}
-[e $U 2316  ]
-[e :U 2317 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 0 `ui 2318
- , $ -> . `E17295 2 `ui 2319
- , $ -> . `E17295 1 `ui 2320
- , $ -> . `E17295 5 `ui 2321
- , $ -> . `E17295 6 `ui 2322
- 2326 ]
-[e :U 2316 ]
+[; ;main.c: 245:             if (delta > (40)) {
+[e $ ! > -> _delta `i -> 40 `i 2325  ]
+{
+"246
+[; ;main.c: 246:                 delta = (40);
+[e = _delta -> -> 40 `i `s ]
 "247
-[; ;main.c: 247:     switch (driveMode) {
-[e $U 2328  ]
+[; ;main.c: 247:             } else if (delta < -(40)) {
+}
+[e $U 2326  ]
+[e :U 2325 ]
+[e $ ! < -> _delta `i -U -> 40 `i 2327  ]
 {
 "248
-[; ;main.c: 248:         case Brake:
-[e :U 2329 ]
+[; ;main.c: 248:                 delta = -(40);
+[e = _delta -> -U -> 40 `i `s ]
 "249
-[; ;main.c: 249:             setSteering(delta, Ratio);
-[e ( _setSteering (2 , _delta . `E17304 2 ]
+[; ;main.c: 249:             }
+}
+[e :U 2327 ]
+[e :U 2326 ]
 "250
 [; ;main.c: 250:             break;
-[e $U 2327  ]
+[e $U 2318  ]
 "251
-[; ;main.c: 251:         case Straight:
-[e :U 2330 ]
-"252
-[; ;main.c: 252:             setSteering(delta, Front);
-[e ( _setSteering (2 , _delta . `E17304 3 ]
-"253
-[; ;main.c: 253:             break;
-[e $U 2327  ]
-"254
-[; ;main.c: 254:         case Accel:
-[e :U 2331 ]
-"255
-[; ;main.c: 255:             setSteering(delta / (2), Front);
-[e ( _setSteering (2 , -> / -> _delta `i -> 2 `i `s . `E17304 3 ]
-"257
-[; ;main.c: 257:             break;
-[e $U 2327  ]
-"258
-[; ;main.c: 258:         case ReverseRight:
-[e :U 2332 ]
-"259
-[; ;main.c: 259:             setSteering(-(50), Inverted);
-[e ( _setSteering (2 , -> -U -> 50 `i `s . `E17304 0 ]
-"260
-[; ;main.c: 260:             break;
-[e $U 2327  ]
-"261
-[; ;main.c: 261:         case ReverseLeft:
-[e :U 2333 ]
-"262
-[; ;main.c: 262:             setSteering((50), Inverted);
-[e ( _setSteering (2 , -> -> 50 `i `s . `E17304 0 ]
-"263
-[; ;main.c: 263:             break;
-[e $U 2327  ]
-"264
-[; ;main.c: 264:         case CurveLeft:
-[e :U 2334 ]
-"265
-[; ;main.c: 265:             if (curveMode == InCurve) {
-[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2335  ]
-{
-"266
-[; ;main.c: 266:                 setSteering((50), Ratio);
-[e ( _setSteering (2 , -> -> 50 `i `s . `E17304 2 ]
-"267
-[; ;main.c: 267:             } else {
-}
-[e $U 2336  ]
-[e :U 2335 ]
-{
-"268
-[; ;main.c: 268:                 setSteering(delta, Ratio);
-[e ( _setSteering (2 , _delta . `E17304 2 ]
-"269
-[; ;main.c: 269:             }
-}
-[e :U 2336 ]
-"270
-[; ;main.c: 270:             break;
-[e $U 2327  ]
-"271
-[; ;main.c: 271:         case CurveRight:
-[e :U 2337 ]
-"272
-[; ;main.c: 272:             if (curveMode == InCurve) {
-[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2338  ]
-{
-"273
-[; ;main.c: 273:                 setSteering(-(50), Ratio);
-[e ( _setSteering (2 , -> -U -> 50 `i `s . `E17304 2 ]
-"274
-[; ;main.c: 274:             } else {
-}
-[e $U 2339  ]
-[e :U 2338 ]
-{
-"275
-[; ;main.c: 275:                 setSteering(delta, Ratio);
-[e ( _setSteering (2 , _delta . `E17304 2 ]
-"276
-[; ;main.c: 276:             }
-}
-[e :U 2339 ]
-"277
-[; ;main.c: 277:             break;
-[e $U 2327  ]
-"278
-[; ;main.c: 278:     };
-}
-[e $U 2327  ]
+[; ;main.c: 251:         default:
 [e :U 2328 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2329
- , $ -> . `E17295 1 `ui 2330
- , $ -> . `E17295 0 `ui 2331
- , $ -> . `E17295 3 `ui 2332
- , $ -> . `E17295 4 `ui 2333
- , $ -> . `E17295 5 `ui 2334
- , $ -> . `E17295 6 `ui 2337
- 2327 ]
-[e :U 2327 ]
-"279
-[; ;main.c: 279: }
-[e :UE 2315 ]
+"252
+[; ;main.c: 252:             break;
+[e $U 2318  ]
+"253
+[; ;main.c: 253:     }
 }
+[e $U 2318  ]
+[e :U 2319 ]
+[e [\ -> _driveMode `ui , $ -> . `E17295 0 `ui 2320
+ , $ -> . `E17295 2 `ui 2321
+ , $ -> . `E17295 1 `ui 2322
+ , $ -> . `E17295 5 `ui 2323
+ , $ -> . `E17295 6 `ui 2324
+ 2328 ]
+[e :U 2318 ]
+"255
+[; ;main.c: 255:     switch (driveMode) {
+[e $U 2330  ]
+{
+"256
+[; ;main.c: 256:         case Brake:
+[e :U 2331 ]
+"257
+[; ;main.c: 257:             setSteering(delta, Ratio);
+[e ( _setSteering (2 , _delta . `E17304 2 ]
+"258
+[; ;main.c: 258:             break;
+[e $U 2329  ]
+"259
+[; ;main.c: 259:         case Straight:
+[e :U 2332 ]
+"260
+[; ;main.c: 260:             setSteering(delta, Front);
+[e ( _setSteering (2 , _delta . `E17304 3 ]
+"261
+[; ;main.c: 261:             break;
+[e $U 2329  ]
+"262
+[; ;main.c: 262:         case Accel:
+[e :U 2333 ]
+"263
+[; ;main.c: 263:             setSteering(delta / (2), Front);
+[e ( _setSteering (2 , -> / -> _delta `i -> 2 `i `s . `E17304 3 ]
+"265
+[; ;main.c: 265:             break;
+[e $U 2329  ]
+"266
+[; ;main.c: 266:         case ReverseRight:
+[e :U 2334 ]
+"267
+[; ;main.c: 267:             setSteering(-(65), Inverted);
+[e ( _setSteering (2 , -> -U -> 65 `i `s . `E17304 0 ]
+"268
+[; ;main.c: 268:             break;
+[e $U 2329  ]
+"269
+[; ;main.c: 269:         case ReverseLeft:
+[e :U 2335 ]
+"270
+[; ;main.c: 270:             setSteering((65), Inverted);
+[e ( _setSteering (2 , -> -> 65 `i `s . `E17304 0 ]
+"271
+[; ;main.c: 271:             break;
+[e $U 2329  ]
+"272
+[; ;main.c: 272:         case CurveLeft:
+[e :U 2336 ]
+"273
+[; ;main.c: 273:             if (curveMode == InCurve) {
+[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2337  ]
+{
+"274
+[; ;main.c: 274:                 setSteering((65), Ratio);
+[e ( _setSteering (2 , -> -> 65 `i `s . `E17304 2 ]
+"275
+[; ;main.c: 275:             } else {
+}
+[e $U 2338  ]
+[e :U 2337 ]
+{
+"276
+[; ;main.c: 276:                 setSteering(delta, Ratio);
+[e ( _setSteering (2 , _delta . `E17304 2 ]
+"277
+[; ;main.c: 277:             }
+}
+[e :U 2338 ]
+"278
+[; ;main.c: 278:             break;
+[e $U 2329  ]
+"279
+[; ;main.c: 279:         case CurveRight:
+[e :U 2339 ]
+"280
+[; ;main.c: 280:             if (curveMode == InCurve) {
+[e $ ! == -> _curveMode `ui -> . `E17311 2 `ui 2340  ]
+{
 "281
-[; ;main.c: 281: void calcSpeed(void) {
+[; ;main.c: 281:                 setSteering(-(65), Ratio);
+[e ( _setSteering (2 , -> -U -> 65 `i `s . `E17304 2 ]
+"282
+[; ;main.c: 282:             } else {
+}
+[e $U 2341  ]
+[e :U 2340 ]
+{
+"283
+[; ;main.c: 283:                 setSteering(delta, Ratio);
+[e ( _setSteering (2 , _delta . `E17304 2 ]
+"284
+[; ;main.c: 284:             }
+}
+[e :U 2341 ]
+"285
+[; ;main.c: 285:             break;
+[e $U 2329  ]
+"286
+[; ;main.c: 286:     };
+}
+[e $U 2329  ]
+[e :U 2330 ]
+[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2331
+ , $ -> . `E17295 1 `ui 2332
+ , $ -> . `E17295 0 `ui 2333
+ , $ -> . `E17295 3 `ui 2334
+ , $ -> . `E17295 4 `ui 2335
+ , $ -> . `E17295 5 `ui 2336
+ , $ -> . `E17295 6 `ui 2339
+ 2329 ]
+[e :U 2329 ]
+"287
+[; ;main.c: 287: }
+[e :UE 2317 ]
+}
+"289
+[; ;main.c: 289: void calcSpeed(void) {
 [v _calcSpeed `(v ~T0 @X0 1 ef ]
 {
 [e :U _calcSpeed ]
 [f ]
-"282
-[; ;main.c: 282:     int16_t speed = 0;
+"290
+[; ;main.c: 290:     int16_t speed = 0;
 [v _speed `s ~T0 @X0 1 a ]
 [e = _speed -> -> 0 `i `s ]
-"284
-[; ;main.c: 284:     switch (driveMode) {
-[e $U 2342  ]
-{
-"285
-[; ;main.c: 285:         case Brake:
-[e :U 2343 ]
-"286
-[; ;main.c: 286:             if (distFront > (30)) {
-[e $ ! > -> _distFront `ui -> -> 30 `i `ui 2344  ]
-{
-"287
-[; ;main.c: 287:                 driveMode = Straight;
-[e = _driveMode . `E17295 1 ]
-"288
-[; ;main.c: 288:             }
-}
-[e :U 2344 ]
-"289
-[; ;main.c: 289:             if (setSpeed > (100)) {
-[e $ ! > -> _setSpeed `i -> 100 `i 2345  ]
-{
-"290
-[; ;main.c: 290:                     speed = setSpeed;
-[e = _speed _setSpeed ]
-"291
-[; ;main.c: 291:                 if (distFront < (15)) {
-[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2346  ]
-{
 "292
-[; ;main.c: 292:                     speed -= 4;
-[e =- _speed -> -> 4 `i `s ]
+[; ;main.c: 292:     switch (driveMode) {
+[e $U 2344  ]
+{
 "293
-[; ;main.c: 293:                 } else {
-}
-[e $U 2347  ]
-[e :U 2346 ]
-{
-"294
-[; ;main.c: 294:                     speed -= 2;
-[e =- _speed -> -> 2 `i `s ]
-"295
-[; ;main.c: 295:                 }
-}
-[e :U 2347 ]
-"296
-[; ;main.c: 296:             }else{
-}
-[e $U 2348  ]
+[; ;main.c: 293:         case Brake:
 [e :U 2345 ]
+"294
+[; ;main.c: 294:             if (distFront > (30)) {
+[e $ ! > -> _distFront `ui -> -> 30 `i `ui 2346  ]
 {
-"297
-[; ;main.c: 297:                 speed = (100);
-[e = _speed -> -> 100 `i `s ]
-"298
-[; ;main.c: 298:             }
+"295
+[; ;main.c: 295:                 driveMode = Straight;
+[e = _driveMode . `E17295 1 ]
+"296
+[; ;main.c: 296:             }
 }
-[e :U 2348 ]
+[e :U 2346 ]
+"297
+[; ;main.c: 297:             if (setSpeed > (100)) {
+[e $ ! > -> _setSpeed `i -> 100 `i 2347  ]
+{
+"298
+[; ;main.c: 298:                     speed = setSpeed;
+[e = _speed _setSpeed ]
 "299
-[; ;main.c: 299:             break;
-[e $U 2341  ]
+[; ;main.c: 299:                 if (distFront < (15)) {
+[e $ ! < -> _distFront `ui -> -> 15 `i `ui 2348  ]
+{
 "300
-[; ;main.c: 300:         case Straight:
-[e :U 2349 ]
+[; ;main.c: 300:                     speed -= 4;
+[e =- _speed -> -> 4 `i `s ]
 "301
-[; ;main.c: 301:             if (distFront < (30)) {
-[e $ ! < -> _distFront `ui -> -> 30 `i `ui 2350  ]
+[; ;main.c: 301:                 } else {
+}
+[e $U 2349  ]
+[e :U 2348 ]
 {
 "302
-[; ;main.c: 302:                 driveMode = Brake;
-[e = _driveMode . `E17295 2 ]
+[; ;main.c: 302:                     speed -= 2;
+[e =- _speed -> -> 2 `i `s ]
 "303
-[; ;main.c: 303:             }
+[; ;main.c: 303:                 }
+}
+[e :U 2349 ]
+"304
+[; ;main.c: 304:             }else{
+}
+[e $U 2350  ]
+[e :U 2347 ]
+{
+"305
+[; ;main.c: 305:                 speed = (100);
+[e = _speed -> -> 100 `i `s ]
+"306
+[; ;main.c: 306:             }
 }
 [e :U 2350 ]
-"305
-[; ;main.c: 305:             if (distFront >= (150)) {
-[e $ ! >= -> _distFront `ui -> -> 150 `i `ui 2351  ]
-{
-"306
-[; ;main.c: 306:                 speed = (int16_t) ((0.7) * (distFront - (150)) + (275));
-[e = _speed -> + * .0.7 -> - -> _distFront `ui -> -> 150 `i `ui `d -> -> 275 `i `d `s ]
 "307
-[; ;main.c: 307:             } else {
-}
-[e $U 2352  ]
-[e :U 2351 ]
-{
+[; ;main.c: 307:             break;
+[e $U 2343  ]
 "308
-[; ;main.c: 308:                 speed = (275);
-[e = _speed -> -> 275 `i `s ]
+[; ;main.c: 308:         case Straight:
+[e :U 2351 ]
 "309
-[; ;main.c: 309:             }
+[; ;main.c: 309:             if (distFront < (30)) {
+[e $ ! < -> _distFront `ui -> -> 30 `i `ui 2352  ]
+{
+"310
+[; ;main.c: 310:                 driveMode = Brake;
+[e = _driveMode . `E17295 2 ]
+"311
+[; ;main.c: 311:             }
 }
 [e :U 2352 ]
-"311
-[; ;main.c: 311:             break;
-[e $U 2341  ]
-"312
-[; ;main.c: 312:         case ReverseRight:
-[e :U 2353 ]
 "313
-[; ;main.c: 313:             speed = (-125);
-[e = _speed -> -U -> 125 `i `s ]
+[; ;main.c: 313:             if (distFront >= (150)) {
+[e $ ! >= -> _distFront `ui -> -> 150 `i `ui 2353  ]
+{
 "314
-[; ;main.c: 314:             break;
-[e $U 2341  ]
+[; ;main.c: 314:                 speed = (int16_t) ((0.7) * (distFront - (150)) + (275));
+[e = _speed -> + * .0.7 -> - -> _distFront `ui -> -> 150 `i `ui `d -> -> 275 `i `d `s ]
 "315
-[; ;main.c: 315:         case ReverseLeft:
-[e :U 2354 ]
+[; ;main.c: 315:             } else {
+}
+[e $U 2354  ]
+[e :U 2353 ]
+{
 "316
-[; ;main.c: 316:             speed = (-125);
-[e = _speed -> -U -> 125 `i `s ]
+[; ;main.c: 316:                 speed = (275);
+[e = _speed -> -> 275 `i `s ]
 "317
-[; ;main.c: 317:             break;
-[e $U 2341  ]
-"318
-[; ;main.c: 318:         case CurveLeft:
-[e :U 2355 ]
+[; ;main.c: 317:             }
+}
+[e :U 2354 ]
 "319
-[; ;main.c: 319:             speed = (200);
-[e = _speed -> -> 200 `i `s ]
+[; ;main.c: 319:             break;
+[e $U 2343  ]
 "320
-[; ;main.c: 320:             break;
-[e $U 2341  ]
+[; ;main.c: 320:         case ReverseRight:
+[e :U 2355 ]
 "321
-[; ;main.c: 321:         case CurveRight:
-[e :U 2356 ]
+[; ;main.c: 321:             speed = (-125);
+[e = _speed -> -U -> 125 `i `s ]
 "322
-[; ;main.c: 322:             speed = (200);
-[e = _speed -> -> 200 `i `s ]
+[; ;main.c: 322:             break;
+[e $U 2343  ]
 "323
-[; ;main.c: 323:             break;
-[e $U 2341  ]
+[; ;main.c: 323:         case ReverseLeft:
+[e :U 2356 ]
 "324
-[; ;main.c: 324:     };
-}
-[e $U 2341  ]
-[e :U 2342 ]
-[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2343
- , $ -> . `E17295 1 `ui 2349
- , $ -> . `E17295 3 `ui 2353
- , $ -> . `E17295 4 `ui 2354
- , $ -> . `E17295 5 `ui 2355
- , $ -> . `E17295 6 `ui 2356
- 2341 ]
-[e :U 2341 ]
+[; ;main.c: 324:             speed = (-125);
+[e = _speed -> -U -> 125 `i `s ]
+"325
+[; ;main.c: 325:             break;
+[e $U 2343  ]
 "326
-[; ;main.c: 326:     if (speed > (400)) {
-[e $ ! > -> _speed `i -> 400 `i 2357  ]
-{
-"327
-[; ;main.c: 327:         speed = (400);
-[e = _speed -> -> 400 `i `s ]
-"328
-[; ;main.c: 328:     }
-}
+[; ;main.c: 326:         case CurveLeft:
 [e :U 2357 ]
+"327
+[; ;main.c: 327:             speed = (200);
+[e = _speed -> -> 200 `i `s ]
+"328
+[; ;main.c: 328:             break;
+[e $U 2343  ]
 "329
-[; ;main.c: 329:     if (speed < (-250)) {
-[e $ ! < -> _speed `i -U -> 250 `i 2358  ]
-{
-"330
-[; ;main.c: 330:         speed = (-250);
-[e = _speed -> -U -> 250 `i `s ]
-"331
-[; ;main.c: 331:     }
-}
+[; ;main.c: 329:         case CurveRight:
 [e :U 2358 ]
+"330
+[; ;main.c: 330:             speed = (200);
+[e = _speed -> -> 200 `i `s ]
+"331
+[; ;main.c: 331:             break;
+[e $U 2343  ]
 "332
-[; ;main.c: 332:     setSpeed = speed;
-[e = _setSpeed _speed ]
-"333
-[; ;main.c: 333: }
-[e :UE 2340 ]
+[; ;main.c: 332:     };
 }
+[e $U 2343  ]
+[e :U 2344 ]
+[e [\ -> _driveMode `ui , $ -> . `E17295 2 `ui 2345
+ , $ -> . `E17295 1 `ui 2351
+ , $ -> . `E17295 3 `ui 2355
+ , $ -> . `E17295 4 `ui 2356
+ , $ -> . `E17295 5 `ui 2357
+ , $ -> . `E17295 6 `ui 2358
+ 2343 ]
+[e :U 2343 ]
+"334
+[; ;main.c: 334:     if (speed > (400)) {
+[e $ ! > -> _speed `i -> 400 `i 2359  ]
+{
 "335
-[; ;main.c: 335: void calcMotorPow(void) {
+[; ;main.c: 335:         speed = (400);
+[e = _speed -> -> 400 `i `s ]
+"336
+[; ;main.c: 336:     }
+}
+[e :U 2359 ]
+"337
+[; ;main.c: 337:     if (speed < (-250)) {
+[e $ ! < -> _speed `i -U -> 250 `i 2360  ]
+{
+"338
+[; ;main.c: 338:         speed = (-250);
+[e = _speed -> -U -> 250 `i `s ]
+"339
+[; ;main.c: 339:     }
+}
+[e :U 2360 ]
+"340
+[; ;main.c: 340:     setSpeed = speed;
+[e = _setSpeed _speed ]
+"341
+[; ;main.c: 341: }
+[e :UE 2342 ]
+}
+"343
+[; ;main.c: 343: void calcMotorPow(void) {
 [v _calcMotorPow `(v ~T0 @X0 1 ef ]
 {
 [e :U _calcMotorPow ]
 [f ]
-"336
-[; ;main.c: 336:     currentSpeed = actSpeed();
+"344
+[; ;main.c: 344:     currentSpeed = actSpeed();
 [e = _currentSpeed ( _actSpeed ..  ]
-"338
-[; ;main.c: 338:     int16_t setSpeedDelta = setSpeed - currentSpeed;
+"346
+[; ;main.c: 346:     int16_t setSpeedDelta = setSpeed - currentSpeed;
 [v _setSpeedDelta `s ~T0 @X0 1 a ]
 [e = _setSpeedDelta -> - -> _setSpeed `i -> _currentSpeed `i `s ]
-"339
-[; ;main.c: 339:     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
+"347
+[; ;main.c: 347:     int16_t oldSpeedDelta = currentSpeed - oldSpeed;
 [v _oldSpeedDelta `s ~T0 @X0 1 a ]
 [e = _oldSpeedDelta -> - -> _currentSpeed `i -> _oldSpeed `i `s ]
-"340
-[; ;main.c: 340:     int8_t addMPow = 0;
+"348
+[; ;main.c: 348:     int8_t addMPow = 0;
 [v _addMPow `c ~T0 @X0 1 a ]
 [e = _addMPow -> -> 0 `i `c ]
-"345
-[; ;main.c: 345:     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
-[e = _addMPow -> * .0.020 -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 2 `i `d `c ]
-"347
-[; ;main.c: 347:     if (addMPow > (3)) {
-[e $ ! > -> _addMPow `i -> 3 `i 2360  ]
-{
-"348
-[; ;main.c: 348:         addMPow = (3);
-[e = _addMPow -> -> 3 `i `c ]
-"349
-[; ;main.c: 349:     } else if (addMPow < -(3)) {
-}
-[e $U 2361  ]
-[e :U 2360 ]
-[e $ ! < -> _addMPow `i -U -> 3 `i 2362  ]
-{
-"350
-[; ;main.c: 350:         addMPow = -(3);
-[e = _addMPow -> -U -> 3 `i `c ]
-"351
-[; ;main.c: 351:     }
-}
-[e :U 2362 ]
-[e :U 2361 ]
 "353
-[; ;main.c: 353:     actMotorPow += addMPow;
-[e =+ _actMotorPow -> _addMPow `s ]
+[; ;main.c: 353:     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
+[e = _addMPow -> * .0.020 -> - -> _setSpeedDelta `i / -> _oldSpeedDelta `i -> 2 `i `d `c ]
 "355
-[; ;main.c: 355:     if (actMotorPow > (700)) {
-[e $ ! > -> _actMotorPow `i -> 700 `i 2363  ]
+[; ;main.c: 355:     if (addMPow > (3)) {
+[e $ ! > -> _addMPow `i -> 3 `i 2362  ]
 {
 "356
-[; ;main.c: 356:         actMotorPow = (700);
-[e = _actMotorPow -> -> 700 `i `s ]
+[; ;main.c: 356:         addMPow = (3);
+[e = _addMPow -> -> 3 `i `c ]
 "357
-[; ;main.c: 357:     } else if (actMotorPow < (-400)) {
+[; ;main.c: 357:     } else if (addMPow < -(3)) {
 }
-[e $U 2364  ]
-[e :U 2363 ]
-[e $ ! < -> _actMotorPow `i -U -> 400 `i 2365  ]
+[e $U 2363  ]
+[e :U 2362 ]
+[e $ ! < -> _addMPow `i -U -> 3 `i 2364  ]
 {
 "358
-[; ;main.c: 358:         actMotorPow = (-400);
-[e = _actMotorPow -> -U -> 400 `i `s ]
+[; ;main.c: 358:         addMPow = -(3);
+[e = _addMPow -> -U -> 3 `i `c ]
 "359
 [; ;main.c: 359:     }
 }
-[e :U 2365 ]
 [e :U 2364 ]
+[e :U 2363 ]
 "361
-[; ;main.c: 361:     setMotor(actMotorPow);
-[e ( _setMotor (1 _actMotorPow ]
+[; ;main.c: 361:     actMotorPow += addMPow;
+[e =+ _actMotorPow -> _addMPow `s ]
 "363
-[; ;main.c: 363:     oldSpeed = currentSpeed;
-[e = _oldSpeed _currentSpeed ]
+[; ;main.c: 363:     if (actMotorPow > (700)) {
+[e $ ! > -> _actMotorPow `i -> 700 `i 2365  ]
+{
 "364
-[; ;main.c: 364: }
-[e :UE 2359 ]
+[; ;main.c: 364:         actMotorPow = (700);
+[e = _actMotorPow -> -> 700 `i `s ]
+"365
+[; ;main.c: 365:     } else if (actMotorPow < (-400)) {
 }
+[e $U 2366  ]
+[e :U 2365 ]
+[e $ ! < -> _actMotorPow `i -U -> 400 `i 2367  ]
+{
 "366
-[; ;main.c: 366: void setMotor(int16_t motorPower) {
+[; ;main.c: 366:         actMotorPow = (-400);
+[e = _actMotorPow -> -U -> 400 `i `s ]
+"367
+[; ;main.c: 367:     }
+}
+[e :U 2367 ]
+[e :U 2366 ]
+"369
+[; ;main.c: 369:     setMotor(actMotorPow);
+[e ( _setMotor (1 _actMotorPow ]
+"371
+[; ;main.c: 371:     oldSpeed = currentSpeed;
+[e = _oldSpeed _currentSpeed ]
+"372
+[; ;main.c: 372: }
+[e :UE 2361 ]
+}
+"374
+[; ;main.c: 374: void setMotor(int16_t motorPower) {
 [v _setMotor `(v ~T0 @X0 1 ef1`s ]
 {
 [e :U _setMotor ]
 [v _motorPower `s ~T0 @X0 1 r1 ]
 [f ]
-"367
-[; ;main.c: 367:     if (motorPower >= (40)) {
-[e $ ! >= -> _motorPower `i -> 40 `i 2367  ]
-{
-"368
-[; ;main.c: 368:         if (motorPower > (700)) {
-[e $ ! > -> _motorPower `i -> 700 `i 2368  ]
-{
-"369
-[; ;main.c: 369:             motorPower = (700);
-[e = _motorPower -> -> 700 `i `s ]
-"370
-[; ;main.c: 370:         }
-}
-[e :U 2368 ]
-"371
-[; ;main.c: 371:         PWM7_LoadDutyValue((uint16_t) (motorPower));
-[e ( _PWM7_LoadDutyValue (1 -> _motorPower `us ]
-"372
-[; ;main.c: 372:         PWM8_LoadDutyValue(0);
-[e ( _PWM8_LoadDutyValue (1 -> -> 0 `i `us ]
-"373
-[; ;main.c: 373:     } else if (motorPower <= -(40)) {
-}
-[e $U 2369  ]
-[e :U 2367 ]
-[e $ ! <= -> _motorPower `i -U -> 40 `i 2370  ]
-{
-"374
-[; ;main.c: 374:         if (motorPower < (-400)) {
-[e $ ! < -> _motorPower `i -U -> 400 `i 2371  ]
-{
 "375
-[; ;main.c: 375:             motorPower = (-400);
-[e = _motorPower -> -U -> 400 `i `s ]
-"376
-[; ;main.c: 376:         }
-}
-[e :U 2371 ]
-"377
-[; ;main.c: 377:         PWM7_LoadDutyValue(0);
-[e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
-"378
-[; ;main.c: 378:         PWM8_LoadDutyValue((uint16_t) (-motorPower));
-[e ( _PWM8_LoadDutyValue (1 -> -U -> _motorPower `i `us ]
-"379
-[; ;main.c: 379:     } else {
-}
-[e $U 2372  ]
-[e :U 2370 ]
+[; ;main.c: 375:     if (motorPower >= (40)) {
+[e $ ! >= -> _motorPower `i -> 40 `i 2369  ]
 {
-"381
-[; ;main.c: 381:         PWM7_LoadDutyValue(0);
-[e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
-"382
-[; ;main.c: 382:         PWM8_LoadDutyValue(0);
+"376
+[; ;main.c: 376:         if (motorPower > (700)) {
+[e $ ! > -> _motorPower `i -> 700 `i 2370  ]
+{
+"377
+[; ;main.c: 377:             motorPower = (700);
+[e = _motorPower -> -> 700 `i `s ]
+"378
+[; ;main.c: 378:         }
+}
+[e :U 2370 ]
+"379
+[; ;main.c: 379:         PWM7_LoadDutyValue((uint16_t) (motorPower));
+[e ( _PWM7_LoadDutyValue (1 -> _motorPower `us ]
+"380
+[; ;main.c: 380:         PWM8_LoadDutyValue(0);
 [e ( _PWM8_LoadDutyValue (1 -> -> 0 `i `us ]
-"383
-[; ;main.c: 383:     }
+"381
+[; ;main.c: 381:     } else if (motorPower <= -(40)) {
 }
-[e :U 2372 ]
+[e $U 2371  ]
 [e :U 2369 ]
+[e $ ! <= -> _motorPower `i -U -> 40 `i 2372  ]
+{
+"382
+[; ;main.c: 382:         if (motorPower < (-400)) {
+[e $ ! < -> _motorPower `i -U -> 400 `i 2373  ]
+{
+"383
+[; ;main.c: 383:             motorPower = (-400);
+[e = _motorPower -> -U -> 400 `i `s ]
 "384
-[; ;main.c: 384: }
-[e :UE 2366 ]
+[; ;main.c: 384:         }
 }
+[e :U 2373 ]
+"385
+[; ;main.c: 385:         PWM7_LoadDutyValue(0);
+[e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
+"386
+[; ;main.c: 386:         PWM8_LoadDutyValue((uint16_t) (-motorPower));
+[e ( _PWM8_LoadDutyValue (1 -> -U -> _motorPower `i `us ]
+"387
+[; ;main.c: 387:     } else {
+}
+[e $U 2374  ]
+[e :U 2372 ]
+{
 "389
-[; ;main.c: 389: void setSteering(int16_t steering, SteeringMode steeringMode) {
+[; ;main.c: 389:         PWM7_LoadDutyValue(0);
+[e ( _PWM7_LoadDutyValue (1 -> -> 0 `i `us ]
+"390
+[; ;main.c: 390:         PWM8_LoadDutyValue(0);
+[e ( _PWM8_LoadDutyValue (1 -> -> 0 `i `us ]
+"391
+[; ;main.c: 391:     }
+}
+[e :U 2374 ]
+[e :U 2371 ]
+"392
+[; ;main.c: 392: }
+[e :UE 2368 ]
+}
+"397
+[; ;main.c: 397: void setSteering(int16_t steering, SteeringMode steeringMode) {
 [v _setSteering `(v ~T0 @X0 1 ef2`s`E17304 ]
 {
 [e :U _setSteering ]
 [v _steering `s ~T0 @X0 1 r1 ]
 [v _steeringMode `E17304 ~T0 @X0 1 r2 ]
 [f ]
-"390
-[; ;main.c: 390:     int16_t steeringF = 0, steeringB = 0;
+"398
+[; ;main.c: 398:     int16_t steeringF = 0, steeringB = 0;
 [v _steeringF `s ~T0 @X0 1 a ]
 [e = _steeringF -> -> 0 `i `s ]
 [v _steeringB `s ~T0 @X0 1 a ]
 [e = _steeringB -> -> 0 `i `s ]
-"391
-[; ;main.c: 391:     switch (steeringMode) {
-[e $U 2375  ]
-{
-"392
-[; ;main.c: 392:         case Inverted:
-[e :U 2376 ]
-"393
-[; ;main.c: 393:             steeringF = (+steering);
-[e = _steeringF -> -> _steering `i `s ]
-"394
-[; ;main.c: 394:             steeringB = -steering;
-[e = _steeringB -> -U -> _steering `i `s ]
-"395
-[; ;main.c: 395:             break;
-[e $U 2374  ]
-"396
-[; ;main.c: 396:         case Same:
-[e :U 2377 ]
-"397
-[; ;main.c: 397:             steeringF = (+steering);
-[e = _steeringF -> -> _steering `i `s ]
-"398
-[; ;main.c: 398:             steeringB = (+steering);
-[e = _steeringB -> -> _steering `i `s ]
 "399
-[; ;main.c: 399:             break;
-[e $U 2374  ]
+[; ;main.c: 399:     switch (steeringMode) {
+[e $U 2377  ]
+{
 "400
-[; ;main.c: 400:         case Ratio:
+[; ;main.c: 400:         case Inverted:
 [e :U 2378 ]
 "401
 [; ;main.c: 401:             steeringF = (+steering);
 [e = _steeringF -> -> _steering `i `s ]
 "402
-[; ;main.c: 402:             steeringB = (-steering / (1.25));
-[e = _steeringB -> / -> -U -> _steering `i `d .1.25 `s ]
+[; ;main.c: 402:             steeringB = -steering;
+[e = _steeringB -> -U -> _steering `i `s ]
 "403
 [; ;main.c: 403:             break;
-[e $U 2374  ]
+[e $U 2376  ]
 "404
-[; ;main.c: 404:         case Front:
+[; ;main.c: 404:         case Same:
 [e :U 2379 ]
 "405
 [; ;main.c: 405:             steeringF = (+steering);
 [e = _steeringF -> -> _steering `i `s ]
 "406
-[; ;main.c: 406:             steeringB = 0;
-[e = _steeringB -> -> 0 `i `s ]
+[; ;main.c: 406:             steeringB = (+steering);
+[e = _steeringB -> -> _steering `i `s ]
 "407
 [; ;main.c: 407:             break;
-[e $U 2374  ]
+[e $U 2376  ]
 "408
-[; ;main.c: 408:         case Back:
+[; ;main.c: 408:         case Ratio:
 [e :U 2380 ]
 "409
-[; ;main.c: 409:             steeringF = 0;
-[e = _steeringF -> -> 0 `i `s ]
+[; ;main.c: 409:             steeringF = (+steering);
+[e = _steeringF -> -> _steering `i `s ]
 "410
-[; ;main.c: 410:             steeringB = (+steering);
-[e = _steeringB -> -> _steering `i `s ]
+[; ;main.c: 410:             steeringB = (-steering / (2));
+[e = _steeringB -> / -U -> _steering `i -> 2 `i `s ]
 "411
 [; ;main.c: 411:             break;
-[e $U 2374  ]
+[e $U 2376  ]
 "412
-[; ;main.c: 412:         default:
+[; ;main.c: 412:         case Front:
 [e :U 2381 ]
 "413
-[; ;main.c: 413:             steeringF = 0;
-[e = _steeringF -> -> 0 `i `s ]
+[; ;main.c: 413:             steeringF = (+steering);
+[e = _steeringF -> -> _steering `i `s ]
 "414
 [; ;main.c: 414:             steeringB = 0;
 [e = _steeringB -> -> 0 `i `s ]
 "415
 [; ;main.c: 415:             break;
-[e $U 2374  ]
+[e $U 2376  ]
 "416
-[; ;main.c: 416:     }
-}
-[e $U 2374  ]
-[e :U 2375 ]
-[e [\ -> _steeringMode `ui , $ -> . `E17304 0 `ui 2376
- , $ -> . `E17304 1 `ui 2377
- , $ -> . `E17304 2 `ui 2378
- , $ -> . `E17304 3 `ui 2379
- , $ -> . `E17304 4 `ui 2380
- 2381 ]
-[e :U 2374 ]
-"418
-[; ;main.c: 418:     if (steeringF > ((65))) {
-[e $ ! > -> _steeringF `i -> 65 `i 2382  ]
-{
-"419
-[; ;main.c: 419:         steeringF = ((65));
-[e = _steeringF -> -> 65 `i `s ]
-"420
-[; ;main.c: 420:     } else if (steeringF < (-(65))) {
-}
-[e $U 2383  ]
+[; ;main.c: 416:         case Back:
 [e :U 2382 ]
-[e $ ! < -> _steeringF `i -U -> 65 `i 2384  ]
-{
-"421
-[; ;main.c: 421:         steeringF = (-(65));
-[e = _steeringF -> -U -> 65 `i `s ]
-"422
-[; ;main.c: 422:     }
-}
-[e :U 2384 ]
+"417
+[; ;main.c: 417:             steeringF = 0;
+[e = _steeringF -> -> 0 `i `s ]
+"418
+[; ;main.c: 418:             steeringB = (+steering);
+[e = _steeringB -> -> _steering `i `s ]
+"419
+[; ;main.c: 419:             break;
+[e $U 2376  ]
+"420
+[; ;main.c: 420:         default:
 [e :U 2383 ]
+"421
+[; ;main.c: 421:             steeringF = 0;
+[e = _steeringF -> -> 0 `i `s ]
+"422
+[; ;main.c: 422:             steeringB = 0;
+[e = _steeringB -> -> 0 `i `s ]
+"423
+[; ;main.c: 423:             break;
+[e $U 2376  ]
 "424
-[; ;main.c: 424:     if (steeringB > ((40))) {
-[e $ ! > -> _steeringB `i -> 40 `i 2385  ]
-{
-"425
-[; ;main.c: 425:         steeringB = ((40));
-[e = _steeringB -> -> 40 `i `s ]
-"426
-[; ;main.c: 426:     } else if (steeringB < (-(40))) {
+[; ;main.c: 424:     }
 }
-[e $U 2386  ]
-[e :U 2385 ]
-[e $ ! < -> _steeringB `i -U -> 40 `i 2387  ]
+[e $U 2376  ]
+[e :U 2377 ]
+[e [\ -> _steeringMode `ui , $ -> . `E17304 0 `ui 2378
+ , $ -> . `E17304 1 `ui 2379
+ , $ -> . `E17304 2 `ui 2380
+ , $ -> . `E17304 3 `ui 2381
+ , $ -> . `E17304 4 `ui 2382
+ 2383 ]
+[e :U 2376 ]
+"426
+[; ;main.c: 426:     if (steeringF > ((65))) {
+[e $ ! > -> _steeringF `i -> 65 `i 2384  ]
 {
 "427
-[; ;main.c: 427:         steeringB = (-(40));
-[e = _steeringB -> -U -> 40 `i `s ]
+[; ;main.c: 427:         steeringF = ((65));
+[e = _steeringF -> -> 65 `i `s ]
 "428
-[; ;main.c: 428:     }
+[; ;main.c: 428:     } else if (steeringF < (-(65))) {
 }
-[e :U 2387 ]
+[e $U 2385  ]
+[e :U 2384 ]
+[e $ ! < -> _steeringF `i -U -> 65 `i 2386  ]
+{
+"429
+[; ;main.c: 429:         steeringF = (-(65));
+[e = _steeringF -> -U -> 65 `i `s ]
+"430
+[; ;main.c: 430:     }
+}
 [e :U 2386 ]
-"431
-[; ;main.c: 431:     PWM6_LoadDutyValue((uint16_t) ((352) + steeringF));
-[e ( _PWM6_LoadDutyValue (1 -> + -> 352 `i -> _steeringF `i `us ]
+[e :U 2385 ]
 "432
-[; ;main.c: 432:     PWM5_LoadDutyValue((uint16_t) ((357) + steeringB));
-[e ( _PWM5_LoadDutyValue (1 -> + -> 357 `i -> _steeringB `i `us ]
+[; ;main.c: 432:     if (steeringB > ((40))) {
+[e $ ! > -> _steeringB `i -> 40 `i 2387  ]
+{
 "433
-[; ;main.c: 433: }
-[e :UE 2373 ]
+[; ;main.c: 433:         steeringB = ((40));
+[e = _steeringB -> -> 40 `i `s ]
+"434
+[; ;main.c: 434:     } else if (steeringB < (-(40))) {
+}
+[e $U 2388  ]
+[e :U 2387 ]
+[e $ ! < -> _steeringB `i -U -> 40 `i 2389  ]
+{
+"435
+[; ;main.c: 435:         steeringB = (-(40));
+[e = _steeringB -> -U -> 40 `i `s ]
+"436
+[; ;main.c: 436:     }
+}
+[e :U 2389 ]
+[e :U 2388 ]
+"439
+[; ;main.c: 439:     PWM6_LoadDutyValue((uint16_t) ((352) + steeringF));
+[e ( _PWM6_LoadDutyValue (1 -> + -> 352 `i -> _steeringF `i `us ]
+"440
+[; ;main.c: 440:     PWM5_LoadDutyValue((uint16_t) ((357) + steeringB));
+[e ( _PWM5_LoadDutyValue (1 -> + -> 357 `i -> _steeringB `i `us ]
+"441
+[; ;main.c: 441: }
+[e :UE 2375 ]
 }
 [p f _printf 8396928 ]
 [a 1C 66 97 116 116 101 114 121 32 76 111 119 0 ]
+[a 7C 115 116 97 121 32 82 105 103 104 116 10 0 ]
+[a 6C 115 116 97 121 32 76 101 102 116 10 0 ]
 [a 2C 77 80 111 119 58 32 37 102 10 0 ]
 [a 3C 97 99 116 77 80 111 119 58 32 37 100 10 0 ]
 [a 4C 115 116 97 114 65 99 99 101 108 80 111 119 101 114 58 32 37 100 10 0 ]
+[a 5C 84 105 109 101 58 32 9 37 100 32 32 32 32 32 9 0 ]

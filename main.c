@@ -158,7 +158,15 @@ void getCurve(void) {
         case InCurve:
             if (delay >= setDelayEnd) {
                 if ((driveMode == CurveLeft && distLeft < endCurveDist) || (driveMode == CurveRight && distRight < endCurveDist) || distFront > endCurveDistFront) {
-//                    printf("CurveTime: %d\n", delay);
+                    printf("Time: \t%d     \t", delay);
+                    if (delay >= 90) {
+                        printf("stay Left\n");
+                        middleOffSet = -10;
+                    } else {
+                        printf("stay Right\n");
+                        middleOffSet = 10;
+                    }
+                    //                    printf("CurveTime: %d\n", delay);
                     delay = 0;
                     curveMode = AfterCurve;
                     driveMode = Straight;

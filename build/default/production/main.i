@@ -28618,6 +28618,9 @@ uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
 
+
+
+int16_t middleOffSet = -10;
 int16_t motPow = 0;
 int16_t setSpeed = 0;
 int16_t currentSpeed = 0;
@@ -28791,7 +28794,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay >= (10)) {
+            if (delay >= (15)) {
                 delay = 0;
                 curveMode = InCurve;
 
@@ -28800,8 +28803,16 @@ void getCurve(void) {
             }
             break;
         case InCurve:
-            if (delay >= (20)) {
+            if (delay >= (30)) {
                 if ((driveMode == CurveLeft && distLeft < (45)) || (driveMode == CurveRight && distRight < (45)) || distFront > (300)) {
+                    printf("Time: \t%d     \t", delay);
+                    if (delay >= 90) {
+                        printf("stay Left\n");
+                        middleOffSet = -10;
+                    } else {
+                        printf("stay Right\n");
+                        middleOffSet = 10;
+                    }
 
                     delay = 0;
                     curveMode = AfterCurve;
@@ -28868,7 +28879,7 @@ void getReverse(void) {
 }
 
 void calcSteering(void) {
-    int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) ((0) * 1.4142135);
+    int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) (middleOffSet * 1.4142135);
     delta /= (1);
 
 
@@ -28900,21 +28911,21 @@ void calcSteering(void) {
 
             break;
         case ReverseRight:
-            setSteering(-(50), Inverted);
+            setSteering(-(65), Inverted);
             break;
         case ReverseLeft:
-            setSteering((50), Inverted);
+            setSteering((65), Inverted);
             break;
         case CurveLeft:
             if (curveMode == InCurve) {
-                setSteering((50), Ratio);
+                setSteering((65), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
             break;
         case CurveRight:
             if (curveMode == InCurve) {
-                setSteering(-(50), Ratio);
+                setSteering(-(65), Ratio);
             } else {
                 setSteering(delta, Ratio);
             }
@@ -29043,7 +29054,7 @@ void setSteering(int16_t steering, SteeringMode steeringMode) {
             break;
         case Ratio:
             steeringF = (+steering);
-            steeringB = (-steering / (1.25));
+            steeringB = (-steering / (2));
             break;
         case Front:
             steeringF = (+steering);
