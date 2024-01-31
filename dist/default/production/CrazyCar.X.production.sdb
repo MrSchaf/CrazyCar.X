@@ -2042,7 +2042,32 @@ channel_FVR_Buffer2 63
 [v ___aodiv@divisor divisor `o  1 p 8 27 ]
 "43
 } 0
+<<<<<<< Updated upstream
 "83 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+=======
+"226 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+[v _calcSteering calcSteering `(v  1 e 1 0 ]
+{
+"227
+[v calcSteering@delta delta `s  1 a 2 46 ]
+"279
+} 0
+"192
+[v _getReverse getReverse `(v  1 e 1 0 ]
+{
+"224
+} 0
+"128
+[v _getCurve getCurve `(v  1 e 1 0 ]
+{
+"129
+[v getCurve@deltaLeft deltaLeft `s  1 a 2 23 ]
+"130
+[v getCurve@deltaRight deltaRight `s  1 a 2 21 ]
+"190
+} 0
+"83
+>>>>>>> Stashed changes
 [v _checkBatt checkBatt `(a  1 e 1 0 ]
 {
 "96
@@ -2058,6 +2083,29 @@ channel_FVR_Buffer2 63
 [v setSteering@steeringMode steeringMode `E17304  1 p 1 29 ]
 "441
 } 0
+<<<<<<< Updated upstream
+=======
+"11 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+{
+"21
+[v ___fldiv@grs grs `ul  1 a 4 7 ]
+"22
+[v ___fldiv@rem rem `ul  1 a 4 0 ]
+"20
+[v ___fldiv@new_exp new_exp `s  1 a 2 5 ]
+"19
+[v ___fldiv@aexp aexp `uc  1 a 1 12 ]
+"18
+[v ___fldiv@bexp bexp `uc  1 a 1 11 ]
+"16
+[v ___fldiv@sign sign `uc  1 a 1 4 ]
+"11
+[v ___fldiv@b b `d  1 p 4 41 ]
+[v ___fldiv@a a `d  1 p 4 45 ]
+"185
+} 0
+>>>>>>> Stashed changes
 "74 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\mcc_generated_files/pwm6.c
 [v _PWM6_LoadDutyValue PWM6_LoadDutyValue `(v  1 e 1 0 ]
 {
@@ -2091,7 +2139,11 @@ channel_FVR_Buffer2 63
 [v ___flge@ff2 ff2 `d  1 p 4 17 ]
 "19
 } 0
+<<<<<<< Updated upstream
 "289 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+=======
+"281 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+>>>>>>> Stashed changes
 [v _calcSpeed calcSpeed `(v  1 e 1 0 ]
 {
 "290
@@ -2114,7 +2166,11 @@ channel_FVR_Buffer2 63
 [v ___fladd@a a `d  1 p 4 17 ]
 "237
 } 0
+<<<<<<< Updated upstream
 "343 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+=======
+"335 C:\Users\Startklar\OneDrive - HTBLuVA Salzburg\4-AHEL\Crazy car\software\Github_Rep\CrazyCar.X\main.c
+>>>>>>> Stashed changes
 [v _calcMotorPow calcMotorPow `(v  1 e 1 0 ]
 {
 "347
