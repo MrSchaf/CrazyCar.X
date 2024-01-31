@@ -39,7 +39,7 @@
 #define maxAddMPow                      (3)
 #define MotorPowFactor                  (0.020)
 #define oldSpeedDeltaDivisor            (2)
-#define MinMPower                       (100) 
+#define MinMPower                       (40) 
 
 #define setDelayStart                   (15)       // Delay bevor man zu Lenken beginnt
 #define setDelayEnd                     (20)      // Delay bevor man die Kurve abbrechen kann
