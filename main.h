@@ -41,7 +41,7 @@
 #define maxStartCurveDelta              (300)
 #define MaxOldDist                      (125)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
-#define endCurveDistFront               (150)     //distFront > endCurveDistFront   --> Kurvenende
+#define endCurveDistFront               (175)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                   (60)       
 #define curveSpeed                      (200)
 #define switchCurveDelta                (30)
