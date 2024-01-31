@@ -108,7 +108,7 @@ uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
 
 // neg: naher and der linken Wand
-int16_t  middleOffSet = -15;
+int16_t  middleOffSet = 0;
 
 int16_t motPow = 0;
 int16_t setSpeed = 0;
