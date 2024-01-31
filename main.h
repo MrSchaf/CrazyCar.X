@@ -18,8 +18,7 @@
 #define maxSteeringStraight             (40)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                   (1.25)
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
-#define middleOffSet                    (-5)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
-
+#define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
 #define maxMPowForward                  (700)
 #define maxSpeedForward                 (400)
@@ -53,8 +52,7 @@
 #define reverseSpeed                    (-125)
 #define maxReverseTime                  (300)
 
-
-#define speedIncrease                   (0.4)
+#define speedIncrease                   (0.7)
 #define MinDistAccel                    (150)
 #define MinStraightSpeed                (275)
 
@@ -63,12 +61,15 @@
 #define BrakeDistanceStrong             (15)
 #define minDriveSpeed                   (100)
 
-#define startAccelTime                  (30)       //how long the function runs in total
-#define startMPower                     (240)      //to what MPow the function accelerates
+#define startAccelTime                  (50)      //how long the function runs in total
+#define startMPower                     (250)      //to what MPow the function accelerates
 #define startAccellSteps                (20)       //in how many steps does the function accelerate to startMPower
 #define startAccellStep       (int16_t) (startMPower / startAccellSteps)   //increment AcctMpow by this value
+#define startAccelMult                  (1.1)
+#define startAccellSteeringRatio        (2)
 
 typedef enum {
+    Accel,
     Straight,
     Brake,
     ReverseRight,
@@ -100,17 +101,11 @@ DriveMode driveMode = Straight;
 CurveMode curveMode = OutCurve;
 
 volatile uint8_t cycle10ms = 0;
-volatile uint16_t roundTimeCount;
 
-
-uint8_t curveLeftCount = 0;
-uint8_t curveRightCount = 0;
 uint8_t delay = 0;
 uint16_t reverseCount = 0;
 uint16_t oldDistLeft, oldDistRight;
 uint16_t battCheckCount = 0;
-
-uint16_t followCount = 0;
 
 int16_t motPow = 0;
 int16_t setSpeed = 0;
@@ -130,7 +125,6 @@ bool checkBatt(); //returns true whenn BatVolt * 409.6 < minBatValue
 int16_t actSpeed();
 void startAccell();
 void getBatteryVoltage(void);
-void checkCurveCount();
 
 void getCurve(void);
 void getReverse(void);
