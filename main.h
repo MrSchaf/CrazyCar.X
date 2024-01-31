@@ -124,10 +124,8 @@ void TMR4_10msISR(void);
 
 void loop(void);
 
-bool checkBatt(); //returns true whenn BatVolt * 409.6 < minBatValue
 int16_t actSpeed();
 void startAccell();
-void getBatteryVoltage(void);
 
 void getCurve(void);
 void getReverse(void);
