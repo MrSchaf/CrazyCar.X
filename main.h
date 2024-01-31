@@ -18,7 +18,7 @@
 #define maxSteeringStraight             (40)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                   (1.25)
 #define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
-#define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
+#define middleOffSet                    (-5)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
 
 #define maxMPowForward                  (700)
@@ -45,6 +45,7 @@
 #define endCurveDistFront               (300)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                   (50)       
 #define curveSpeed                      (200)
+#define switchCurveDelta                (30)
 
 #define startReverseDist                (15)      // distFront < startReverseDist --> reverseCount++
 #define minReverseTime                  (50)

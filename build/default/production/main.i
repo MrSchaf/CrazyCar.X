@@ -28578,7 +28578,7 @@ struct tm *getdate (const char *);
 # 5 "main.c" 2
 
 # 1 "./main.h" 1
-# 70 "./main.h"
+# 71 "./main.h"
 typedef enum {
     Straight,
     Brake,
@@ -28680,7 +28680,7 @@ void loop(void) {
         getBatteryVoltage();
     } while (BatteryVolt < ((6.8) * 409.6));
 
-    startAccell();
+
 
     oldDistLeft = distLeft;
     oldDistRight = distRight;
@@ -28778,29 +28778,25 @@ void checkCurveCount() {
 }
 
 void getCurve(void) {
-    int16_t deltaLeft;
-    int16_t deltaRight;
+    int16_t deltaLeft = (int16_t) (distLeft - oldDistLeft);
+    int16_t deltaRight = (int16_t) (distRight - oldDistRight);
 
     switch (curveMode) {
         case OutCurve:
-            deltaLeft = (int16_t) (distLeft - oldDistLeft);
-            deltaRight = (int16_t) (distRight - oldDistRight);
-
-            delay = 0;
             if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
                 ++curveLeftCount;
-                printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
-                printf("   CurveLeft\n");
+
+
             } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (125)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
                 ++curveRightCount;
-                printf("Out | dL= %d | dR= %d", deltaLeft, deltaRight);
-                printf("   CurveRight\n");
+
+
             }
 
             break;
@@ -28828,7 +28824,13 @@ void getCurve(void) {
                     curveMode = AfterCurve;
 
                     driveMode = Straight;
-                    printf("AfterCurve\n");
+
+                } else if(driveMode == CurveRight && deltaLeft > (30)){
+                    printf("Switch!\nDeltLeft: %d\n", deltaLeft);
+                    delay = 0;
+                    curveMode = BeforeCurve;
+                    driveMode = CurveLeft;
+                    ++curveLeftCount;
                 }
             }
             ++delay;
@@ -28837,7 +28839,7 @@ void getCurve(void) {
             if (delay >= (1)) {
                 delay = 0;
                 curveMode = OutCurve;
-                printf("OutCurve\n");
+
             } else {
                 ++delay;
             }
@@ -28882,7 +28884,7 @@ void getReverse(void) {
 }
 
 void calcSteering(void) {
-    int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) ((0) * 1.4142135);
+    int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) ((-5) * 1.4142135);
     delta /= (1);
 
 
