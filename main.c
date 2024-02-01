@@ -21,12 +21,12 @@ void loop(void) {
     setSteering(0, Front);
     while (diStart_GetValue());
 
-    do {
-        while (!cycle10ms);
-        cycle10ms = 0;
-        
-        getBatteryVoltage();
-    } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
+//    do {
+//        while (!cycle10ms);
+//        cycle10ms = 0;
+//        
+//        getBatteryVoltage();
+//    } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
 
     startAccell();
     driveMode = Straight;
@@ -75,25 +75,25 @@ int16_t actSpeed() {
     return speed;
 }
 
-void getBatteryVoltage(void) {
-    BatteryVolt = ADCC_GetSingleConversion(aiBatt);
-//    printf("BVolt: %f\n", BatteryVolt / 409.6f);
-}
+//void getBatteryVoltage(void) {
+//    BatteryVolt = ADCC_GetSingleConversion(aiBatt);
+////    printf("BVolt: %f\n", BatteryVolt / 409.6f);
+//}
 
-bool checkBatt() {
-    ++battCheckCount;
-    if (battCheckCount > BattCheckPeriod) {
-        battCheckCount = 0;
-        getBatteryVoltage();
-        
-        if (BatteryVolt < minBatValue * 409.6f) {
-            setSpeed = 0;
-            setSteering(0, Front);
-            return true;
-        }
-    }
-    return false;
-}
+//bool checkBatt() {
+//    ++battCheckCount;
+//    if (battCheckCount > BattCheckPeriod) {
+//        battCheckCount = 0;
+//        getBatteryVoltage();
+//        
+//        if (BatteryVolt < minBatValue * 409.6f) {
+//            setSpeed = 0;
+//            setSteering(0, Front);
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
 void startAccell() {
     setSteering(0, Front);

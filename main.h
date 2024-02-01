@@ -7,7 +7,7 @@
 //all Time Values are in [10ms]
 //all speed Values are in [unknown]
 
-#define minBatValue                     (0)     // Mindestspg in Volt adc = (vbat * 409.6)
+//#define minBatValue                     (0)     // Mindestspg in Volt adc = (vbat * 409.6)
 #define BattCheckPeriod                 (500)     
 
 
