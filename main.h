@@ -15,9 +15,9 @@
 #define steeringBOffset                 (357)     // höher = links | niedriger = rechts
 #define maxSteeringF                    (65)
 #define maxSteeringB                    (40)
-#define maxSteeringStraight             (25)      //kann beim geradeaus fahren nicht stärker lenken
+#define maxSteeringStraight             (30)      //kann beim geradeaus fahren nicht stärker lenken
 #define steeringRatio                   (2)
-#define steeringDivisor                 (1.5)       // distLeft - distRight /= lenkungDivisor;
+#define steeringDivisor                 (1)       // distLeft - distRight /= lenkungDivisor;
 //#define middleOffSet                    (0)       // cm * sqr(2) = verschiebung in cm nach links oder rechts
 
 #define maxMPowForward                  (800)
@@ -43,7 +43,7 @@
 #define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
 #define endCurveDistFront               (175)     //distFront > endCurveDistFront   --> Kurvenende
 #define curveSteering                   (65)       
-#define curveSpeed                      (170)
+#define curveSpeed                      (160)
 #define switchCurveDelta                (30) 
 
 #define startReverseDist                (15)      // distFront < startReverseDist --> reverseCount++
@@ -52,7 +52,7 @@
 #define reverseSpeed                    (-125)
 #define maxReverseTime                  (300)
 
-#define speedIncrease                   (0.75)
+#define speedIncrease                   (0.5)
 #define MinDistAccel                    (175)
 #define MinStraightSpeed                (300)
 

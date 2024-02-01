@@ -28803,10 +28803,10 @@ void getCurve(void) {
 
                     if (delay >= 70) {
 
-                        middleOffSet = -15;
+                        middleOffSet = -10;
                     } else {
 
-                        middleOffSet = 15;
+                        middleOffSet = 10;
                     }
 
                     delay = 0;
@@ -28874,7 +28874,7 @@ void getReverse(void) {
 
 void calcSteering(void) {
     int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) (middleOffSet * 1.4142135);
-    delta /= (1.5);
+    delta /= (1);
 
 
     switch (driveMode) {
@@ -28883,10 +28883,10 @@ void calcSteering(void) {
         case Straight:
         case CurveLeft:
         case CurveRight:
-            if (delta > (25)) {
-                delta = (25);
-            } else if (delta < -(25)) {
-                delta = -(25);
+            if (delta > (30)) {
+                delta = (30);
+            } else if (delta < -(30)) {
+                delta = -(30);
             }
             break;
         default:
@@ -28952,7 +28952,7 @@ void calcSpeed(void) {
             }
 
             if (distFront >= (175)) {
-                speed = (int16_t) ((0.75) * (distFront - (175)) + (300));
+                speed = (int16_t) ((0.5) * (distFront - (175)) + (300));
             } else {
                 speed = (300);
             }
@@ -28965,10 +28965,10 @@ void calcSpeed(void) {
             speed = (-125);
             break;
         case CurveLeft:
-            speed = (170);
+            speed = (160);
             break;
         case CurveRight:
-            speed = (170);
+            speed = (160);
             break;
     };
 

@@ -163,10 +163,10 @@ void getCurve(void) {
 //                    printf("Time: %d     ", delay);
                     if (delay >= 70) {
 //                        printf("stay Left\n");
-                        middleOffSet = -15;
+                        middleOffSet = -10;
                     } else {
 //                        printf("stay Right\n");
-                        middleOffSet = 15;
+                        middleOffSet = 10;
                     }
                     //                    printf("CurveTime: %d\n", delay);
                     delay = 0;
