@@ -33,7 +33,7 @@
 #define oldSpeedDeltaDivisor            (2)
 #define MinMPower                       (40)
 
-#define setDelayStart                   (18)       // Delay bevor man zu Lenken beginnt
+#define setDelayStart                   (20)       // Delay bevor man zu Lenken beginnt
 #define setDelayEnd                     (25)      // Delay bevor man die Kurve abbrechen kann
 #define setDelayNew                     (1)      // Delay bevor man eine neue Kurve erkennen kann   
 
@@ -41,9 +41,9 @@
 #define maxStartCurveDelta              (300)
 #define MaxOldDist                      (150)     //  && oldDistLeft < MaxOldDist)  --> Kurv
 #define endCurveDist                    (45)      // distL || distR < endKurveValue --> Kurvenende
-#define endCurveDistFront               (175)     //distFront > endCurveDistFront   --> Kurvenende
+#define endCurveDistFront               (175)     //distFro nt > endCurveDistFront   --> Kurvenende
 #define curveSteering                   (65)       
-#define curveSpeed                      (170)
+#define curveSpeed                      (160)
 #define switchCurveDelta                (30)
 
 #define startReverseDist                (15)      // distFront < startReverseDist --> reverseCount++
@@ -52,9 +52,9 @@
 #define reverseSpeed                    (-125)
 #define maxReverseTime                  (300)
 
-#define speedIncrease                   (0.75)
+#define speedIncrease                   (0.6)
 #define MinDistAccel                    (175)
-#define MinStraightSpeed                (300)
+#define MinStraightSpeed                (290)
 
 
 #define BrakeDistance                   (30)

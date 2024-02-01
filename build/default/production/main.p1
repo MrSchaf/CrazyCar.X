@@ -2794,8 +2794,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 149:         case BeforeCurve:
 [e :U 2281 ]
 "150
-[; ;main.c: 150:             if (delay >= (18)) {
-[e $ ! >= -> _delay `i -> 18 `i 2282  ]
+[; ;main.c: 150:             if (delay >= (20)) {
+[e $ ! >= -> _delay `i -> 20 `i 2282  ]
 {
 "151
 [; ;main.c: 151:                 delay = 0;
@@ -3312,8 +3312,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! >= -> _distFront `ui -> -> 175 `i `ui 2340  ]
 {
 "307
-[; ;main.c: 307:                 speed = (int16_t) ((0.75) * (distFront - (175)) + (300));
-[e = _speed -> + * .0.75 -> - -> _distFront `ui -> -> 175 `i `ui `d -> -> 300 `i `d `s ]
+[; ;main.c: 307:                 speed = (int16_t) ((0.6) * (distFront - (175)) + (290));
+[e = _speed -> + * .0.6 -> - -> _distFront `ui -> -> 175 `i `ui `d -> -> 290 `i `d `s ]
 "308
 [; ;main.c: 308:             } else {
 }
@@ -3321,8 +3321,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 2340 ]
 {
 "309
-[; ;main.c: 309:                 speed = (300);
-[e = _speed -> -> 300 `i `s ]
+[; ;main.c: 309:                 speed = (290);
+[e = _speed -> -> 290 `i `s ]
 "310
 [; ;main.c: 310:             }
 }
@@ -3352,8 +3352,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 319:         case CurveLeft:
 [e :U 2344 ]
 "320
-[; ;main.c: 320:             speed = (170);
-[e = _speed -> -> 170 `i `s ]
+[; ;main.c: 320:             speed = (160);
+[e = _speed -> -> 160 `i `s ]
 "321
 [; ;main.c: 321:             break;
 [e $U 2329  ]
@@ -3361,8 +3361,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 322:         case CurveRight:
 [e :U 2345 ]
 "323
-[; ;main.c: 323:             speed = (170);
-[e = _speed -> -> 170 `i `s ]
+[; ;main.c: 323:             speed = (160);
+[e = _speed -> -> 160 `i `s ]
 "324
 [; ;main.c: 324:             break;
 [e $U 2329  ]

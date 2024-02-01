@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.32 build 20210201212658 
-                                                                                               Thu Feb 01 08:13:22 2024
+                                                                                               Thu Feb 01 12:27:05 2024
 
 Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1 
      1                           	processor	18F46K42
@@ -2759,8 +2759,8 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   2685  000A9E                     l4622:
   2686                           
   2687                           ; BSR set to: 0
-  2688                           ;main.c: 150:             if (delay >= (18)) {
-  2689  000A9E  0E11               	movlw	17
+  2688                           ;main.c: 150:             if (delay >= (20)) {
+  2689  000A9E  0E13               	movlw	19
   2690  000AA0  643E               	cpfsgt	_delay^0,c
   2691  000AA2  EF55  F005         	goto	u3091
   2692  000AA6  EF57  F005         	goto	u3090
@@ -3163,20 +3163,20 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   3082  000CA2                     u4470:
   3083  000CA2                     
   3084                           ; BSR set to: 0
-  3085                           ;main.c: 307:                 speed = (int16_t) ((0.75) * (distFront - (175)) + (300));
+  3085                           ;main.c: 307:                 speed = (int16_t) ((0.6) * (distFront - (175)) + (290));
   3086  000CA2  0E00               	movlw	0
   3087  000CA4  6FAE               	movwf	___fladd@a& (0+255),b
   3088  000CA6  0E00               	movlw	0
   3089  000CA8  6FAF               	movwf	(___fladd@a+1)& (0+255),b
-  3090  000CAA  0E96               	movlw	150
+  3090  000CAA  0E91               	movlw	145
   3091  000CAC  6FB0               	movwf	(___fladd@a+2)& (0+255),b
   3092  000CAE  0E43               	movlw	67
   3093  000CB0  6FB1               	movwf	(___fladd@a+3)& (0+255),b
-  3094  000CB2  0E00               	movlw	0
+  3094  000CB2  0E9A               	movlw	154
   3095  000CB4  6E2E               	movwf	___flmul@a^0,c
-  3096  000CB6  0E00               	movlw	0
+  3096  000CB6  0E99               	movlw	153
   3097  000CB8  6E2F               	movwf	(___flmul@a+1)^0,c
-  3098  000CBA  0E40               	movlw	64
+  3098  000CBA  0E19               	movlw	25
   3099  000CBC  6E30               	movwf	(___flmul@a+2)^0,c
   3100  000CBE  0E3F               	movlw	63
   3101  000CC0  6E31               	movwf	(___flmul@a+3)^0,c
@@ -3219,10 +3219,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   3138  000D34                     l5690:
   3139                           
   3140                           ; BSR set to: 0
-  3141                           ;main.c: 309:                 speed = (300);
+  3141                           ;main.c: 309:                 speed = (290);
   3142  000D34  0E01               	movlw	1
   3143  000D36  6FC5               	movwf	(calcSpeed@speed+1)& (0+255),b
-  3144  000D38  0E2C               	movlw	44
+  3144  000D38  0E22               	movlw	34
   3145  000D3A  6FC4               	movwf	calcSpeed@speed& (0+255),b
   3146  000D3C  EFD5  F006         	goto	l5704
   3147  000D40                     l5692:
@@ -3239,10 +3239,10 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
   3158  000D4C                     l5696:
   3159                           
   3160                           ; BSR set to: 0
-  3161                           ;main.c: 320:             speed = (170);
+  3161                           ;main.c: 320:             speed = (160);
   3162  000D4C  0E00               	movlw	0
   3163  000D4E  6FC5               	movwf	(calcSpeed@speed+1)& (0+255),b
-  3164  000D50  0EAA               	movlw	170
+  3164  000D50  0EA0               	movlw	160
   3165  000D52  6FC4               	movwf	calcSpeed@speed& (0+255),b
   3166                           
   3167                           ;main.c: 321:             break;
@@ -12381,7 +12381,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.32 build 20210201212658 
-Symbol Table                                                                                   Thu Feb 01 08:13:22 2024
+Symbol Table                                                                                   Thu Feb 01 12:27:05 2024
 
                              _CCP4_Initialize 2470                        ??_CCP3_DefaultCallBack 0003  
                                  _startAccell 146E                                            l72 26BA  

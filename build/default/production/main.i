@@ -28767,7 +28767,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay >= (18)) {
+            if (delay >= (20)) {
                 delay = 0;
                 curveMode = InCurve;
 
@@ -28924,9 +28924,9 @@ void calcSpeed(void) {
             }
 
             if (distFront >= (175)) {
-                speed = (int16_t) ((0.75) * (distFront - (175)) + (300));
+                speed = (int16_t) ((0.6) * (distFront - (175)) + (290));
             } else {
-                speed = (300);
+                speed = (290);
             }
 
             break;
@@ -28937,10 +28937,10 @@ void calcSpeed(void) {
             speed = (-125);
             break;
         case CurveLeft:
-            speed = (170);
+            speed = (160);
             break;
         case CurveRight:
-            speed = (170);
+            speed = (160);
             break;
     };
 
