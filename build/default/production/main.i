@@ -28667,14 +28667,7 @@ void loop(void) {
     setMotor(0);
     setSteering(0, Front);
     while (PORTBbits.RB4);
-
-    do {
-        while (!cycle10ms);
-        cycle10ms = 0;
-
-        getBatteryVoltage();
-    } while (BatteryVolt < ((0) * 409.6));
-
+# 31 "main.c"
     startAccell();
 
     driveMode = Straight;
@@ -28751,7 +28744,7 @@ void startAccell() {
     actMotorPow = (40);
     float MPow = actMotorPow;
 
-    while (MPow < (230)) {
+    while (MPow < (250)) {
         MPow *= (1.1);
         actMotorPow = (int16_t) MPow;
         setMotor(actMotorPow);
@@ -28762,7 +28755,7 @@ void startAccell() {
         while (!cycle10ms);
     }
 
-    actMotorPow = (230);
+    actMotorPow = (250);
     setMotor(actMotorPow);
 
 
@@ -28780,13 +28773,13 @@ void getCurve(void) {
 
     switch (curveMode) {
         case OutCurve:
-            if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (150)) {
+            if (deltaLeft > (30) && deltaLeft < (300) && oldDistLeft < (175)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveLeft;
 
 
-            } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (150)) {
+            } else if (deltaRight > (30) && deltaRight < (300) && oldDistRight < (175)) {
                 delay = 0;
                 curveMode = BeforeCurve;
                 driveMode = CurveRight;
@@ -28796,7 +28789,7 @@ void getCurve(void) {
 
             break;
         case BeforeCurve:
-            if (delay >= (17)) {
+            if (delay >= (18)) {
                 delay = 0;
                 curveMode = InCurve;
 
@@ -28881,7 +28874,7 @@ void getReverse(void) {
 
 void calcSteering(void) {
     int16_t delta = (int16_t) (distLeft - distRight) - (int16_t) (middleOffSet * 1.4142135);
-    delta /= (1);
+    delta /= (1.5);
 
 
     switch (driveMode) {
@@ -29000,10 +28993,10 @@ void calcMotorPow(void) {
 
     addMPow = (int8_t) ((0.020) * (setSpeedDelta - (oldSpeedDelta / (2))));
 
-    if (addMPow > (10)) {
-        addMPow = (10);
-    } else if (addMPow < -(10)) {
-        addMPow = -(10);
+    if (addMPow > (5)) {
+        addMPow = (5);
+    } else if (addMPow < -(5)) {
+        addMPow = -(5);
     }
 
     actMotorPow += addMPow;

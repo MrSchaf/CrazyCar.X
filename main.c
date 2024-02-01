@@ -21,12 +21,12 @@ void loop(void) {
     setSteering(0, Front);
     while (diStart_GetValue());
 
-    do {
-        while (!cycle10ms);
-        cycle10ms = 0;
-        
-        getBatteryVoltage();
-    } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
+//    do {
+//        while (!cycle10ms);
+//        cycle10ms = 0;
+//        
+//        getBatteryVoltage();
+//    } while (BatteryVolt < (minBatValue * 409.6)); // adc = (vbat * 409.6)
 
     startAccell();
     
